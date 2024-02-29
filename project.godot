@@ -72,5 +72,4 @@ pause={
 
 [rendering]
 
-renderer/rendering_method="mobile"
 textures/decals/filter=0

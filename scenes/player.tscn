@@ -1,20 +1,29 @@
-[gd_scene load_steps=10 format=3 uid="uid://b026alsepp2vu"]
+[gd_scene load_steps=19 format=3 uid="uid://b026alsepp2vu"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_465au"]
-[ext_resource type="Texture2D" uid="uid://bvrsyxsdoi3h4" path="res://graphics/player_back.png" id="3_g5dn3"]
+[ext_resource type="Texture2D" uid="uid://bu7yj6t30t1mr" path="res://graphics/player/back/back0000.png" id="2_rj7ul"]
+[ext_resource type="Texture2D" uid="uid://cde6nf4xpvkac" path="res://graphics/player/back/back0001.png" id="3_nluj0"]
 [ext_resource type="Texture2D" uid="uid://daasyka6lycqo" path="res://graphics/player/front/front0000.png" id="3_rlyy0"]
 [ext_resource type="Texture2D" uid="uid://0dm4dvo1moga" path="res://graphics/player/front/front0001.png" id="4_gvlao"]
 [ext_resource type="Texture2D" uid="uid://cj0r454b8qnmf" path="res://graphics/shadow.png" id="4_ldgxw"]
+[ext_resource type="Shader" path="res://misc/cavity.gdshader" id="5_6ekqx"]
+[ext_resource type="Texture2D" uid="uid://bvjeup8wfdu0w" path="res://graphics/player/side/side0000.png" id="6_apkn1"]
+[ext_resource type="Texture2D" uid="uid://dv4i5dcsrl8sx" path="res://graphics/player/side/side0001.png" id="7_obonv"]
+[ext_resource type="Texture2D" uid="uid://doueilkx06ikr" path="res://graphics/player/side/side0002.png" id="8_rj008"]
+[ext_resource type="Texture2D" uid="uid://dx175lwekpbad" path="res://graphics/player/side/side0003.png" id="9_tgvea"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_hk1wg"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("3_g5dn3")
+"texture": ExtResource("2_rj7ul")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_nluj0")
 }],
 "loop": true,
 "name": &"back",
-"speed": 5.0
+"speed": 4.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -26,11 +35,43 @@ animations = [{
 "loop": true,
 "name": &"front",
 "speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_apkn1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_obonv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_rj008")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_tgvea")
+}],
+"loop": true,
+"name": &"side",
+"speed": 4.0
 }]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_mvfix"]
 height = 2.4
-radius = 0.7
+radius = 0.68
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_alx36"]
+radius = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_aeg00"]
+render_priority = 0
+shader = ExtResource("5_6ekqx")
+shader_parameter/zNear = 2.0
+shader_parameter/zFar = 10.0
+shader_parameter/width = 1.0
+shader_parameter/addDepth = false
+
+[sub_resource type="QuadMesh" id="QuadMesh_j0xws"]
+material = SubResource("ShaderMaterial_aeg00")
+size = Vector2(2, 2)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ewrdy"]
 size = Vector3(2, 2, 2)
@@ -47,20 +88,32 @@ layers = 2
 pixel_size = 0.005
 billboard = 2
 shaded = true
+alpha_cut = 1
 texture_filter = 0
 sprite_frames = SubResource("SpriteFrames_hk1wg")
-animation = &"front"
+animation = &"back"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CylinderShape3D_mvfix")
 
-[node name="Gimbal" type="Node3D" parent="."]
+[node name="Gimbal" type="SpringArm3D" parent="."]
 unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 0.965926, 0.258819, 0, -0.258819, 0.965926, 0, 0, 0)
 top_level = true
+shape = SubResource("SphereShape3D_alx36")
+spring_length = 10.0
+margin = 0.05
 
 [node name="Camera" type="Camera3D" parent="Gimbal"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 10)
 current = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Gimbal/Camera"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.065)
+extra_cull_margin = 16384.0
+mesh = SubResource("QuadMesh_j0xws")
+
+[node name="Gimba" type="Node3D" parent="."]
+top_level = true
 
 [node name="ShadowCast" type="RayCast3D" parent="."]
 target_position = Vector3(0, -5, 0)

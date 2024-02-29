@@ -38,7 +38,7 @@ func _ready():
 
 func _process(delta):
 	#%Gimbal.global_position = lerp(%Gimbal.global_position, global_position, delta * 2)
-	%Gimbal.global_position.y = lerpf(%Gimbal.global_position.y, last_floor_y, delta * 5)
+	%Gimbal.global_position.y = lerpf(%Gimbal.global_position.y, last_floor_y + 3, delta * 5)
 	%Gimbal.global_position.x = global_position.x
 	%Gimbal.global_position.z = global_position.z
 	%Gimbal.rotation.y = rotation.y
@@ -71,15 +71,22 @@ func _physics_process(delta):
 	#if input_dir.y:
 		#$Sprite.rotation.x
 	
-	if input_dir.y > 0:
+	if input_dir.x > 0:
+		$Sprite.play("side")
+		$Sprite.flip_h = false
+	elif input_dir.x < 0:
+		$Sprite.play("side")
+		$Sprite.flip_h = true
+	elif input_dir.y > 0:
 		$Sprite.play("front")
+		$Sprite.flip_h = false
 	elif input_dir.y < 0:
 		$Sprite.play("back")
+		$Sprite.flip_h = false
 	else:
 		$Sprite.stop()
 	
-	if Input.is_action_pressed("run"):
-		$Sprite.speed_scale = 1.5
+	$Sprite.speed_scale = 1.6 if Input.is_action_pressed("run") else 1
 
 	move_and_slide()
 

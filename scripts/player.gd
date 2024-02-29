@@ -13,7 +13,7 @@ const DECEL = 0.3
 
 const SPEED = 6.0
 const RUN_SPEED = 12.0
-const LEDGE_SPEED = 4.0
+const LEDGE_SPEED = 3.0
 
 const COYOTE_TIME = 0.15
 const JUMP_VELOCITY = 17.0
@@ -119,13 +119,6 @@ func air(delta: float, input_dir: Vector2):
 	velocity.y -= gravity * delta
 	coyote += delta
 	
-	if $WallCast.is_colliding():
-		if $GrabCast.is_colliding() and not $HeadCast.is_colliding() and velocity.y < 0:
-			velocity.y = 0
-			state = State.LEDGE
-		elif velocity.y <= 0:
-			state = State.WALLSLIDE
-	
 	var direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	hvelo = lerp(hvelo, direction * SPEED, 0.05)
 	velocity.x = hvelo.x
@@ -138,6 +131,12 @@ func air(delta: float, input_dir: Vector2):
 	
 	if is_on_floor():
 		state = State.GROUND
+	elif $WallCast.is_colliding():
+		if $GrabCast.is_colliding() and not $HeadCast.is_colliding() and velocity.y < 0:
+			velocity.y = 0
+			state = State.LEDGE
+		elif velocity.y <= 0:
+			state = State.WALLSLIDE
 
 func ledge(delta: float, input_dir: Vector2):
 	var direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
@@ -173,7 +172,7 @@ func wall_slide(delta: float, input_dir: Vector2):
 	else:
 		var normal = $GrabCast.get_collision_normal(0)
 		var dot = normal.dot(direction)
-		if $GrabCast.is_colliding() and not $HeadCast.is_colliding() and dot > 0:
+		if $GrabCast.is_colliding() and not $HeadCast.is_colliding() and dot < 0:
 			velocity.y = 0
 			state = State.LEDGE
 

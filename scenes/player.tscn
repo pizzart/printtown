@@ -1,33 +1,55 @@
-[gd_scene load_steps=6 format=3 uid="uid://b026alsepp2vu"]
+[gd_scene load_steps=10 format=3 uid="uid://b026alsepp2vu"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_465au"]
-[ext_resource type="Texture2D" uid="uid://bxweqdovfomo7" path="res://graphics/player.png" id="1_kjv2y"]
 [ext_resource type="Texture2D" uid="uid://bvrsyxsdoi3h4" path="res://graphics/player_back.png" id="3_g5dn3"]
+[ext_resource type="Texture2D" uid="uid://daasyka6lycqo" path="res://graphics/player/front/front0000.png" id="3_rlyy0"]
+[ext_resource type="Texture2D" uid="uid://0dm4dvo1moga" path="res://graphics/player/front/front0001.png" id="4_gvlao"]
 [ext_resource type="Texture2D" uid="uid://cj0r454b8qnmf" path="res://graphics/shadow.png" id="4_ldgxw"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_hk1wg"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_g5dn3")
+}],
+"loop": true,
+"name": &"back",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_rlyy0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_gvlao")
+}],
+"loop": true,
+"name": &"front",
+"speed": 4.0
+}]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_mvfix"]
 height = 2.4
 radius = 0.7
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_ewrdy"]
+size = Vector3(2, 2, 2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_a4rmg"]
+size = Vector3(2, 0.325, 2)
+
 [node name="Player" type="CharacterBody3D"]
+collision_layer = 2
 script = ExtResource("1_465au")
 
-[node name="Front" type="Sprite3D" parent="."]
+[node name="Sprite" type="AnimatedSprite3D" parent="."]
 layers = 2
 pixel_size = 0.005
 billboard = 2
 shaded = true
 texture_filter = 0
-texture = ExtResource("1_kjv2y")
-
-[node name="Back" type="Sprite3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.0448928)
-layers = 2
-pixel_size = 0.005
-billboard = 2
-shaded = true
-texture_filter = 0
-texture = ExtResource("3_g5dn3")
+sprite_frames = SubResource("SpriteFrames_hk1wg")
+animation = &"front"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CylinderShape3D_mvfix")
@@ -39,7 +61,6 @@ top_level = true
 [node name="Camera" type="Camera3D" parent="Gimbal"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 10)
 current = true
-fov = 70.0
 
 [node name="ShadowCast" type="RayCast3D" parent="."]
 target_position = Vector3(0, -5, 0)
@@ -53,3 +74,16 @@ lower_fade = 0.439226
 distance_fade_begin = 3.4
 distance_fade_length = 13.5
 cull_mask = 1048573
+
+[node name="WallCast" type="ShapeCast3D" parent="."]
+shape = SubResource("BoxShape3D_ewrdy")
+target_position = Vector3(0, 0, 0)
+
+[node name="GrabCast" type="ShapeCast3D" parent="."]
+shape = SubResource("BoxShape3D_a4rmg")
+target_position = Vector3(0, 0.6, 0)
+
+[node name="HeadCast" type="ShapeCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.07121, 0)
+shape = SubResource("BoxShape3D_a4rmg")
+target_position = Vector3(0, 0.6, 0)

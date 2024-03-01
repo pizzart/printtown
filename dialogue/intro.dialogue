@@ -1,0 +1,21 @@
+~ start
+
+jake: hey. is everything in place?
+{{player_name}}: hi. yeah, i'm ready. soo,,, what is the plan?
+jake: okay. since you've already signed the contract you can't turn away. just don't yell at me, okay?
+{{player_name}}: how bad can it be...
+jake: i want you to get on top of the highest building in town and spray all over it.
+{{player_name}}: are you...
+jake: and i think our best bet is climbing a giraffe to get up-
+{{player_name}}: i'm sorry, WHAT !? HELL NAW. you've got to be kidding.....
+jake: i'm not. i know, sounds ridiculous, but just trust me on this. there's a zoo nearby. the giraffe there is very cooperative.
+jake: my only concern is that you'll get caught doing something like this, so you'll have to get an army of dogs to help you with the-
+{{player_name}}: oh my god. stop talking. NOW
+jake: well, you have to do it. come on, i know i tricked you into signing the contract, but you can't do anything about it.
+{{player_name}}: and what am i going to do AFTER the operation??
+jake: you'll probably have to leave the giraffe there... as for the dogs, you can probably give all of them to a local animal shelter.
+{{player_name}}: okay, what about me?
+jake: uh... not my problem. I'LL CALL YOU BACK SOON. SEE YA
+{{player_name}}: WAIT-[wait=1] fuck
+
+=> END

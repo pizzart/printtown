@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://b026alsepp2vu"]
+[gd_scene load_steps=23 format=3 uid="uid://b026alsepp2vu"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_465au"]
 [ext_resource type="Texture2D" uid="uid://bu7yj6t30t1mr" path="res://graphics/player/back/back0000.png" id="2_rj7ul"]
@@ -11,6 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://dv4i5dcsrl8sx" path="res://graphics/player/side/side0001.png" id="7_obonv"]
 [ext_resource type="Texture2D" uid="uid://doueilkx06ikr" path="res://graphics/player/side/side0002.png" id="8_rj008"]
 [ext_resource type="Texture2D" uid="uid://dx175lwekpbad" path="res://graphics/player/side/side0003.png" id="9_tgvea"]
+[ext_resource type="Shader" path="res://misc/psx.gdshader" id="11_edw4o"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_hk1wg"]
 animations = [{
@@ -61,7 +62,7 @@ height = 2.4
 margin = 0.06
 radius = 0.1
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_aeg00"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5hi3w"]
 render_priority = 0
 shader = ExtResource("5_6ekqx")
 shader_parameter/zNear = 2.0
@@ -70,7 +71,7 @@ shader_parameter/width = 1.0
 shader_parameter/addDepth = false
 
 [sub_resource type="QuadMesh" id="QuadMesh_j0xws"]
-material = SubResource("ShaderMaterial_aeg00")
+material = SubResource("ShaderMaterial_5hi3w")
 size = Vector2(2, 2)
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_bmiae"]
@@ -80,7 +81,21 @@ radius = 1.0
 height = 0.235
 radius = 1.0
 
-[node name="Player" type="CharacterBody3D"]
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_1ceg7"]
+height = 0.1
+radius = 0.55
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_nmm0k"]
+height = 0.1
+radius = 0.55
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jf734"]
+shader = ExtResource("11_edw4o")
+shader_parameter/color_depth = 4
+shader_parameter/dithering = true
+shader_parameter/resolution_scale = 2
+
+[node name="Player" type="CharacterBody3D" groups=["player"]]
 collision_layer = 2
 script = ExtResource("1_465au")
 
@@ -102,18 +117,16 @@ unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 0.965926, 0.258819, 0, -0.258819, 0.965926, 0, 0, 0)
 top_level = true
 shape = SubResource("SphereShape3D_alx36")
-spring_length = 10.0
+spring_length = 8.0
 
 [node name="Camera" type="Camera3D" parent="Gimbal"]
 current = true
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Gimbal/Camera"]
+[node name="Shader" type="MeshInstance3D" parent="Gimbal/Camera"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.065)
+layers = 2
 extra_cull_margin = 16384.0
 mesh = SubResource("QuadMesh_j0xws")
-
-[node name="Gimba" type="Node3D" parent="."]
-top_level = true
 
 [node name="ShadowCast" type="RayCast3D" parent="."]
 target_position = Vector3(0, -5, 0)
@@ -141,9 +154,28 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.07121, 0)
 shape = SubResource("CylinderShape3D_qanpx")
 target_position = Vector3(0, 0.6, 0)
 
+[node name="StepCastTop" type="ShapeCast3D" parent="."]
+shape = SubResource("CylinderShape3D_1ceg7")
+target_position = Vector3(0, -0.545, 0)
+
+[node name="StepCastBottom" type="ShapeCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.9, 0)
+shape = SubResource("CylinderShape3D_nmm0k")
+target_position = Vector3(0, 0, 0)
+
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 3
 
 [node name="Label" type="Label" parent="CanvasLayer"]
 offset_right = 40.0
 offset_bottom = 23.0
 text = "STATE: 0"
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+material = SubResource("ShaderMaterial_jf734")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2

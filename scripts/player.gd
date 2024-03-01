@@ -6,10 +6,13 @@ enum State {
 	AIR,
 	LEDGE,
 	WALLSLIDE,
+	ROLL,
 }
 
 const ACCEL = 0.2
 const DECEL = 0.3
+
+const CAMERA_HEIGHT = 3.5
 
 const SPEED = 6.0
 const RUN_SPEED = 12.0
@@ -21,6 +24,8 @@ const ADD_JUMP_VELOCITY = 0.75
 const WALLJUMP_VELOCITY = 14.0
 const WALLJUMP_HORIZONTAL = 22.0
 const JUMP_LENGTH = 0.12
+const ROLL_TIME = 0.5
+const ROLL_FALL_VELO = -30.0
 
 const BACK_POS = Vector3(0, 0, 0.01)
 
@@ -34,15 +39,20 @@ var last_floor_y: float
 var coyote: float
 var last_wall_normal: Vector3
 var jump_time: float
+var roll_time: float
+var last_velocity: Vector3
+var can_move: bool = true
 var state: State = State.GROUND
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
+
+@onready var camera = $Gimbal/Camera
 
 func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 func _process(delta):
 	#%Gimbal.global_position = lerp(%Gimbal.global_position, global_position, delta * 2)
-	%Gimbal.global_position.y = lerpf(%Gimbal.global_position.y, last_floor_y + 3, delta * 5)
+	%Gimbal.global_position.y = lerpf(%Gimbal.global_position.y, last_floor_y + CAMERA_HEIGHT, delta * 5)
 	%Gimbal.global_position.x = global_position.x
 	%Gimbal.global_position.z = global_position.z
 	%Gimbal.rotation.y = rotation.y
@@ -55,8 +65,12 @@ func _process(delta):
 		$Shadow.global_position.y = point.y
 		$Shadow.size.x = SHADOW_SIZE * (1 - (global_position.y - point.y) / SHADOW_DIST)
 		$Shadow.size.z = SHADOW_SIZE * (1 - (global_position.y - point.y) / SHADOW_DIST)
+	
+	#$StepCast.target_position
 
 func _physics_process(delta):
+	if not can_move:
+		return
 	
 	var input_dir = Input.get_vector("left", "right", "forward", "backward")
 	match state:
@@ -72,31 +86,32 @@ func _physics_process(delta):
 		State.WALLSLIDE:
 			$CanvasLayer/Label.text = "state: WALLSLIDE"
 			wall_slide(delta, input_dir)
+		State.ROLL:
+			$CanvasLayer/Label.text = "state: ROLL"
+			roll(delta, input_dir)
 	
 	velocity += add_velo
-	add_velo = lerp(add_velo, Vector3.ZERO, 0.05)
+	add_velo = lerp(add_velo, Vector3.ZERO, 0.07)
+	$CanvasLayer/Label.text += "\nvelocity: %s" % get_real_velocity()
 	
 	#if input_dir.y:
 		#$Sprite.rotation.x
 	
-	if input_dir.x > 0:
+	$Sprite.flip_h = input_dir.x < 0
+	if input_dir.x != 0:
 		$Sprite.play("side")
-		$Sprite.flip_h = false
-	elif input_dir.x < 0:
-		$Sprite.play("side")
-		$Sprite.flip_h = true
 	elif input_dir.y > 0:
 		$Sprite.play("front")
-		$Sprite.flip_h = false
 	elif input_dir.y < 0:
 		$Sprite.play("back")
-		$Sprite.flip_h = false
 	else:
 		$Sprite.stop()
 	
-	$Sprite.speed_scale = 1.6 if Input.is_action_pressed("run") else 1
+	$Sprite.speed_scale = 1.6 if Input.is_action_pressed("run") else 1.0
 
 	move_and_slide()
+	
+	last_velocity = get_real_velocity()
 
 func ground(input_dir: Vector2, _delta: float):
 	coyote = 0
@@ -104,7 +119,7 @@ func ground(input_dir: Vector2, _delta: float):
 	if col:
 		last_floor_y = col.get_position().y
 	
-	var direction = (transform.basis * Vector3(input_dir.x * (0.3 if Input.is_action_pressed("run") else 1), 0, input_dir.y)).normalized()
+	var direction = (transform.basis * Vector3(input_dir.x * (0.3 if Input.is_action_pressed("run") else 1.0), 0, input_dir.y)).normalized()
 	if direction:
 		speed = lerpf(speed, RUN_SPEED if Input.is_action_pressed("run") else SPEED, ACCEL)
 		hvelo = lerp(hvelo, direction * speed, 0.5)
@@ -122,6 +137,10 @@ func ground(input_dir: Vector2, _delta: float):
 	
 	if not is_on_floor():
 		state = State.AIR
+	
+	if $StepCastBottom.is_colliding() and not $StepCastTop.is_colliding():
+		if $StepCastBottom.get_collision_normal(0).dot(direction) < 0:
+			global_position.y += 0.5
 
 func air(delta: float, input_dir: Vector2):
 	velocity.y -= gravity * delta
@@ -142,15 +161,24 @@ func air(delta: float, input_dir: Vector2):
 			if jump_time <= JUMP_LENGTH:
 				jump_time += delta
 				velocity.y += ADD_JUMP_VELOCITY
+	
 	if Input.is_action_just_released("jump"):
 		jump_time = JUMP_LENGTH + delta
 	
 	if is_on_floor():
 		jump_time = 0
-		state = State.GROUND
+		last_floor_y = global_position.y - 1
+		if last_velocity.y < ROLL_FALL_VELO:
+			hvelo = direction * abs(last_velocity.y)
+			velocity.x = hvelo.x
+			velocity.z = hvelo.z
+			state = State.ROLL
+		else:
+			state = State.GROUND
 	elif $WallCast.is_colliding():
 		if $GrabCast.is_colliding() and not $HeadCast.is_colliding() and velocity.y < 0:
 			velocity.y = 0
+			last_floor_y = global_position.y - 2
 			state = State.LEDGE
 		elif velocity.y <= 0:
 			state = State.WALLSLIDE
@@ -162,10 +190,13 @@ func ledge(delta: float, input_dir: Vector2):
 		#$RayCast3D.global_rotation = Vector3.ZERO
 		#$RayCast3D2.target_position = $WallCast.get_collision_normal(0).rotated(Vector3.UP, PI / 2).abs().round() * 2
 		#$RayCast3D2.global_rotation = Vector3.ZERO
-		hvelo = lerp(hvelo, direction.round() * LEDGE_SPEED * $WallCast.get_collision_normal(0).rotated(Vector3.UP, PI / 2).abs().round(), ACCEL)
-		velocity.x = hvelo.x
-		velocity.z = hvelo.z
-		last_wall_normal = $WallCast.get_collision_normal(0)
+		if not $HeadCast.is_colliding():
+			hvelo = lerp(hvelo, direction.round() * LEDGE_SPEED * $WallCast.get_collision_normal(0).rotated(Vector3.UP, PI / 2).abs().round() - $WallCast.get_collision_normal(0) * 3, ACCEL)
+			velocity.x = hvelo.x
+			velocity.z = hvelo.z
+			last_wall_normal = $WallCast.get_collision_normal(0)
+		else:
+			velocity = lerp(velocity, $HeadCast.get_collision_normal(0).round() * 20, 0.3)
 	else:
 		velocity = lerp(velocity, -last_wall_normal * 5, 0.3)
 	
@@ -205,7 +236,34 @@ func wall_slide(delta: float, input_dir: Vector2):
 			velocity.y = 0
 			state = State.LEDGE
 
+func roll(delta: float, _input_dir: Vector2):
+	roll_time += delta
+	
+	var direction = -transform.basis.z
+	hvelo = lerp(hvelo, direction * SPEED, 0.015)
+	velocity.x = hvelo.x
+	velocity.z = hvelo.z
+	
+	if Input.is_action_just_pressed("jump"):
+		coyote = COYOTE_TIME + 0.1
+		velocity.y = JUMP_VELOCITY
+		state = State.AIR
+	elif roll_time > ROLL_TIME:
+		state = State.GROUND
+
+func prepare_fight():
+	$Sprite.play("back")
+	$Sprite.speed_scale = 1
+	can_move = false
+
+func post_fight():
+	can_move = true
+	camera.make_current()
+
 func _input(event):
+	if not can_move:
+		return
+	
 	if event is InputEventMouseMotion:
 		rotation.y -= event.relative.x * 0.002
 		%Gimbal.rotation.x = clampf(%Gimbal.rotation.x - event.relative.y * 0.002, -PI / 2.5, PI / 16)

@@ -10,7 +10,7 @@ func _on_continue_pressed():
 	await $C/BG.animation_finished
 	hide()
 	
-	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	Input.mouse_mode = get_parent().mouse_mode
 	
 	$C/Buttons/Continue.disabled = false
 	$C/Buttons/Options.disabled = false

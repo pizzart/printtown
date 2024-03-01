@@ -1,0 +1,76 @@
+[gd_scene load_steps=7 format=3 uid="uid://dc4i8fxnj56tx"]
+
+[ext_resource type="Script" path="res://scripts/dialogue_ui.gd" id="1_dhjqm"]
+[ext_resource type="Texture2D" uid="uid://vraheud4ydmk" path="res://graphics/ui/dialogue/dialogue_bg.png" id="2_4cpae"]
+[ext_resource type="Theme" uid="uid://dn7uhmqeylu42" path="res://misc/ui.theme" id="2_6his5"]
+[ext_resource type="Texture2D" uid="uid://1njfwqylf3dh" path="res://graphics/ui/dialogue/dialogue_player.png" id="2_xsste"]
+[ext_resource type="Texture2D" uid="uid://bo2hptmcowhqy" path="res://graphics/ui/dialogue/dialogue_other.png" id="4_8m64x"]
+[ext_resource type="Script" path="res://addons/dialogue_manager/dialogue_label.gd" id="5_gn1ah"]
+
+[node name="DialogueUI" type="CanvasLayer"]
+visible = false
+script = ExtResource("1_dhjqm")
+
+[node name="C" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_6his5")
+
+[node name="BG" type="TextureRect" parent="C"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_4cpae")
+
+[node name="TopIcon" type="TextureRect" parent="C"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.015625
+anchor_top = 0.00625
+anchor_right = 0.215625
+anchor_bottom = 0.272917
+pivot_offset = Vector2(64, 64)
+texture = ExtResource("2_xsste")
+metadata/_edit_use_anchors_ = true
+
+[node name="BottomIcon" type="TextureRect" parent="C"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.764063
+anchor_top = 0.739583
+anchor_right = 0.964063
+anchor_bottom = 1.00625
+pivot_offset = Vector2(64, 64)
+texture = ExtResource("4_8m64x")
+metadata/_edit_use_anchors_ = true
+
+[node name="Text" type="VBoxContainer" parent="C"]
+layout_mode = 0
+offset_left = 118.0
+offset_top = 114.0
+offset_right = 544.0
+offset_bottom = 321.0
+
+[node name="Name" type="Label" parent="C/Text"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "player"
+metadata/_edit_use_anchors_ = true
+
+[node name="DialogueLabel" type="RichTextLabel" parent="C/Text"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/normal_font_size = 20
+text = "hey this is some text"
+script = ExtResource("5_gn1ah")
+seconds_per_step = 0.03
+pause_at_characters = ".?!,"
+skip_pause_at_abbreviations = PackedStringArray("Mr", "Mrs", "Ms", "Dr", "etc", "eg", "ex")
+metadata/_edit_use_anchors_ = true

@@ -56,10 +56,10 @@ animations = [{
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_mvfix"]
 height = 2.4
-radius = 0.6
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_alx36"]
 margin = 0.06
+radius = 0.1
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_aeg00"]
 render_priority = 0
@@ -103,14 +103,12 @@ transform = Transform3D(1, 0, 0, 0, 0.965926, 0.258819, 0, -0.258819, 0.965926, 
 top_level = true
 shape = SubResource("SphereShape3D_alx36")
 spring_length = 10.0
-margin = 0.1
 
 [node name="Camera" type="Camera3D" parent="Gimbal"]
 current = true
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Gimbal/Camera"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.065)
-visible = false
 extra_cull_margin = 16384.0
 mesh = SubResource("QuadMesh_j0xws")
 
@@ -131,7 +129,6 @@ distance_fade_length = 13.5
 cull_mask = 1048573
 
 [node name="WallCast" type="ShapeCast3D" parent="."]
-visible = false
 shape = SubResource("CylinderShape3D_bmiae")
 target_position = Vector3(0, 0, 0)
 
@@ -143,3 +140,10 @@ target_position = Vector3(0, 0.6, 0)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.07121, 0)
 shape = SubResource("CylinderShape3D_qanpx")
 target_position = Vector3(0, 0.6, 0)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Label" type="Label" parent="CanvasLayer"]
+offset_right = 40.0
+offset_bottom = 23.0
+text = "STATE: 0"

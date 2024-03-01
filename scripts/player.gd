@@ -13,12 +13,14 @@ const DECEL = 0.3
 
 const SPEED = 6.0
 const RUN_SPEED = 12.0
-const LEDGE_SPEED = 3.0
+const LEDGE_SPEED = 4.0
 
 const COYOTE_TIME = 0.15
-const JUMP_VELOCITY = 17.0
+const JUMP_VELOCITY = 15.0
+const ADD_JUMP_VELOCITY = 0.75
 const WALLJUMP_VELOCITY = 14.0
 const WALLJUMP_HORIZONTAL = 22.0
+const JUMP_LENGTH = 0.12
 
 const BACK_POS = Vector3(0, 0, 0.01)
 
@@ -30,6 +32,8 @@ var add_velo: Vector3
 var speed: float
 var last_floor_y: float
 var coyote: float
+var last_wall_normal: Vector3
+var jump_time: float
 var state: State = State.GROUND
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
@@ -53,20 +57,24 @@ func _process(delta):
 		$Shadow.size.z = SHADOW_SIZE * (1 - (global_position.y - point.y) / SHADOW_DIST)
 
 func _physics_process(delta):
-	var input_dir = Input.get_vector("left", "right", "forward", "backward")
 	
+	var input_dir = Input.get_vector("left", "right", "forward", "backward")
 	match state:
 		State.GROUND:
+			$CanvasLayer/Label.text = "state: GROUND"
 			ground(input_dir, delta)
 		State.AIR:
+			$CanvasLayer/Label.text = "state: AIR"
 			air(delta, input_dir)
 		State.LEDGE:
+			$CanvasLayer/Label.text = "state: LEDGE"
 			ledge(delta, input_dir)
 		State.WALLSLIDE:
+			$CanvasLayer/Label.text = "state: WALLSLIDE"
 			wall_slide(delta, input_dir)
 	
 	velocity += add_velo
-	add_velo = lerp(add_velo, Vector3.ZERO, 0.1)
+	add_velo = lerp(add_velo, Vector3.ZERO, 0.05)
 	
 	#if input_dir.y:
 		#$Sprite.rotation.x
@@ -120,7 +128,7 @@ func air(delta: float, input_dir: Vector2):
 	coyote += delta
 	
 	var direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
-	hvelo = lerp(hvelo, direction * SPEED, 0.05)
+	hvelo = lerp(hvelo, direction * (RUN_SPEED if Input.is_action_pressed("run") else SPEED), 0.05)
 	velocity.x = hvelo.x
 	velocity.z = hvelo.z
 	
@@ -129,7 +137,16 @@ func air(delta: float, input_dir: Vector2):
 			coyote = COYOTE_TIME + 0.1
 			velocity.y = JUMP_VELOCITY
 	
+	if Input.is_action_pressed("jump"):
+		if coyote > COYOTE_TIME:
+			if jump_time <= JUMP_LENGTH:
+				jump_time += delta
+				velocity.y += ADD_JUMP_VELOCITY
+	if Input.is_action_just_released("jump"):
+		jump_time = JUMP_LENGTH + delta
+	
 	if is_on_floor():
+		jump_time = 0
 		state = State.GROUND
 	elif $WallCast.is_colliding():
 		if $GrabCast.is_colliding() and not $HeadCast.is_colliding() and velocity.y < 0:
@@ -141,13 +158,19 @@ func air(delta: float, input_dir: Vector2):
 func ledge(delta: float, input_dir: Vector2):
 	var direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	if $WallCast.is_colliding():
-		hvelo = lerp(hvelo, direction * LEDGE_SPEED * $WallCast.get_collision_normal(0).rotated(Vector3.UP, PI / 2).abs(), ACCEL)
+		#$RayCast3D.target_position = $WallCast.get_collision_normal(0) * 2
+		#$RayCast3D.global_rotation = Vector3.ZERO
+		#$RayCast3D2.target_position = $WallCast.get_collision_normal(0).rotated(Vector3.UP, PI / 2).abs().round() * 2
+		#$RayCast3D2.global_rotation = Vector3.ZERO
+		hvelo = lerp(hvelo, direction.round() * LEDGE_SPEED * $WallCast.get_collision_normal(0).rotated(Vector3.UP, PI / 2).abs().round(), ACCEL)
 		velocity.x = hvelo.x
 		velocity.z = hvelo.z
+		last_wall_normal = $WallCast.get_collision_normal(0)
 	else:
-		velocity = lerp(velocity, Vector3.ZERO, 0.3)
+		velocity = lerp(velocity, -last_wall_normal * 5, 0.3)
 	
 	if Input.is_action_just_pressed("jump"):
+		jump_time = JUMP_LENGTH + delta
 		velocity.y = JUMP_VELOCITY
 		state = State.AIR
 
@@ -161,11 +184,17 @@ func wall_slide(delta: float, input_dir: Vector2):
 	
 	if Input.is_action_just_pressed("jump"):
 		if $WallCast.is_colliding():
-			add_velo += $WallCast.get_collision_normal(0) * WALLJUMP_HORIZONTAL
-			velocity.y = WALLJUMP_VELOCITY
-			last_floor_y = global_position.y - 2
+			jump_time = JUMP_LENGTH + delta
+			if not $HeadCast.is_colliding():
+				velocity.y = JUMP_VELOCITY
+			else:
+				add_velo += $WallCast.get_collision_normal(0) * WALLJUMP_HORIZONTAL * Vector3(1, 0, 1)
+				velocity.y = WALLJUMP_VELOCITY
+				last_floor_y = global_position.y - 2
+			state = State.AIR
 	
 	if is_on_floor():
+		jump_time = 0
 		state = State.GROUND
 	elif not $WallCast.is_colliding() or velocity.y > 0:
 		state = State.AIR

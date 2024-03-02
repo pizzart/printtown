@@ -1,0 +1,15 @@
+[remap]
+
+importer="dialogue_manager_compiler_11"
+type="Resource"
+uid="uid://bap8l86s2f7if"
+path="res://.godot/imported/tutorialfight_progress.dialogue-8a8c4a9e56ff87274892be3a22212e21.tres"
+
+[deps]
+
+source_file="res://dialogue/tutorial_fight/tutorialfight_progress.dialogue"
+dest_files=["res://.godot/imported/tutorialfight_progress.dialogue-8a8c4a9e56ff87274892be3a22212e21.tres"]
+
+[params]
+
+defaults=true

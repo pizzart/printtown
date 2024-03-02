@@ -1,0 +1,41 @@
+[gd_scene load_steps=5 format=3 uid="uid://dr3l4xyq5kccl"]
+
+[ext_resource type="Shader" path="res://misc/psx.gdshader" id="1_r3y5l"]
+[ext_resource type="Shader" path="res://misc/ca.gdshader" id="2_46ptn"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_t7jt8"]
+shader = ExtResource("1_r3y5l")
+shader_parameter/color_depth = 4
+shader_parameter/dithering = true
+shader_parameter/resolution_scale = 2
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4jqa0"]
+shader = ExtResource("2_46ptn")
+shader_parameter/alpha = 1.0
+shader_parameter/inner_radius = 0.165
+shader_parameter/outer_radius = 1.775
+shader_parameter/strength = -0.004
+
+[node name="FX" type="CanvasLayer"]
+layer = 4
+
+[node name="PSX" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_t7jt8")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="BackBufferCopy" type="BackBufferCopy" parent="."]
+copy_mode = 2
+
+[node name="CA" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_4jqa0")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2

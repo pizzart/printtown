@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://dc4i8fxnj56tx"]
+[gd_scene load_steps=19 format=3 uid="uid://dc4i8fxnj56tx"]
 
 [ext_resource type="Script" path="res://scripts/dialogue_ui.gd" id="1_dhjqm"]
 [ext_resource type="Theme" uid="uid://dn7uhmqeylu42" path="res://misc/ui.theme" id="2_6his5"]
@@ -12,13 +12,22 @@
 [ext_resource type="Texture2D" uid="uid://b0651j71hhfsc" path="res://graphics/ui/dialogue/newcall/newcall0002.png" id="5_gttwe"]
 [ext_resource type="Texture2D" uid="uid://qy10atxowm2y" path="res://graphics/ui/dialogue/newcall/newcall0003.png" id="6_25ud5"]
 [ext_resource type="Texture2D" uid="uid://gc41rw5p7l6m" path="res://graphics/ui/dialogue/newcall/newcall0004.png" id="7_snxqd"]
+[ext_resource type="Texture2D" uid="uid://lb6svmvv27t1" path="res://graphics/ui/dialogue/tip/tip0000.png" id="8_vxfig"]
 [ext_resource type="Texture2D" uid="uid://chalgpvxgvc06" path="res://graphics/ui/dialogue/newcall/newcall0005.png" id="8_yvcc7"]
+[ext_resource type="Texture2D" uid="uid://bh1lvjke7tnkx" path="res://graphics/ui/dialogue/tip/tip0001.png" id="9_oudjb"]
 
 [sub_resource type="AnimatedTexture" id="AnimatedTexture_gwvkh"]
 frames = 2
 frame_0/texture = ExtResource("3_dbyjx")
 frame_0/duration = 0.25
 frame_1/texture = ExtResource("4_tk6dd")
+frame_1/duration = 0.25
+
+[sub_resource type="AnimatedTexture" id="AnimatedTexture_ba6v7"]
+frames = 2
+frame_0/texture = ExtResource("8_vxfig")
+frame_0/duration = 0.25
+frame_1/texture = ExtResource("9_oudjb")
 frame_1/duration = 0.25
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_2e8bq"]
@@ -58,11 +67,9 @@ animations = [{
 
 [node name="DialogueUI" type="CanvasLayer"]
 layer = 2
-visible = false
 script = ExtResource("1_dhjqm")
 
 [node name="C" type="Control" parent="."]
-visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -129,6 +136,34 @@ pause_at_characters = ".?!,"
 skip_pause_at_abbreviations = PackedStringArray("Mr", "Mrs", "Ms", "Dr", "etc", "eg", "ex")
 metadata/_edit_use_anchors_ = true
 
+[node name="Tip" type="TextureRect" parent="C"]
+visible = false
+layout_mode = 0
+offset_left = 225.0
+offset_top = 145.0
+offset_right = 520.0
+offset_bottom = 362.0
+texture = SubResource("AnimatedTexture_ba6v7")
+
+[node name="Label" type="Label" parent="C/Tip"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.291525
+anchor_top = 0.317972
+anchor_right = 0.813559
+anchor_bottom = 0.626728
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "press left mouse
+button to continue!"
+metadata/_edit_use_anchors_ = true
+
 [node name="CallSprite" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_2e8bq")
 centered = false
+
+[node name="DialogueTimer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
+[connection signal="finished_typing" from="C/Text/DialogueLabel" to="." method="_on_dialogue_finished_typing"]
+[connection signal="timeout" from="DialogueTimer" to="." method="_on_dialogue_timer_timeout"]

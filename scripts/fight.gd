@@ -10,9 +10,11 @@ const SPIN_RAD = 135.0
 const TEXT_SPIN_RAD = 75.0
 const TEXT_SPIN_SPEED = 0.8
 
+const INIT_HEALTH = 10
+
 var player: Player
-var fighter: Animals.Animal
-var health: int = 10
+var enemy: Animals.Animal
+var health: int = INIT_HEALTH
 var fight_active: bool
 var time: float
 
@@ -21,6 +23,7 @@ var time: float
 @export var dialogue_big_progress: DialogueResource
 @export var dialogue_won: DialogueResource
 @export var dialogue_lost: DialogueResource
+@export var is_tutorial: bool
 @onready var camera = $CameraPoint/Camera
 
 func _process(delta):
@@ -32,7 +35,8 @@ func _process(delta):
 		FightUI.pet_btn.position = cam_unproj - Vector2(64, 64) + Vector2(cos(-time * SPIN_SPEED), sin(-time * SPIN_SPEED)) * SPIN_RAD
 		FightUI.kick_btn.position = cam_unproj - Vector2(64, 64) + Vector2(cos(-time * SPIN_SPEED + SPIN_OFFSET), sin(-time * SPIN_SPEED + SPIN_OFFSET)) * SPIN_RAD
 		FightUI.sticker_btn.position = cam_unproj - Vector2(64, 64) + Vector2(cos(-time * SPIN_SPEED - SPIN_OFFSET), sin(-time * SPIN_SPEED - SPIN_OFFSET)) * SPIN_RAD
-		FightUI.progress_text.position = cam_unproj + Vector2(cos(sin(-time * TEXT_SPIN_SPEED) - PI / 2), sin(sin(-time * TEXT_SPIN_SPEED) - PI / 2)) * TEXT_SPIN_RAD
+		FightUI.progress_text.position = cam_unproj + Vector2(cos(cos(-time * TEXT_SPIN_SPEED) - PI / 2), sin(cos(-time * TEXT_SPIN_SPEED) - PI / 2)) * TEXT_SPIN_RAD
+		FightUI.friendliness_text.position = cam_unproj + Vector2(cos(sin(-time * TEXT_SPIN_SPEED) + PI / 2), sin(sin(-time * TEXT_SPIN_SPEED) + PI / 2)) * TEXT_SPIN_RAD
 		FightUI.health_text.position = cam_unproj_player + Vector2(cos(sin(-time * TEXT_SPIN_SPEED) + PI / 2), sin(sin(-time * TEXT_SPIN_SPEED) + PI / 2)) * TEXT_SPIN_RAD
 		FightUI.fighter_line.points[0] = cam_unproj
 		FightUI.fighter_line.points[1] = FightUI.progress_text.position + Vector2(16, 34)
@@ -64,43 +68,59 @@ func _on_body_entered(body):
 		FightUI.kicked.connect(_on_kicked)
 		FightUI.stickered.connect(_on_stickered)
 		
-		fighter = Animals.animals[animal].new()
+		enemy = Animals.animals[animal].new()
 		
 		fight_active = true
 		if dialogue_start != null:
 			DialogueUI.start_dialogue(dialogue_start, true)
 			await DialogueUI.finished
-			FightUI.enable_not_sticker()
+			if is_tutorial:
+				FightUI.enable_not_sticker()
+			else:
+				FightUI.enable_all()
 		
-		FightUI.set_progress(fighter.progress)
-		FightUI.health_text.text = str(health)
+		update_ui()
 		#FightUI.crect.position = camera.unproject_position($AnimalPoint.global_position)
 
+func update_ui():
+	FightUI.set_progress(enemy.progress)
+	FightUI.friendliness_text.text = "%d%%" % (enemy.friendliness * 100)
+	FightUI.health_text.text = str(health)
+
 func _on_petted():
-	var result = fighter.pet()
-	FightUI.set_progress(fighter.progress)
+	var result = enemy.pet()
+	update_ui()
 	if result:
-		if fighter.progress >= 1:
+		if enemy.progress >= 1:
 			if dialogue_big_progress != null:
 				FightUI.disable_all()
 				DialogueUI.start_dialogue(dialogue_big_progress, false)
 				await DialogueUI.finished
-				FightUI.enable_only_sticker()
+				if is_tutorial:
+					FightUI.enable_only_sticker()
+				else:
+					FightUI.enable_all()
 	else:
-		health -= fighter.damage
+		health = maxi(health - enemy.damage, 0)
 		FightUI.health_text.text = str(health)
 		if health <= 0:
 			FightUI.disable_all()
 			DialogueUI.start_dialogue(dialogue_lost, false)
 			await DialogueUI.finished
-			FightUI.hide()
-			fight_active = false
+			if is_tutorial:
+				enemy = Animals.animals[animal].new()
+				health = INIT_HEALTH
+				update_ui()
+				FightUI.enable_not_sticker()
+			else:
+				FightUI.hide()
+				fight_active = false
 
 func _on_kicked():
-	var result = fighter.kick()
-	FightUI.set_progress(fighter.progress)
+	var result = enemy.kick()
+	update_ui()
 	if result:
-		if fighter.progress >= 1:
+		if enemy.progress >= 1:
 			if dialogue_big_progress != null:
 				FightUI.disable_all()
 				DialogueUI.start_dialogue(dialogue_big_progress, false)
@@ -110,7 +130,7 @@ func _on_kicked():
 		print("you kicked it when it wasn't looking. you're a monster")
 
 func _on_stickered():
-	if fighter.sticker():
+	if enemy.sticker():
 		FightUI.disable_all()
 		DialogueUI.start_dialogue(dialogue_won, false)
 		await DialogueUI.finished

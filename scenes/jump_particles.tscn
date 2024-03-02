@@ -1,6 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://doqjwm43is5hg"]
+[gd_scene load_steps=8 format=3 uid="uid://doqjwm43is5hg"]
 
 [ext_resource type="Texture2D" uid="uid://b7t7cw2yviltc" path="res://graphics/player/smoke.png" id="1_ghji0"]
+[ext_resource type="Script" path="res://scripts/particles.gd" id="2_c1nfb"]
 
 [sub_resource type="Curve" id="Curve_4lh5e"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.076923), 0.0, 0.0, 0, 0]
@@ -47,3 +48,4 @@ one_shot = true
 explosiveness = 1.0
 process_material = SubResource("ParticleProcessMaterial_jsg0b")
 draw_pass_1 = SubResource("QuadMesh_vl1hi")
+script = ExtResource("2_c1nfb")

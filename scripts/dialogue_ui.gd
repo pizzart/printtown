@@ -11,6 +11,10 @@ var dialogue_line: DialogueLine
 var char_moving: Character = Character.TOP
 var time: float
 @onready var text_label = $C/Text/DialogueLabel
+@onready var tip = $C/Tip
+
+func _ready():
+	hide()
 
 func _process(delta):
 	var rot = PI / 12 if ceili(time * 3) % 2 == 0 else -PI / 12
@@ -50,6 +54,9 @@ func next_line(started: bool):
 		text_label.skip_typing()
 		return
 	
+	$DialogueTimer.stop()
+	tip.hide()
+	
 	if started:
 		dialogue_line = await dialogue_res.get_next_dialogue_line("start")
 	else:
@@ -73,3 +80,12 @@ func next_line(started: bool):
 	$C/Text/Name.text = dialogue_line.character
 	text_label.dialogue_line = dialogue_line
 	text_label.type_out()
+	
+	#$DialogueTimer.start()
+
+func _on_dialogue_timer_timeout():
+	tip.show()
+	$DialogueTimer.wait_time = 10
+
+func _on_dialogue_finished_typing():
+	$DialogueTimer.start()

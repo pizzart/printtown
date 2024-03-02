@@ -1,0 +1,15 @@
+[remap]
+
+importer="dialogue_manager_compiler_11"
+type="Resource"
+uid="uid://ch7eqe1vsxcvj"
+path="res://.godot/imported/tutorialfight_won.dialogue-f9964e84be20c7cae94d6f63873f9977.tres"
+
+[deps]
+
+source_file="res://dialogue/tutorial_fight/tutorialfight_won.dialogue"
+dest_files=["res://.godot/imported/tutorialfight_won.dialogue-f9964e84be20c7cae94d6f63873f9977.tres"]
+
+[params]
+
+defaults=true

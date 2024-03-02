@@ -51,7 +51,7 @@ animations = [{
 
 [node name="Pause" type="CanvasLayer"]
 process_mode = 2
-layer = 2
+layer = 3
 visible = false
 script = ExtResource("1_qjc4w")
 

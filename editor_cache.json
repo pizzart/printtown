@@ -1,14 +1,14 @@
 {
-	"tool": {
-		"block": {
-			"default_block_height": 1
-		},
-		"cylinder": {
-			"segments": 16,
-			"tube": false
-		},
-		"prism": {
-			"default_block_height": 1
-		}
-	}
+    "tool": {
+        "block": {
+            "default_block_height": 1
+        },
+        "cylinder": {
+            "segments": 16,
+            "tube": false
+        },
+        "prism": {
+            "default_block_height": 1
+        }
+    }
 }

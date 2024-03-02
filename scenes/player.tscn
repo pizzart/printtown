@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://b026alsepp2vu"]
+[gd_scene load_steps=29 format=3 uid="uid://b026alsepp2vu"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_465au"]
 [ext_resource type="Texture2D" uid="uid://bu7yj6t30t1mr" path="res://graphics/player/back/back0000.png" id="2_rj7ul"]
@@ -12,6 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://doueilkx06ikr" path="res://graphics/player/side/side0002.png" id="8_rj008"]
 [ext_resource type="Texture2D" uid="uid://dx175lwekpbad" path="res://graphics/player/side/side0003.png" id="9_tgvea"]
 [ext_resource type="Shader" path="res://misc/psx.gdshader" id="11_edw4o"]
+[ext_resource type="Texture2D" uid="uid://b7t7cw2yviltc" path="res://graphics/player/smoke.png" id="12_g53nk"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_hk1wg"]
 animations = [{
@@ -89,6 +90,40 @@ radius = 0.55
 height = 0.1
 radius = 0.55
 
+[sub_resource type="Curve" id="Curve_4lh5e"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.263736), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_vbv1m"]
+curve = SubResource("Curve_4lh5e")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_xlstn"]
+emission_shape = 1
+emission_sphere_radius = 0.5
+radial_velocity_min = -3.08
+radial_velocity_max = 2.06
+gravity = Vector3(0, 1, 0)
+scale_max = 2.0
+scale_curve = SubResource("CurveTexture_vbv1m")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_b08q0"]
+transparency = 2
+alpha_scissor_threshold = 0.5
+alpha_antialiasing_mode = 0
+diffuse_mode = 3
+specular_mode = 2
+albedo_color = Color(0.478431, 0.478431, 0.478431, 1)
+albedo_texture = ExtResource("12_g53nk")
+texture_filter = 0
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="QuadMesh" id="QuadMesh_vl1hi"]
+material = SubResource("StandardMaterial3D_b08q0")
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_jf734"]
 shader = ExtResource("11_edw4o")
 shader_parameter/color_depth = 4
@@ -163,8 +198,17 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.9, 0)
 shape = SubResource("CylinderShape3D_nmm0k")
 target_position = Vector3(0, 0, 0)
 
+[node name="SmokeParticles" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.21066, 0)
+layers = 2
+emitting = false
+amount = 40
+lifetime = 4.0
+process_material = SubResource("ParticleProcessMaterial_xlstn")
+draw_pass_1 = SubResource("QuadMesh_vl1hi")
+
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
-layer = 3
+layer = 4
 
 [node name="Label" type="Label" parent="CanvasLayer"]
 offset_right = 40.0

@@ -9,8 +9,11 @@ enum State {
 	ROLL,
 }
 
+const JUMP_PARTICLES = preload("res://scenes/jump_particles.tscn")
+
 const ACCEL = 0.2
 const DECEL = 0.3
+const ADDVELO_DECEL = 0.055
 
 const CAMERA_HEIGHT = 3.5
 
@@ -21,8 +24,8 @@ const LEDGE_SPEED = 4.0
 const COYOTE_TIME = 0.15
 const JUMP_VELOCITY = 15.0
 const ADD_JUMP_VELOCITY = 0.75
-const WALLJUMP_VELOCITY = 14.0
-const WALLJUMP_HORIZONTAL = 22.0
+const WALLJUMP_VELOCITY = 16.0
+const WALLJUMP_HORIZONTAL = 26.0
 const JUMP_LENGTH = 0.12
 const ROLL_TIME = 0.5
 const ROLL_FALL_VELO = -30.0
@@ -91,7 +94,7 @@ func _physics_process(delta):
 			roll(delta, input_dir)
 	
 	velocity += add_velo
-	add_velo = lerp(add_velo, Vector3.ZERO, 0.07)
+	add_velo = lerp(add_velo, Vector3.ZERO, ADDVELO_DECEL)
 	$CanvasLayer/Label.text += "\nvelocity: %s" % get_real_velocity()
 	
 	#if input_dir.y:
@@ -134,6 +137,8 @@ func ground(input_dir: Vector2, _delta: float):
 		coyote = COYOTE_TIME + 0.1
 		velocity.y = JUMP_VELOCITY
 		state = State.AIR
+		#$JumpParticles.restart()
+		spawn_jump_particles()
 	
 	if not is_on_floor():
 		state = State.AIR
@@ -172,6 +177,7 @@ func air(delta: float, input_dir: Vector2):
 			hvelo = direction * abs(last_velocity.y)
 			velocity.x = hvelo.x
 			velocity.z = hvelo.z
+			roll_time = 0
 			state = State.ROLL
 		else:
 			state = State.GROUND
@@ -206,6 +212,7 @@ func ledge(delta: float, input_dir: Vector2):
 		state = State.AIR
 
 func wall_slide(delta: float, input_dir: Vector2):
+	$SmokeParticles.emitting = true
 	velocity.y -= gravity * delta * 0.5
 	
 	var direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
@@ -223,18 +230,24 @@ func wall_slide(delta: float, input_dir: Vector2):
 				velocity.y = WALLJUMP_VELOCITY
 				last_floor_y = global_position.y - 2
 			state = State.AIR
+			$SmokeParticles.emitting = false
+			#$JumpParticles.restart()
+			spawn_jump_particles()
 	
 	if is_on_floor():
 		jump_time = 0
 		state = State.GROUND
+		$SmokeParticles.emitting = false
 	elif not $WallCast.is_colliding() or velocity.y > 0:
 		state = State.AIR
+		$SmokeParticles.emitting = false
 	else:
 		var normal = $GrabCast.get_collision_normal(0)
 		var dot = normal.dot(direction)
 		if $GrabCast.is_colliding() and not $HeadCast.is_colliding() and dot < 0:
 			velocity.y = 0
 			state = State.LEDGE
+			$SmokeParticles.emitting = false
 
 func roll(delta: float, _input_dir: Vector2):
 	roll_time += delta
@@ -248,6 +261,9 @@ func roll(delta: float, _input_dir: Vector2):
 		coyote = COYOTE_TIME + 0.1
 		velocity.y = JUMP_VELOCITY
 		state = State.AIR
+		#$JumpParticles.restart()
+		spawn_jump_particles()
+	
 	elif roll_time > ROLL_TIME:
 		state = State.GROUND
 
@@ -259,6 +275,12 @@ func prepare_fight():
 func post_fight():
 	can_move = true
 	camera.make_current()
+
+func spawn_jump_particles():
+	var particles = JUMP_PARTICLES.instantiate()
+	get_parent().add_child(particles)
+	particles.global_position = global_position - Vector3(0, 1.5, 0)
+	particles.restart()
 
 func _input(event):
 	if not can_move:

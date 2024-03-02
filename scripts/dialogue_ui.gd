@@ -23,11 +23,23 @@ func _process(delta):
 	
 	time += delta
 
-func start_dialogue(dialogue: DialogueResource):
+func start_dialogue(dialogue: DialogueResource, is_call: bool):
 	dialogue_res = dialogue
-	active = true
 	show()
+	if is_call:
+		$C.hide()
+		$CallSprite.show()
+		$CallSprite.play("default")
+		await $CallSprite.animation_finished
+	else:
+		$CallSprite.hide()
+	$C.show()
+	$C.scale = Vector2.ONE * 4
+	var tween = create_tween()
+	tween.tween_property($C, "scale", Vector2.ONE, 0.8).set_trans(Tween.TRANS_ELASTIC).set_ease(Tween.EASE_IN_OUT)
+	await get_tree().create_timer(0.5).timeout
 	next_line(true)
+	active = true
 
 func _input(event):
 	if event.is_action_pressed("next_dialogue") and active:
@@ -46,6 +58,9 @@ func next_line(started: bool):
 	if not dialogue_line:
 		active = false
 		finished.emit()
+		var tween = create_tween()
+		tween.tween_property($C, "scale", Vector2.ONE * 4, 0.8).set_trans(Tween.TRANS_ELASTIC).set_ease(Tween.EASE_IN_OUT)
+		await get_tree().create_timer(0.5).timeout
 		hide()
 		return
 	

@@ -3,11 +3,11 @@ extends Area3D
 #signal won
 #signal lost
 
-const CAMERA_FOV = 45.0
+const CAMERA_FOV = 48.0
 const SPIN_SPEED = 0.3
 const SPIN_OFFSET = PI * 2 / 3
-const SPIN_RAD = 80.0
-const TEXT_SPIN_RAD = 120.0
+const SPIN_RAD = 135.0
+const TEXT_SPIN_RAD = 75.0
 const TEXT_SPIN_SPEED = 0.8
 
 var player: Player
@@ -27,11 +27,15 @@ func _process(delta):
 	if fight_active:
 		time += delta
 		
-		FightUI.pet_btn.position = camera.unproject_position($AnimalPoint.global_position) + Vector2(cos(-time * SPIN_SPEED), sin(-time * SPIN_SPEED)) * SPIN_RAD
-		FightUI.kick_btn.position = camera.unproject_position($AnimalPoint.global_position) + Vector2(cos(-time * SPIN_SPEED + SPIN_OFFSET), sin(-time * SPIN_SPEED + SPIN_OFFSET)) * SPIN_RAD
-		FightUI.sticker_btn.position = camera.unproject_position($AnimalPoint.global_position) + Vector2(cos(-time * SPIN_SPEED - SPIN_OFFSET), sin(-time * SPIN_SPEED - SPIN_OFFSET)) * SPIN_RAD
-		FightUI.progress_text.position = camera.unproject_position($AnimalPoint.global_position) + Vector2(cos(sin(-time * TEXT_SPIN_SPEED) - PI / 2), sin(sin(-time * TEXT_SPIN_SPEED) - PI / 2)) * TEXT_SPIN_RAD
-		FightUI.health_text.position = camera.unproject_position($PlayerPoint.global_position) + Vector2(cos(sin(-time * TEXT_SPIN_SPEED) + PI / 2), sin(sin(-time * TEXT_SPIN_SPEED) + PI / 2)) * TEXT_SPIN_RAD
+		var cam_unproj = camera.unproject_position($AnimalPoint.global_position)
+		var cam_unproj_player = camera.unproject_position($PlayerPoint.global_position)
+		FightUI.pet_btn.position = cam_unproj - Vector2(64, 64) + Vector2(cos(-time * SPIN_SPEED), sin(-time * SPIN_SPEED)) * SPIN_RAD
+		FightUI.kick_btn.position = cam_unproj - Vector2(64, 64) + Vector2(cos(-time * SPIN_SPEED + SPIN_OFFSET), sin(-time * SPIN_SPEED + SPIN_OFFSET)) * SPIN_RAD
+		FightUI.sticker_btn.position = cam_unproj - Vector2(64, 64) + Vector2(cos(-time * SPIN_SPEED - SPIN_OFFSET), sin(-time * SPIN_SPEED - SPIN_OFFSET)) * SPIN_RAD
+		FightUI.progress_text.position = cam_unproj + Vector2(cos(sin(-time * TEXT_SPIN_SPEED) - PI / 2), sin(sin(-time * TEXT_SPIN_SPEED) - PI / 2)) * TEXT_SPIN_RAD
+		FightUI.health_text.position = cam_unproj_player + Vector2(cos(sin(-time * TEXT_SPIN_SPEED) + PI / 2), sin(sin(-time * TEXT_SPIN_SPEED) + PI / 2)) * TEXT_SPIN_RAD
+		FightUI.fighter_line.points[0] = cam_unproj
+		FightUI.fighter_line.points[1] = FightUI.progress_text.position + Vector2(16, 34)
 
 func _on_body_entered(body):
 	if body is Player:
@@ -64,20 +68,22 @@ func _on_body_entered(body):
 		
 		fight_active = true
 		if dialogue_start != null:
-			DialogueUI.start_dialogue(dialogue_start)
+			DialogueUI.start_dialogue(dialogue_start, true)
 			await DialogueUI.finished
 			FightUI.enable_not_sticker()
 		
-		FightUI.progress_text.text = "%d%%" % (fighter.progress * 100)
+		FightUI.set_progress(fighter.progress)
 		FightUI.health_text.text = str(health)
 		#FightUI.crect.position = camera.unproject_position($AnimalPoint.global_position)
 
 func _on_petted():
-	if fighter.pet():
+	var result = fighter.pet()
+	FightUI.set_progress(fighter.progress)
+	if result:
 		if fighter.progress >= 1:
 			if dialogue_big_progress != null:
 				FightUI.disable_all()
-				DialogueUI.start_dialogue(dialogue_big_progress)
+				DialogueUI.start_dialogue(dialogue_big_progress, false)
 				await DialogueUI.finished
 				FightUI.enable_only_sticker()
 	else:
@@ -85,28 +91,28 @@ func _on_petted():
 		FightUI.health_text.text = str(health)
 		if health <= 0:
 			FightUI.disable_all()
-			DialogueUI.start_dialogue(dialogue_lost)
+			DialogueUI.start_dialogue(dialogue_lost, false)
 			await DialogueUI.finished
 			FightUI.hide()
 			fight_active = false
-	FightUI.progress_text.text = "%d%%" % (fighter.progress * 100)
 
 func _on_kicked():
-	if fighter.kick():
+	var result = fighter.kick()
+	FightUI.set_progress(fighter.progress)
+	if result:
 		if fighter.progress >= 1:
 			if dialogue_big_progress != null:
 				FightUI.disable_all()
-				DialogueUI.start_dialogue(dialogue_big_progress)
+				DialogueUI.start_dialogue(dialogue_big_progress, false)
 				await DialogueUI.finished
 				FightUI.enable_only_sticker()
 	else:
 		print("you kicked it when it wasn't looking. you're a monster")
-	FightUI.progress_text.text = "%d%%" % (fighter.progress * 100)
 
 func _on_stickered():
 	if fighter.sticker():
 		FightUI.disable_all()
-		DialogueUI.start_dialogue(dialogue_won)
+		DialogueUI.start_dialogue(dialogue_won, false)
 		await DialogueUI.finished
 		
 		FightUI.hide()

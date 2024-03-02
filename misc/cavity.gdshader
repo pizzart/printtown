@@ -1,8 +1,8 @@
 shader_type spatial;
 render_mode unshaded;
 
-uniform sampler2D SCREEN_TEXTURE:hint_screen_texture, filter_linear_mipmap;
-uniform sampler2D DEPTH_TEXTURE :source_color, hint_depth_texture;
+uniform sampler2D SCREEN_TEXTURE : hint_screen_texture, filter_nearest;
+uniform sampler2D DEPTH_TEXTURE : source_color, hint_depth_texture;
 uniform sampler2D NORMAL_TEXTURE : hint_normal_roughness_texture, filter_nearest;
 
 uniform float zNear = 2;

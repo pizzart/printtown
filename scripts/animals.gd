@@ -11,6 +11,7 @@ class Animal:
 	var progress: float
 	
 	func _init(_texture: Texture2D, _animal_name: StringName, _friendliness: float, _cooperation: float, _damage: int):
+		randomize()
 		texture = _texture
 		animal_name = _animal_name
 		friendliness = _friendliness

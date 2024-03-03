@@ -4,6 +4,10 @@ signal petted
 signal kicked
 signal stickered
 
+const ANGRY = preload("res://graphics/ui/fight/stamps/stamp_angry.png")
+const NEUTRAL = preload("res://graphics/ui/fight/stamps/stamp_neutral.png")
+const HAPPY = preload("res://graphics/ui/fight/stamps/stamp_happy.png")
+
 var actual_progress: float
 var progress: float
 
@@ -14,6 +18,7 @@ var progress: float
 @onready var friendliness_text = $C/Friendliness
 @onready var health_text = $C/Health
 @onready var fighter_line = $FighterLine
+@onready var stamp = $C/Stamp
 
 func _ready():
 	hide()
@@ -45,6 +50,21 @@ func enable_only_sticker():
 	pet_btn.disabled = true
 	kick_btn.disabled = true
 	sticker_btn.disabled = false
+
+func change_friendliness(friendliness: float):
+	var old_texture = stamp.texture
+	var new_texture
+	if friendliness < 0.35:
+		new_texture = ANGRY
+	elif friendliness < 0.7:
+		new_texture = NEUTRAL
+	else:
+		new_texture = HAPPY
+	if old_texture != new_texture:
+		$StampAnimation.play("stamp")
+		await $StampAnimation.frame_changed
+		await $StampAnimation.frame_changed
+		stamp.texture = new_texture
 
 func _on_pet_pressed():
 	petted.emit()

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dhmm36ohpr0v6"
-path="res://.godot/imported/note.png-aa037b6489eec10ddb115a7bb23f0dd2.ctex"
+uid="uid://8lklnd1l0555"
+path="res://.godot/imported/stamped0005.png-330158cea42acc4d9fba0b4f1363ddf1.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://graphics/ui/fight/note.png"
-dest_files=["res://.godot/imported/note.png-aa037b6489eec10ddb115a7bb23f0dd2.ctex"]
+source_file="res://graphics/ui/fight/stamp_anim/stamped0005.png"
+dest_files=["res://.godot/imported/stamped0005.png-330158cea42acc4d9fba0b4f1363ddf1.ctex"]
 
 [params]
 

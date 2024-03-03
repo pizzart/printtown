@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://j0mn6m8c3lib"
-path="res://.godot/imported/kick_text.png-48f1b0f2e31c4b70657708f44ea656ed.ctex"
+uid="uid://txnai8db5bqr"
+path="res://.godot/imported/note_focused.png-5135c0c371a0462bfe3510a966c789e8.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://graphics/ui/fight/kick_text.png"
-dest_files=["res://.godot/imported/kick_text.png-48f1b0f2e31c4b70657708f44ea656ed.ctex"]
+source_file="res://graphics/ui/fight/notes/note_focused.png"
+dest_files=["res://.godot/imported/note_focused.png-5135c0c371a0462bfe3510a966c789e8.ctex"]
 
 [params]
 

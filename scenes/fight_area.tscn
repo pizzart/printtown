@@ -56,7 +56,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.02879, 0.0145887, -2.72723
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.32812, 0.49536, 2.62746)
 
 [node name="CameraPoint" type="Marker3D" parent="."]
-transform = Transform3D(0.332161, 0.067438, 0.940808, 0, 0.997441, -0.0714974, -0.943223, 0.0237487, 0.331311, 5.848, 0.055, 2.776)
+transform = Transform3D(0.38107, 0.0661027, 0.922179, 0, 0.997441, -0.0714974, -0.924546, 0.0272456, 0.380095, 5.728, 0.015, 2.786)
 
 [node name="Camera" type="Camera3D" parent="CameraPoint"]
 fov = 45.0

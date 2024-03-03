@@ -104,3 +104,10 @@ lights_and_shadows/directional_shadow/soft_shadow_filter_quality=0
 lights_and_shadows/positional_shadow/soft_shadow_filter_quality=0
 textures/decals/filter=0
 textures/light_projectors/filter=0
+
+[shader_globals]
+
+ca_strength={
+"type": "float",
+"value": 0.004
+}

@@ -11,14 +11,18 @@ enum State {
 
 const JUMP_PARTICLES = preload("res://scenes/jump_particles.tscn")
 
-const ACCEL = 0.2
-const DECEL = 0.3
-const ADDVELO_DECEL = 0.045
+const ACCEL = 0.15
+const DECEL = 0.27
+const AIR_ACCEL = 0.03
+const ADDVELO_DECEL = 0.04
 
 const CAMERA_HEIGHT = 3.5
+const SHAKE_REDUCE = 3.0
+const FALL_STRENGTH = 0.004
+const FALL_SHAKE_VELOCITY = 35.0
 
 const SPEED = 6.0
-const RUN_SPEED = 12.0
+const RUN_SPEED = 12.5
 const LEDGE_SPEED = 4.0
 
 const COYOTE_TIME = 0.15
@@ -27,8 +31,8 @@ const ADD_JUMP_VELOCITY = 0.75
 const WALLJUMP_VELOCITY = 16.0
 const WALLJUMP_HORIZONTAL = 26.0
 const JUMP_LENGTH = 0.12
-const ROLL_TIME = 0.5
-const ROLL_FALL_VELO = -30.0
+#const ROLL_TIME = 0.5
+#const ROLL_FALL_VELO = -30.0
 const STEP_HEIGHT = 0.51
 
 const MAX_STAMINA = 10.0
@@ -53,6 +57,7 @@ var stamina: float = MAX_STAMINA
 var jump_buffered: bool
 var last_velocity: Vector3
 var last_input: Vector2
+var shake: float
 var can_move: bool = true
 var state: State = State.GROUND
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
@@ -89,6 +94,11 @@ func _process(delta):
 		shadow.size.x = SHADOW_SIZE * (1 - (global_position.y - point.y) / SHADOW_DIST)
 		shadow.size.z = SHADOW_SIZE * (1 - (global_position.y - point.y) / SHADOW_DIST)
 	
+	camera.h_offset = randfn(0, shake)
+	camera.v_offset = randfn(0, shake)
+	
+	shake = lerpf(shake, 0, delta * SHAKE_REDUCE)
+	
 	#$StepCast.target_position
 
 func _physics_process(delta):
@@ -115,7 +125,7 @@ func _physics_process(delta):
 	
 	velocity += add_velo
 	add_velo = lerp(add_velo, Vector3.ZERO, ADDVELO_DECEL)
-	$CanvasLayer/Label.text += "\nvelocity: %s" % get_real_velocity()
+	$CanvasLayer/Label.text += "\nvelocity: %s // %s" % [get_real_velocity(), get_real_velocity().length()]
 	$CanvasLayer/Label.text += "\nstamina: %s // %s" % [snappedf(stamina, 0.01), snappedf(pow(stamina / MAX_STAMINA, 0.4), 0.01)]
 	
 	if input_dir:
@@ -127,9 +137,10 @@ func _physics_process(delta):
 	
 	#stamina = clampf(stamina + delta * 1.5, 0, MAX_STAMINA)
 
+	last_velocity = get_real_velocity()
 	move_and_slide()
 	
-	last_velocity = get_real_velocity()
+	RenderingServer.global_shader_parameter_set("ca_strength", maxf((get_real_velocity().length() - RUN_SPEED) * 0.001 + Global.DEFAULT_CA, Global.DEFAULT_CA))
 
 func ground(delta: float, input_dir: Vector2):
 	coyote = 0
@@ -190,7 +201,7 @@ func ground(delta: float, input_dir: Vector2):
 		var diff = absf(step_cast_top.get_collision_point(0).y - global_position.y + 1.2)
 		if diff < STEP_HEIGHT:
 			if step_cast_bot.get_collision_normal(0).dot(direction) < 0:
-				global_position.y += diff
+				global_position.y += diff + 0.01
 
 func air(delta: float, input_dir: Vector2):
 	velocity.y -= gravity * delta
@@ -198,7 +209,7 @@ func air(delta: float, input_dir: Vector2):
 	stamina = clampf(stamina + AIR_RECOVERY * delta, 0, MAX_STAMINA)
 	
 	var direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
-	hvelo = lerp(hvelo, direction * (RUN_SPEED if Input.is_action_pressed("run") else SPEED), 0.03)
+	hvelo = lerp(hvelo, direction * (RUN_SPEED if Input.is_action_pressed("run") else SPEED), AIR_ACCEL)
 	velocity.x = hvelo.x
 	velocity.z = hvelo.z
 	
@@ -231,12 +242,15 @@ func air(delta: float, input_dir: Vector2):
 			#roll_time = 0
 			#state = State.ROLL
 		#else:
+		if absf(last_velocity.y) > FALL_SHAKE_VELOCITY:
+			add_shake(last_velocity.y * FALL_STRENGTH)
+		
 		if jump_buffered:
 			jump_buffered = false
 			jump_time = 0
 			coyote = COYOTE_TIME + 0.1
 			#hvelo += direction * absf(last_velocity.y)
-			add_velo += direction * pow(absf(last_velocity.y), 0.8)
+			add_velo += direction * (pow(absf(last_velocity.y), 0.7) * 0.7 + maxf(log(absf(last_velocity.y) - JUMP_VELOCITY), 0))
 			velocity.y = JUMP_VELOCITY
 			sprite.play("jump_back")
 			spawn_jump_particles()
@@ -350,6 +364,7 @@ func wall_slide(delta: float, input_dir: Vector2):
 		#state = State.GROUND
 
 func prepare_fight():
+	RenderingServer.global_shader_parameter_set("ca_strength", Global.DEFAULT_CA)
 	sprite.play("idle_back")
 	can_move = false
 
@@ -362,6 +377,9 @@ func spawn_jump_particles():
 	get_parent().add_child(particles)
 	particles.global_position = global_position - Vector3(0, col_shape.shape.height / 2, 0)
 	particles.restart()
+
+func add_shake(amount: float):
+	shake += amount
 
 func _input(event):
 	if not can_move:

@@ -1,49 +1,68 @@
 extends Node
 
 class Animal:
-	const PROGRESS_MIN = 0.9
+	const SATISFACTION_MIN = 0.9
+	#const PUNISHMENT = 0.15
 	var texture: Texture2D
 	var animal_name: StringName
 	# 0 to 1
-	var friendliness: float # friendliness is the willingness to be petted. small friendliness -> kick it -> friendliness up
-	var original_friendliness: float # inital friendliness
-	var cooperation: float # the boost given to progress when petted
+	var satisfaction: float # self explanatory. over 90% -> can be stickered
+	var mood: float # the willingness to be petted
+	var guard: float # the willingness to bite
+	var cooperation: float # the boost given to satisfaction when petted
+	# any int
 	var damage: int # damage it deals to the player
-	var progress: float # self explanatory. over 90% -> can be stickered
+	var health: int # the health
+	var init_health: int
 	
-	func _init(_texture: Texture2D, _animal_name: StringName, _friendliness: float, _cooperation: float, _damage: int):
+	func _init(_texture: Texture2D, _animal_name: StringName, _mood: float, _guard: float, _cooperation: float, _health: int, _damage: int):
 		randomize()
 		texture = _texture
 		animal_name = _animal_name
-		friendliness = _friendliness
-		original_friendliness = friendliness
+		mood = _mood
+		guard = _guard
 		cooperation = _cooperation
+		health = _health
+		init_health = _health
 		damage = _damage
-		progress = 0
+		satisfaction = 0
 	
 	func pet():
-		if randf() <= friendliness:
-			progress += cooperation
-			return true
-		return false
+		mood = minf(mood + randfn(cooperation, 0.3), 1.0)
+		if randf() <= mood:
+			satisfaction += cooperation * (1.0 + mood)
+		else:
+			if randf() <= guard:
+				guard = maxf(guard - cooperation, 0.0)
+				return damage
+			else:
+				mood = minf(mood + randfn(cooperation, 0.1), 1.0)
+		return 0
 	
 	func kick():
-		if randf() > friendliness:
-			#progress += cooperation
-			friendliness = clampf(friendliness + cooperation / 3, 0, minf(original_friendliness + 0.2, 1.0))
-			return true
+		mood = maxf(mood - randfn(cooperation, 0.2), 0.0)
+		if randf() > guard: # successful kick
+			guard = maxf(guard - cooperation, 0.0)
+			health -= 1
 		else:
-			progress = maxf(progress - cooperation / 2, 0)
-			friendliness = clampf(friendliness - 0.1, 0, minf(original_friendliness + 0.2, 1.0))
-			return false
+			if randf() <= guard: # bite
+				mood = minf(mood + randfn(cooperation, 0.1), 1.0)
+				return damage
+		return 0
+	
+	func treat():
+		mood = minf(mood + cooperation * 2, 1.0)
+		guard = maxf(guard - cooperation, 0.0)
+		satisfaction += cooperation * 2 * (1.0 + mood)
+		return 0
 	
 	func sticker():
-		return progress >= PROGRESS_MIN or pow(randf(), 2) >= 0.97
+		return satisfaction >= SATISFACTION_MIN or pow(randf(), 2) >= 0.97
 
 class Dog:
 	extends Animal
 	func _init():
-		super._init(preload("res://graphics/animals/dog.png"), &"dog", 0.9, 0.4, 1)
+		super._init(preload("res://graphics/animals/dog.png"), &"dog", 0.9, 0, 0.4, 10, 1)
 
 enum AnimalType {
 	DOG,

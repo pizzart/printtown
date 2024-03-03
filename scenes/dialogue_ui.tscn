@@ -148,16 +148,18 @@ texture = SubResource("AnimatedTexture_ba6v7")
 [node name="Label" type="Label" parent="C/Tip"]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.291525
-anchor_top = 0.317972
-anchor_right = 0.813559
-anchor_bottom = 0.626728
+anchor_left = 0.267797
+anchor_top = 0.327189
+anchor_right = 0.789831
+anchor_bottom = 0.635945
+rotation = -0.120428
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "press left mouse
 button to continue!"
 metadata/_edit_use_anchors_ = true
 
 [node name="CallSprite" type="AnimatedSprite2D" parent="."]
+visible = false
 sprite_frames = SubResource("SpriteFrames_2e8bq")
 centered = false
 

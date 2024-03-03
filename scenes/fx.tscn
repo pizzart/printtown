@@ -14,7 +14,6 @@ shader = ExtResource("2_46ptn")
 shader_parameter/alpha = 1.0
 shader_parameter/inner_radius = 0.165
 shader_parameter/outer_radius = 1.775
-shader_parameter/strength = -0.004
 
 [node name="FX" type="CanvasLayer"]
 layer = 4

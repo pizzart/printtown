@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://scjaa3j0ydh1"
-path="res://.godot/imported/stickerup_text.png-81dcda7ccada0ed5617dbb4c5dadedb9.ctex"
+uid="uid://c208yhh11dkxf"
+path="res://.godot/imported/stamped0000.png-bd1600af8f87a725f4e7c8d8da17023f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://graphics/ui/fight/stickerup_text.png"
-dest_files=["res://.godot/imported/stickerup_text.png-81dcda7ccada0ed5617dbb4c5dadedb9.ctex"]
+source_file="res://graphics/ui/fight/stamp_anim/stamped0000.png"
+dest_files=["res://.godot/imported/stamped0000.png-bd1600af8f87a725f4e7c8d8da17023f.ctex"]
 
 [params]
 

@@ -3,7 +3,9 @@ extends Area3D
 #signal won
 #signal lost
 
-const CAMERA_FOV = 48.0
+const CAMERA_FOV = 45.0
+const SHAKE_REDUCE = 7.0
+
 const SPIN_SPEED = 0.3
 const SPIN_OFFSET = PI * 2 / 3
 const SPIN_RAD = 135.0
@@ -17,6 +19,7 @@ var enemy: Animals.Animal
 var health: int = INIT_HEALTH
 var fight_active: bool
 var time: float
+var shake: float
 
 @export var animal: Animals.AnimalType
 @export var dialogue_start: DialogueResource
@@ -40,6 +43,12 @@ func _process(delta):
 		FightUI.health_text.position = cam_unproj_player + Vector2(cos(sin(-time * TEXT_SPIN_SPEED) + PI / 2), sin(sin(-time * TEXT_SPIN_SPEED) + PI / 2)) * TEXT_SPIN_RAD
 		FightUI.fighter_line.points[0] = cam_unproj
 		FightUI.fighter_line.points[1] = FightUI.progress_text.position + Vector2(16, 34)
+		FightUI.stamp.position = cam_unproj + Vector2(-86, 12)
+		
+		camera.h_offset = randfn(0, shake)
+		camera.v_offset = randfn(0, shake)
+		
+		shake = lerpf(shake, 0, delta * SHAKE_REDUCE)
 
 func _on_body_entered(body):
 	if body is Player:
@@ -82,52 +91,64 @@ func _on_body_entered(body):
 		update_ui()
 		#FightUI.crect.position = camera.unproject_position($AnimalPoint.global_position)
 
+func add_shake(amount: float):
+	shake += amount
+
 func update_ui():
-	FightUI.set_progress(enemy.progress)
-	FightUI.friendliness_text.text = "%d%%" % (enemy.friendliness * 100)
+	FightUI.set_progress(enemy.satisfaction)
+	FightUI.friendliness_text.text = "%d%%" % (enemy.mood * 100)
 	FightUI.health_text.text = str(health)
+	FightUI.change_friendliness(enemy.mood)
+
+func apply_damage(damage: int):
+	health = maxi(health - damage, 0)
+	update_ui()
+	if health <= 0:
+		FightUI.disable_all()
+		DialogueUI.start_dialogue(dialogue_lost, false)
+		await DialogueUI.finished
+		if is_tutorial:
+			enemy = Animals.animals[animal].new()
+			health = INIT_HEALTH
+			enemy.health = enemy.init_health
+			update_ui()
+			FightUI.enable_not_sticker()
+		else:
+			FightUI.hide()
+			fight_active = false
 
 func _on_petted():
-	var result = enemy.pet()
+	var damage = enemy.pet()
+	if damage != 0:
+		add_shake(0.08)
+		apply_damage(damage)
 	update_ui()
-	if result:
-		if enemy.progress >= 1:
-			if dialogue_big_progress != null:
-				FightUI.disable_all()
-				DialogueUI.start_dialogue(dialogue_big_progress, false)
-				await DialogueUI.finished
-				if is_tutorial:
-					FightUI.enable_only_sticker()
-				else:
-					FightUI.enable_all()
-	else:
-		health = maxi(health - enemy.damage, 0)
-		FightUI.health_text.text = str(health)
-		if health <= 0:
+	
+	if enemy.satisfaction >= enemy.SATISFACTION_MIN:
+		if dialogue_big_progress != null:
 			FightUI.disable_all()
-			DialogueUI.start_dialogue(dialogue_lost, false)
+			DialogueUI.start_dialogue(dialogue_big_progress, false)
 			await DialogueUI.finished
 			if is_tutorial:
-				enemy = Animals.animals[animal].new()
-				health = INIT_HEALTH
-				update_ui()
-				FightUI.enable_not_sticker()
+				FightUI.enable_only_sticker()
 			else:
-				FightUI.hide()
-				fight_active = false
+				FightUI.enable_all()
 
 func _on_kicked():
-	var result = enemy.kick()
+	var damage = enemy.kick()
+	if damage != 0:
+		add_shake(0.08)
+		apply_damage(damage)
 	update_ui()
-	if result:
-		if enemy.progress >= 1:
-			if dialogue_big_progress != null:
-				FightUI.disable_all()
-				DialogueUI.start_dialogue(dialogue_big_progress, false)
-				await DialogueUI.finished
-				FightUI.enable_only_sticker()
-	else:
-		print("you kicked it when it wasn't looking. you're a monster")
+	
+	if enemy.health <= 0:
+		FightUI.disable_all()
+		DialogueUI.start_dialogue(dialogue_big_progress, false)
+		await DialogueUI.finished
+		if is_tutorial:
+			FightUI.enable_only_sticker()
+		else:
+			FightUI.enable_all()
 
 func _on_stickered():
 	if enemy.sticker():

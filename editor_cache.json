@@ -1,14 +1,28 @@
 {
-	"tool": {
-		"block": {
-			"default_block_height": 1
-		},
-		"cylinder": {
-			"segments": 16,
-			"tube": false
-		},
-		"prism": {
-			"default_block_height": 1
-		}
-	}
+    "snapping": {
+        "grid": {
+            "grid_subdivisions": 10,
+            "grid_transform": "{\"o\":[0,0,0],\"x\":[1,0,0],\"y\":[0,1,0],\"z\":[0,0,1]}",
+            "power_of_two_scale": 0,
+            "unit_size": 1,
+            "use_subdivisions": false
+        }
+    },
+    "tool": {
+        "block": {
+            "default_block_height": 1
+        },
+        "cylinder": {
+            "segments": 16,
+            "tube": false
+        },
+        "prism": {
+            "default_block_height": 1
+        },
+        "stairs": {
+            "direction": 0,
+            "step_depth": 1,
+            "step_height": 0.5
+        }
+    }
 }

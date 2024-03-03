@@ -5464,6 +5464,7 @@ environment = SubResource("Environment_5ayhc")
 [node name="Pause" parent="." instance=ExtResource("2_67e6u")]
 
 [node name="Player" parent="." instance=ExtResource("1_lquvg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.4102, 0, 14.916)
 
 [node name="FightArea" parent="." instance=ExtResource("6_xn4hq")]
 dialogue_start = ExtResource("7_7rlel")

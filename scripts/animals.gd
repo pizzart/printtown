@@ -28,25 +28,28 @@ class Animal:
 		satisfaction = 0
 	
 	func pet():
-		mood = minf(mood + randfn(cooperation, 0.3), 1.0)
+		mood = minf(mood + randf_range(cooperation / 2, cooperation + 0.2), 1.0)
 		if randf() <= mood:
 			satisfaction += cooperation * (1.0 + mood)
 		else:
 			if randf() <= guard:
+				mood = minf(mood + cooperation * 0.3, 1.0)
 				guard = maxf(guard - cooperation, 0.0)
 				return damage
 			else:
-				mood = minf(mood + randfn(cooperation, 0.1), 1.0)
+				pass
 		return 0
 	
 	func kick():
-		mood = maxf(mood - randfn(cooperation, 0.2), 0.0)
-		if randf() > guard: # successful kick
+		mood = maxf(mood - randf_range(cooperation * 0.5, cooperation + 0.2), 0.0)
+		if randf() <= guard: # successful kick
 			guard = maxf(guard - cooperation, 0.0)
 			health -= 1
+			return damage / 2
 		else:
 			if randf() <= guard: # bite
-				mood = minf(mood + randfn(cooperation, 0.1), 1.0)
+				mood = minf(mood + randf_range(cooperation * 0.5, cooperation + 0.1), 1.0)
+				#guard = minf(guard + randf_range(cooperation / 2, cooperation + 0.1), 1.0)
 				return damage
 		return 0
 	
@@ -62,7 +65,8 @@ class Animal:
 class Dog:
 	extends Animal
 	func _init():
-		super._init(preload("res://graphics/animals/dog.png"), &"dog", 0.9, 0, 0.4, 10, 1)
+		super._init(preload("res://graphics/animals/dog.png"), &"dog", 0.1, 0.8, 0.1, 10, 2)
+		#super._init(preload("res://graphics/animals/dog.png"), &"dog", 0.9, 0, 0.2, 10, 1)
 
 enum AnimalType {
 	DOG,

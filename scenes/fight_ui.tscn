@@ -136,10 +136,10 @@ texture = ExtResource("8_16lyv")
 [node name="Sticker" type="TextureButton" parent="C"]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.626562
-anchor_top = 0.879167
-anchor_right = 0.826563
-anchor_bottom = 1.14583
+anchor_left = 0.601562
+anchor_top = -0.0229167
+anchor_right = 0.86875
+anchor_bottom = 0.445833
 offset_right = -43.0
 offset_bottom = -97.0
 mouse_default_cursor_shape = 2
@@ -159,12 +159,60 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("9_sto6m")
 
+[node name="Treat" type="TextureButton" parent="C"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.626562
+anchor_top = 0.879167
+anchor_right = 0.826563
+anchor_bottom = 1.14583
+offset_right = -43.0
+offset_bottom = -97.0
+mouse_default_cursor_shape = 2
+action_mode = 0
+texture_normal = ExtResource("3_ucik3")
+texture_pressed = ExtResource("4_esqo6")
+texture_hover = ExtResource("5_qnqn4")
+texture_disabled = ExtResource("6_lacjv")
+metadata/_edit_use_anchors_ = true
+
+[node name="Text" type="TextureRect" parent="C/Treat"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("9_sto6m")
+
+[node name="Label" type="Label" parent="C/Treat"]
+layout_mode = 0
+offset_left = 37.0003
+offset_top = 44.9998
+offset_right = 94.0003
+offset_bottom = 76.9998
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "treat !"
+
 [node name="Progress" type="Label" parent="C"]
 layout_mode = 0
 anchor_left = 0.526563
 anchor_top = 0.197917
 anchor_right = 0.578125
 anchor_bottom = 0.297917
+pivot_offset = Vector2(15, 24)
+theme_override_font_sizes/font_size = 24
+text = "0%"
+metadata/_edit_use_anchors_ = true
+
+[node name="Guard" type="Label" parent="C"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.45625
+anchor_top = 0.489583
+anchor_right = 0.507812
+anchor_bottom = 0.589583
 pivot_offset = Vector2(15, 24)
 theme_override_font_sizes/font_size = 24
 text = "0%"
@@ -188,7 +236,7 @@ offset_top = 283.0
 offset_right = 174.0
 offset_bottom = 331.0
 theme_override_font_sizes/font_size = 24
-text = "20"
+text = "10"
 
 [node name="FighterLine" type="Line2D" parent="."]
 points = PackedVector2Array(0, 0, 0, 0)
@@ -206,3 +254,4 @@ centered = false
 [connection signal="pressed" from="C/Pet" to="." method="_on_pet_pressed"]
 [connection signal="pressed" from="C/Kick" to="." method="_on_kick_pressed"]
 [connection signal="pressed" from="C/Sticker" to="." method="_on_sticker_pressed"]
+[connection signal="pressed" from="C/Treat" to="." method="_on_treat_pressed"]

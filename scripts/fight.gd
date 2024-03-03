@@ -26,6 +26,7 @@ var shake: float
 @export var dialogue_big_progress: DialogueResource
 @export var dialogue_won: DialogueResource
 @export var dialogue_lost: DialogueResource
+@export var dialogue_kicked: DialogueResource
 @export var is_tutorial: bool
 @onready var camera = $CameraPoint/Camera
 
@@ -37,7 +38,7 @@ func _process(delta):
 		var cam_unproj_player = camera.unproject_position($PlayerPoint.global_position)
 		FightUI.pet_btn.position = cam_unproj - Vector2(64, 64) + Vector2(cos(-time * SPIN_SPEED), sin(-time * SPIN_SPEED)) * SPIN_RAD
 		FightUI.kick_btn.position = cam_unproj - Vector2(64, 64) + Vector2(cos(-time * SPIN_SPEED + SPIN_OFFSET), sin(-time * SPIN_SPEED + SPIN_OFFSET)) * SPIN_RAD
-		FightUI.sticker_btn.position = cam_unproj - Vector2(64, 64) + Vector2(cos(-time * SPIN_SPEED - SPIN_OFFSET), sin(-time * SPIN_SPEED - SPIN_OFFSET)) * SPIN_RAD
+		FightUI.treat_btn.position = cam_unproj - Vector2(64, 64) + Vector2(cos(-time * SPIN_SPEED - SPIN_OFFSET), sin(-time * SPIN_SPEED - SPIN_OFFSET)) * SPIN_RAD
 		FightUI.progress_text.position = cam_unproj + Vector2(cos(cos(-time * TEXT_SPIN_SPEED) - PI / 2), sin(cos(-time * TEXT_SPIN_SPEED) - PI / 2)) * TEXT_SPIN_RAD
 		FightUI.friendliness_text.position = cam_unproj + Vector2(cos(sin(-time * TEXT_SPIN_SPEED) + PI / 2), sin(sin(-time * TEXT_SPIN_SPEED) + PI / 2)) * TEXT_SPIN_RAD
 		FightUI.health_text.position = cam_unproj_player + Vector2(cos(sin(-time * TEXT_SPIN_SPEED) + PI / 2), sin(sin(-time * TEXT_SPIN_SPEED) + PI / 2)) * TEXT_SPIN_RAD
@@ -75,6 +76,7 @@ func _on_body_entered(body):
 
 		FightUI.petted.connect(_on_petted)
 		FightUI.kicked.connect(_on_kicked)
+		FightUI.treated.connect(_on_treated)
 		FightUI.stickered.connect(_on_stickered)
 		
 		enemy = Animals.animals[animal].new()
@@ -96,9 +98,11 @@ func add_shake(amount: float):
 
 func update_ui():
 	FightUI.set_progress(enemy.satisfaction)
-	FightUI.friendliness_text.text = "%d%%" % (enemy.mood * 100)
+	FightUI.friendliness_text.text = "mood: %d%%" % (enemy.mood * 100)
+	FightUI.guard_text.text = "guard: %d%%" % (enemy.guard * 100)
 	FightUI.health_text.text = str(health)
-	FightUI.change_friendliness(enemy.mood)
+	FightUI.change_mood(enemy.mood)
+	FightUI.treat_btn.disabled = Global.treats == 0
 
 func apply_damage(damage: int):
 	health = maxi(health - damage, 0)
@@ -143,12 +147,18 @@ func _on_kicked():
 	
 	if enemy.health <= 0:
 		FightUI.disable_all()
-		DialogueUI.start_dialogue(dialogue_big_progress, false)
-		await DialogueUI.finished
+		if dialogue_kicked:
+			DialogueUI.start_dialogue(dialogue_kicked, false)
+			await DialogueUI.finished
 		if is_tutorial:
 			FightUI.enable_only_sticker()
 		else:
 			FightUI.enable_all()
+
+func _on_treated():
+	#TODO: only if there are treats
+	enemy.treat()
+	update_ui()
 
 func _on_stickered():
 	if enemy.sticker():

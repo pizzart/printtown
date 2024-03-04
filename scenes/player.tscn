@@ -1,4 +1,4 @@
-[gd_scene load_steps=48 format=3 uid="uid://b026alsepp2vu"]
+[gd_scene load_steps=45 format=3 uid="uid://b026alsepp2vu"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_465au"]
 [ext_resource type="Texture2D" uid="uid://bfyxrs0ch5h5i" path="res://graphics/player/idle_back/idle_back0000.png" id="2_hhdjh"]
@@ -9,7 +9,6 @@
 [ext_resource type="Texture2D" uid="uid://0dm4dvo1moga" path="res://graphics/player/front/front0001.png" id="4_gvlao"]
 [ext_resource type="Texture2D" uid="uid://4wrsbtvkqri0" path="res://graphics/player/idle_side/idle_side0000.png" id="4_hiiwp"]
 [ext_resource type="Texture2D" uid="uid://cj0r454b8qnmf" path="res://graphics/shadow.png" id="4_ldgxw"]
-[ext_resource type="Shader" path="res://misc/cavity.gdshader" id="5_6ekqx"]
 [ext_resource type="Texture2D" uid="uid://casb6djg2v0pl" path="res://graphics/player/idle_side/idle_side0001.png" id="5_8r2t5"]
 [ext_resource type="Texture2D" uid="uid://bj3s3nqpkvmgv" path="res://graphics/player/run_side/run_side0000.png" id="6_6njc1"]
 [ext_resource type="Texture2D" uid="uid://bvjeup8wfdu0w" path="res://graphics/player/side/side0000.png" id="6_apkn1"]
@@ -191,18 +190,6 @@ height = 2.4
 margin = 0.06
 radius = 0.1
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_5hi3w"]
-render_priority = 0
-shader = ExtResource("5_6ekqx")
-shader_parameter/zNear = 2.0
-shader_parameter/zFar = 10.0
-shader_parameter/width = 1.0
-shader_parameter/addDepth = false
-
-[sub_resource type="QuadMesh" id="QuadMesh_j0xws"]
-material = SubResource("ShaderMaterial_5hi3w")
-size = Vector2(2, 2)
-
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_bmiae"]
 radius = 1.0
 
@@ -266,7 +253,7 @@ shaded = true
 alpha_cut = 1
 texture_filter = 0
 sprite_frames = SubResource("SpriteFrames_hk1wg")
-animation = &"ledge_side"
+animation = &"wall_side"
 autoplay = "idle_back"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
@@ -280,12 +267,6 @@ spring_length = 8.0
 
 [node name="Camera" type="Camera3D" parent="Gimbal"]
 current = true
-
-[node name="Shader" type="MeshInstance3D" parent="Gimbal/Camera"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.065)
-layers = 2
-extra_cull_margin = 16384.0
-mesh = SubResource("QuadMesh_j0xws")
 
 [node name="ShadowCast" type="RayCast3D" parent="."]
 target_position = Vector3(0, -5, 0)

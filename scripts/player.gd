@@ -14,7 +14,8 @@ const JUMP_PARTICLES = preload("res://scenes/jump_particles.tscn")
 const ACCEL = 0.15
 const DECEL = 0.27
 const AIR_ACCEL = 0.03
-const ADDVELO_DECEL = 0.04
+const ADDVELO_DECEL_AIR = 0.04
+const ADDVELO_DECEL_GROUND = 0.1
 
 const CAMERA_HEIGHT = 3.5
 const SHAKE_REDUCE = 3.0
@@ -138,7 +139,6 @@ func _physics_process(delta):
 			#roll(delta, input_dir)
 	
 	velocity += add_velo
-	add_velo = lerp(add_velo, Vector3.ZERO, ADDVELO_DECEL)
 	$CanvasLayer/Label.text += "\nvelocity: %s // %s" % [get_real_velocity(), get_real_velocity().length()]
 	$CanvasLayer/Label.text += "\nstamina: %s // %s" % [snappedf(stamina, 0.01), snappedf(pow(stamina / MAX_STAMINA, 0.4), 0.01)]
 	
@@ -174,6 +174,8 @@ func ground(delta: float, input_dir: Vector2):
 		speed = lerpf(speed, 0, DECEL)
 		hvelo = Vector3.ZERO
 		velocity = lerp(velocity, Vector3(0, velocity.y, 0), DECEL)
+	
+	add_velo = lerp(add_velo, Vector3.ZERO, ADDVELO_DECEL_GROUND)
 	
 	if input_dir.x < 0:
 		sprite.flip_h = true
@@ -226,6 +228,8 @@ func air(delta: float, input_dir: Vector2):
 	hvelo = lerp(hvelo, direction * (RUN_SPEED if Input.is_action_pressed("run") else SPEED), AIR_ACCEL)
 	velocity.x = hvelo.x
 	velocity.z = hvelo.z
+	
+	add_velo = lerp(add_velo, Vector3.ZERO, ADDVELO_DECEL_AIR)
 	
 	if $LandCast.is_colliding() and velocity.y < 0:
 		sprite.play("land_back")
@@ -286,6 +290,8 @@ func air(delta: float, input_dir: Vector2):
 func ledge(delta: float, input_dir: Vector2):
 	stamina = MAX_STAMINA
 	
+	add_velo = lerp(add_velo, Vector3.ZERO, ADDVELO_DECEL_GROUND)
+	
 	if wall_cast.is_colliding():
 		var angle = (camera.global_basis.z * Vector3(1, 0, 1)).signed_angle_to(wall_cast.get_collision_normal(0), Vector3.UP)
 		#sprite.flip_h = 
@@ -326,6 +332,8 @@ func ledge(delta: float, input_dir: Vector2):
 func wall_slide(delta: float, input_dir: Vector2):
 	stamina = clampf(stamina + WALL_RECOVERY * delta, 0, MAX_STAMINA)
 	
+	add_velo = lerp(add_velo, Vector3.ZERO, ADDVELO_DECEL_AIR)
+	
 	sprite.play("wall_side")
 	if wall_cast.is_colliding():
 		sprite.flip_h = camera.global_basis.z.signed_angle_to(wall_cast.get_collision_normal(0), Vector3.UP) > 0
@@ -361,12 +369,13 @@ func wall_slide(delta: float, input_dir: Vector2):
 		state = State.AIR
 		smoke_particles.emitting = false
 	else:
-		var normal = grab_cast.get_collision_normal(0)
-		var dot = normal.dot(direction)
-		if grab_cast.is_colliding() and not head_cast.is_colliding() and dot < 0:
-			velocity.y = 0
-			state = State.LEDGE
-			smoke_particles.emitting = false
+		if grab_cast.is_colliding():
+			var normal = grab_cast.get_collision_normal(0)
+			var dot = normal.dot(direction)
+			if not head_cast.is_colliding() and dot < 0:
+				velocity.y = 0
+				state = State.LEDGE
+				smoke_particles.emitting = false
 
 #func roll(delta: float, _input_dir: Vector2):
 	#roll_time += delta

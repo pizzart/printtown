@@ -1,8 +1,7 @@
-[gd_scene load_steps=12 format=3 uid="uid://3wjt4mg1ab42"]
+[gd_scene load_steps=9 format=3 uid="uid://3wjt4mg1ab42"]
 
 [ext_resource type="Script" path="res://scripts/fight.gd" id="1_u3h0q"]
 [ext_resource type="Texture2D" uid="uid://b7vij1q44oa4b" path="res://graphics/animals/dog.png" id="3_ovfvl"]
-[ext_resource type="Shader" path="res://misc/cavity.gdshader" id="4_5mw5o"]
 [ext_resource type="Texture2D" uid="uid://cj0r454b8qnmf" path="res://graphics/shadow.png" id="4_dtwva"]
 [ext_resource type="Texture2D" uid="uid://bbu2mesp10n80" path="res://graphics/ui/fight/stickerbook/stickerbook0000.png" id="5_h12cg"]
 [ext_resource type="Texture2D" uid="uid://4apha2vltyoi" path="res://graphics/ui/fight/stickerbook/stickerbook0001.png" id="6_ekaih"]
@@ -10,18 +9,6 @@
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_5mdvx"]
 size = Vector3(5, 5, 6)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_aeg00"]
-render_priority = 0
-shader = ExtResource("4_5mw5o")
-shader_parameter/zNear = 2.0
-shader_parameter/zFar = 10.0
-shader_parameter/width = 1.0
-shader_parameter/addDepth = false
-
-[sub_resource type="QuadMesh" id="QuadMesh_3irni"]
-material = SubResource("ShaderMaterial_aeg00")
-size = Vector2(2, 2)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_mu7b8"]
 animations = [{
@@ -106,12 +93,6 @@ transform = Transform3D(0.38107, 0.0661027, 0.922179, 0, 0.997441, -0.0714974, -
 
 [node name="Camera" type="Camera3D" parent="CameraPoint"]
 fov = 45.0
-
-[node name="Shader" type="MeshInstance3D" parent="CameraPoint/Camera"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.065)
-layers = 2
-extra_cull_margin = 16384.0
-mesh = SubResource("QuadMesh_3irni")
 
 [node name="RotationPoint" type="Marker3D" parent="CameraPoint"]
 transform = Transform3D(0.173648, 0.492404, -0.852868, 0, 0.866025, 0.5, 0.984808, -0.0868241, 0.150384, 0, 0, 0)

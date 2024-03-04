@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dilkpo7fkjcl0"
-path.s3tc="res://.godot/imported/pet_hand.png-07ac727407178c59c03c577bee8d6818.s3tc.ctex"
+uid="uid://4bo7vbr6n4oh"
+path.s3tc="res://.godot/imported/tape.png-f10437060d94379448af17e6c44f8cb1.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://graphics/ui/fight/pet/pet_hand.png"
-dest_files=["res://.godot/imported/pet_hand.png-07ac727407178c59c03c577bee8d6818.s3tc.ctex"]
+source_file="res://graphics/ui/pause/tape.png"
+dest_files=["res://.godot/imported/tape.png-f10437060d94379448af17e6c44f8cb1.s3tc.ctex"]
 
 [params]
 

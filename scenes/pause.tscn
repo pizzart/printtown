@@ -52,7 +52,6 @@ animations = [{
 [node name="Pause" type="CanvasLayer"]
 process_mode = 2
 layer = 3
-visible = false
 script = ExtResource("1_qjc4w")
 
 [node name="C" type="Control" parent="."]
@@ -64,10 +63,12 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="BG" type="AnimatedSprite2D" parent="C"]
+visible = false
 sprite_frames = SubResource("SpriteFrames_0dyho")
 centered = false
 
 [node name="Buttons" type="Control" parent="C"]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

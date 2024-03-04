@@ -4,6 +4,8 @@
 [ext_resource type="Texture2D" uid="uid://kbmk8346e1bn" path="res://addons/cyclops_level_builder/art/textures/checkerboard.png" id="1_ldry2"]
 
 [resource]
+diffuse_mode = 3
+specular_mode = 1
 vertex_color_use_as_albedo = true
 albedo_texture = ExtResource("1_ldry2")
 roughness_texture = ExtResource("1_17wu6")

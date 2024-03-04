@@ -1,0 +1,168 @@
+[gd_scene load_steps=14 format=3 uid="uid://bqv13fmmqt71v"]
+
+[ext_resource type="Texture2D" uid="uid://bf4fm6ce01idn" path="res://graphics/ui/fight/stickerbook/stickerbook0002.png" id="1_6370c"]
+[ext_resource type="Script" path="res://scripts/pause_menu.gd" id="1_l81ig"]
+[ext_resource type="Texture2D" uid="uid://bbu2mesp10n80" path="res://graphics/ui/fight/stickerbook/stickerbook0000.png" id="2_55nlk"]
+[ext_resource type="Texture2D" uid="uid://4apha2vltyoi" path="res://graphics/ui/fight/stickerbook/stickerbook0001.png" id="3_q17xx"]
+[ext_resource type="Texture2D" uid="uid://ciyqopjs73wo5" path="res://graphics/pause/pause_0000.png" id="4_qgow0"]
+[ext_resource type="Texture2D" uid="uid://4bo7vbr6n4oh" path="res://graphics/ui/pause/tape.png" id="6_a5evp"]
+[ext_resource type="Shader" path="res://misc/weird.gdshader" id="6_jiugw"]
+[ext_resource type="FontFile" uid="uid://cgjjr8ld3la1k" path="res://misc/GloriaHallelujah-Regular.ttf" id="7_3al63"]
+
+[sub_resource type="Environment" id="Environment_wwbrt"]
+background_mode = 1
+glow_bloom = 0.15
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_kg6uc"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_6370c")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_55nlk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_q17xx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_55nlk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_q17xx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_55nlk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_q17xx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_55nlk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_q17xx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_55nlk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_q17xx")
+}],
+"loop": false,
+"name": &"open",
+"speed": 16.0
+}]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_lfm0w"]
+render_priority = 0
+shader = ExtResource("6_jiugw")
+shader_parameter/scroll_speed = Vector2(0.5, 0.5)
+shader_parameter/static_intensity = 0.05
+shader_parameter/color = Color(0, 0, 0, 1)
+shader_parameter/tex_scale = 0.1
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2ymrk"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_pbpn8"]
+
+[node name="PauseMenu" type="Node3D"]
+script = ExtResource("1_l81ig")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_wwbrt")
+
+[node name="ZoomOutPoint" type="Marker3D" parent="."]
+transform = Transform3D(0.932954, 0.359997, 1.5736e-08, 0, -4.37114e-08, 1, 0.359997, -0.932954, -4.07807e-08, 0, 0.753, 0)
+
+[node name="ZoomPoint" type="Marker3D" parent="."]
+transform = Transform3D(0.965926, -0.258819, -1.13133e-08, 0, -4.37114e-08, 1, -0.258819, -0.965926, -4.2222e-08, -0.118, 0.104, -0.056)
+
+[node name="Camera" type="Camera3D" parent="."]
+transform = Transform3D(0.965926, -0.258819, -1.13133e-08, 0, -4.37114e-08, 1, -0.258819, -0.965926, -4.2222e-08, -0.118, 0.104, -0.056)
+fov = 50.0
+
+[node name="Book" type="AnimatedSprite3D" parent="."]
+pixel_size = 0.001
+axis = 1
+shaded = true
+texture_filter = 0
+sprite_frames = SubResource("SpriteFrames_kg6uc")
+animation = &"open"
+
+[node name="GameTexture" type="Sprite3D" parent="."]
+transform = Transform3D(0.965804, 0, 0.259274, 0, 1, 0, -0.259274, 0, 0.965804, -0.118106, 0.001, -0.0561178)
+pixel_size = 0.0002
+axis = 1
+transparent = false
+shaded = true
+texture_filter = 0
+texture = ExtResource("4_qgow0")
+
+[node name="Tape" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0.000471249, 0, 1, 0, -0.000471249, 0, 1, -0.125314, 0.002, -0.0581486)
+pixel_size = 0.001
+axis = 1
+shaded = true
+texture_filter = 0
+render_priority = 1
+texture = ExtResource("6_a5evp")
+
+[node name="Label3D" type="Label3D" parent="."]
+transform = Transform3D(0.975776, -0.218773, -9.56289e-09, 0, -4.37114e-08, 1, -0.218773, -0.975776, -4.26525e-08, -0.181346, 0.002, -0.133927)
+pixel_size = 0.001
+shaded = true
+texture_filter = 0
+render_priority = 1
+modulate = Color(0, 0, 0, 1)
+text = "paused"
+font = ExtResource("7_3al63")
+outline_size = 0
+
+[node name="SpotLight3D" type="SpotLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -0.350202, 0.635377, 0)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+visible = false
+flip_faces = true
+size = Vector3(2, 2, 2)
+material = SubResource("ShaderMaterial_lfm0w")
+
+[node name="CSGSphere3D" type="CSGSphere3D" parent="."]
+flip_faces = true
+radius = 1.0
+material = SubResource("ShaderMaterial_lfm0w")
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="UI"]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Label" type="Label" parent="UI/ColorRect"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="Unpause" type="Button" parent="UI"]
+anchors_preset = -1
+anchor_left = 0.275
+anchor_top = 0.483333
+anchor_right = 0.446848
+anchor_bottom = 0.48743
+offset_right = -21.9824
+offset_bottom = 64.0334
+rotation = -0.625622
+mouse_default_cursor_shape = 2
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_2ymrk")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_pbpn8")
+action_mode = 0
+flat = true
+metadata/_edit_use_anchors_ = true
+
+[connection signal="pressed" from="UI/Unpause" to="." method="_on_unpause_pressed"]

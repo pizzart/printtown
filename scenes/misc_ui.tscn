@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=3 uid="uid://bh7fai0xs0eyk"]
+
+[ext_resource type="Texture2D" uid="uid://doosm4dyc8u7k" path="res://graphics/ui/misc/interact/interact0000.png" id="1_aed7w"]
+[ext_resource type="Script" path="res://scripts/misc_ui.gd" id="1_eh3jt"]
+[ext_resource type="Texture2D" uid="uid://82xe3yx6u3g8" path="res://graphics/ui/misc/interact/interact0001.png" id="2_7ou7x"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_cj0m4"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_aed7w")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_7ou7x")
+}],
+"loop": true,
+"name": &"default",
+"speed": 6.0
+}]
+
+[node name="MiscUI" type="CanvasLayer"]
+script = ExtResource("1_eh3jt")
+
+[node name="Interact" type="AnimatedSprite2D" parent="."]
+modulate = Color(1, 1, 1, 0)
+sprite_frames = SubResource("SpriteFrames_cj0m4")
+autoplay = "default"

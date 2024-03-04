@@ -1,0 +1,28 @@
+[gd_scene load_steps=3 format=3 uid="uid://di4pt32bf5216"]
+
+[ext_resource type="Texture2D" uid="uid://b7vij1q44oa4b" path="res://graphics/animals/dog.png" id="1_fx4b3"]
+[ext_resource type="Script" path="res://scripts/animal_button.gd" id="2_byhm3"]
+
+[node name="AnimalButton" type="Button"]
+custom_minimum_size = Vector2(64, 64)
+anchors_preset = -1
+anchor_right = 0.1
+anchor_bottom = 0.133333
+offset_right = -64.0
+offset_bottom = -64.0
+pivot_offset = Vector2(32, 32)
+mouse_default_cursor_shape = 2
+action_mode = 0
+icon = ExtResource("1_fx4b3")
+flat = true
+expand_icon = true
+script = ExtResource("2_byhm3")
+metadata/_edit_use_anchors_ = true
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+autostart = true
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

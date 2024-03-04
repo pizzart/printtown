@@ -45,6 +45,9 @@ const BACK_POS = Vector3(0, 0, 0.01)
 const SHADOW_SIZE = 1.8
 const SHADOW_DIST = 9.0
 
+const INTERACT_SPIN_SPEED = 1.8
+const INTERACT_SPIN_RAD = 80.0
+
 var hvelo: Vector3
 var add_velo: Vector3
 var speed: float
@@ -59,6 +62,8 @@ var last_velocity: Vector3
 var last_input: Vector2
 var shake: float
 var can_move: bool = true
+var time: float
+var can_interact: bool
 var state: State = State.GROUND
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
@@ -80,6 +85,8 @@ func _ready():
 
 func _process(delta):
 	#gimbal.global_position = lerp(gimbal.global_position, global_position, delta * 2)
+	time += delta
+	
 	gimbal.global_position.y = lerpf(gimbal.global_position.y, last_floor_y + CAMERA_HEIGHT, delta * 5)
 	gimbal.global_position.x = global_position.x
 	gimbal.global_position.z = global_position.z
@@ -98,6 +105,13 @@ func _process(delta):
 	camera.v_offset = randfn(0, shake)
 	
 	shake = lerpf(shake, 0, delta * SHAKE_REDUCE)
+	
+	if can_interact:
+		MiscUI.interact_icon.modulate.a = lerpf(MiscUI.interact_icon.modulate.a, 1.0, delta * 10)
+		MiscUI.interact_icon.position = lerp(MiscUI.interact_icon.position, camera.unproject_position(global_position) + Vector2(cos(time * INTERACT_SPIN_SPEED), sin(time * INTERACT_SPIN_SPEED)) * INTERACT_SPIN_RAD, delta * 10)
+	else:
+		MiscUI.interact_icon.modulate.a = lerpf(MiscUI.interact_icon.modulate.a, 0.0, delta * 10)
+		MiscUI.interact_icon.position = lerp(MiscUI.interact_icon.position, camera.unproject_position(global_position), delta * 10)
 	
 	#$StepCast.target_position
 
@@ -181,10 +195,10 @@ func ground(delta: float, input_dir: Vector2):
 	else:
 		if last_input.y > 0:
 			sprite.play("walk_front")
-		elif last_input.y < 0:
-			sprite.play("idle_back")
 		elif last_input.x != 0:
 			sprite.play("idle_side")
+		else:
+			sprite.play("idle_back")
 	
 	if Input.is_action_just_pressed("jump"):
 		coyote = COYOTE_TIME + 0.1
@@ -212,6 +226,9 @@ func air(delta: float, input_dir: Vector2):
 	hvelo = lerp(hvelo, direction * (RUN_SPEED if Input.is_action_pressed("run") else SPEED), AIR_ACCEL)
 	velocity.x = hvelo.x
 	velocity.z = hvelo.z
+	
+	if $LandCast.is_colliding() and velocity.y < 0:
+		sprite.play("land_back")
 	
 	if Input.is_action_just_pressed("jump"):
 		if coyote <= COYOTE_TIME:
@@ -269,13 +286,19 @@ func air(delta: float, input_dir: Vector2):
 func ledge(delta: float, input_dir: Vector2):
 	stamina = MAX_STAMINA
 	
-	if input_dir:
-		sprite.play("ledge_back")
-		if input_dir.x < 0:
-			sprite.flip_h = true
-		elif input_dir.x > 0:
-			sprite.flip_h = false
-	else:
+	if wall_cast.is_colliding():
+		var angle = (camera.global_basis.z * Vector3(1, 0, 1)).signed_angle_to(wall_cast.get_collision_normal(0), Vector3.UP)
+		#sprite.flip_h = 
+		if absf(angle) < PI / 5:
+			sprite.play("ledge_back")
+			if input_dir.x < 0:
+				sprite.flip_h = true
+			elif input_dir.x > 0:
+				sprite.flip_h = false
+		else:
+			sprite.play("ledge_side")
+			sprite.flip_h = angle > 0
+	if not input_dir:
 		sprite.stop()
 	
 	var direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
@@ -292,7 +315,7 @@ func ledge(delta: float, input_dir: Vector2):
 		else:
 			velocity = lerp(velocity, head_cast.get_collision_normal(0).round() * 20, 0.3)
 	else:
-		velocity = lerp(velocity, -last_wall_normal * 5, 0.3)
+		velocity = lerp(velocity, -last_wall_normal * 7, 0.3)
 	
 	if Input.is_action_just_pressed("jump"):
 		jump_time = JUMP_LENGTH + delta
@@ -305,7 +328,7 @@ func wall_slide(delta: float, input_dir: Vector2):
 	
 	sprite.play("wall_side")
 	if wall_cast.is_colliding():
-		sprite.flip_h = -camera.global_basis.z.signed_angle_to(wall_cast.get_collision_normal(0), Vector3.UP) < 0
+		sprite.flip_h = camera.global_basis.z.signed_angle_to(wall_cast.get_collision_normal(0), Vector3.UP) > 0
 	smoke_particles.emitting = true
 	
 	velocity.y -= gravity * delta * 0.48

@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://dc4i8fxnj56tx"]
+[gd_scene load_steps=20 format=3 uid="uid://dc4i8fxnj56tx"]
 
 [ext_resource type="Script" path="res://scripts/dialogue_ui.gd" id="1_dhjqm"]
 [ext_resource type="Theme" uid="uid://dn7uhmqeylu42" path="res://misc/ui.theme" id="2_6his5"]
@@ -15,6 +15,9 @@
 [ext_resource type="Texture2D" uid="uid://lb6svmvv27t1" path="res://graphics/ui/dialogue/tip/tip0000.png" id="8_vxfig"]
 [ext_resource type="Texture2D" uid="uid://chalgpvxgvc06" path="res://graphics/ui/dialogue/newcall/newcall0005.png" id="8_yvcc7"]
 [ext_resource type="Texture2D" uid="uid://bh1lvjke7tnkx" path="res://graphics/ui/dialogue/tip/tip0001.png" id="9_oudjb"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_q0raq"]
+bg_color = Color(0, 0, 0, 0.25098)
 
 [sub_resource type="AnimatedTexture" id="AnimatedTexture_gwvkh"]
 frames = 2
@@ -68,6 +71,15 @@ animations = [{
 [node name="DialogueUI" type="CanvasLayer"]
 layer = 2
 script = ExtResource("1_dhjqm")
+
+[node name="BG" type="Panel" parent="."]
+modulate = Color(1, 1, 1, 0)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_q0raq")
 
 [node name="C" type="Control" parent="."]
 layout_mode = 3

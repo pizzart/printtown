@@ -39,8 +39,9 @@ func start_dialogue(dialogue: DialogueResource, is_call: bool):
 		$CallSprite.hide()
 	$C.show()
 	$C.scale = Vector2.ONE * 4
-	var tween = create_tween()
+	var tween = create_tween().set_parallel()
 	tween.tween_property($C, "scale", Vector2.ONE, 0.8).set_trans(Tween.TRANS_ELASTIC).set_ease(Tween.EASE_IN_OUT)
+	tween.tween_property($BG, "modulate", Color.WHITE, 0.8)
 	await get_tree().create_timer(0.5).timeout
 	next_line(true)
 	active = true
@@ -65,8 +66,9 @@ func next_line(started: bool):
 	if not dialogue_line:
 		active = false
 		finished.emit()
-		var tween = create_tween()
+		var tween = create_tween().set_parallel()
 		tween.tween_property($C, "scale", Vector2.ONE * 4, 0.8).set_trans(Tween.TRANS_ELASTIC).set_ease(Tween.EASE_IN_OUT)
+		tween.tween_property($BG, "modulate", Color(1, 1, 1, 0), 0.8)
 		await get_tree().create_timer(0.5).timeout
 		hide()
 		return

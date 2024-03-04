@@ -14,8 +14,11 @@ class Animal:
 	var damage: int # damage it deals to the player
 	var health: int # the health
 	var init_health: int
+	# after it's been stickered
+	var convincing: float
+	var healing: int
 	
-	func _init(_texture: Texture2D, _animal_name: StringName, _mood: float, _guard: float, _cooperation: float, _health: int, _damage: int):
+	func _init(_texture: Texture2D, _animal_name: StringName, _mood: float, _guard: float, _cooperation: float, _health: int, _damage: int, _convincing: float, _healing: int):
 		randomize()
 		texture = _texture
 		animal_name = _animal_name
@@ -25,6 +28,8 @@ class Animal:
 		health = _health
 		init_health = _health
 		damage = _damage
+		convincing = _convincing
+		healing = _healing
 		satisfaction = 0
 	
 	func add_mood(amount: float):
@@ -74,13 +79,19 @@ class Animal:
 class Dog:
 	extends Animal
 	func _init():
-		super._init(preload("res://graphics/animals/dog.png"), &"dog", 0.1, 0.8, 0.1, 10, 2)
-		#super._init(preload("res://graphics/animals/dog.png"), &"dog", 0.9, 0, 0.2, 10, 1)
+		super._init(preload("res://graphics/animals/dog.png"), &"dog", 0.9, 0, 0.2, 10, 1, 0.3, 1)
+
+class BadDog:
+	extends Animal
+	func _init():
+		super._init(preload("res://graphics/animals/dog.png"), &"dog", 0.1, 0.9, 0.1, 10, 3, 0.7, 2)
 
 enum AnimalType {
 	DOG,
+	BAD_DOG,
 }
 
 var animals = {
 	AnimalType.DOG: Dog,
+	AnimalType.BAD_DOG: BadDog,
 }

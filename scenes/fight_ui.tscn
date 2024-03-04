@@ -1,8 +1,9 @@
-[gd_scene load_steps=22 format=3 uid="uid://pdbbxowv0d4p"]
+[gd_scene load_steps=26 format=3 uid="uid://pdbbxowv0d4p"]
 
 [ext_resource type="Script" path="res://scripts/fight_ui.gd" id="1_gmjmh"]
 [ext_resource type="Theme" uid="uid://dn7uhmqeylu42" path="res://misc/ui.theme" id="2_vrryk"]
 [ext_resource type="Texture2D" uid="uid://dhmm36ohpr0v6" path="res://graphics/ui/fight/notes/note.png" id="3_ucik3"]
+[ext_resource type="Texture2D" uid="uid://iyt8i2a5jpmw" path="res://graphics/ui/fight/alert/alert0.png" id="4_38n5p"]
 [ext_resource type="Texture2D" uid="uid://b8iq83db3gucr" path="res://graphics/ui/fight/notes/note_pressed.png" id="4_esqo6"]
 [ext_resource type="Texture2D" uid="uid://txnai8db5bqr" path="res://graphics/ui/fight/notes/note_focused.png" id="5_qnqn4"]
 [ext_resource type="Texture2D" uid="uid://vyecdvhgeqlx" path="res://graphics/ui/fight/notes/note_disabled.png" id="6_lacjv"]
@@ -19,6 +20,8 @@
 [ext_resource type="Texture2D" uid="uid://ctwhgmff21sb3" path="res://graphics/ui/fight/stamp_anim/stamped0006.png" id="17_0ud8r"]
 [ext_resource type="Texture2D" uid="uid://inqaqx37uwpo" path="res://graphics/ui/fight/stamp_anim/stamped0007.png" id="18_xpqci"]
 [ext_resource type="Texture2D" uid="uid://c8atq10r6x5i0" path="res://graphics/ui/fight/stamp_anim/stamped0008.png" id="19_x4s2f"]
+[ext_resource type="Texture2D" uid="uid://dilkpo7fkjcl0" path="res://graphics/ui/fight/pet/pet_hand.png" id="20_lyd7w"]
+[ext_resource type="Texture2D" uid="uid://bh28w1e3onjcv" path="res://graphics/ui/fight/pet/pet_heart.png" id="21_fri3i"]
 
 [sub_resource type="Curve" id="Curve_sps00"]
 _data = [Vector2(0, 0.395604), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
@@ -59,6 +62,9 @@ animations = [{
 "speed": 12.0
 }]
 
+[sub_resource type="Gradient" id="Gradient_vvbp1"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
 [node name="FightUI" type="CanvasLayer"]
 script = ExtResource("1_gmjmh")
 
@@ -79,6 +85,16 @@ anchor_bottom = 0.2
 rotation = -0.349066
 pivot_offset = Vector2(48, 48)
 texture = ExtResource("10_14l8i")
+metadata/_edit_use_anchors_ = true
+
+[node name="Alert" type="TextureRect" parent="C"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.05
+anchor_bottom = 0.0666667
+rotation = 0.261799
+pivot_offset = Vector2(16, 16)
+texture = ExtResource("4_38n5p")
 metadata/_edit_use_anchors_ = true
 
 [node name="Pet" type="TextureButton" parent="C"]
@@ -136,10 +152,10 @@ texture = ExtResource("8_16lyv")
 [node name="Sticker" type="TextureButton" parent="C"]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.601562
-anchor_top = -0.0229167
-anchor_right = 0.86875
-anchor_bottom = 0.445833
+anchor_left = 0.639063
+anchor_top = -0.0604167
+anchor_right = 0.90625
+anchor_bottom = 0.408333
 offset_right = -43.0
 offset_bottom = -97.0
 mouse_default_cursor_shape = 2
@@ -207,18 +223,20 @@ text = "0%"
 metadata/_edit_use_anchors_ = true
 
 [node name="Guard" type="Label" parent="C"]
+visible = false
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.45625
-anchor_top = 0.489583
-anchor_right = 0.507812
-anchor_bottom = 0.589583
+anchor_left = 0.714063
+anchor_top = 0.622917
+anchor_right = 0.765625
+anchor_bottom = 0.722917
 pivot_offset = Vector2(15, 24)
 theme_override_font_sizes/font_size = 24
 text = "0%"
 metadata/_edit_use_anchors_ = true
 
 [node name="Friendliness" type="Label" parent="C"]
+visible = false
 layout_mode = 0
 anchor_left = 0.525
 anchor_top = 0.291667
@@ -238,7 +256,148 @@ offset_bottom = 331.0
 theme_override_font_sizes/font_size = 24
 text = "10"
 
+[node name="RPS" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_vrryk")
+
+[node name="Rock" type="TextureButton" parent="RPS"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.725
+anchor_top = 0.40625
+anchor_right = 1.07187
+anchor_bottom = 0.875
+offset_right = 83.6
+offset_bottom = 68.0
+mouse_default_cursor_shape = 2
+action_mode = 0
+texture_normal = ExtResource("3_ucik3")
+texture_pressed = ExtResource("4_esqo6")
+texture_hover = ExtResource("5_qnqn4")
+texture_disabled = ExtResource("6_lacjv")
+metadata/_edit_use_anchors_ = true
+
+[node name="Text" type="TextureRect" parent="RPS/Rock"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("7_tro7x")
+
+[node name="Label" type="Label" parent="RPS/Rock"]
+layout_mode = 0
+offset_left = 39.0
+offset_top = 49.0
+offset_right = 79.0
+offset_bottom = 81.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "rock!"
+
+[node name="Paper" type="TextureButton" parent="RPS"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.782812
+anchor_top = 0.533333
+anchor_right = 1.12969
+anchor_bottom = 1.00208
+offset_right = -94.0
+offset_bottom = -97.0
+mouse_default_cursor_shape = 2
+action_mode = 0
+texture_normal = ExtResource("3_ucik3")
+texture_pressed = ExtResource("4_esqo6")
+texture_hover = ExtResource("5_qnqn4")
+texture_disabled = ExtResource("6_lacjv")
+metadata/_edit_use_anchors_ = true
+
+[node name="Text" type="TextureRect" parent="RPS/Paper"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("7_tro7x")
+
+[node name="Label" type="Label" parent="RPS/Paper"]
+layout_mode = 0
+anchor_left = 0.304688
+anchor_top = 0.382812
+anchor_right = 0.648438
+anchor_bottom = 0.632812
+offset_right = -4.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "paper!"
+metadata/_edit_use_anchors_ = true
+
+[node name="Scissors" type="TextureButton" parent="RPS"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.829687
+anchor_top = 0.666667
+anchor_right = 1.17656
+anchor_bottom = 1.13542
+offset_right = -94.0
+offset_bottom = -97.0
+mouse_default_cursor_shape = 2
+action_mode = 0
+texture_normal = ExtResource("3_ucik3")
+texture_pressed = ExtResource("4_esqo6")
+texture_hover = ExtResource("5_qnqn4")
+texture_disabled = ExtResource("6_lacjv")
+metadata/_edit_use_anchors_ = true
+
+[node name="Text" type="TextureRect" parent="RPS/Scissors"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("7_tro7x")
+
+[node name="Label" type="Label" parent="RPS/Scissors"]
+layout_mode = 0
+anchor_left = 0.273438
+anchor_top = 0.429688
+anchor_right = 0.75
+anchor_bottom = 0.679688
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "scissors!"
+metadata/_edit_use_anchors_ = true
+
+[node name="Choose" type="Label" parent="RPS"]
+layout_mode = 0
+offset_left = 122.0
+offset_top = 14.0
+offset_right = 272.0
+offset_bottom = 110.0
+theme_override_font_sizes/font_size = 48
+text = "choose!"
+
+[node name="Action" type="Label" parent="RPS"]
+visible = false
+layout_mode = 0
+offset_left = 221.0
+offset_top = 65.0
+offset_right = 371.0
+offset_bottom = 161.0
+theme_override_font_sizes/font_size = 48
+text = "rock..."
+
 [node name="FighterLine" type="Line2D" parent="."]
+visible = false
 points = PackedVector2Array(0, 0, 0, 0)
 width = 3.0
 width_curve = SubResource("Curve_sps00")
@@ -251,7 +410,29 @@ frame = 8
 frame_progress = 1.0
 centered = false
 
+[node name="PetParticles" type="CPUParticles2D" parent="."]
+show_behind_parent = true
+emitting = false
+amount = 50
+lifetime = 3.0
+draw_order = 1
+texture = ExtResource("21_fri3i")
+emission_shape = 3
+emission_rect_extents = Vector2(16, 16)
+direction = Vector2(0, -1)
+gravity = Vector2(0, 0)
+initial_velocity_min = 40.3
+initial_velocity_max = 78.85
+color_ramp = SubResource("Gradient_vvbp1")
+
+[node name="Hand" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("20_lyd7w")
+
 [connection signal="pressed" from="C/Pet" to="." method="_on_pet_pressed"]
 [connection signal="pressed" from="C/Kick" to="." method="_on_kick_pressed"]
 [connection signal="pressed" from="C/Sticker" to="." method="_on_sticker_pressed"]
 [connection signal="pressed" from="C/Treat" to="." method="_on_treat_pressed"]
+[connection signal="pressed" from="RPS/Rock" to="." method="_on_rock_pressed"]
+[connection signal="pressed" from="RPS/Paper" to="." method="_on_paper_pressed"]
+[connection signal="pressed" from="RPS/Scissors" to="." method="_on_scissors_pressed"]

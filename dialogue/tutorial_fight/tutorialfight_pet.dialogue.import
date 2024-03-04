@@ -1,0 +1,15 @@
+[remap]
+
+importer="dialogue_manager_compiler_11"
+type="Resource"
+uid="uid://icbd0if8r2ac"
+path="res://.godot/imported/tutorialfight_pet.dialogue-81126bf353737e110ff04735726729b0.tres"
+
+[deps]
+
+source_file="res://dialogue/tutorial_fight/tutorialfight_pet.dialogue"
+dest_files=["res://.godot/imported/tutorialfight_pet.dialogue-81126bf353737e110ff04735726729b0.tres"]
+
+[params]
+
+defaults=true

@@ -27,6 +27,15 @@ class Animal:
 		damage = _damage
 		satisfaction = 0
 	
+	func add_mood(amount: float):
+		mood = clampf(mood + amount, 0.0, 1.0)
+	
+	func add_guard(amount: float):
+		guard = clampf(guard + amount, 0.0, 1.0)
+	
+	func add_satisfaction(amount: float):
+		satisfaction = clampf(satisfaction + amount, 0.0, 1.0)
+	
 	func pet():
 		mood = minf(mood + randf_range(cooperation / 2, cooperation + 0.2), 1.0)
 		if randf() <= mood:

@@ -16,6 +16,9 @@ func remove_outline():
 func update_rotation():
 	new_rotation = randf_range(-PI / 4, PI / 4)
 
+func animate():
+	$NewAnim.play("default")
+
 func _on_timer_timeout():
 	update_rotation()
 

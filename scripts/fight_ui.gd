@@ -57,7 +57,8 @@ var picked_animal_index: int = -1
 @onready var hand = $Hand
 @onready var pet_particles = $PetParticles
 @onready var rps_choose_text = $RPS/Choose
-@onready var rps_action_text = $RPS/Action
+@onready var rps_action = $RPS/Action
+@onready var rps_action_text = $RPS/Action/Text
 @onready var rock_btn = $RPS/Rock
 @onready var paper_btn = $RPS/Paper
 @onready var scissors_btn = $RPS/Scissors
@@ -70,6 +71,7 @@ var picked_animal_index: int = -1
 @onready var convince_btn = $Stickers/Convince
 @onready var animal_grid = $Stickers/Grid
 @onready var back_btn = $Stickers/Back
+@onready var note_bg = $Stickers/Note
 @onready var note = $Stickers/Note/Text
 
 func _ready():
@@ -160,6 +162,7 @@ func change_guard(guard: float):
 func show_rps():
 	enemy_choice_texture.hide()
 	player_choice_texture.hide()
+	rps_choose_text.show()
 	rps_ui.modulate.a = 0
 	rps_ui.show()
 	var tween = create_tween().set_parallel()
@@ -195,18 +198,22 @@ func animate_action(player_choice: Global.RPS, enemy_choice: Global.RPS):
 	rps_choose_text.hide()
 	
 	rps_action_text.text = "rock..."
-	rps_action_text.show()
+	rps_action.show()
 	await get_tree().create_timer(0.5).timeout
 	rps_action_text.text = "paper..."
 	await get_tree().create_timer(0.5).timeout
-	rps_action_text.text = "scissors!"
+	rps_action_text.text = "scissors..."
+	await get_tree().create_timer(0.5).timeout
+	rps_action_text.text = "shoot!"
 	enemy_choice_texture.texture = RPS_TEXTURES[enemy_choice]
 	player_choice_texture.texture = RPS_TEXTURES[player_choice]
 	enemy_choice_texture.show()
 	player_choice_texture.show()
-	await get_tree().create_timer(0.5).timeout
-	rps_action_text.hide()
-	await get_tree().create_timer(0.5).timeout
+	await get_tree().create_timer(1.0).timeout
+	if enemy_choice == player_choice:
+		rps_action_text.text = "tie!"
+		await get_tree().create_timer(1.0).timeout
+	rps_action.hide()
 	#var pick_text = "rock"
 	#if choice == Global.RPS.PAPER:
 		#pick_text = "paper"
@@ -251,6 +258,21 @@ func add_animal(animal: Animals.Animal):
 	btn.icon = animal.texture
 	animal_grid.add_child(btn)
 	btn.update_rotation()
+	btn.animate()
+
+func hide_not_grid():
+	back_btn.hide()
+	heal_btn.hide()
+	bite_btn.hide()
+	convince_btn.hide()
+	note_bg.hide()
+
+func show_not_grid():
+	back_btn.show()
+	heal_btn.show()
+	bite_btn.show()
+	convince_btn.show()
+	note_bg.show()
 
 func _on_animal_pressed(index: int):
 	heal_btn.disabled = false

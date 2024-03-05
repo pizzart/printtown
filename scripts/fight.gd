@@ -6,6 +6,7 @@ signal pets_started
 signal pets_ended
 
 const PET_TUTORIAL = preload("res://dialogue/tutorial_fight/tutorialfight_pet.dialogue")
+const KICK_TUTORIAL = preload("res://dialogue/tutorial_fight/tutorialfight_kick.dialogue")
 
 const CAMERA_FOV = 45.0
 const SHAKE_REDUCE = 7.0
@@ -16,7 +17,7 @@ const SPIN_RAD = 135.0
 const TEXT_SPIN_RAD = 75.0
 const TEXT_SPIN_SPEED = 0.8
 
-const INIT_HEALTH = 10
+const INIT_HEALTH = 8
 
 const BAD_PETS = 5000.0
 const OK_PETS = 8000.0
@@ -33,7 +34,9 @@ var shake: float
 var petting: bool
 var pets_given: float
 var pet_awaiting: bool
+
 var pet_tutorial_given: bool
+var kick_tutorial_given: bool
 
 @export var animal: Animals.AnimalType
 # this is kind of a mess tbh
@@ -152,6 +155,7 @@ func activate_fight():
 	tween.tween_property(player, "global_position", $PlayerPoint.global_position, 1.0).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 	tween.tween_property($Animal, "global_position", $AnimalPoint.global_position, 1.0).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 
+	FightUI.sticker_btn.hide()
 	FightUI.show()
 	if dialogue_start != null:
 		FightUI.disable_all()
@@ -307,6 +311,12 @@ func _on_kicked():
 	tween.tween_property(player, "global_position", $PlayerInteractPoint.global_position, 1.0).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 
 	FightUI.disable_all()
+	
+	if is_tutorial and not kick_tutorial_given:
+		DialogueUI.start_dialogue(KICK_TUTORIAL, false)
+		await DialogueUI.finished
+		kick_tutorial_given = true
+	
 	#FightUI.rps_choose_text.text = "choose!"
 	FightUI.show_rps()
 	FightUI.enable_rps()
@@ -314,9 +324,9 @@ func _on_kicked():
 	
 	var player_choice = await FightUI.rps_chosen
 	FightUI.disable_rps()
-	var enemy_choice = (player_choice + 1) % 3 if randf() < enemy.guard * 0.7 else randi_range(0, 2)
+	var enemy_choice = (player_choice + 1) % 3 if randf() < enemy.mood * 0.7 else randi_range(0, 2)
 	FightUI.animate_action(player_choice, enemy_choice)
-	await get_tree().create_timer(1.5).timeout
+	await get_tree().create_timer(2.0).timeout
 	
 	if (player_choice + 1) % 3 == enemy_choice: # enemy won
 		tween = create_tween().set_parallel()
@@ -412,16 +422,17 @@ func _on_stickered():
 		tween.tween_property(camera, "global_transform", $CameraPoint/RotationPoint.global_transform, 1.0).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
 		await book.animation_finished
 		
+		FightUI.hide_not_grid()
 		FightUI.sticker_ui.show()
 		
-		await get_tree().create_timer(0.2).timeout
+		await get_tree().create_timer(0.5).timeout
 		FightUI.add_animal(enemy)
 		Global.animals.append(enemy)
 		await get_tree().create_timer(1.5).timeout
-		
+		FightUI.sticker_ui.hide()
+		FightUI.show_not_grid()
 		book.play("open")
 		await get_tree().create_timer(0.2).timeout
-		FightUI.sticker_ui.hide()
 		FightUI.main_ui.show()
 		FightUI.hide()
 		
@@ -437,6 +448,7 @@ func _on_stickered():
 		hide()
 		
 		player.post_fight()
+		queue_free()
 
 func _on_healed(amount: int):
 	await get_tree().create_timer(1.0).timeout

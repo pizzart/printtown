@@ -1,4 +1,4 @@
-[gd_scene load_steps=61 format=3 uid="uid://pdbbxowv0d4p"]
+[gd_scene load_steps=75 format=3 uid="uid://pdbbxowv0d4p"]
 
 [ext_resource type="Script" path="res://scripts/fight_ui.gd" id="1_gmjmh"]
 [ext_resource type="Theme" uid="uid://dn7uhmqeylu42" path="res://misc/ui.theme" id="2_vrryk"]
@@ -14,7 +14,6 @@
 [ext_resource type="Texture2D" uid="uid://j0mn6m8c3lib" path="res://graphics/ui/fight/notes/kick_text.png" id="8_16lyv"]
 [ext_resource type="Texture2D" uid="uid://ca71i2etdefda" path="res://graphics/ui/fight/alert/update/alert_update0001.png" id="8_dir34"]
 [ext_resource type="Texture2D" uid="uid://h230p88yu8l" path="res://graphics/ui/fight/alert/update/alert_update0002.png" id="9_krvh4"]
-[ext_resource type="Texture2D" uid="uid://scjaa3j0ydh1" path="res://graphics/ui/fight/notes/stickerup_text.png" id="9_sto6m"]
 [ext_resource type="Texture2D" uid="uid://brk33piaxic4n" path="res://graphics/ui/fight/stamps/stamp_angry.png" id="10_14l8i"]
 [ext_resource type="Texture2D" uid="uid://vqv1g1crtj7m" path="res://graphics/ui/fight/alert/update/alert_update0003.png" id="10_27n7v"]
 [ext_resource type="Texture2D" uid="uid://uyv7xbtqmair" path="res://graphics/ui/fight/alert/update/alert_update0004.png" id="11_6j3k6"]
@@ -35,24 +34,38 @@
 [ext_resource type="Texture2D" uid="uid://dywv6mw7qqfpc" path="res://graphics/ui/fight/stickerup/stickerup0003.png" id="16_atqh1"]
 [ext_resource type="Texture2D" uid="uid://8lklnd1l0555" path="res://graphics/ui/fight/stamp_anim/stamped0005.png" id="16_e4ml3"]
 [ext_resource type="Texture2D" uid="uid://ctwhgmff21sb3" path="res://graphics/ui/fight/stamp_anim/stamped0006.png" id="17_0ud8r"]
+[ext_resource type="Texture2D" uid="uid://cb52ufhbmo0dl" path="res://graphics/ui/fight/notes/treat_text.png" id="18_pkjcj"]
 [ext_resource type="Texture2D" uid="uid://inqaqx37uwpo" path="res://graphics/ui/fight/stamp_anim/stamped0007.png" id="18_xpqci"]
+[ext_resource type="Texture2D" uid="uid://cvdb6fqmrmppi" path="res://graphics/ui/fight/notes/call_text.png" id="19_wniyh"]
 [ext_resource type="Texture2D" uid="uid://c8atq10r6x5i0" path="res://graphics/ui/fight/stamp_anim/stamped0008.png" id="19_x4s2f"]
 [ext_resource type="Texture2D" uid="uid://dilkpo7fkjcl0" path="res://graphics/ui/fight/pet/pet_hand.png" id="20_lyd7w"]
 [ext_resource type="Texture2D" uid="uid://bh28w1e3onjcv" path="res://graphics/ui/fight/pet/pet_heart.png" id="21_fri3i"]
 [ext_resource type="Texture2D" uid="uid://b0x518v8s8r2e" path="res://graphics/ui/fight/rps/p_vs_r/p_vs_r0000.png" id="25_6rbxy"]
+[ext_resource type="Texture2D" uid="uid://b1270lr3yw8kl" path="res://graphics/ui/fight/rps/notes/note_rock.png" id="26_llyhn"]
 [ext_resource type="Texture2D" uid="uid://3eu1n2edrrgf" path="res://graphics/ui/fight/rps/p_vs_r/p_vs_r0001.png" id="26_wem33"]
+[ext_resource type="Texture2D" uid="uid://t8p1npgsqk3m" path="res://graphics/ui/fight/rps/notes/note_paper.png" id="27_1wklw"]
 [ext_resource type="Texture2D" uid="uid://bpy5oe4i6t7a1" path="res://graphics/ui/fight/rps/p_vs_r/p_vs_r0002.png" id="27_w22xo"]
+[ext_resource type="Texture2D" uid="uid://lyli6o4gsyqm" path="res://graphics/ui/fight/rps/notes/note_scissors.png" id="28_33giw"]
 [ext_resource type="Texture2D" uid="uid://biyj8qkyidw31" path="res://graphics/ui/fight/rps/p_vs_r/p_vs_r0003.png" id="28_pj0rv"]
 [ext_resource type="Texture2D" uid="uid://cjbqhbsm5n3nv" path="res://graphics/ui/fight/rps/r_vs_s/r_vs_s0000.png" id="29_51yi7"]
 [ext_resource type="Texture2D" uid="uid://bq0avb2urgyj5" path="res://graphics/ui/fight/back/back.png" id="29_j7k0b"]
 [ext_resource type="Texture2D" uid="uid://dr8xonatqyop7" path="res://graphics/ui/fight/back/back_focus.png" id="30_8kk2k"]
+[ext_resource type="Texture2D" uid="uid://b3ww4c7ehpl52" path="res://graphics/ui/fight/popup/popup0000.png" id="30_gvnns"]
 [ext_resource type="Texture2D" uid="uid://b66p2a56afw3u" path="res://graphics/ui/fight/rps/r_vs_s/r_vs_s0001.png" id="30_na3ub"]
 [ext_resource type="Texture2D" uid="uid://h7lguet7nico" path="res://graphics/ui/fight/rps/r_vs_s/r_vs_s0002.png" id="31_hah6e"]
+[ext_resource type="Texture2D" uid="uid://csrfy670ylvld" path="res://graphics/ui/fight/popup/popup0001.png" id="31_vpscf"]
 [ext_resource type="Texture2D" uid="uid://chk4brmlhlraq" path="res://graphics/ui/fight/rps/r_vs_s/r_vs_s0003.png" id="32_6xmys"]
+[ext_resource type="FontFile" uid="uid://cgjjr8ld3la1k" path="res://misc/GloriaHallelujah-Regular.ttf" id="32_ae1hu"]
 [ext_resource type="Texture2D" uid="uid://c551qhiriks1h" path="res://graphics/ui/fight/rps/s_vs_p/s_vs_p0000.png" id="33_dgiv4"]
 [ext_resource type="Texture2D" uid="uid://diocx00vt6dl4" path="res://graphics/ui/fight/rps/s_vs_p/s_vs_p0001.png" id="34_0a2f3"]
 [ext_resource type="Texture2D" uid="uid://f21akjqa5jik" path="res://graphics/ui/fight/rps/s_vs_p/s_vs_p0002.png" id="35_jkoef"]
 [ext_resource type="Texture2D" uid="uid://dla2xounxl5rs" path="res://graphics/ui/fight/rps/s_vs_p/s_vs_p0003.png" id="36_myley"]
+[ext_resource type="Texture2D" uid="uid://djdpyix06bq0u" path="res://graphics/ui/fight/call_actions/action.png" id="38_yqie1"]
+[ext_resource type="Texture2D" uid="uid://gtk55e40fjyk" path="res://graphics/ui/fight/call_actions/action_focused.png" id="39_lljl1"]
+[ext_resource type="Texture2D" uid="uid://qbrf8tw44k77" path="res://graphics/ui/fight/call_actions/heal.png" id="40_ejyqm"]
+[ext_resource type="Texture2D" uid="uid://bm1dhmjq66lvy" path="res://graphics/ui/fight/call_actions/action_disabled.png" id="40_lklg1"]
+[ext_resource type="Texture2D" uid="uid://b5jdxataq3rrh" path="res://graphics/ui/fight/call_actions/bite.png" id="41_cka83"]
+[ext_resource type="Texture2D" uid="uid://m6fotytakhy7" path="res://graphics/ui/fight/call_actions/convince.png" id="42_ixbwj"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_l5lus"]
 animations = [{
@@ -112,6 +125,20 @@ animations = [{
 "loop": false,
 "name": &"default",
 "speed": 8.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_s3b0q"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("30_gvnns")
+}, {
+"duration": 1.0,
+"texture": ExtResource("31_vpscf")
+}],
+"loop": true,
+"name": &"default",
+"speed": 6.0
 }]
 
 [sub_resource type="Curve" id="Curve_sps00"]
@@ -311,26 +338,6 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("8_16lyv")
 
-[node name="Sticker" type="TextureButton" parent="C"]
-visible = false
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.151562
-anchor_right = 0.351562
-anchor_bottom = 0.266667
-mouse_default_cursor_shape = 2
-disabled = true
-action_mode = 0
-texture_normal = ExtResource("11_gmas1")
-texture_pressed = ExtResource("12_7u8m1")
-texture_hover = ExtResource("12_7u8m1")
-texture_disabled = ExtResource("13_othyx")
-metadata/_edit_use_anchors_ = true
-
-[node name="Animation" type="AnimatedSprite2D" parent="C/Sticker"]
-sprite_frames = SubResource("SpriteFrames_o1blt")
-centered = false
-
 [node name="Treat" type="TextureButton" parent="C"]
 layout_mode = 1
 anchors_preset = -1
@@ -349,16 +356,16 @@ texture_disabled = ExtResource("6_lacjv")
 metadata/_edit_use_anchors_ = true
 
 [node name="Text" type="TextureRect" parent="C/Treat"]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("9_sto6m")
+texture = ExtResource("18_pkjcj")
 
 [node name="Label" type="Label" parent="C/Treat"]
+visible = false
 layout_mode = 0
 offset_left = 37.0003
 offset_top = 44.9998
@@ -385,16 +392,16 @@ texture_disabled = ExtResource("6_lacjv")
 metadata/_edit_use_anchors_ = true
 
 [node name="Text" type="TextureRect" parent="C/Call"]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("9_sto6m")
+texture = ExtResource("19_wniyh")
 
 [node name="Label" type="Label" parent="C/Call"]
+visible = false
 layout_mode = 0
 offset_left = 37.0003
 offset_top = 44.9998
@@ -402,6 +409,26 @@ offset_right = 94.0003
 offset_bottom = 76.9998
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "call !"
+
+[node name="Sticker" type="TextureButton" parent="C"]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.151562
+anchor_right = 0.351562
+anchor_bottom = 0.266667
+mouse_default_cursor_shape = 2
+disabled = true
+action_mode = 0
+texture_normal = ExtResource("11_gmas1")
+texture_pressed = ExtResource("12_7u8m1")
+texture_hover = ExtResource("12_7u8m1")
+texture_disabled = ExtResource("13_othyx")
+metadata/_edit_use_anchors_ = true
+
+[node name="Animation" type="AnimatedSprite2D" parent="C/Sticker"]
+sprite_frames = SubResource("SpriteFrames_o1blt")
+centered = false
 
 [node name="Progress" type="Label" parent="C"]
 layout_mode = 0
@@ -476,16 +503,17 @@ texture_disabled = ExtResource("6_lacjv")
 metadata/_edit_use_anchors_ = true
 
 [node name="Text" type="TextureRect" parent="RPS/Rock"]
-visible = false
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchors_preset = -1
+anchor_right = 0.418853
+anchor_bottom = 0.43686
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("7_tro7x")
+texture = ExtResource("26_llyhn")
+metadata/_edit_use_anchors_ = true
 
 [node name="Label" type="Label" parent="RPS/Rock"]
+visible = false
 layout_mode = 0
 offset_left = 39.0
 offset_top = 49.0
@@ -512,16 +540,16 @@ texture_disabled = ExtResource("6_lacjv")
 metadata/_edit_use_anchors_ = true
 
 [node name="Text" type="TextureRect" parent="RPS/Paper"]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("7_tro7x")
+texture = ExtResource("27_1wklw")
 
 [node name="Label" type="Label" parent="RPS/Paper"]
+visible = false
 layout_mode = 0
 anchor_left = 0.304688
 anchor_top = 0.382812
@@ -550,16 +578,16 @@ texture_disabled = ExtResource("6_lacjv")
 metadata/_edit_use_anchors_ = true
 
 [node name="Text" type="TextureRect" parent="RPS/Scissors"]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("7_tro7x")
+texture = ExtResource("28_33giw")
 
 [node name="Label" type="Label" parent="RPS/Scissors"]
+visible = false
 layout_mode = 0
 anchor_left = 0.273438
 anchor_top = 0.429688
@@ -569,32 +597,54 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "scissors!"
 metadata/_edit_use_anchors_ = true
 
-[node name="Choose" type="Label" parent="RPS"]
-layout_mode = 0
-offset_left = 122.0
-offset_top = 14.0
-offset_right = 272.0
-offset_bottom = 110.0
-theme_override_font_sizes/font_size = 48
-text = "choose!"
+[node name="Choose" type="AnimatedSprite2D" parent="RPS"]
+position = Vector2(116, 25)
+sprite_frames = SubResource("SpriteFrames_s3b0q")
+autoplay = "default"
+centered = false
 
-[node name="Action" type="Label" parent="RPS"]
-layout_mode = 0
-offset_left = 221.0
-offset_top = 65.0
-offset_right = 371.0
-offset_bottom = 161.0
-theme_override_font_sizes/font_size = 48
+[node name="Label" type="Label" parent="RPS/Choose"]
+offset_left = 46.0
+offset_top = 38.0
+offset_right = 242.0
+offset_bottom = 146.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("32_ae1hu")
+theme_override_font_sizes/font_size = 32
+text = "pick one!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Action" type="AnimatedSprite2D" parent="RPS"]
+visible = false
+position = Vector2(167, 62)
+sprite_frames = SubResource("SpriteFrames_s3b0q")
+autoplay = "default"
+centered = false
+
+[node name="Text" type="Label" parent="RPS/Action"]
+anchors_preset = -1
+anchor_left = 0.155932
+anchor_top = 0.175115
+anchor_right = 0.820339
+anchor_bottom = 0.672811
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("32_ae1hu")
+theme_override_font_sizes/font_size = 40
 text = "rock..."
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
 
-[node name="EnemyChoice" type="TextureRect" parent="RPS"]
+[node name="h" type="Label" parent="RPS"]
 visible = false
 layout_mode = 0
-offset_left = 315.0
-offset_top = 114.0
-offset_right = 571.0
-offset_bottom = 370.0
-texture = ExtResource("12_ci2q3")
+offset_left = 226.0
+offset_top = 168.0
+offset_right = 376.0
+offset_bottom = 264.0
+theme_override_font_sizes/font_size = 48
+text = "rock..."
 
 [node name="PlayerChoice" type="TextureRect" parent="RPS"]
 visible = false
@@ -604,6 +654,15 @@ offset_top = 162.0
 offset_right = 358.0
 offset_bottom = 418.0
 texture = ExtResource("13_vsdg5")
+
+[node name="EnemyChoice" type="TextureRect" parent="RPS"]
+visible = false
+layout_mode = 0
+offset_left = 315.0
+offset_top = 114.0
+offset_right = 571.0
+offset_bottom = 370.0
+texture = ExtResource("12_ci2q3")
 
 [node name="Stickers" type="Control" parent="."]
 visible = false
@@ -651,35 +710,77 @@ texture_pressed = ExtResource("30_8kk2k")
 texture_hover = ExtResource("30_8kk2k")
 texture_disabled = ExtResource("29_j7k0b")
 
-[node name="Heal" type="Button" parent="Stickers"]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.678125
-anchor_top = 0.525
-anchor_right = 0.81875
-anchor_bottom = 0.608333
-text = "heal"
-metadata/_edit_use_anchors_ = true
+[node name="Heal" type="TextureButton" parent="Stickers"]
+layout_mode = 0
+offset_left = 506.0
+offset_top = 208.0
+offset_right = 634.0
+offset_bottom = 336.0
+mouse_default_cursor_shape = 2
+action_mode = 0
+texture_normal = ExtResource("38_yqie1")
+texture_pressed = ExtResource("39_lljl1")
+texture_hover = ExtResource("39_lljl1")
+texture_disabled = ExtResource("40_lklg1")
 
-[node name="Bite" type="Button" parent="Stickers"]
+[node name="TextureRect" type="TextureRect" parent="Stickers/Heal"]
 layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.7
-anchor_top = 0.629167
-anchor_right = 0.840625
-anchor_bottom = 0.7125
-text = "bite"
-metadata/_edit_use_anchors_ = true
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -2.0
+offset_bottom = -69.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("40_ejyqm")
 
-[node name="Convince" type="Button" parent="Stickers"]
+[node name="Bite" type="TextureButton" parent="Stickers"]
+layout_mode = 0
+offset_left = 505.0
+offset_top = 263.0
+offset_right = 633.0
+offset_bottom = 391.0
+mouse_default_cursor_shape = 2
+action_mode = 0
+texture_normal = ExtResource("38_yqie1")
+texture_pressed = ExtResource("39_lljl1")
+texture_hover = ExtResource("39_lljl1")
+texture_disabled = ExtResource("40_lklg1")
+
+[node name="TextureRect" type="TextureRect" parent="Stickers/Bite"]
 layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.720312
-anchor_top = 0.733333
-anchor_right = 0.860937
-anchor_bottom = 0.816667
-text = "convince"
-metadata/_edit_use_anchors_ = true
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -2.0
+offset_bottom = -69.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("41_cka83")
+
+[node name="Convince" type="TextureButton" parent="Stickers"]
+layout_mode = 0
+offset_left = 503.0
+offset_top = 319.0
+offset_right = 631.0
+offset_bottom = 447.0
+mouse_default_cursor_shape = 2
+action_mode = 0
+texture_normal = ExtResource("38_yqie1")
+texture_pressed = ExtResource("39_lljl1")
+texture_hover = ExtResource("39_lljl1")
+texture_disabled = ExtResource("40_lklg1")
+
+[node name="TextureRect" type="TextureRect" parent="Stickers/Convince"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -2.0
+offset_bottom = -69.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("42_ixbwj")
 
 [node name="Note" type="TextureRect" parent="Stickers"]
 layout_mode = 0
@@ -743,13 +844,13 @@ animation = &"rock_win"
 
 [connection signal="pressed" from="C/Pet" to="." method="_on_pet_pressed"]
 [connection signal="pressed" from="C/Kick" to="." method="_on_kick_pressed"]
-[connection signal="pressed" from="C/Sticker" to="." method="_on_sticker_pressed"]
 [connection signal="pressed" from="C/Treat" to="." method="_on_treat_pressed"]
 [connection signal="pressed" from="C/Call" to="." method="_on_call_pressed"]
+[connection signal="pressed" from="C/Sticker" to="." method="_on_sticker_pressed"]
 [connection signal="pressed" from="RPS/Rock" to="." method="_on_rock_pressed"]
 [connection signal="pressed" from="RPS/Paper" to="." method="_on_paper_pressed"]
 [connection signal="pressed" from="RPS/Scissors" to="." method="_on_scissors_pressed"]
 [connection signal="pressed" from="Stickers/Back" to="." method="_on_stickers_back_pressed"]
 [connection signal="pressed" from="Stickers/Heal" to="." method="_on_heal_pressed"]
-[connection signal="pressed" from="Stickers/Bite" to="." method="_on_bite_pressed"]
-[connection signal="pressed" from="Stickers/Convince" to="." method="_on_convince_pressed"]
+[connection signal="pressed" from="Stickers/Bite" to="." method="_on_heal_pressed"]
+[connection signal="pressed" from="Stickers/Convince" to="." method="_on_heal_pressed"]

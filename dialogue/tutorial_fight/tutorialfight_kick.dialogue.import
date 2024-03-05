@@ -1,0 +1,15 @@
+[remap]
+
+importer="dialogue_manager_compiler_11"
+type="Resource"
+uid="uid://dt8t2x3rq3x4r"
+path="res://.godot/imported/tutorialfight_kick.dialogue-1361e79fc1392693db62df0762b7a633.tres"
+
+[deps]
+
+source_file="res://dialogue/tutorial_fight/tutorialfight_kick.dialogue"
+dest_files=["res://.godot/imported/tutorialfight_kick.dialogue-1361e79fc1392693db62df0762b7a633.tres"]
+
+[params]
+
+defaults=true

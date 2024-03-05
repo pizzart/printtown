@@ -1,5 +1,8 @@
 https://github.com/nathanhoad/godot_dialogue_manager (MIT)
 https://github.com/blackears/cyclopsLevelBuilder (MIT)
+
 this psx shader is based on some shader from godotshaders.com but idr which one (TODO ?)
-https://fonts.google.com/specimen/Gloria+Hallelujah (OFL)
 https://godotshaders.com/shader/high-quality-post-process-outline/ (MIT) (goated)
+https://godotshaders.com/shader/redacted/ (CC0) (temporary?)
+
+https://fonts.google.com/specimen/Gloria+Hallelujah (OFL)

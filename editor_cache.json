@@ -20,7 +20,7 @@
             "default_block_height": 1
         },
         "stairs": {
-            "direction": 0,
+            "direction": 1,
             "step_depth": 1,
             "step_height": 0.5
         }

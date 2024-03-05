@@ -8087,10 +8087,12 @@ environment = SubResource("Environment_5ayhc")
 transform = Transform3D(0.887936, -0.371147, -0.271698, 0, -0.59069, 0.806899, -0.459967, -0.716474, -0.524495, 0, 0, 0)
 light_bake_mode = 1
 shadow_enabled = true
-directional_shadow_mode = 0
+
+[node name="PlayerSpawn" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.17587, 0, 55.2028)
 
 [node name="Player" parent="." instance=ExtResource("1_lquvg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -43.8202, 24.5645, -52.0769)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31.6426, 18.5791, -33.7756)
 
 [node name="FightArea" parent="." instance=ExtResource("6_xn4hq")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24.3104, -1.25709, 17.6427)
@@ -9797,6 +9799,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -96.5, -0.5, -27)
 [node name="FX" parent="." instance=ExtResource("11_qfrrq")]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+visible = false
 
 [node name="Label" type="Label" parent="CanvasLayer"]
 offset_right = 40.0

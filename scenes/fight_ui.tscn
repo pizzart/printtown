@@ -852,5 +852,5 @@ animation = &"rock_win"
 [connection signal="pressed" from="RPS/Scissors" to="." method="_on_scissors_pressed"]
 [connection signal="pressed" from="Stickers/Back" to="." method="_on_stickers_back_pressed"]
 [connection signal="pressed" from="Stickers/Heal" to="." method="_on_heal_pressed"]
-[connection signal="pressed" from="Stickers/Bite" to="." method="_on_heal_pressed"]
-[connection signal="pressed" from="Stickers/Convince" to="." method="_on_heal_pressed"]
+[connection signal="pressed" from="Stickers/Bite" to="." method="_on_bite_pressed"]
+[connection signal="pressed" from="Stickers/Convince" to="." method="_on_convince_pressed"]

@@ -322,6 +322,7 @@ draw_pass_1 = SubResource("QuadMesh_vl1hi")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 layer = 4
+visible = false
 
 [node name="Label" type="Label" parent="CanvasLayer"]
 offset_left = 4.0

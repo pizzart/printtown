@@ -450,24 +450,66 @@ func _on_stickered():
 		player.post_fight()
 		queue_free()
 
-func _on_healed(amount: int):
+func _on_healed(pet: Animals.Animal):
+	$Pet.texture = pet.texture
+	$Pet.global_position = $AnimalBitePoint.global_position
+	$Pet.show()
+	
 	await get_tree().create_timer(1.0).timeout
-	health = clampi(health + amount, 0, INIT_HEALTH)
+	$Pet/HealParticles.amount = pet.healing
+	$Pet/HealParticles.restart()
+	await get_tree().create_timer(4.0).timeout
+	
+	var tween = create_tween()
+	tween.tween_property($Pet, "global_position", $AnimalBitePoint.global_position + Vector3(0, 10, 0), 0.5).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_IN)
+	tween.tween_callback($Pet.hide)
+	
+	FightUI.enable_all(Global.treats, is_satisfied())
+	FightUI.unhide()
+	
+	health = clampi(health + pet.healing, 0, INIT_HEALTH)
 	update_ui()
 
-func _on_bitten(damage: int):
+func _on_bitten(pet: Animals.Animal):
+	$Pet.texture = pet.texture
+	$Pet.global_position = $AnimalBitePoint.global_position
+	$Pet.show()
 	await get_tree().create_timer(1.0).timeout
 	
-	enemy.health -= damage
+	var tween = create_tween()
+	tween.tween_property($Pet, "global_position", $PetInteractPoint.global_position, 1.0).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+	tween.tween_interval(1.5)
+	tween.tween_property($Pet, "global_position", $PetInteractPoint.global_position + Vector3(0, 10, 0), 0.5).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_IN)
+	await tween.finished
+	$Pet.hide()
+	
+	FightUI.enable_all(Global.treats, is_satisfied())
+	FightUI.unhide()
+	
+	enemy.health -= pet.damage
 	enemy.add_guard(-randf_range(0.15, 0.3))
 	enemy.add_mood(-randf_range(0.05, 0.1))
 	
 	update_ui()
 	check_enemy_health()
 
-func _on_convinced(convincing: float):
+func _on_convinced(pet: Animals.Animal):
+	$Pet.texture = pet.texture
+	$Pet.global_position = $AnimalBitePoint.global_position
+	$Pet.show()
 	await get_tree().create_timer(1.0).timeout
-	if randf() < convincing:
+	
+	var tween = create_tween()
+	tween.tween_property($Pet, "global_position", $PetInteractPoint.global_position, 1.0).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+	tween.tween_interval(1.5)
+	tween.tween_property($Pet, "global_position", $PetInteractPoint.global_position + Vector3(0, 10, 0), 0.5).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_IN)
+	await tween.finished
+	$Pet.hide()
+	
+	FightUI.enable_all(Global.treats, is_satisfied())
+	FightUI.unhide()
+	
+	if randf() < pet.convincing:
 		enemy.add_mood(randf_range(0.05, 0.1))
 		enemy.add_satisfaction(randf_range(0.03, 0.07))
 		enemy.add_guard(-randf_range(0.05, 0.08))

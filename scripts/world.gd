@@ -4,7 +4,11 @@ var mouse_mode = Input.MOUSE_MODE_CAPTURED
 @onready var pause_menu = $PauseLayer/Container/SubViewport/PauseMenu
 
 func _ready():
-	query()
+	if OS.is_debug_build():
+		$CanvasLayer.show()
+		query()
+	else:
+		$Player.global_position = $PlayerSpawn.global_position
 
 func query():
 	while true:

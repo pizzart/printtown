@@ -8,9 +8,9 @@ signal stickered
 signal stickers_opened
 signal stickers_closed
 
-signal healed(amount: int)
-signal bitten(damage: int)
-signal convinced(amount: float)
+signal healed(animal: Animals.Animal)
+signal bitten(animal: Animals.Animal)
+signal convinced(animal: Animals.Animal)
 
 signal rps_chosen(choice: Global.RPS)
 
@@ -351,28 +351,31 @@ func _on_stickers_back_pressed():
 	stickers_closed.emit()
 
 func _on_heal_pressed():
-	healed.emit(Global.animals[picked_animal_index].healing)
+	healed.emit(Global.animals[picked_animal_index])
 	stickers_closed.emit()
-	remove_picked()
 	animal_grid.get_child(picked_animal_index).disabled = true
+	remove_picked()
 	#used_animals.append(picked_animal_index)
 	sticker_ui.hide()
-	unhide()
+	disable_all()
+	partial_hide()
 
 func _on_bite_pressed():
-	bitten.emit(Global.animals[picked_animal_index].damage)
+	bitten.emit(Global.animals[picked_animal_index])
 	stickers_closed.emit()
-	remove_picked()
 	animal_grid.get_child(picked_animal_index).disabled = true
+	remove_picked()
 	#used_animals.append(picked_animal_index)
 	sticker_ui.hide()
-	unhide()
+	disable_all()
+	partial_hide()
 
 func _on_convince_pressed():
-	convinced.emit(Global.animals[picked_animal_index].convincing)
+	convinced.emit(Global.animals[picked_animal_index])
 	stickers_closed.emit()
-	remove_picked()
 	animal_grid.get_child(picked_animal_index).disabled = true
+	remove_picked()
 	#used_animals.append(picked_animal_index)
 	sticker_ui.hide()
-	unhide()
+	disable_all()
+	partial_hide()

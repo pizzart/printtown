@@ -1,7 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://3wjt4mg1ab42"]
+[gd_scene load_steps=15 format=3 uid="uid://3wjt4mg1ab42"]
 
 [ext_resource type="Script" path="res://scripts/fight.gd" id="1_u3h0q"]
 [ext_resource type="Texture2D" uid="uid://b7vij1q44oa4b" path="res://graphics/animals/dog.png" id="3_ovfvl"]
+[ext_resource type="Texture2D" uid="uid://bh28w1e3onjcv" path="res://graphics/ui/fight/pet/pet_heart.png" id="4_4j4r4"]
 [ext_resource type="Texture2D" uid="uid://cj0r454b8qnmf" path="res://graphics/shadow.png" id="4_dtwva"]
 [ext_resource type="Texture2D" uid="uid://bbu2mesp10n80" path="res://graphics/ui/fight/stickerbook/stickerbook0000.png" id="5_h12cg"]
 [ext_resource type="Texture2D" uid="uid://4apha2vltyoi" path="res://graphics/ui/fight/stickerbook/stickerbook0001.png" id="6_ekaih"]
@@ -9,6 +10,35 @@
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_5mdvx"]
 size = Vector3(5, 5, 6)
+
+[sub_resource type="Curve" id="Curve_5jlgh"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_b8hbm"]
+curve = SubResource("Curve_5jlgh")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_vqhsh"]
+direction = Vector3(0, 1, -1)
+initial_velocity_min = 0.5
+initial_velocity_max = 2.0
+gravity = Vector3(0, 0, 0)
+scale_curve = SubResource("CurveTexture_b8hbm")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_behbx"]
+transparency = 2
+alpha_scissor_threshold = 0.5
+alpha_antialiasing_mode = 0
+albedo_texture = ExtResource("4_4j4r4")
+texture_filter = 0
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="QuadMesh" id="QuadMesh_b65ge"]
+material = SubResource("StandardMaterial3D_behbx")
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_mu7b8"]
 animations = [{
@@ -76,6 +106,35 @@ distance_fade_begin = 3.4
 distance_fade_length = 13.5
 cull_mask = 1048573
 
+[node name="Pet" type="Sprite3D" parent="."]
+visible = false
+layers = 2
+pixel_size = 0.004
+billboard = 2
+shaded = true
+alpha_cut = 1
+texture_filter = 0
+texture = ExtResource("3_ovfvl")
+
+[node name="Shadow" type="Decal" parent="Pet"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.783627, 0)
+size = Vector3(2, 1, 2)
+texture_albedo = ExtResource("4_dtwva")
+lower_fade = 0.439226
+distance_fade_begin = 3.4
+distance_fade_length = 13.5
+cull_mask = 1048573
+
+[node name="HealParticles" type="GPUParticles3D" parent="Pet"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1259, 0.599604, -0.447513)
+layers = 2
+emitting = false
+lifetime = 3.0
+one_shot = true
+randomness = 0.42
+process_material = SubResource("ParticleProcessMaterial_vqhsh")
+draw_pass_1 = SubResource("QuadMesh_b65ge")
+
 [node name="AnimalPoint" type="Marker3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.02879, 0.0145887, -2.72723)
 
@@ -113,6 +172,9 @@ animation = &"open"
 
 [node name="PlayerInteractPoint" type="Marker3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.732, 0.495, -1.643)
+
+[node name="PetInteractPoint" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.732, 0.00841856, -1.643)
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="body_exited" from="." to="." method="_on_body_exited"]

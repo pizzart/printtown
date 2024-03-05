@@ -4,6 +4,7 @@ enum Character {
 	TOP,
 	BOTTOM,
 }
+const JAKE_ICON = preload("res://graphics/ui/dialogue/dialogue_other.png")
 signal finished
 var dialogue_res = preload("res://dialogue/intro.dialogue")
 var active: bool = false
@@ -17,7 +18,7 @@ func _ready():
 	hide()
 
 func _process(delta):
-	var rot = PI / 12 if ceili(time * 3) % 2 == 0 else -PI / 12
+	var rot = PI / 12.0 if ceili(time * 3.0) % 2 == 0 else -PI / 12.0
 	if char_moving == Character.TOP:
 		$C/TopIcon.rotation = rot
 		$C/BottomIcon.rotation = 0
@@ -77,6 +78,14 @@ func next_line(started: bool):
 		char_moving = Character.TOP
 	else:
 		char_moving = Character.BOTTOM
+	
+	# kind of bad but it works ig. BE SURE TO HAVE THE ANIMAL'S TEXTURE IN THE FOLDER
+	# also the dialogue has to start with not the player or it will look weird
+	if dialogue_line.character == "jake": # weird place to hardcode
+		$C/BottomIcon.texture = JAKE_ICON
+	elif dialogue_line.character != Global.player_name:
+		$C/BottomIcon.texture = load("res://graphics/animals/%s.png" % dialogue_line.character)
+	
 	time = 0
 	
 	$C/Text/Name.text = dialogue_line.character

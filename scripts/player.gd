@@ -89,8 +89,8 @@ func _process(delta):
 	time += delta
 	
 	gimbal.global_position.y = lerpf(gimbal.global_position.y, last_floor_y + CAMERA_HEIGHT, delta * 5)
-	gimbal.global_position.x = global_position.x
-	gimbal.global_position.z = global_position.z
+	gimbal.global_position.x = lerpf(gimbal.global_position.x, global_position.x, delta * 100)
+	gimbal.global_position.z = lerpf(gimbal.global_position.z, global_position.z, delta * 100)
 	gimbal.rotation.y = rotation.y
 	
 	shadow.global_position.x = global_position.x
@@ -289,6 +289,7 @@ func air(delta: float, input_dir: Vector2):
 
 func ledge(delta: float, input_dir: Vector2):
 	stamina = MAX_STAMINA
+	last_floor_y = global_position.y - 2
 	
 	add_velo = lerp(add_velo, Vector3.ZERO, ADDVELO_DECEL_GROUND)
 	

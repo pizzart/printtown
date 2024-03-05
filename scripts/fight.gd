@@ -12,7 +12,7 @@ const CAMERA_FOV = 45.0
 const SHAKE_REDUCE = 7.0
 
 const SPIN_SPEED = 0.3
-const SPIN_OFFSET = PI * 2 / 3
+const SPIN_OFFSET = PI * 2.0 / 3.0
 const SPIN_RAD = 135.0
 const TEXT_SPIN_RAD = 75.0
 const TEXT_SPIN_SPEED = 0.8
@@ -35,8 +35,8 @@ var petting: bool
 var pets_given: float
 var pet_awaiting: bool
 
-var pet_tutorial_given: bool
-var kick_tutorial_given: bool
+static var pet_tutorial_given: bool = OS.is_debug_build()
+static var kick_tutorial_given: bool = OS.is_debug_build()
 
 @export var animal: Animals.AnimalType
 # this is kind of a mess tbh
@@ -215,6 +215,18 @@ func apply_damage(damage: int):
 func is_satisfied():
 	return enemy.satisfaction >= enemy.SATISFACTION_MIN
 
+func check_enemy_health():
+	if enemy.health <= 0:
+		FightUI.disable_all()
+		if dialogue_kicked:
+			DialogueUI.start_dialogue(dialogue_kicked, false)
+			await DialogueUI.finished
+		if is_tutorial:
+			FightUI.disable_all()
+			FightUI.sticker_btn.disabled = false
+		else:
+			FightUI.enable_all(Global.treats, true)
+
 func _on_petted():
 	var tween = create_tween().set_parallel()
 	tween.tween_property(camera, "global_transform", $CameraInteractPoint.global_transform, 1.5).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
@@ -222,7 +234,7 @@ func _on_petted():
 
 	FightUI.disable_all()
 	
-	if is_tutorial and not pet_tutorial_given:
+	if not pet_tutorial_given:
 		DialogueUI.start_dialogue(PET_TUTORIAL, false)
 		await DialogueUI.finished
 		pet_tutorial_given = true
@@ -312,7 +324,7 @@ func _on_kicked():
 
 	FightUI.disable_all()
 	
-	if is_tutorial and not kick_tutorial_given:
+	if not kick_tutorial_given:
 		DialogueUI.start_dialogue(KICK_TUTORIAL, false)
 		await DialogueUI.finished
 		kick_tutorial_given = true
@@ -347,7 +359,7 @@ func _on_kicked():
 		enemy.add_mood(0.025)
 		enemy.add_satisfaction(0.05)
 		enemy.add_guard(-0.1)
-		apply_damage(enemy.damage / 2)
+		apply_damage(ceili(enemy.damage / 2.0))
 	elif (enemy_choice + 1) % 3 == player_choice: # player won
 		FightUI.play_win_anim(player_choice)
 		await get_tree().create_timer(1.0).timeout
@@ -382,18 +394,6 @@ func _on_kicked():
 	#if damage != 0:
 		#add_shake(0.08)
 		#apply_damage(damage)
-
-func check_enemy_health():
-	if enemy.health <= 0:
-		FightUI.disable_all()
-		if dialogue_kicked:
-			DialogueUI.start_dialogue(dialogue_kicked, false)
-			await DialogueUI.finished
-		if is_tutorial:
-			FightUI.disable_all()
-			FightUI.sticker_btn.disabled = false
-		else:
-			FightUI.enable_all(Global.treats, true)
 
 func _on_treated():
 	Global.treats -= 1

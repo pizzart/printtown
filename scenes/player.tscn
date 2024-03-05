@@ -1,4 +1,4 @@
-[gd_scene load_steps=45 format=3 uid="uid://b026alsepp2vu"]
+[gd_scene load_steps=46 format=3 uid="uid://b026alsepp2vu"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_465au"]
 [ext_resource type="Texture2D" uid="uid://bfyxrs0ch5h5i" path="res://graphics/player/idle_back/idle_back0000.png" id="2_hhdjh"]
@@ -240,8 +240,12 @@ particles_anim_loop = false
 [sub_resource type="QuadMesh" id="QuadMesh_vl1hi"]
 material = SubResource("StandardMaterial3D_b08q0")
 
+[sub_resource type="SphereShape3D" id="SphereShape3D_vxj5f"]
+radius = 2.0
+
 [node name="Player" type="CharacterBody3D" groups=["player"]]
 collision_layer = 2
+safe_margin = 0.01
 script = ExtResource("1_465au")
 
 [node name="Sprite" type="AnimatedSprite3D" parent="."]
@@ -318,9 +322,15 @@ draw_pass_1 = SubResource("QuadMesh_vl1hi")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 layer = 4
-visible = false
 
 [node name="Label" type="Label" parent="CanvasLayer"]
-offset_right = 40.0
-offset_bottom = 23.0
+offset_left = 4.0
+offset_top = 26.0
+offset_right = 69.0
+offset_bottom = 49.0
 text = "STATE: 0"
+
+[node name="CollectArea" type="Area3D" parent="." groups=["player_collect"]]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CollectArea"]
+shape = SubResource("SphereShape3D_vxj5f")

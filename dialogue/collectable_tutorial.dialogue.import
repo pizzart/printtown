@@ -1,0 +1,15 @@
+[remap]
+
+importer="dialogue_manager_compiler_11"
+type="Resource"
+uid="uid://ct86gxver3170"
+path="res://.godot/imported/collectable_tutorial.dialogue-8dbf615c1a20a1bb55b753b7310e6d45.tres"
+
+[deps]
+
+source_file="res://dialogue/collectable_tutorial.dialogue"
+dest_files=["res://.godot/imported/collectable_tutorial.dialogue-8dbf615c1a20a1bb55b753b7310e6d45.tres"]
+
+[params]
+
+defaults=true

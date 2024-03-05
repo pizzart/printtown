@@ -1,0 +1,7 @@
+~ start
+
+jake: alright, you've found a treat. these are very useful in battles when you need to calm an animal down.
+{{player_name}}: ...is this safe? i mean, it's candy. not sure if it's good for any animal.
+jake: do not worry, they don't get hurt.
+
+=> END

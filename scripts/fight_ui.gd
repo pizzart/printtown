@@ -248,7 +248,7 @@ func update_grid():
 		btn.disabled = Global.animals[i].health <= 0
 		btn.pressed.connect(_on_animal_pressed.bind(i))
 		btn.mouse_entered.connect(_on_animal_hovered.bind(Global.animals[i]))
-		btn.mouse_exited.connect(_on_animal_unhovered.bind(Global.animals[i]))
+		btn.mouse_exited.connect(_on_animal_unhovered)
 		btn.icon = Global.animals[i].texture
 		animal_grid.add_child(btn)
 
@@ -274,6 +274,29 @@ func show_not_grid():
 	convince_btn.show()
 	note_bg.show()
 
+func set_notes(animal: Animals.Animal):
+	note.text = ""
+	if animal.convincing > 0.7:
+		note.text = "convincing\n"
+	elif animal.convincing < 0.3:
+		note.text = "unconvincing\n"
+	
+	if animal.damage > 4:
+		note.text += "strong\n"
+	elif animal.healing < 2:
+		note.text += "weak\n"
+	
+	if animal.healing > 5:
+		note.text += "cute\n"
+	elif animal.healing < 2:
+		note.text += "ugly\n"
+
+func remove_picked():
+	note.text = ""
+	animal_grid.get_child(picked_animal_index).selected = false
+	animal_grid.get_child(picked_animal_index).remove_outline()
+	picked_animal_index = -1
+
 func _on_animal_pressed(index: int):
 	heal_btn.disabled = false
 	bite_btn.disabled = false
@@ -291,26 +314,9 @@ func _on_animal_hovered(animal: Animals.Animal):
 	if picked_animal_index == -1:
 		set_notes(animal)
 
-func _on_animal_unhovered(animal: Animals.Animal):
+func _on_animal_unhovered():
 	if picked_animal_index == -1:
 		note.text = ""
-
-func set_notes(animal: Animals.Animal):
-	note.text = ""
-	if animal.convincing > 0.7:
-		note.text = "convincing\n"
-	elif animal.convincing < 0.3:
-		note.text = "unconvincing\n"
-	
-	if animal.damage > 4:
-		note.text += "strong\n"
-	elif animal.healing < 2:
-		note.text += "weak\n"
-	
-	if animal.healing > 5:
-		note.text += "cute\n"
-	elif animal.healing < 2:
-		note.text += "ugly\n"
 
 func _on_pet_pressed():
 	petted.emit()
@@ -337,12 +343,6 @@ func _on_paper_pressed():
 
 func _on_scissors_pressed():
 	rps_chosen.emit(Global.RPS.SCISSORS)
-
-func remove_picked():
-	note.text = ""
-	animal_grid.get_child(picked_animal_index).selected = false
-	animal_grid.get_child(picked_animal_index).remove_outline()
-	picked_animal_index = -1
 
 func _on_stickers_back_pressed():
 	unhide()

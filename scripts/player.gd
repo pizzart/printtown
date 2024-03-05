@@ -156,7 +156,7 @@ func _physics_process(delta):
 	
 	RenderingServer.global_shader_parameter_set("ca_strength", maxf((get_real_velocity().length() - RUN_SPEED) * 0.001 + Global.DEFAULT_CA, Global.DEFAULT_CA))
 
-func ground(delta: float, input_dir: Vector2):
+func ground(_delta: float, input_dir: Vector2):
 	coyote = 0
 	stamina = MAX_STAMINA
 	
@@ -313,13 +313,15 @@ func ledge(delta: float, input_dir: Vector2):
 		#$RayCast3D.global_rotation = Vector3.ZERO
 		#$RayCast3D2.target_position = wall_cast.get_collision_normal(0).rotated(Vector3.UP, PI / 2).abs().round() * 2
 		#$RayCast3D2.global_rotation = Vector3.ZERO
+		var normal = wall_cast.get_collision_normal(0)
+		var velo = (direction if not head_cast.is_colliding() else head_cast.get_collision_normal(0)).round() * LEDGE_SPEED * normal.rotated(Vector3.UP, PI / 2).abs().round() - normal * 2
+		#if head_cast.is_colliding():
+			#velo += head_cast.get_collision_normal(0).round() * 20
 		if not head_cast.is_colliding():
-			hvelo = lerp(hvelo, direction.round() * LEDGE_SPEED * wall_cast.get_collision_normal(0).rotated(Vector3.UP, PI / 2).abs().round() - wall_cast.get_collision_normal(0) * 3, ACCEL)
-			velocity.x = hvelo.x
-			velocity.z = hvelo.z
 			last_wall_normal = wall_cast.get_collision_normal(0)
-		else:
-			velocity = lerp(velocity, head_cast.get_collision_normal(0).round() * 20, 0.3)
+		hvelo = lerp(hvelo, velo, ACCEL)
+		velocity.x = hvelo.x
+		velocity.z = hvelo.z
 	else:
 		velocity = lerp(velocity, -last_wall_normal * 7, 0.3)
 	
@@ -419,4 +421,4 @@ func _input(event):
 	
 	if event is InputEventMouseMotion:
 		rotation.y -= event.relative.x * 0.002
-		gimbal.rotation.x = clampf(gimbal.rotation.x - event.relative.y * 0.002, -PI / 2.5, PI / 16)
+		gimbal.rotation.x = clampf(gimbal.rotation.x - event.relative.y * 0.002, -PI / 2.5, PI / 8)

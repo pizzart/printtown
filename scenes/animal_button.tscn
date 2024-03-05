@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://di4pt32bf5216"]
+[gd_scene load_steps=13 format=3 uid="uid://di4pt32bf5216"]
 
 [ext_resource type="Texture2D" uid="uid://b7vij1q44oa4b" path="res://graphics/animals/dog.png" id="1_fx4b3"]
 [ext_resource type="Script" path="res://scripts/animal_button.gd" id="2_byhm3"]
@@ -7,6 +7,14 @@
 [ext_resource type="Texture2D" uid="uid://h230p88yu8l" path="res://graphics/ui/fight/alert/update/alert_update0002.png" id="5_8xswr"]
 [ext_resource type="Texture2D" uid="uid://vqv1g1crtj7m" path="res://graphics/ui/fight/alert/update/alert_update0003.png" id="6_fdmn5"]
 [ext_resource type="Texture2D" uid="uid://uyv7xbtqmair" path="res://graphics/ui/fight/alert/update/alert_update0004.png" id="7_x7gfp"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_dri8i"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2cmt4"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_digu2"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_t3k2y"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_66si0"]
 animations = [{
@@ -40,6 +48,10 @@ offset_right = -64.0
 offset_bottom = -64.0
 pivot_offset = Vector2(32, 32)
 mouse_default_cursor_shape = 2
+theme_override_styles/hover = SubResource("StyleBoxEmpty_dri8i")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_2cmt4")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_digu2")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_t3k2y")
 action_mode = 0
 icon = ExtResource("1_fx4b3")
 flat = true

@@ -1,0 +1,44 @@
+[gd_scene load_steps=7 format=3 uid="uid://ba7b5gxxbgyiv"]
+
+[ext_resource type="Script" path="res://scripts/collectable.gd" id="1_554st"]
+[ext_resource type="Shader" path="res://misc/glow.gdshader" id="1_vlqui"]
+[ext_resource type="PackedScene" uid="uid://dx8sci8dn215j" path="res://models/candy.glb" id="3_5mkwm"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_4en8m"]
+radius = 2.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rtnf6"]
+render_priority = 0
+shader = ExtResource("1_vlqui")
+shader_parameter/albedo = Color(0.901961, 0.27451, 0.556863, 1)
+shader_parameter/emission_color = Color(0.984314, 0.619608, 0.72549, 1)
+shader_parameter/emission_amount = 5.0
+shader_parameter/rim_steepness = 2.0
+shader_parameter/uv_scale = null
+shader_parameter/uv_offset = null
+
+[sub_resource type="SphereMesh" id="SphereMesh_fykjs"]
+material = SubResource("ShaderMaterial_rtnf6")
+radius = 1.5
+height = 3.0
+radial_segments = 8
+rings = 4
+
+[node name="Collectable" type="Area3D"]
+script = ExtResource("1_554st")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_4en8m")
+
+[node name="Sphere" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_fykjs")
+
+[node name="Mesh" parent="." instance=ExtResource("3_5mkwm")]
+transform = Transform3D(0.75, 0, 0, 0, 0.75, 0, 0, 0, 0.75, 0, 0, 0)
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+light_color = Color(0.960784, 0.529412, 0.670588, 1)
+light_energy = 0.5
+omni_attenuation = 0.757858
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]

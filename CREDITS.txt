@@ -4,5 +4,6 @@ https://github.com/blackears/cyclopsLevelBuilder (MIT)
 this psx shader is based on some shader from godotshaders.com but idr which one (TODO ?)
 https://godotshaders.com/shader/high-quality-post-process-outline/ (MIT) (goated)
 https://godotshaders.com/shader/redacted/ (CC0) (temporary?)
+https://godotshaders.com/shader/simple-energy-shield/ (CC0)
 
 https://fonts.google.com/specimen/Gloria+Hallelujah (OFL)

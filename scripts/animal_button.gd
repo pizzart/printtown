@@ -4,7 +4,7 @@ const OUTLINE_MAT = preload("res://misc/outline.tres")
 var new_rotation: float = 0.0
 var selected: bool
 
-func _process(delta):
+func _process(_delta):
 	rotation = new_rotation
 
 func add_outline():

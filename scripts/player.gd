@@ -11,6 +11,9 @@ enum State {
 
 const JUMP_PARTICLES = preload("res://scenes/jump_particles.tscn")
 
+const SPRING_LEN = 8.0
+const SHORT_SPRING_LEN = 3.0
+
 const ACCEL = 0.15
 const DECEL = 0.27
 const AIR_ACCEL = 0.03
@@ -48,6 +51,8 @@ const SHADOW_DIST = 9.0
 
 const INTERACT_SPIN_SPEED = 1.8
 const INTERACT_SPIN_RAD = 80.0
+const COLLECT_SPIN_SPEED = 3.0
+const COLLECT_SPIN_RAD = 130.0
 
 var hvelo: Vector3
 var add_velo: Vector3
@@ -80,6 +85,7 @@ var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 @onready var wall_cast = $WallCast
 @onready var grab_cast = $GrabCast
 @onready var head_cast = $HeadCast
+@onready var trigger_area = $TriggerArea
 
 func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
@@ -114,6 +120,12 @@ func _process(delta):
 		MiscUI.interact_icon.modulate.a = lerpf(MiscUI.interact_icon.modulate.a, 0.0, delta * 10)
 		MiscUI.interact_icon.position = lerp(MiscUI.interact_icon.position, camera.unproject_position(global_position), delta * 10)
 	
+	MiscUI.collectables_popup.position = lerp(MiscUI.collectables_popup.position, camera.unproject_position(global_position) + Vector2(cos(time * COLLECT_SPIN_SPEED), sin(time * COLLECT_SPIN_SPEED)) * COLLECT_SPIN_RAD, delta * 10)
+	
+	if trigger_area.has_overlapping_areas():
+		gimbal.spring_length = lerpf(gimbal.spring_length, SHORT_SPRING_LEN, delta * 10)
+	else:
+		gimbal.spring_length = lerpf(gimbal.spring_length, SPRING_LEN, delta * 10)
 	#$StepCast.target_position
 
 func _physics_process(delta):

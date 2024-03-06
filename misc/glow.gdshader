@@ -10,10 +10,15 @@ uniform float emission_amount: hint_range(0.0, 16.0) = 5.0f;
 uniform float rim_steepness : hint_range(0.0f, 16.0f) = 3.0f; //higher values mean a smaller rim.
 uniform vec3 uv_scale;
 uniform vec3 uv_offset;
+uniform float explosion_progress : hint_range(0.0, 1.0) = 0.0;
 
+float rand(vec2 co) {
+	return fract(sin(dot(co, vec2(12.9898, 78.233))) * 43758.5453);
+}
 
 void vertex() {
-	UV=UV*uv_scale.xy+uv_offset.xy;
+	VERTEX = VERTEX + vec3(rand(VERTEX.xy * VERTEX.z) - 0.5, rand(VERTEX.xy * VERTEX.z) - 0.5, rand(VERTEX.xy * VERTEX.z) - 0.5) * 10.0 * explosion_progress;
+	UV = UV * uv_scale.xy + uv_offset.xy;
 }
 
 void fragment() {
@@ -23,5 +28,5 @@ void fragment() {
 	EMISSION = emission_color.rgb * emission_amount;
 	float NdotV = dot(NORMAL, VIEW);
 	float rim_light = pow(1.0 - NdotV, rim_steepness);
-	ALPHA = rim_light * emission_color.a / PI;
+	ALPHA = (rim_light * emission_color.a / PI) * (1.0 - explosion_progress);
 }

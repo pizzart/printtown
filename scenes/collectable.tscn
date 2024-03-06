@@ -16,6 +16,7 @@ shader_parameter/emission_amount = 5.0
 shader_parameter/rim_steepness = 2.0
 shader_parameter/uv_scale = null
 shader_parameter/uv_offset = null
+shader_parameter/explosion_progress = 0.0
 
 [sub_resource type="SphereMesh" id="SphereMesh_fykjs"]
 material = SubResource("ShaderMaterial_rtnf6")

@@ -396,10 +396,27 @@ func _on_kicked():
 		#apply_damage(damage)
 
 func _on_treated():
+	var tween = create_tween().set_parallel()
+	tween.tween_property(camera, "global_transform", $CameraInteractPoint.global_transform, 1.5).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
+	tween.tween_property(player, "global_position", $PlayerInteractPoint.global_position, 1.0).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+
+	FightUI.disable_all()
+	FightUI.partial_hide()
+	
+	await tween.finished
+	
+	tween = create_tween().set_parallel()
+	tween.tween_property(camera, "transform", Transform3D(), 1.5).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
+	tween.tween_property(player, "global_position", $PlayerPoint.global_position, 1.0).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+	
+	FightUI.enable_all(Global.treats, is_satisfied())
+	FightUI.unhide()
+	
 	Global.treats -= 1
 	enemy.add_mood(0.2 + randf_range(0.05, 0.2))
 	enemy.add_guard(-0.25 - randf_range(0.05, 0.15))
 	enemy.add_satisfaction(0.35 + randf_range(0.05, 0.1))
+	
 	update_ui()
 
 func _on_stickered():

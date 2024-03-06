@@ -1,5 +1,6 @@
 extends Node
 
+signal treat_collected
 enum RPS {
 	ROCK,
 	PAPER,
@@ -8,4 +9,5 @@ enum RPS {
 const DEFAULT_CA = 0.004
 var player_name: String = "player"
 var treats: int = 0
+var total_treats: int = 0
 var animals: Array[Animals.Animal] = [Animals.Dog.new(), Animals.Dog.new(), Animals.BadDog.new(), Animals.BadDog.new(), Animals.Dog.new()]

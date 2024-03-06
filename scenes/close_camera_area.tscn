@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://cpv3hlggawogv"]
+
+[ext_resource type="Script" path="res://scripts/close_camera_area.gd" id="1_ft3jl"]
+
+[node name="CloseCameraArea" type="Area3D"]
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("1_ft3jl")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]

@@ -18,7 +18,7 @@ const ACCEL = 0.15
 const DECEL = 0.27
 const AIR_ACCEL = 0.03
 const ADDVELO_DECEL_AIR = 0.04
-const ADDVELO_DECEL_GROUND = 0.1
+const ADDVELO_DECEL_GROUND = 0.12
 
 const CAMERA_HEIGHT = 3.5
 const SHAKE_REDUCE = 3.0
@@ -176,9 +176,7 @@ func ground(_delta: float, input_dir: Vector2):
 	coyote = 0
 	stamina = MAX_STAMINA
 	
-	var col = get_last_slide_collision()
-	if col:
-		last_floor_y = col.get_position().y
+	last_floor_y = global_position.y - col_shape.shape.height / 2
 	
 	var direction = (transform.basis * Vector3(input_dir.x * (0.3 if Input.is_action_pressed("run") else 1.0), 0, input_dir.y)).normalized()
 	if direction:
@@ -270,7 +268,6 @@ func air(delta: float, input_dir: Vector2):
 	
 	if is_on_floor():
 		jump_time = 0
-		last_floor_y = global_position.y - 1
 		
 		#if last_velocity.y < ROLL_FALL_VELO:
 			#hvelo = direction * abs(last_velocity.y)
@@ -286,6 +283,7 @@ func air(delta: float, input_dir: Vector2):
 			jump_buffered = false
 			jump_time = 0
 			coyote = COYOTE_TIME + 0.1
+			last_floor_y = global_position.y - col_shape.shape.height / 2
 			#hvelo += direction * absf(last_velocity.y)
 			add_velo += direction * (pow(absf(last_velocity.y), 0.7) * 0.7 + maxf(log(absf(last_velocity.y) - JUMP_VELOCITY), 0))
 			velocity.y = JUMP_VELOCITY

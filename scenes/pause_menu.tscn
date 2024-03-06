@@ -147,7 +147,6 @@ frame = 10
 frame_progress = 1.0
 
 [node name="Main" type="Node3D" parent="Book"]
-visible = false
 
 [node name="GameTexture" type="Sprite3D" parent="Book/Main"]
 transform = Transform3D(0.965804, 0, 0.259274, 0, 1, 0, -0.259274, 0, 0.965804, -0.118106, 0.001, -0.0561178)
@@ -248,6 +247,7 @@ outline_size = 0
 line_spacing = -8.0
 
 [node name="Options" type="Node3D" parent="Book"]
+visible = false
 
 [node name="OptionsText" type="Label3D" parent="Book/Options"]
 transform = Transform3D(0.991839, -0.127497, -5.57309e-09, 0, -4.37114e-08, 1, -0.127497, -0.991839, -4.33546e-08, -0.218191, 0.002, -0.154527)
@@ -275,7 +275,6 @@ outline_size = 0
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.155137, 0.003, 0.000497205)
 
 [node name="BG" type="Sprite3D" parent="Book/Options/Clock"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 modulate = Color(0, 0, 0, 1)
 pixel_size = 0.001
 axis = 1
@@ -285,7 +284,6 @@ render_priority = 1
 texture = ExtResource("10_ffhjb")
 
 [node name="ArrowSmall" type="Sprite3D" parent="Book/Options/Clock"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 modulate = Color(0, 0, 0, 1)
 pixel_size = 0.001
 axis = 1
@@ -308,7 +306,6 @@ outline_size = 0
 line_spacing = -32.0
 
 [node name="ArrowBig" type="Sprite3D" parent="Book/Options/Clock"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 modulate = Color(0, 0, 0, 1)
 pixel_size = 0.001
 axis = 1

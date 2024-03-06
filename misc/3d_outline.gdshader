@@ -232,7 +232,12 @@ float detectEdgesNormal(UVNeighbors uvs, sampler2D normTex, vec3 camDirWorld){
 }
 #endif//SUPPORT_MOBILE
 
+float rand(vec2 co) {
+	return fract(sin(dot(co, vec2(12.9898, 78.233))) * 43758.5453);
+}
+
 void vertex() {
+	//VERTEX = VERTEX + vec3(rand(VERTEX.yx * sin(trunc(TIME))), rand(VERTEX.yz * sin(trunc(TIME))), rand(VERTEX.zx * sin(trunc(TIME)))) * 0.1;
 	POSITION = vec4(VERTEX, 1.0);
 	
 #ifdef SUPPORT_MOBILE
@@ -250,7 +255,7 @@ void fragment() {
 	float thickness = clamp(remap(min_d, min_distance, max_distance, max_thickness, min_thickness), min_thickness, max_thickness);
 	float fade_a = clamp(remap(min_d, min_distance, max_distance, 1.0, 0.0), 0.0, 1.0);
 	
-	n = getNeighbors(SCREEN_UV, thickness, aspect);
+	n = getNeighbors(SCREEN_UV + vec2(rand(SCREEN_UV.yx * sin(trunc(TIME * 1.8))) - 0.5, rand(SCREEN_UV * cos(trunc(TIME * 1.8))) - 0.5) * 0.002, thickness, aspect);
 	depth_samples = getLinearDepthSamples(n, DEPTH_TEXTURE, INV_PROJECTION_MATRIX);
 	
 #ifndef SUPPORT_MOBILE

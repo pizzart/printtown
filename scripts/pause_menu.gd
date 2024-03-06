@@ -20,6 +20,7 @@ const TITLE_TEXT = """
 %s's
  diary / sketchbook
 """
+const HIGHLIGHT_COLOR = Color(0.9, 0.5, 0.6)
 var game_camera: Camera3D
 var mouse_mode: Input.MouseMode
 var can_unpause: bool
@@ -41,10 +42,21 @@ var holding_arrow: Arrow = Arrow.None
 @onready var closed_book = $Book/Closed
 @onready var options_book = $Book/Options
 
+# small = music, big = sfx
+@onready var arrow_small = $Book/Options/Clock/ArrowSmall
+@onready var arrow_big = $Book/Options/Clock/ArrowBig
+@onready var vol_text = $Book/Options/Clock/Volume
+
 func _ready():
 	var datetime = Time.get_datetime_dict_from_system()
 	paused_text.text = "%02d/%02d/%s" % [datetime["day"], datetime["month"], datetime["year"] % 100]
 	name_text.text = TITLE_TEXT % Global.player_name
+	arrow_small.rotation.y = snappedf(db_to_linear(AudioServer.get_bus_volume_db(1)) * PI*2 + 2*PI/3, PI/6)
+	arrow_big.rotation.y = snappedf(db_to_linear(AudioServer.get_bus_volume_db(2)) * PI*2 + 2*PI/3, PI/6)
+	update_volume()
+
+func update_volume():
+	vol_text.text = "%02d:%02d" % [ceili(db_to_linear(AudioServer.get_bus_volume_db(2)) * 11), ceili(db_to_linear(AudioServer.get_bus_volume_db(1)) * 11) * 5]
 
 func _input(event):
 	if event.is_action_pressed("pause"):
@@ -56,22 +68,37 @@ func _input(event):
 			if event.is_pressed():
 				if options_book.visible:
 					var dist = camera.unproject_position($Book/Options/Clock.global_position).distance_to(get_viewport().get_mouse_position())
-					if dist < 50:
+					if dist < 40:
 						holding_arrow = Arrow.Hour
-					elif dist < 100:
+						arrow_small.modulate = HIGHLIGHT_COLOR
+					elif dist < 80:
 						holding_arrow = Arrow.Minute
+						arrow_big.modulate = HIGHLIGHT_COLOR
 					else:
 						holding_arrow = Arrow.None
 			if event.is_released():
 				holding_arrow = Arrow.None
 	
 	if event is InputEventMouseMotion:
-		if holding_arrow != Arrow.None:
-			var angle = camera.unproject_position($Book/Options/Clock.global_position).direction_to(get_viewport().get_mouse_position()).angle() - camera.rotation.y
-			if holding_arrow == Arrow.Minute:
-				$Book/Options/Clock/MinuteArrow.rotation.y = snappedf(-angle, PI / 6)
+		if options_book.visible:
+			if holding_arrow != Arrow.None:
+				var angle: float = camera.unproject_position($Book/Options/Clock.global_position).direction_to(get_viewport().get_mouse_position()).angle() - camera.rotation.y
+				var snap_angle: float = snappedf(-angle, PI / 6)
+				var volume_angle: float = -(snap_angle - PI / 2 if snap_angle - PI / 2 <= 0 else snap_angle - PI / 2 - PI * 2) / (PI * 2)
+				if holding_arrow == Arrow.Minute:
+					arrow_big.rotation.y = snap_angle
+					AudioServer.set_bus_volume_db(1, linear_to_db(volume_angle))
+				else:
+					arrow_small.rotation.y = snap_angle
+					AudioServer.set_bus_volume_db(2, linear_to_db(volume_angle))
+				update_volume()
 			else:
-				$Book/Options/Clock/HourArrow.rotation.y = snappedf(-angle, PI / 6)
+				var dist = camera.unproject_position($Book/Options/Clock.global_position).distance_to(get_viewport().get_mouse_position())
+				var adj = clampf((140.0 - dist) / 80.0, 0.0, 1.0)
+				var col = Color(adj * 0.2, adj * 0.3, adj * 0.8)
+				$Book/Options/Clock/BG.modulate = col
+				arrow_big.modulate = col
+				arrow_small.modulate = col
 
 func pause(texture: ImageTexture, _game_camera: Camera3D, _mouse_mode: Input.MouseMode, timer: String):
 	game_camera = _game_camera

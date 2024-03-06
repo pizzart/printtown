@@ -153,6 +153,8 @@ func _physics_process(delta):
 			#roll(delta, input_dir)
 	
 	velocity += add_velo
+	last_velocity = get_real_velocity()
+	
 	$CanvasLayer/Label.text += "\nvelocity: %s // %s" % [get_real_velocity(), get_real_velocity().length()]
 	$CanvasLayer/Label.text += "\nstamina: %s // %s" % [snappedf(stamina, 0.01), snappedf(pow(stamina / MAX_STAMINA, 0.4), 0.01)]
 	
@@ -165,10 +167,10 @@ func _physics_process(delta):
 	
 	#stamina = clampf(stamina + delta * 1.5, 0, MAX_STAMINA)
 
-	last_velocity = get_real_velocity()
 	move_and_slide()
 	
 	RenderingServer.global_shader_parameter_set("ca_strength", maxf((get_real_velocity().length() - RUN_SPEED) * 0.001 + Global.DEFAULT_CA, Global.DEFAULT_CA))
+	sprite.scale.y = 1.0 + absf(get_real_velocity().y) / 75.0
 
 func ground(_delta: float, input_dir: Vector2):
 	coyote = 0

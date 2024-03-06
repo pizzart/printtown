@@ -275,21 +275,27 @@ func show_not_grid():
 	note_bg.show()
 
 func set_notes(animal: Animals.Animal):
-	note.text = ""
+	var text = ""
+	
 	if animal.convincing > 0.7:
-		note.text = "convincing\n"
+		text = "convincing\n"
 	elif animal.convincing < 0.3:
-		note.text = "unconvincing\n"
+		text = "unconvincing\n"
 	
 	if animal.damage > 4:
-		note.text += "strong\n"
+		text += "strong\n"
 	elif animal.healing < 2:
-		note.text += "weak\n"
+		text += "weak\n"
 	
 	if animal.healing > 5:
-		note.text += "cute\n"
+		text += "cute\n"
 	elif animal.healing < 2:
-		note.text += "ugly\n"
+		text += "ugly\n"
+	
+	if text == "":
+		note.text = "well-rounded"
+	else:
+		note.text = text
 
 func remove_picked():
 	note.text = ""

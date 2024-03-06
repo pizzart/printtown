@@ -7,3 +7,4 @@ https://godotshaders.com/shader/redacted/ (CC0) (temporary?)
 https://godotshaders.com/shader/simple-energy-shield/ (CC0)
 
 https://fonts.google.com/specimen/Gloria+Hallelujah (OFL)
+https://fonts.google.com/specimen/Orbitron (OFL)

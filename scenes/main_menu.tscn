@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=3 uid="uid://yq0hi5elkr8a"]
+
+[ext_resource type="Script" path="res://scripts/main_menu.gd" id="1_c7l2s"]
+[ext_resource type="FontFile" uid="uid://cgjjr8ld3la1k" path="res://misc/GloriaHallelujah-Regular.ttf" id="2_8u3kj"]
+
+[sub_resource type="Environment" id="Environment_jsnn4"]
+background_mode = 3
+
+[node name="MainMenu" type="Node3D"]
+script = ExtResource("1_c7l2s")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_jsnn4")
+
+[node name="Title" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.866025, -0.5, 0, 0.5, 0.866025, 0, 0.34, 0)
+pixel_size = 0.0041
+texture_filter = 0
+text = "videogame"
+font = ExtResource("2_8u3kj")
+outline_size = 0
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.25418)
+fov = 45.0

@@ -1,30 +1,100 @@
 extends Node3D
 
+enum Arrow {
+	None,
+	Minute,
+	Hour,
+}
+const DIARY_TEXT = """
+dear diary,
+today was a strange day
+i was asked to sign a contract in
+which i had to climb on top of a
+giraffe to graffiti the largest
+building in town.
+
+i collected %s treats
+i got %s pets
+"""
+const TITLE_TEXT = """
+%s's
+ diary / sketchbook
+"""
 var game_camera: Camera3D
 var mouse_mode: Input.MouseMode
 var can_unpause: bool
+var holding_arrow: Arrow = Arrow.None
+
+@onready var paused_text = $Book/Main/PausedText
+@onready var name_text = $Book/Closed/NameText
+@onready var camera = $Camera
+@onready var book = $Book
+#@onready var book_closed = $BookClosed
+@onready var unpause_btn = $UI/MainUI/Unpause
+@onready var quit_btn = $UI/MainUI/Quit
+
+@onready var main_ui = $UI/MainUI
+@onready var options_ui = $UI/OptionsUI
+@onready var closed_ui = $UI/ClosedUI
+
+@onready var main_book = $Book/Main
+@onready var closed_book = $Book/Closed
+@onready var options_book = $Book/Options
+
+func _ready():
+	var datetime = Time.get_datetime_dict_from_system()
+	paused_text.text = "%02d/%02d/%s" % [datetime["day"], datetime["month"], datetime["year"] % 100]
+	name_text.text = TITLE_TEXT % Global.player_name
 
 func _input(event):
 	if event.is_action_pressed("pause"):
 		if can_unpause:
 			unpause()
+	
+	if event is InputEventMouseButton:
+		if event.button_index == 1:
+			if event.is_pressed():
+				if options_book.visible:
+					var dist = camera.unproject_position($Book/Options/Clock.global_position).distance_to(get_viewport().get_mouse_position())
+					if dist < 50:
+						holding_arrow = Arrow.Hour
+					elif dist < 100:
+						holding_arrow = Arrow.Minute
+					else:
+						holding_arrow = Arrow.None
+			if event.is_released():
+				holding_arrow = Arrow.None
+	
+	if event is InputEventMouseMotion:
+		if holding_arrow != Arrow.None:
+			var angle = camera.unproject_position($Book/Options/Clock.global_position).direction_to(get_viewport().get_mouse_position()).angle() - camera.rotation.y
+			if holding_arrow == Arrow.Minute:
+				$Book/Options/Clock/MinuteArrow.rotation.y = snappedf(-angle, PI / 6)
+			else:
+				$Book/Options/Clock/HourArrow.rotation.y = snappedf(-angle, PI / 6)
 
-func pause(texture: ImageTexture, _game_camera: Camera3D, _mouse_mode: Input.MouseMode):
+func pause(texture: ImageTexture, _game_camera: Camera3D, _mouse_mode: Input.MouseMode, timer: String):
 	game_camera = _game_camera
 	mouse_mode = _mouse_mode
 	#$Camera.make_current()
-	$GameTexture.texture = texture
+	$Book/Main/DiaryText.text = DIARY_TEXT % [Global.collected_treats, Global.animals.size()]
+	$Book/Main/GameTexture.texture = texture
+	$Book/Main/TimerText.text = timer
+	camera.global_transform = $ZoomPoint.global_transform
 	var tween = create_tween()
-	tween.tween_property($Camera, "global_transform", $ZoomOutPoint.global_transform, 1.0).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
+	tween.tween_property(camera, "global_transform", $ZoomOutPoint.global_transform, 1.0).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
 	await tween.finished
 	can_unpause = true
-	$UI/Unpause.disabled = false
+	unpause_btn.disabled = false
+	#quit_btn.disabled = false
 
 func unpause():
-	$UI/Unpause.disabled = true
+	unpause_btn.disabled = true
+	#quit_btn.disabled = true
 	can_unpause = false
+	#$Camera.global_transform = $ZoomOutPoint.global_transform
 	var tween = create_tween()
-	tween.tween_property($Camera, "global_transform", $ZoomPoint.global_transform, 1.0).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_IN)
+	tween.tween_property(camera, "global_transform", $ZoomPoint.global_transform, 1.0).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_IN)
 	await tween.finished
 	Input.mouse_mode = mouse_mode
 	#game_camera.make_current()
@@ -33,3 +103,46 @@ func unpause():
 
 func _on_unpause_pressed():
 	unpause()
+
+func _on_quit_pressed():
+	main_ui.hide()
+	main_book.hide()
+	
+	book.play("close")
+	await book.animation_finished
+	
+	closed_book.show()
+	closed_ui.show()
+
+func _on_back_closed_pressed():
+	closed_book.hide()
+	closed_ui.hide()
+	
+	book.play("open")
+	await book.animation_finished
+	
+	main_ui.show()
+	main_book.show()
+
+func _on_quit_closed_pressed():
+	get_tree().quit()
+
+func _on_options_pressed():
+	main_ui.hide()
+	main_book.hide()
+	
+	book.play("open")
+	await book.animation_finished
+	
+	options_book.show()
+	options_ui.show()
+
+func _on_back_options_pressed():
+	options_book.hide()
+	options_ui.hide()
+	
+	book.play("open")
+	await book.animation_finished
+	
+	main_ui.show()
+	main_book.show()

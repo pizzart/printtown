@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://bqv13fmmqt71v"]
+[gd_scene load_steps=21 format=3 uid="uid://bqv13fmmqt71v"]
 
 [ext_resource type="Texture2D" uid="uid://bf4fm6ce01idn" path="res://graphics/ui/fight/stickerbook/stickerbook0002.png" id="1_6370c"]
 [ext_resource type="Script" path="res://scripts/pause_menu.gd" id="1_l81ig"]
@@ -8,6 +8,8 @@
 [ext_resource type="Texture2D" uid="uid://4bo7vbr6n4oh" path="res://graphics/ui/pause/tape.png" id="6_a5evp"]
 [ext_resource type="Shader" path="res://misc/weird.gdshader" id="6_jiugw"]
 [ext_resource type="FontFile" uid="uid://cgjjr8ld3la1k" path="res://misc/GloriaHallelujah-Regular.ttf" id="7_3al63"]
+[ext_resource type="Texture2D" uid="uid://djdpyix06bq0u" path="res://graphics/ui/fight/call_actions/action.png" id="7_4ls4m"]
+[ext_resource type="Texture2D" uid="uid://cfei2fg0pqtu3" path="res://graphics/ui/pause/stickerbook_closed.png" id="9_n5wi1"]
 
 [sub_resource type="Environment" id="Environment_wwbrt"]
 background_mode = 1
@@ -17,37 +19,75 @@ glow_bloom = 0.15
 animations = [{
 "frames": [{
 "duration": 1.0,
+"texture": ExtResource("2_55nlk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_q17xx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_55nlk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_q17xx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_55nlk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_q17xx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_55nlk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_q17xx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_55nlk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_q17xx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_n5wi1")
+}],
+"loop": false,
+"name": &"close",
+"speed": 16.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_55nlk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_q17xx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_55nlk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_q17xx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_55nlk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_q17xx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_55nlk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_q17xx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_55nlk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_q17xx")
+}, {
+"duration": 1.0,
 "texture": ExtResource("1_6370c")
-}, {
-"duration": 1.0,
-"texture": ExtResource("2_55nlk")
-}, {
-"duration": 1.0,
-"texture": ExtResource("3_q17xx")
-}, {
-"duration": 1.0,
-"texture": ExtResource("2_55nlk")
-}, {
-"duration": 1.0,
-"texture": ExtResource("3_q17xx")
-}, {
-"duration": 1.0,
-"texture": ExtResource("2_55nlk")
-}, {
-"duration": 1.0,
-"texture": ExtResource("3_q17xx")
-}, {
-"duration": 1.0,
-"texture": ExtResource("2_55nlk")
-}, {
-"duration": 1.0,
-"texture": ExtResource("3_q17xx")
-}, {
-"duration": 1.0,
-"texture": ExtResource("2_55nlk")
-}, {
-"duration": 1.0,
-"texture": ExtResource("3_q17xx")
 }],
 "loop": false,
 "name": &"open",
@@ -62,9 +102,20 @@ shader_parameter/static_intensity = 0.05
 shader_parameter/color = Color(0, 0, 0, 1)
 shader_parameter/tex_scale = 0.1
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_u4y34"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_llmv3"]
+bg_color = Color(1, 1, 1, 0.184314)
+
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2ymrk"]
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_q2qhw"]
+
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_pbpn8"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ypxn5"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qdfbi"]
 
 [node name="PauseMenu" type="Node3D"]
 script = ExtResource("1_l81ig")
@@ -72,15 +123,15 @@ script = ExtResource("1_l81ig")
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_wwbrt")
 
+[node name="Camera" type="Camera3D" parent="."]
+transform = Transform3D(0.913545, 0.406737, 1.7779e-08, 0, -4.37114e-08, 1, 0.406737, -0.913545, -3.99323e-08, 0, 0.663, 0)
+fov = 50.0
+
 [node name="ZoomOutPoint" type="Marker3D" parent="."]
-transform = Transform3D(0.932954, 0.359997, 1.5736e-08, 0, -4.37114e-08, 1, 0.359997, -0.932954, -4.07807e-08, 0, 0.753, 0)
+transform = Transform3D(0.913546, 0.406737, 1.7779e-08, 0, -4.37114e-08, 1, 0.406737, -0.913546, -3.99323e-08, 0, 0.663, 0)
 
 [node name="ZoomPoint" type="Marker3D" parent="."]
 transform = Transform3D(0.965926, -0.258819, -1.13133e-08, 0, -4.37114e-08, 1, -0.258819, -0.965926, -4.2222e-08, -0.118, 0.104, -0.056)
-
-[node name="Camera" type="Camera3D" parent="."]
-transform = Transform3D(0.965926, -0.258819, -1.13133e-08, 0, -4.37114e-08, 1, -0.258819, -0.965926, -4.2222e-08, -0.118, 0.104, -0.056)
-fov = 50.0
 
 [node name="Book" type="AnimatedSprite3D" parent="."]
 pixel_size = 0.001
@@ -89,8 +140,12 @@ shaded = true
 texture_filter = 0
 sprite_frames = SubResource("SpriteFrames_kg6uc")
 animation = &"open"
+frame = 10
+frame_progress = 1.0
 
-[node name="GameTexture" type="Sprite3D" parent="."]
+[node name="Main" type="Node3D" parent="Book"]
+
+[node name="GameTexture" type="Sprite3D" parent="Book/Main"]
 transform = Transform3D(0.965804, 0, 0.259274, 0, 1, 0, -0.259274, 0, 0.965804, -0.118106, 0.001, -0.0561178)
 pixel_size = 0.0002
 axis = 1
@@ -99,7 +154,7 @@ shaded = true
 texture_filter = 0
 texture = ExtResource("4_qgow0")
 
-[node name="Tape" type="Sprite3D" parent="."]
+[node name="Tape" type="Sprite3D" parent="Book/Main"]
 transform = Transform3D(1, 0, 0.000471249, 0, 1, 0, -0.000471249, 0, 1, -0.125314, 0.002, -0.0581486)
 pixel_size = 0.001
 axis = 1
@@ -108,19 +163,213 @@ texture_filter = 0
 render_priority = 1
 texture = ExtResource("6_a5evp")
 
-[node name="Label3D" type="Label3D" parent="."]
-transform = Transform3D(0.975776, -0.218773, -9.56289e-09, 0, -4.37114e-08, 1, -0.218773, -0.975776, -4.26525e-08, -0.181346, 0.002, -0.133927)
+[node name="QuitButton" type="Sprite3D" parent="Book/Main"]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -0.341, -0.002, 0.116)
+pixel_size = 0.001
+axis = 1
+shaded = true
+texture_filter = 0
+texture = ExtResource("7_4ls4m")
+
+[node name="Text" type="Label3D" parent="Book/Main/QuitButton"]
+transform = Transform3D(-1, 8.74228e-08, 1.69407e-21, 3.82137e-15, 4.37114e-08, 1, 8.74228e-08, 1, -4.37114e-08, -0.001, 0, 0)
 pixel_size = 0.001
 shaded = true
 texture_filter = 0
 render_priority = 1
 modulate = Color(0, 0, 0, 1)
-text = "paused"
+text = "quit"
+font = ExtResource("7_3al63")
+font_size = 24
+outline_size = 0
+line_spacing = -8.0
+
+[node name="PausedText" type="Label3D" parent="Book/Main"]
+transform = Transform3D(0.991839, -0.127497, -5.57309e-09, 0, -4.37114e-08, 1, -0.127497, -0.991839, -4.33546e-08, -0.194158, 0.002, -0.138906)
+pixel_size = 0.001
+shaded = true
+texture_filter = 0
+render_priority = 1
+modulate = Color(0.109804, 0.109804, 0.368627, 1)
+text = "01/01/70"
 font = ExtResource("7_3al63")
 outline_size = 0
 
+[node name="TimerText" type="Label3D" parent="Book/Main"]
+transform = Transform3D(0.96957, -0.244816, -1.07013e-08, 1.30421e-15, -4.37114e-08, 1, -0.244816, -0.96957, -4.23812e-08, -0.0987262, 0.00199997, 0.00370533)
+pixel_size = 0.001
+shaded = true
+texture_filter = 0
+render_priority = 1
+modulate = Color(0.109804, 0.109804, 0.368627, 1)
+text = "0:00.000"
+font = ExtResource("7_3al63")
+font_size = 24
+outline_size = 0
+
+[node name="DiaryText" type="Label3D" parent="Book/Main"]
+transform = Transform3D(0.997833, -0.0658037, -2.87637e-09, 0, -4.37114e-08, 1, -0.0658037, -0.997833, -4.36166e-08, 0.0192043, 0.002, -0.160282)
+pixel_size = 0.001
+shaded = true
+texture_filter = 0
+render_priority = 1
+modulate = Color(0.109804, 0.109804, 0.368627, 1)
+text = "lorem ipsum ig"
+font = ExtResource("7_3al63")
+font_size = 15
+outline_size = 0
+horizontal_alignment = 0
+vertical_alignment = 0
+line_spacing = -8.0
+
+[node name="OptionsButton" type="Sprite3D" parent="Book/Main"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.324, -0.002, -0.104246)
+pixel_size = 0.001
+axis = 1
+shaded = true
+texture_filter = 0
+texture = ExtResource("7_4ls4m")
+
+[node name="Text" type="Label3D" parent="Book/Main/OptionsButton"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.0106253, 0, -0.0051036)
+pixel_size = 0.001
+shaded = true
+texture_filter = 0
+render_priority = 1
+modulate = Color(0.160784, 0.172549, 0.556863, 1)
+text = "options"
+font = ExtResource("7_3al63")
+font_size = 24
+outline_size = 0
+line_spacing = -8.0
+
+[node name="Options" type="Node3D" parent="Book"]
+visible = false
+
+[node name="Clock" type="Node3D" parent="Book/Options"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.158742, 0.003, -0.015725)
+
+[node name="HourArrow" type="Label3D" parent="Book/Options/Clock"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
+pixel_size = 0.001
+texture_filter = 0
+render_priority = 2
+text = "music!"
+font_size = 16
+horizontal_alignment = 0
+
+[node name="MinuteArrow" type="Label3D" parent="Book/Options/Clock"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
+pixel_size = 0.001
+texture_filter = 0
+render_priority = 2
+modulate = Color(0.54902, 0.54902, 0.54902, 1)
+text = "sound effects"
+font_size = 16
+horizontal_alignment = 0
+
+[node name="OptionsText" type="Label3D" parent="Book/Options"]
+transform = Transform3D(0.991839, -0.127497, -5.57309e-09, 0, -4.37114e-08, 1, -0.127497, -0.991839, -4.33546e-08, -0.194158, 0.002, -0.138906)
+pixel_size = 0.001
+shaded = true
+texture_filter = 0
+render_priority = 1
+modulate = Color(0.109804, 0.109804, 0.368627, 1)
+text = "options"
+font = ExtResource("7_3al63")
+outline_size = 0
+
+[node name="BackButton" type="Sprite3D" parent="Book/Options"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.324, -0.002, -0.104246)
+pixel_size = 0.001
+axis = 1
+shaded = true
+texture_filter = 0
+texture = ExtResource("7_4ls4m")
+
+[node name="Text" type="Label3D" parent="Book/Options/BackButton"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.00150678, 0, -0.00306697)
+pixel_size = 0.001
+shaded = true
+texture_filter = 0
+render_priority = 1
+modulate = Color(0.160784, 0.172549, 0.556863, 1)
+text = "back"
+font = ExtResource("7_3al63")
+font_size = 24
+outline_size = 0
+line_spacing = -8.0
+
+[node name="Closed" type="Node3D" parent="Book"]
+visible = false
+
+[node name="BackButton" type="Sprite3D" parent="Book/Closed"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.324, -0.002, 0.0754459)
+pixel_size = 0.001
+axis = 1
+shaded = true
+texture_filter = 0
+texture = ExtResource("7_4ls4m")
+
+[node name="Text" type="Label3D" parent="Book/Closed/BackButton"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.00331616, 0, -0.00446556)
+pixel_size = 0.001
+shaded = true
+texture_filter = 0
+render_priority = 1
+modulate = Color(0.160784, 0.172549, 0.556863, 1)
+text = "back"
+font = ExtResource("7_3al63")
+font_size = 24
+outline_size = 0
+line_spacing = -8.0
+
+[node name="QuitButton" type="Sprite3D" parent="Book/Closed"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.328156, -0.002, 0.142371)
+pixel_size = 0.001
+axis = 1
+shaded = true
+texture_filter = 0
+texture = ExtResource("7_4ls4m")
+
+[node name="Text" type="Label3D" parent="Book/Closed/QuitButton"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.00331616, 0, -0.00446557)
+pixel_size = 0.001
+shaded = true
+texture_filter = 0
+render_priority = 1
+outline_render_priority = 0
+modulate = Color(0.752941, 0.141176, 0.615686, 1)
+text = "quit"
+font = ExtResource("7_3al63")
+font_size = 24
+outline_size = 0
+line_spacing = -8.0
+
+[node name="NameText" type="Label3D" parent="Book/Closed"]
+transform = Transform3D(0.999107, -0.0422588, -1.84721e-09, 1.24951e-17, -4.37114e-08, 1, -0.0422588, -0.999107, -4.36723e-08, 0.0407777, 0.00200001, -0.171082)
+pixel_size = 0.001
+shaded = true
+texture_filter = 0
+render_priority = 1
+outline_render_priority = 0
+modulate = Color(0.294118, 0.0901961, 0.698039, 1)
+outline_modulate = Color(0.984314, 0.815686, 1, 1)
+text = "__________'s
+ diary / sketchbook"
+font = ExtResource("7_3al63")
+font_size = 24
+outline_size = 4
+horizontal_alignment = 0
+vertical_alignment = 0
+line_spacing = -24.0
+
 [node name="SpotLight3D" type="SpotLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -0.350202, 0.635377, 0)
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -0.35, 0.905, -0.06)
+light_color = Color(0.929412, 0.905882, 0.866667, 1)
+spot_attenuation = 2.14355
+spot_angle = 45.44
+spot_angle_attenuation = 2.14355
 
 [node name="CSGBox3D" type="CSGBox3D" parent="."]
 visible = false
@@ -149,20 +398,158 @@ layout_mode = 0
 offset_right = 40.0
 offset_bottom = 23.0
 
-[node name="Unpause" type="Button" parent="UI"]
+[node name="MainUI" type="Control" parent="UI"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Unpause" type="Button" parent="UI/MainUI"]
+layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.275
-anchor_top = 0.483333
-anchor_right = 0.446848
-anchor_bottom = 0.48743
-offset_right = -21.9824
-offset_bottom = 64.0334
-rotation = -0.625622
+anchor_left = 0.242188
+anchor_top = 0.490321
+anchor_right = 0.437365
+anchor_bottom = 0.490321
+offset_top = 4.64609
+offset_right = -24.9136
+offset_bottom = 79.6461
+rotation = -0.680678
 mouse_default_cursor_shape = 2
+theme_override_styles/normal = SubResource("StyleBoxEmpty_u4y34")
+theme_override_styles/hover = SubResource("StyleBoxFlat_llmv3")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_2ymrk")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_q2qhw")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_pbpn8")
+disabled = true
 action_mode = 0
-flat = true
 metadata/_edit_use_anchors_ = true
 
-[connection signal="pressed" from="UI/Unpause" to="." method="_on_unpause_pressed"]
+[node name="Quit" type="Button" parent="UI/MainUI"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.107813
+anchor_top = 0.889085
+anchor_right = 0.25297
+anchor_bottom = 0.889085
+offset_top = 5.23907
+offset_right = -5.90076
+offset_bottom = 38.2391
+rotation = -0.418879
+mouse_default_cursor_shape = 2
+theme_override_styles/normal = SubResource("StyleBoxEmpty_ypxn5")
+theme_override_styles/hover = SubResource("StyleBoxFlat_llmv3")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_2ymrk")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_qdfbi")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_pbpn8")
+action_mode = 0
+metadata/_edit_use_anchors_ = true
+
+[node name="Options" type="Button" parent="UI/MainUI"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.751562
+anchor_top = 0.120267
+anchor_right = 0.878955
+anchor_bottom = 0.120267
+offset_top = 1.2718
+offset_right = -6.53149
+offset_bottom = 33.2718
+rotation = -0.418879
+mouse_default_cursor_shape = 2
+theme_override_styles/normal = SubResource("StyleBoxEmpty_ypxn5")
+theme_override_styles/hover = SubResource("StyleBoxFlat_llmv3")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_2ymrk")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_qdfbi")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_pbpn8")
+action_mode = 0
+metadata/_edit_use_anchors_ = true
+
+[node name="OptionsUI" type="Control" parent="UI"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Back" type="Button" parent="UI/OptionsUI"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.751562
+anchor_top = 0.120267
+anchor_right = 0.878955
+anchor_bottom = 0.120267
+offset_top = 1.2718
+offset_right = -6.53149
+offset_bottom = 33.2718
+rotation = -0.418879
+mouse_default_cursor_shape = 2
+theme_override_styles/normal = SubResource("StyleBoxEmpty_ypxn5")
+theme_override_styles/hover = SubResource("StyleBoxFlat_llmv3")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_2ymrk")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_qdfbi")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_pbpn8")
+action_mode = 0
+metadata/_edit_use_anchors_ = true
+
+[node name="ClosedUI" type="Control" parent="UI"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BackClosed" type="Button" parent="UI/ClosedUI"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.06875
+anchor_top = 0.9
+anchor_right = 0.185013
+anchor_bottom = 0.900027
+offset_left = 499.0
+offset_top = -249.0
+offset_right = 491.592
+offset_bottom = -217.013
+rotation = -0.418879
+mouse_default_cursor_shape = 2
+theme_override_styles/normal = SubResource("StyleBoxEmpty_ypxn5")
+theme_override_styles/hover = SubResource("StyleBoxFlat_llmv3")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_2ymrk")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_qdfbi")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_pbpn8")
+action_mode = 0
+metadata/_edit_use_anchors_ = true
+
+[node name="QuitClosed" type="Button" parent="UI/ClosedUI"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.1
+anchor_top = 0.8375
+anchor_right = 0.22095
+anchor_bottom = 0.837527
+offset_left = 500.0
+offset_top = -172.0
+offset_right = 492.592
+offset_bottom = -140.013
+rotation = -0.418879
+mouse_default_cursor_shape = 2
+theme_override_styles/normal = SubResource("StyleBoxEmpty_ypxn5")
+theme_override_styles/hover = SubResource("StyleBoxFlat_llmv3")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_2ymrk")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_qdfbi")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_pbpn8")
+action_mode = 0
+metadata/_edit_use_anchors_ = true
+
+[connection signal="pressed" from="UI/MainUI/Unpause" to="." method="_on_unpause_pressed"]
+[connection signal="pressed" from="UI/MainUI/Quit" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="UI/MainUI/Options" to="." method="_on_options_pressed"]
+[connection signal="pressed" from="UI/OptionsUI/Back" to="." method="_on_back_options_pressed"]
+[connection signal="pressed" from="UI/ClosedUI/BackClosed" to="." method="_on_back_closed_pressed"]
+[connection signal="pressed" from="UI/ClosedUI/QuitClosed" to="." method="_on_quit_closed_pressed"]

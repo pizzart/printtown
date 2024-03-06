@@ -1,0 +1,537 @@
+[gd_scene load_steps=29 format=3 uid="uid://dc00iw7yk5ena"]
+
+[ext_resource type="Script" path="res://scripts/intro.gd" id="1_gsx7c"]
+[ext_resource type="Shader" path="res://misc/menu_bg.gdshader" id="1_xnjfn"]
+[ext_resource type="Shader" path="res://misc/menu_text.gdshader" id="2_37gt0"]
+[ext_resource type="FontFile" uid="uid://b0ln5kfvpyrdw" path="res://misc/Orbitron-Regular.ttf" id="4_nklyk"]
+[ext_resource type="FontFile" uid="uid://ciyfmcpfqerpg" path="res://misc/Orbitron-Medium.ttf" id="5_mygvg"]
+[ext_resource type="PackedScene" uid="uid://dr3l4xyq5kccl" path="res://scenes/fx.tscn" id="5_x54jb"]
+[ext_resource type="AudioStream" uid="uid://6h26cfa6gton" path="res://audio/sfx/voice/start.wav" id="6_cofw1"]
+[ext_resource type="AudioStream" uid="uid://bihi2dhf15u1o" path="res://audio/sfx/voice/pizzartllc.wav" id="6_ee3vf"]
+[ext_resource type="AudioStream" uid="uid://clqwosvoj5gpw" path="res://audio/sfx/voice/quit.wav" id="7_5pb5r"]
+[ext_resource type="AudioStream" uid="uid://dvioddnd2doyb" path="res://audio/sfx/electricity.wav" id="7_x6abt"]
+[ext_resource type="AudioStream" uid="uid://t0n10mclba3u" path="res://audio/sfx/voice/choose.wav" id="8_tmsju"]
+[ext_resource type="AudioStream" uid="uid://cljx3q014fm3f" path="res://audio/sfx/voice/done.wav" id="9_cfwmi"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_850d8"]
+shader = ExtResource("1_xnjfn")
+shader_parameter/shrink = 3.0
+shader_parameter/fade = 10.0
+shader_parameter/gradient_middle = Color(0.203922, 0.219608, 0.419608, 1)
+shader_parameter/gradient_out = Color(0, 0, 0, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_307f4"]
+shader = ExtResource("2_37gt0")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qkc5v"]
+content_margin_left = 2.0
+content_margin_top = 0.0
+content_margin_right = 2.0
+content_margin_bottom = 1.0
+bg_color = Color(0.117647, 0.117647, 0.117647, 0.34902)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.333333, 0.333333, 0.333333, 1)
+shadow_size = 2
+shadow_offset = Vector2(2, 3)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_a1dl0"]
+content_margin_left = 2.0
+content_margin_top = 0.0
+content_margin_right = 2.0
+content_margin_bottom = 1.0
+bg_color = Color(0.117647, 0.117647, 0.117647, 0.34902)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.333333, 0.333333, 0.333333, 1)
+shadow_size = 2
+shadow_offset = Vector2(2, 3)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1788g"]
+content_margin_left = 2.0
+content_margin_top = 0.0
+content_margin_right = 2.0
+content_margin_bottom = 1.0
+bg_color = Color(0.117647, 0.117647, 0.117647, 0.34902)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.27451, 0.27451, 0.27451, 1)
+shadow_size = 2
+shadow_offset = Vector2(2, 3)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yg0qs"]
+content_margin_left = 2.0
+content_margin_top = 0.0
+content_margin_right = 2.0
+content_margin_bottom = 1.0
+bg_color = Color(0.117647, 0.117647, 0.117647, 0.34902)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.4, 0.4, 0.4, 1)
+shadow_size = 2
+shadow_offset = Vector2(2, 3)
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_dtty3"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_ddvgx"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_64yq8"]
+bg_color = Color(0.239216, 0.239216, 0.239216, 1)
+border_width_right = 2
+border_color = Color(0.572549, 0.572549, 0.572549, 1)
+shadow_size = 2
+shadow_offset = Vector2(2, 3)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_74rs5"]
+bg_color = Color(0.321569, 0.321569, 0.321569, 1)
+border_width_right = 2
+border_color = Color(0.627451, 0.627451, 0.627451, 1)
+shadow_size = 2
+shadow_offset = Vector2(2, 3)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gilax"]
+content_margin_left = 0.0
+content_margin_top = 6.0
+content_margin_right = 0.0
+content_margin_bottom = 6.0
+bg_color = Color(0.117647, 0.117647, 0.117647, 0.34902)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.286275, 0.286275, 0.286275, 1)
+expand_margin_left = 1.0
+expand_margin_top = 1.0
+expand_margin_right = 1.0
+expand_margin_bottom = 1.0
+shadow_size = 2
+shadow_offset = Vector2(2, 3)
+
+[sub_resource type="Theme" id="Theme_74odj"]
+default_font = ExtResource("4_nklyk")
+Button/styles/focus = SubResource("StyleBoxFlat_qkc5v")
+Button/styles/hover = SubResource("StyleBoxFlat_a1dl0")
+Button/styles/normal = SubResource("StyleBoxFlat_1788g")
+Button/styles/pressed = SubResource("StyleBoxFlat_yg0qs")
+HSlider/icons/grabber = SubResource("PlaceholderTexture2D_dtty3")
+HSlider/icons/grabber_highlight = SubResource("PlaceholderTexture2D_ddvgx")
+HSlider/styles/grabber_area = SubResource("StyleBoxFlat_64yq8")
+HSlider/styles/grabber_area_highlight = SubResource("StyleBoxFlat_74rs5")
+HSlider/styles/slider = SubResource("StyleBoxFlat_gilax")
+LineEdit/styles/focus = SubResource("StyleBoxFlat_qkc5v")
+LineEdit/styles/normal = SubResource("StyleBoxFlat_1788g")
+RichTextLabel/styles/normal = SubResource("StyleBoxFlat_1788g")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_26c50"]
+emission_enabled = true
+emission = Color(0.360784, 0.403922, 0.611765, 1)
+
+[sub_resource type="Environment" id="Environment_yecw4"]
+background_mode = 1
+background_color = Color(0.372549, 0.372549, 0.372549, 1)
+glow_enabled = true
+glow_bloom = 0.16
+
+[sub_resource type="Shader" id="Shader_8lqwe"]
+code = "shader_type canvas_item;
+
+uniform float static_intensity : hint_range(0.0, 1.0, 0.05) = 0.25;
+
+float rand(vec2 co) {
+	return fract(sin(dot(co, vec2(12.9898,78.233))) * 43758.5453);
+}
+
+void fragment() {
+	float noise = pow(rand(UV * TIME * 0.1), 3) * static_intensity;
+	COLOR.a = noise;
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xdd1n"]
+shader = SubResource("Shader_8lqwe")
+shader_parameter/static_intensity = 0.05
+
+[node name="Intro" type="CanvasLayer"]
+script = ExtResource("1_gsx7c")
+
+[node name="Color" type="CanvasLayer" parent="."]
+layer = -101
+
+[node name="BG" type="ColorRect" parent="Color"]
+material = SubResource("ShaderMaterial_850d8")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BG" type="ParallaxBackground" parent="."]
+
+[node name="Layer" type="ParallaxLayer" parent="BG"]
+motion_mirroring = Vector2(640, 480)
+
+[node name="BGText" type="Label" parent="BG/Layer"]
+material = SubResource("ShaderMaterial_307f4")
+offset_right = 640.0
+offset_bottom = 480.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.305882)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_fonts/font = ExtResource("4_nklyk")
+text = "0 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19"
+clip_text = true
+metadata/_edit_use_anchors_ = true
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="UI" type="Control" parent="UI"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_74odj")
+
+[node name="M" type="MarginContainer" parent="UI/UI"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="Buttons" type="VBoxContainer" parent="UI/UI/M"]
+layout_mode = 2
+size_flags_horizontal = 0
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/UI/M/Buttons"]
+custom_minimum_size = Vector2(133, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="Start" type="Button" parent="UI/UI/M/Buttons/VBoxContainer"]
+layout_mode = 2
+mouse_default_cursor_shape = 2
+action_mode = 0
+text = "start game"
+metadata/_edit_use_anchors_ = true
+
+[node name="Credits" type="Button" parent="UI/UI/M/Buttons/VBoxContainer"]
+layout_mode = 2
+mouse_default_cursor_shape = 2
+action_mode = 0
+text = "credits"
+metadata/_edit_use_anchors_ = true
+
+[node name="Quit" type="Button" parent="UI/UI/M/Buttons/VBoxContainer"]
+layout_mode = 2
+mouse_default_cursor_shape = 2
+action_mode = 0
+text = "quit to desktop"
+metadata/_edit_use_anchors_ = true
+
+[node name="Sliders" type="VBoxContainer" parent="UI/UI/M/Buttons"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="SFX" type="HBoxContainer" parent="UI/UI/M/Buttons/Sliders"]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="Sound" type="HSlider" parent="UI/UI/M/Buttons/Sliders/SFX"]
+custom_minimum_size = Vector2(133, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+mouse_default_cursor_shape = 10
+max_value = 11.0
+value = 11.0
+
+[node name="Label" type="Label" parent="UI/UI/M/Buttons/Sliders/SFX"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+text = "sfx"
+
+[node name="MUS" type="HBoxContainer" parent="UI/UI/M/Buttons/Sliders"]
+layout_mode = 2
+
+[node name="Music" type="HSlider" parent="UI/UI/M/Buttons/Sliders/MUS"]
+custom_minimum_size = Vector2(133, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+mouse_default_cursor_shape = 10
+max_value = 11.0
+value = 11.0
+
+[node name="Label" type="Label" parent="UI/UI/M/Buttons/Sliders/MUS"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+text = "mus"
+
+[node name="Name" type="VBoxContainer" parent="UI/UI/M"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+
+[node name="Label" type="Label" parent="UI/UI/M/Name"]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "choose your name"
+
+[node name="NameEdit" type="LineEdit" parent="UI/UI/M/Name"]
+layout_mode = 2
+placeholder_text = "12 characters"
+max_length = 12
+caret_blink = true
+
+[node name="Done" type="Button" parent="UI/UI/M/Name"]
+layout_mode = 2
+mouse_default_cursor_shape = 2
+disabled = true
+action_mode = 0
+text = "done"
+metadata/_edit_use_anchors_ = true
+
+[node name="Credits" type="VBoxContainer" parent="UI/UI/M"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+
+[node name="Label" type="Label" parent="UI/UI/M/Credits"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "credits"
+
+[node name="RichTextLabel" type="RichTextLabel" parent="UI/UI/M/Credits"]
+custom_minimum_size = Vector2(350, 0)
+layout_mode = 2
+theme_override_fonts/bold_font = ExtResource("5_mygvg")
+bbcode_enabled = true
+text = "[b]=== plugins ===[/b]
+- Godot Dialogue Manager
+- Cyclops Level Builder
+[b]=== shaders ===[/b]
+- High Quality Post Process Outline
+- Redacted
+- Simple Energy Shield
+[b]=== fonts ===[/b]
+- Gloria Hallelujah
+- Orbitron"
+fit_content = true
+scroll_active = false
+
+[node name="Done" type="Button" parent="UI/UI/M/Credits"]
+layout_mode = 2
+mouse_default_cursor_shape = 2
+action_mode = 0
+text = "done"
+metadata/_edit_use_anchors_ = true
+
+[node name="Text" type="VBoxContainer" parent="UI/UI/M"]
+layout_mode = 2
+mouse_filter = 2
+alignment = 2
+
+[node name="Hidden" type="Label" parent="UI/UI/M/Text"]
+visible = false
+layout_mode = 2
+theme_override_colors/font_color = Color(0.105882, 0.105882, 0.105882, 1)
+text = "( NOT A REAL COMPANY )"
+horizontal_alignment = 2
+
+[node name="Notice" type="Label" parent="UI/UI/M/Text"]
+layout_mode = 2
+horizontal_alignment = 2
+
+[node name="C" type="SubViewportContainer" parent="UI/UI"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.560938
+anchor_top = 0.235417
+anchor_right = 0.960938
+anchor_bottom = 0.76875
+offset_top = -1.0
+offset_bottom = -1.0
+pivot_offset = Vector2(128, 128)
+metadata/_edit_use_anchors_ = true
+
+[node name="View" type="SubViewport" parent="UI/UI/C"]
+transparent_bg = true
+handle_input_locally = false
+canvas_item_default_texture_filter = 0
+size = Vector2i(256, 256)
+render_target_update_mode = 4
+
+[node name="Cube" type="Node3D" parent="UI/UI/C/View"]
+
+[node name="Box" type="CSGBox3D" parent="UI/UI/C/View/Cube"]
+rotation_edit_mode = 1
+material = SubResource("StandardMaterial3D_26c50")
+
+[node name="Start" type="Label3D" parent="UI/UI/C/View/Cube/Box"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.501)
+pixel_size = 0.0098
+texture_filter = 0
+text = "start"
+font = ExtResource("4_nklyk")
+outline_size = 8
+
+[node name="Name" type="Label3D" parent="UI/UI/C/View/Cube/Box"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.501, 0)
+pixel_size = 0.0098
+texture_filter = 0
+text = "name"
+font = ExtResource("4_nklyk")
+outline_size = 8
+
+[node name="Credits" type="Label3D" parent="UI/UI/C/View/Cube/Box"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, -0.501, 0)
+pixel_size = 0.0098
+texture_filter = 0
+text = "cred
+its"
+font = ExtResource("4_nklyk")
+outline_size = 8
+
+[node name="Done" type="Label3D" parent="UI/UI/C/View/Cube/Box"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.501, 0, 0)
+pixel_size = 0.0098
+texture_filter = 0
+text = "done"
+font = ExtResource("4_nklyk")
+outline_size = 8
+
+[node name="Quit" type="Label3D" parent="UI/UI/C/View/Cube/Box"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, -0.501)
+pixel_size = 0.0098
+texture_filter = 0
+text = "quit"
+font = ExtResource("4_nklyk")
+outline_size = 8
+
+[node name="Camera3D" type="Camera3D" parent="UI/UI/C/View/Cube"]
+transform = Transform3D(0.984808, 0, -0.173648, 0, 1, 0, 0.173648, 0, 0.984808, -0.5, 0, 3)
+fov = 45.0
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="UI/UI/C/View/Cube"]
+environment = SubResource("Environment_yecw4")
+
+[node name="Tip" type="Label" parent="UI/UI"]
+visible = false
+layout_mode = 0
+anchor_left = 0.628125
+anchor_top = 0.641667
+anchor_right = 0.910937
+anchor_bottom = 0.735417
+theme_override_colors/font_color = Color(0.980392, 0.980392, 0.980392, 0.0705882)
+text = "try dragging this guy
+around"
+horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="FX" parent="." instance=ExtResource("5_x54jb")]
+layer = 2
+
+[node name="Noise" type="CanvasLayer" parent="."]
+layer = 2
+
+[node name="Noise" type="ColorRect" parent="Noise"]
+material = SubResource("ShaderMaterial_xdd1n")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="BlackOverlay" type="CanvasLayer" parent="."]
+layer = 3
+
+[node name="Color" type="ColorRect" parent="BlackOverlay"]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
+[node name="IntroVoice" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_ee3vf")
+bus = &"vox"
+
+[node name="StartVoice" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_cofw1")
+bus = &"vox"
+
+[node name="QuitVoice" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_5pb5r")
+bus = &"vox"
+
+[node name="NameVoice" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_tmsju")
+bus = &"vox"
+
+[node name="DoneVoice" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("9_cfwmi")
+bus = &"vox"
+
+[node name="BGHum" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_x6abt")
+volume_db = -80.0
+autoplay = true
+bus = &"sfx"
+
+[connection signal="mouse_entered" from="UI/UI/M/Buttons/VBoxContainer/Start" to="." method="_on_start_mouse_entered"]
+[connection signal="pressed" from="UI/UI/M/Buttons/VBoxContainer/Start" to="." method="_on_start_pressed"]
+[connection signal="mouse_entered" from="UI/UI/M/Buttons/VBoxContainer/Credits" to="." method="_on_credits_mouse_entered"]
+[connection signal="pressed" from="UI/UI/M/Buttons/VBoxContainer/Credits" to="." method="_on_credits_pressed"]
+[connection signal="mouse_entered" from="UI/UI/M/Buttons/VBoxContainer/Quit" to="." method="_on_quit_mouse_entered"]
+[connection signal="pressed" from="UI/UI/M/Buttons/VBoxContainer/Quit" to="." method="_on_quit_pressed"]
+[connection signal="value_changed" from="UI/UI/M/Buttons/Sliders/SFX/Sound" to="." method="_on_sound_value_changed"]
+[connection signal="value_changed" from="UI/UI/M/Buttons/Sliders/MUS/Music" to="." method="_on_music_value_changed"]
+[connection signal="text_changed" from="UI/UI/M/Name/NameEdit" to="." method="_on_name_edit_text_changed"]
+[connection signal="mouse_entered" from="UI/UI/M/Name/Done" to="." method="_on_done_mouse_entered"]
+[connection signal="mouse_exited" from="UI/UI/M/Name/Done" to="." method="_on_done_mouse_exited"]
+[connection signal="pressed" from="UI/UI/M/Name/Done" to="." method="_on_done_pressed"]
+[connection signal="pressed" from="UI/UI/M/Credits/Done" to="." method="_on_done_credits_pressed"]
+[connection signal="gui_input" from="UI/UI/C" to="." method="_on_3dview_gui_input"]

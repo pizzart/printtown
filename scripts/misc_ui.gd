@@ -7,7 +7,7 @@ func _ready():
 	Global.treat_collected.connect(_on_treat_collected)
 
 func _on_treat_collected():
-	$Collectables/Count.text = "%s/%s" % [Global.treats, Global.total_treats]
+	$Collectables/Count.text = "%s/%s" % [Global.collected_treats, Global.total_treats]
 	var tween = create_tween()
 	tween.tween_property($Collectables, "modulate", Color.WHITE, 0.5)
 	tween.tween_interval(3.0)

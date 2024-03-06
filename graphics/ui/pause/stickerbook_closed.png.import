@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://djdpyix06bq0u"
-path.s3tc="res://.godot/imported/action.png-fb48607f49611e2280b9ec31ef080198.s3tc.ctex"
+uid="uid://cfei2fg0pqtu3"
+path.s3tc="res://.godot/imported/stickerbook_closed.png-74e5615d2b8ad0fde99184c8acaea0cc.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://graphics/ui/fight/call_actions/action.png"
-dest_files=["res://.godot/imported/action.png-fb48607f49611e2280b9ec31ef080198.s3tc.ctex"]
+source_file="res://graphics/ui/pause/stickerbook_closed.png"
+dest_files=["res://.godot/imported/stickerbook_closed.png-74e5615d2b8ad0fde99184c8acaea0cc.s3tc.ctex"]
 
 [params]
 

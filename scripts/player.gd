@@ -12,7 +12,7 @@ enum State {
 const JUMP_PARTICLES = preload("res://scenes/jump_particles.tscn")
 
 const SPRING_LEN = 8.0
-const SHORT_SPRING_LEN = 3.0
+const SHORT_SPRING_LEN = 2.0
 
 const ACCEL = 0.15
 const DECEL = 0.27
@@ -126,6 +126,8 @@ func _process(delta):
 		gimbal.spring_length = lerpf(gimbal.spring_length, SHORT_SPRING_LEN, delta * 10)
 	else:
 		gimbal.spring_length = lerpf(gimbal.spring_length, SPRING_LEN, delta * 10)
+	
+	$ParticleGimbal/Sweat.transparency = lerpf($ParticleGimbal/Sweat.transparency, 0.0 if stamina < 5 else 1.0, delta * 8)
 	#$StepCast.target_position
 
 func _physics_process(delta):

@@ -127,11 +127,11 @@ metadata/_edit_use_anchors_ = true
 
 [node name="Text" type="VBoxContainer" parent="C"]
 layout_mode = 0
-offset_left = 49.0
-offset_top = 279.0
-offset_right = 373.0
-offset_bottom = 464.0
-theme_override_constants/separation = -6
+offset_left = 52.0
+offset_top = 284.0
+offset_right = 369.0
+offset_bottom = 468.0
+theme_override_constants/separation = -12
 
 [node name="Name" type="Label" parent="C/Text"]
 layout_mode = 2
@@ -144,7 +144,7 @@ layout_mode = 2
 size_flags_vertical = 3
 theme_override_colors/default_color = Color(0, 0, 0, 1)
 theme_override_constants/line_separation = -14
-theme_override_font_sizes/normal_font_size = 20
+theme_override_font_sizes/normal_font_size = 19
 script = ExtResource("5_gn1ah")
 seconds_per_step = 0.03
 pause_at_characters = ".?!,"

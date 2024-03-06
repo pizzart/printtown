@@ -28,6 +28,7 @@ func _on_area_entered(area):
 			area.get_parent().can_move = true
 		
 		Global.treats += 1
+		Global.collected_treats += 1
 		Global.treat_collected.emit()
 		$Mesh.top_level = true
 		$Sphere.mesh = $Sphere.mesh.duplicate(true)

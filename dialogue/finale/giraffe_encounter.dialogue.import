@@ -1,0 +1,15 @@
+[remap]
+
+importer="dialogue_manager_compiler_11"
+type="Resource"
+uid="uid://cqa7hjb7ure7x"
+path="res://.godot/imported/giraffe_encounter.dialogue-7f1a9d18cfef1cac47cd5ec04a4b54c4.tres"
+
+[deps]
+
+source_file="res://dialogue/finale/giraffe_encounter.dialogue"
+dest_files=["res://.godot/imported/giraffe_encounter.dialogue-7f1a9d18cfef1cac47cd5ec04a4b54c4.tres"]
+
+[params]
+
+defaults=true

@@ -56,6 +56,10 @@ static var gave_up_tutorial_given: bool = false
 @onready var camera = $CameraPoint/Camera
 @onready var book = $StickerbookPoint/Book
 
+func _ready():
+	$Animal.texture = Animals.animals[animal].TEXTURE
+	$Animal.offset.y = Animals.animals[animal].TEXTURE.get_height() / 2 - 256
+
 func _process(delta):
 	if not fight_active:
 		return
@@ -172,8 +176,6 @@ func activate_fight():
 
 	FightUI.sticker_btn.hide()
 	FightUI.show()
-	if dialogue_start != null:
-		FightUI.disable_all()
 
 	FightUI.petted.connect(_on_petted)
 	FightUI.kicked.connect(_on_kicked)
@@ -190,9 +192,12 @@ func activate_fight():
 	
 	FightUI.update_grid()
 	fight_active = true
+	
 	if dialogue_start != null:
+		FightUI.disable_all()
 		DialogueUI.start_dialogue(dialogue_start, true)
 		await DialogueUI.finished
+	
 	FightUI.enable_all(Global.treats, false)
 	
 	update_ui()
@@ -492,10 +497,11 @@ func finish_fight(success: bool):
 		FightUI.show_not_grid()
 		book.play("open")
 		await get_tree().create_timer(0.2).timeout
-		FightUI.main_ui.show()
-		FightUI.hide()
 		
 		get_viewport().gui_disable_input = false
+	
+	FightUI.main_ui.show()
+	FightUI.hide()
 	
 	get_parent().mouse_mode = Input.MOUSE_MODE_CAPTURED
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED

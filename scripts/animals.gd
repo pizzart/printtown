@@ -35,65 +35,75 @@ class Animal:
 		preference = randi_range(0, 2)
 	
 	func add_mood(amount: float):
-		mood = clampf(mood + amount, 0.0, 1.0)
+		mood = clampf(mood + amount * cooperation, 0.0, 1.0)
 	
 	func add_guard(amount: float):
-		guard = clampf(guard + amount, 0.0, 1.0)
+		guard = clampf(guard + amount * cooperation, 0.0, 1.0)
 	
 	func add_satisfaction(amount: float):
-		satisfaction = clampf(satisfaction + amount, 0.0, 1.0)
+		satisfaction = clampf(satisfaction + amount * cooperation, 0.0, 1.0)
 	
-	func pet():
-		mood = minf(mood + randf_range(cooperation / 2, cooperation + 0.2), 1.0)
-		if randf() <= mood:
-			satisfaction += cooperation * (1.0 + mood)
-		else:
-			if randf() <= guard:
-				mood = minf(mood + cooperation * 0.3, 1.0)
-				guard = maxf(guard - cooperation, 0.0)
-				return damage
-			else:
-				pass
-		return 0
-	
-	func kick():
-		mood = maxf(mood - randf_range(cooperation * 0.5, cooperation + 0.2), 0.0)
-		if randf() <= guard: # successful kick
-			guard = maxf(guard - cooperation, 0.0)
-			health -= 1
-			return damage / 2
-		else:
-			if randf() <= guard: # bite
-				mood = minf(mood + randf_range(cooperation * 0.5, cooperation + 0.1), 1.0)
-				#guard = minf(guard + randf_range(cooperation / 2, cooperation + 0.1), 1.0)
-				return damage
-		return 0
-	
-	func treat():
-		mood = minf(mood + cooperation * 2, 1.0)
-		guard = maxf(guard - cooperation, 0.0)
-		satisfaction += cooperation * 2 * (1.0 + mood)
-		return 0
-	
-	func sticker():
-		return satisfaction >= SATISFACTION_MIN or pow(randf(), 2) >= 0.97
+	#func pet():
+		#mood = minf(mood + randf_range(cooperation / 2, cooperation + 0.2), 1.0)
+		#if randf() <= mood:
+			#satisfaction += cooperation * (1.0 + mood)
+		#else:
+			#if randf() <= guard:
+				#mood = minf(mood + cooperation * 0.3, 1.0)
+				#guard = maxf(guard - cooperation, 0.0)
+				#return damage
+			#else:
+				#pass
+		#return 0
+	#
+	#func kick():
+		#mood = maxf(mood - randf_range(cooperation * 0.5, cooperation + 0.2), 0.0)
+		#if randf() <= guard: # successful kick
+			#guard = maxf(guard - cooperation, 0.0)
+			#health -= 1
+			#return damage / 2
+		#else:
+			#if randf() <= guard: # bite
+				#mood = minf(mood + randf_range(cooperation * 0.5, cooperation + 0.1), 1.0)
+				##guard = minf(guard + randf_range(cooperation / 2, cooperation + 0.1), 1.0)
+				#return damage
+		#return 0
+	#
+	#func treat():
+		#mood = minf(mood + cooperation * 2, 1.0)
+		#guard = maxf(guard - cooperation, 0.0)
+		#satisfaction += cooperation * 2 * (1.0 + mood)
+		#return 0
+	#
+	#func sticker():
+		#return satisfaction >= SATISFACTION_MIN or pow(randf(), 2) >= 0.97
 
 class Dog:
 	extends Animal
+	const TEXTURE = preload("res://graphics/animals/dog.png")
 	func _init():
-		super._init(preload("res://graphics/animals/dog.png"), &"dog", 0.9, 0, 0.2, 10, 1, 0.3, 1)
+		super._init(TEXTURE, &"dog", 0.9, 0, 0.9, 10, 1, 0.3, 1)
 
 class BadDog:
 	extends Animal
+	const TEXTURE = preload("res://graphics/animals/dog.png")
 	func _init():
-		super._init(preload("res://graphics/animals/dog.png"), &"dog", 0.1, 0.9, 0.1, 10, 3, 0.7, 2)
+		super._init(TEXTURE, &"dog", 0.1, 0.9, 0.7, 10, 3, 0.7, 2)
+
+class Giraffe:
+	extends Animal
+	const TEXTURE = preload("res://graphics/animals/giraffe.png")
+	func _init():
+		super._init(TEXTURE, &"giraffe", 0.0, 1.0, 0.1, 30, 5, 0.9, 5)
 
 enum AnimalType {
 	DOG,
 	BAD_DOG,
+	GIRAFFE,
 }
 
 var animals = {
 	AnimalType.DOG: Dog,
 	AnimalType.BAD_DOG: BadDog,
+	AnimalType.GIRAFFE: Giraffe,
 }

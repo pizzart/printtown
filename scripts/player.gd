@@ -197,7 +197,10 @@ func ground(_delta: float, input_dir: Vector2):
 		sprite.flip_h = false
 	
 	if input_dir.y > 0:
-		sprite.play("walk_front")
+		if Input.is_action_pressed("run"):
+			sprite.play("run_front")
+		else:
+			sprite.play("walk_front")
 	elif input_dir.y < 0:
 		if Input.is_action_pressed("run"):
 			sprite.play("run_back")
@@ -220,9 +223,9 @@ func ground(_delta: float, input_dir: Vector2):
 		coyote = COYOTE_TIME + 0.1
 		velocity.y = JUMP_VELOCITY
 		state = State.AIR
-		sprite.play("jump_back")
-		#$JumpParticles.restart()
+		play_jump_animation(input_dir)
 		spawn_jump_particles()
+		#$JumpParticles.restart()
 	
 	if not is_on_floor():
 		state = State.AIR
@@ -245,14 +248,20 @@ func air(delta: float, input_dir: Vector2):
 	
 	add_velo = lerp(add_velo, Vector3.ZERO, ADDVELO_DECEL_AIR)
 	
-	if $LandCast.is_colliding() and velocity.y < 0:
+	if $LandCast.is_colliding() and velocity.y < 0 and input_dir.y < 0:
 		sprite.play("land_back")
+	
+	if sprite.animation == "ledge_side":
+		if input_dir.x < 0:
+			sprite.flip_h = true
+		elif input_dir.x > 0:
+			sprite.flip_h = false
 	
 	if Input.is_action_just_pressed("jump"):
 		if coyote <= COYOTE_TIME:
 			coyote = COYOTE_TIME + delta
 			velocity.y = JUMP_VELOCITY
-			sprite.play("jump_back")
+			play_jump_animation(input_dir)
 		else:
 			jump_buffered = true
 	
@@ -287,7 +296,7 @@ func air(delta: float, input_dir: Vector2):
 			#hvelo += direction * absf(last_velocity.y)
 			add_velo += direction * (pow(absf(last_velocity.y), 0.7) * 0.7 + maxf(log(absf(last_velocity.y) - JUMP_VELOCITY), 0))
 			velocity.y = JUMP_VELOCITY
-			sprite.play("jump_back")
+			play_jump_animation(input_dir)
 			spawn_jump_particles()
 		else:
 			state = State.GROUND
@@ -347,7 +356,7 @@ func ledge(delta: float, input_dir: Vector2):
 		jump_time = JUMP_LENGTH + delta
 		velocity.y = JUMP_VELOCITY
 		state = State.AIR
-		sprite.play("jump_back")
+		play_jump_animation(input_dir)
 
 func wall_slide(delta: float, input_dir: Vector2):
 	stamina = clampf(stamina + WALL_RECOVERY * delta, 0, MAX_STAMINA)
@@ -433,6 +442,16 @@ func spawn_jump_particles():
 	particles.global_position = global_position - Vector3(0, col_shape.shape.height / 2, 0)
 	particles.restart()
 
+func play_jump_animation(input_dir: Vector2):
+	if input_dir.y < 0:
+		sprite.play("jump_back")
+	elif input_dir.y > 0:
+		sprite.play("jump_front")
+	elif input_dir.x != 0:
+		sprite.play("ledge_side")
+	else:
+		sprite.play("jump_back")
+
 func add_shake(amount: float):
 	shake += amount
 
@@ -442,4 +461,4 @@ func _input(event):
 	
 	if event is InputEventMouseMotion:
 		rotation.y -= event.relative.x * 0.002
-		gimbal.rotation.x = clampf(gimbal.rotation.x - event.relative.y * 0.002, -PI / 2.5, PI / 8)
+		gimbal.rotation.x = clampf(gimbal.rotation.x - event.relative.y * 0.002, -PI / 2.5, PI / 6)

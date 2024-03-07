@@ -1,4 +1,4 @@
-[gd_scene load_steps=433 format=3 uid="uid://5th0yhcrbxbj"]
+[gd_scene load_steps=435 format=3 uid="uid://5th0yhcrbxbj"]
 
 [ext_resource type="PackedScene" uid="uid://b026alsepp2vu" path="res://scenes/player.tscn" id="1_lquvg"]
 [ext_resource type="Script" path="res://scripts/world.gd" id="1_mmxcb"]
@@ -11,7 +11,9 @@
 [ext_resource type="Resource" uid="uid://caweipi58si4w" path="res://dialogue/tutorial_fight/tutorialfight_start.dialogue" id="7_7rlel"]
 [ext_resource type="Resource" uid="uid://cle0brpnsdxov" path="res://dialogue/tutorial_fight/tutorialfight_lost.dialogue" id="8_hdsci"]
 [ext_resource type="Resource" uid="uid://bq2m8jkmt2aiw" path="res://dialogue/test_pre.dialogue" id="9_ai7yc"]
+[ext_resource type="Resource" uid="uid://cqa7hjb7ure7x" path="res://dialogue/finale/giraffe_encounter.dialogue" id="11_13ulw"]
 [ext_resource type="PackedScene" uid="uid://dr3l4xyq5kccl" path="res://scenes/fx.tscn" id="11_qfrrq"]
+[ext_resource type="Resource" uid="uid://c5q1mvxu7k1f8" path="res://dialogue/finale/giraffe_fight_start.dialogue" id="12_yilce"]
 [ext_resource type="Shader" path="res://misc/3d_outline.gdshader" id="13_25iw6"]
 [ext_resource type="PackedScene" uid="uid://bqv13fmmqt71v" path="res://scenes/pause_menu.tscn" id="14_ub6xt"]
 [ext_resource type="PackedScene" uid="uid://ba7b5gxxbgyiv" path="res://scenes/collectable.tscn" id="14_uo4l1"]
@@ -9905,6 +9907,12 @@ is_tutorial = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -34.07, 17.7078, -33.9944)
 animal = 1
 dialogue_pre = ExtResource("9_ai7yc")
+
+[node name="FightArea3" parent="." instance=ExtResource("6_xn4hq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -90.2161, 3.7432, 22.529)
+animal = 2
+dialogue_pre = ExtResource("11_13ulw")
+dialogue_start = ExtResource("12_yilce")
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
 navigation_mesh = SubResource("NavigationMesh_kga1x")

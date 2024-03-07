@@ -38,6 +38,9 @@ func _process(delta):
 	timer += delta
 	$Overlay/M/Timer.text = get_time_text()
 	$Overlay/M/Timer.visible = Global.timer_enabled
+	
+	if $Player.global_position.y < -40:
+		$Player.global_position = $PlayerSpawn.global_position
 
 func _input(event):
 	if event.is_action_pressed("restart") and OS.is_debug_build():

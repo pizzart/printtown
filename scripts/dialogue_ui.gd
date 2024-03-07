@@ -67,12 +67,13 @@ func next_line(started: bool):
 	
 	if not dialogue_line:
 		active = false
-		finished.emit()
 		var tween = create_tween().set_parallel()
 		tween.tween_property($C, "scale", Vector2.ONE * 4, 0.8).set_trans(Tween.TRANS_ELASTIC).set_ease(Tween.EASE_IN_OUT)
 		tween.tween_property($BG, "modulate", Color(1, 1, 1, 0), 0.8)
 		await get_tree().create_timer(0.5).timeout
 		hide()
+		await get_tree().create_timer(0.3).timeout
+		finished.emit()
 		return
 	
 	if dialogue_line.character == Global.player_name:

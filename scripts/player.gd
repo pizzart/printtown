@@ -70,6 +70,7 @@ var shake: float
 var can_move: bool = true
 var time: float
 var can_interact: bool
+var stuck_timer: float
 var state: State = State.GROUND
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
@@ -369,6 +370,14 @@ func wall_slide(delta: float, input_dir: Vector2):
 	smoke_particles.emitting = true
 	
 	velocity.y -= gravity * delta * 0.48
+	
+	if get_real_velocity().is_equal_approx(Vector3.ZERO):
+		stuck_timer += delta
+		if stuck_timer > 1.0:
+			global_position += Vector3(0, 1, 0)
+			stuck_timer = 0
+	else:
+		stuck_timer = 0
 	
 	var direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	hvelo = lerp(hvelo, direction * SPEED, 0.03)

@@ -1,0 +1,14 @@
+[gd_resource type="StandardMaterial3D" load_steps=3 format=3 uid="uid://hdaofln0vef8"]
+
+[ext_resource type="Texture2D" uid="uid://20p4jwfm54gd" path="res://materials/groundgrey/textures/ground_grey_nor_gl_1k.jpg" id="1_phrrk"]
+[ext_resource type="Texture2D" uid="uid://dqu3pjlh6h1u8" path="res://materials/groundgrey/textures/ground_grey_rough_1k.jpg" id="2_oalec"]
+
+[resource]
+diffuse_mode = 3
+specular_mode = 1
+albedo_color = Color(0.266667, 0.278431, 0.301961, 1)
+roughness_texture = ExtResource("2_oalec")
+normal_enabled = true
+normal_texture = ExtResource("1_phrrk")
+uv1_scale = Vector3(0.05, 0.05, 0.05)
+texture_filter = 0

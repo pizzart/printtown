@@ -35,6 +35,10 @@ var progress: float
 var picked_animal_index: int = -1
 #var used_animals: PackedInt32Array = []
 
+@onready var fighter_line = $FighterLine
+@onready var friendliness_text = $C/Friendliness
+@onready var guard_text = $C/Guard
+
 @onready var pet_btn = $C/Pet
 @onready var kick_btn = $C/Kick
 @onready var sticker_btn = $C/Sticker
@@ -42,13 +46,12 @@ var picked_animal_index: int = -1
 @onready var call_btn = $C/Call
 
 @onready var progress_text = $C/Progress
-@onready var friendliness_text = $C/Friendliness
-@onready var guard_text = $C/Guard
-@onready var health_text = $C/Health
-@onready var fighter_line = $FighterLine
+@onready var hp = $C/HealthBG
+@onready var health_text = $C/HealthBG/Text
 @onready var stamp = $C/Stamp
 @onready var guard_icon = $C/AlertBG/Alert
 @onready var guard_bg = $C/AlertBG
+@onready var hp_alert_bg = $C/HPAlertBG
 
 @onready var main_ui = $C
 @onready var rps_ui = $RPS
@@ -56,6 +59,9 @@ var picked_animal_index: int = -1
 
 @onready var hand = $Hand
 @onready var pet_particles = $PetParticles
+@onready var surprise_bite = $SurpriseBite
+@onready var pet_count = $Hand/Count
+
 @onready var rps_choose_text = $RPS/Choose
 @onready var rps_action = $RPS/Action
 @onready var rps_action_text = $RPS/Action/Text
@@ -74,6 +80,9 @@ var picked_animal_index: int = -1
 @onready var note_bg = $Stickers/Note
 @onready var note = $Stickers/Note/Text
 
+@onready var bite_anim = $BiteAnim
+@onready var convince_anim = $ConvinceAnim
+
 func _ready():
 	hide()
 
@@ -82,7 +91,7 @@ func _process(delta):
 		progress = lerpf(progress, actual_progress, delta * 4)
 		progress_text.text = "%d%%" % roundf(progress * 100)
 
-func set_progress(_progress: float):
+func update_satisfaction(_progress: float):
 	actual_progress = _progress
 
 func disable_all():
@@ -131,7 +140,7 @@ func unhide():
 	sticker_btn.mouse_filter = Control.MOUSE_FILTER_STOP
 	call_btn.mouse_filter = Control.MOUSE_FILTER_STOP
 
-func change_mood(mood: float):
+func update_mood(mood: float):
 	var old_texture = stamp.texture
 	var new_texture
 	if mood < 0.35:
@@ -146,7 +155,7 @@ func change_mood(mood: float):
 		await $StampAnimation.frame_changed
 		stamp.texture = new_texture
 
-func change_guard(guard: float):
+func update_guard(guard: float):
 	var old_texture = guard_icon.texture
 	var new_texture
 	if guard < 0.33:
@@ -303,6 +312,38 @@ func remove_picked():
 	animal_grid.get_child(picked_animal_index).remove_outline()
 	picked_animal_index = -1
 
+func show_sudden_bite():
+	surprise_bite.show()
+	await get_tree().create_timer(1.5).timeout
+	surprise_bite.hide()
+
+func update_health(health: int):
+	if health_text.text != str(health):
+		$C/HealthBG/Update.play("default")
+	health_text.text = str(health)
+
+func update_enemy_health(bad: bool):
+	if bad:
+		if not hp_alert_bg.visible:
+			$C/HPAlertBG/Update.play("default")
+	hp_alert_bg.visible = bad
+
+func show_bite():
+	bite_anim.show()
+	bite_anim.play("bite")
+	await bite_anim.animation_finished
+	bite_anim.hide()
+
+func show_convince(success: bool):
+	convince_anim.show()
+	if success:
+		convince_anim.play("success")
+	else:
+		convince_anim.play("fail")
+	await convince_anim.animation_finished
+	await get_tree().create_timer(0.5).timeout
+	convince_anim.hide()
+
 func _on_animal_pressed(index: int):
 	heal_btn.disabled = false
 	bite_btn.disabled = false
@@ -385,3 +426,10 @@ func _on_convince_pressed():
 	sticker_ui.hide()
 	disable_all()
 	partial_hide()
+
+func _on_treat_mouse_entered():
+	$C/Treat/TreatCount.show()
+	$C/Treat/TreatCount/Text.text = str(Global.treats)
+
+func _on_treat_mouse_exited():
+	$C/Treat/TreatCount.hide()

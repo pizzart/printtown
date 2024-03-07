@@ -109,6 +109,7 @@ cull_mask = 1048573
 [node name="Pet" type="Sprite3D" parent="."]
 visible = false
 layers = 2
+flip_h = true
 pixel_size = 0.004
 billboard = 2
 shaded = true

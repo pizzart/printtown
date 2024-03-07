@@ -1,4 +1,4 @@
-[gd_scene load_steps=75 format=3 uid="uid://pdbbxowv0d4p"]
+[gd_scene load_steps=104 format=3 uid="uid://pdbbxowv0d4p"]
 
 [ext_resource type="Script" path="res://scripts/fight_ui.gd" id="1_gmjmh"]
 [ext_resource type="Theme" uid="uid://dn7uhmqeylu42" path="res://misc/ui.theme" id="2_vrryk"]
@@ -21,11 +21,13 @@
 [ext_resource type="Texture2D" uid="uid://b34ijmhr1w4yf" path="res://graphics/ui/fight/stickerup/stickerup0004.png" id="11_gmas1"]
 [ext_resource type="Texture2D" uid="uid://bg0f1dnh35ihy" path="res://graphics/ui/fight/stickerup/stickerup_focus.png" id="12_7u8m1"]
 [ext_resource type="Texture2D" uid="uid://bloyvhhmit4oe" path="res://graphics/ui/fight/rps/paper.png" id="12_ci2q3"]
+[ext_resource type="Texture2D" uid="uid://dgit1pp7etjk0" path="res://graphics/ui/fight/hp_alert/hp_alert0000.png" id="12_g1kv2"]
 [ext_resource type="Texture2D" uid="uid://xme18qr80jrg" path="res://graphics/ui/fight/stamp_anim/stamped0001.png" id="12_ypjwh"]
 [ext_resource type="Texture2D" uid="uid://cded4odbg857q" path="res://graphics/ui/fight/stickerup/stickerup0000.png" id="13_5frrx"]
 [ext_resource type="Texture2D" uid="uid://ct6r7eg0ho8kj" path="res://graphics/ui/fight/stamp_anim/stamped0002.png" id="13_7l5j7"]
 [ext_resource type="Texture2D" uid="uid://dh38ey54tfnfh" path="res://graphics/ui/fight/stickerup/stickerup_disabled.png" id="13_othyx"]
 [ext_resource type="Texture2D" uid="uid://b7l6f57kym64e" path="res://graphics/ui/fight/rps/rock.png" id="13_vsdg5"]
+[ext_resource type="Texture2D" uid="uid://b2me8syh14qk3" path="res://graphics/ui/fight/hp_alert/hp_alert0001.png" id="13_xrjr2"]
 [ext_resource type="Texture2D" uid="uid://bs2krc5qnjop4" path="res://graphics/ui/fight/stickerbook.png" id="14_mgsq0"]
 [ext_resource type="Texture2D" uid="uid://dtg87vadonmgh" path="res://graphics/ui/fight/stamp_anim/stamped0003.png" id="14_ms6qp"]
 [ext_resource type="Texture2D" uid="uid://d2hsycj136mjd" path="res://graphics/ui/fight/stickerup/stickerup0001.png" id="14_mxqhq"]
@@ -44,8 +46,10 @@
 [ext_resource type="Texture2D" uid="uid://b1270lr3yw8kl" path="res://graphics/ui/fight/rps/notes/note_rock.png" id="26_llyhn"]
 [ext_resource type="Texture2D" uid="uid://3eu1n2edrrgf" path="res://graphics/ui/fight/rps/p_vs_r/p_vs_r0001.png" id="26_wem33"]
 [ext_resource type="Texture2D" uid="uid://t8p1npgsqk3m" path="res://graphics/ui/fight/rps/notes/note_paper.png" id="27_1wklw"]
+[ext_resource type="Texture2D" uid="uid://fyapkgsgt0rp" path="res://graphics/ui/fight/hp/hp0000.png" id="27_v7y17"]
 [ext_resource type="Texture2D" uid="uid://bpy5oe4i6t7a1" path="res://graphics/ui/fight/rps/p_vs_r/p_vs_r0002.png" id="27_w22xo"]
 [ext_resource type="Texture2D" uid="uid://lyli6o4gsyqm" path="res://graphics/ui/fight/rps/notes/note_scissors.png" id="28_33giw"]
+[ext_resource type="Texture2D" uid="uid://bik4qetg772x3" path="res://graphics/ui/fight/hp/hp0001.png" id="28_p6d1e"]
 [ext_resource type="Texture2D" uid="uid://biyj8qkyidw31" path="res://graphics/ui/fight/rps/p_vs_r/p_vs_r0003.png" id="28_pj0rv"]
 [ext_resource type="Texture2D" uid="uid://cjbqhbsm5n3nv" path="res://graphics/ui/fight/rps/r_vs_s/r_vs_s0000.png" id="29_51yi7"]
 [ext_resource type="Texture2D" uid="uid://bq0avb2urgyj5" path="res://graphics/ui/fight/back/back.png" id="29_j7k0b"]
@@ -66,6 +70,27 @@
 [ext_resource type="Texture2D" uid="uid://bm1dhmjq66lvy" path="res://graphics/ui/fight/call_actions/action_disabled.png" id="40_lklg1"]
 [ext_resource type="Texture2D" uid="uid://b5jdxataq3rrh" path="res://graphics/ui/fight/call_actions/bite.png" id="41_cka83"]
 [ext_resource type="Texture2D" uid="uid://m6fotytakhy7" path="res://graphics/ui/fight/call_actions/convince.png" id="42_ixbwj"]
+[ext_resource type="Texture2D" uid="uid://delcje1ab4hc1" path="res://graphics/ui/fight/bite/bite0000.png" id="71_kwgyq"]
+[ext_resource type="Texture2D" uid="uid://c5wr4ccvulbrh" path="res://graphics/ui/fight/bite/bite0001.png" id="72_wt3wd"]
+[ext_resource type="Texture2D" uid="uid://b0kms50osbmff" path="res://graphics/ui/fight/bite/bite0002.png" id="73_t6awf"]
+[ext_resource type="Texture2D" uid="uid://cub2lnrvbudoi" path="res://graphics/ui/fight/bite/bite0003.png" id="74_ni2s5"]
+[ext_resource type="Texture2D" uid="uid://dr3ifpgchdry6" path="res://graphics/ui/fight/bite/bite0004.png" id="75_oiuxk"]
+[ext_resource type="Texture2D" uid="uid://y1sh41cegn8k" path="res://graphics/ui/fight/bite/bite0005.png" id="76_mqpe0"]
+[ext_resource type="Texture2D" uid="uid://v12c1kavqmoc" path="res://graphics/ui/fight/bite/bite0006.png" id="77_31e4p"]
+[ext_resource type="Texture2D" uid="uid://vp8sn22qek5q" path="res://graphics/ui/fight/convince/convince0000.png" id="78_bl6p5"]
+[ext_resource type="Texture2D" uid="uid://b3etlxxwbi00m" path="res://graphics/ui/fight/convince/convince0001.png" id="79_kxxdf"]
+[ext_resource type="Texture2D" uid="uid://c3qpggo4by8jt" path="res://graphics/ui/fight/convince/convince0002.png" id="80_67dq7"]
+[ext_resource type="Texture2D" uid="uid://dex8xqt1o3lh7" path="res://graphics/ui/fight/convince/convince0003.png" id="81_nrwnj"]
+[ext_resource type="Texture2D" uid="uid://67hk0hmc1bv4" path="res://graphics/ui/fight/convince/convince0004.png" id="82_4mmxp"]
+[ext_resource type="Texture2D" uid="uid://bfwd5dop4cwd5" path="res://graphics/ui/fight/convince/convince0005.png" id="83_hkfpx"]
+[ext_resource type="Texture2D" uid="uid://w1fbw3j8mb5n" path="res://graphics/ui/fight/convince/convince0006.png" id="84_kpemx"]
+[ext_resource type="Texture2D" uid="uid://be7sytfs5ngtv" path="res://graphics/ui/fight/convince/convince0007.png" id="85_4ebbb"]
+[ext_resource type="Texture2D" uid="uid://d0gq0k4hx37d0" path="res://graphics/ui/fight/convince/convince0008.png" id="86_8u4n5"]
+[ext_resource type="Texture2D" uid="uid://cpn1ip6kp6utp" path="res://graphics/ui/fight/convince/convince0009.png" id="87_41w8w"]
+[ext_resource type="Texture2D" uid="uid://cvnfnsn7k4u3h" path="res://graphics/ui/fight/convince/convince0010.png" id="88_4g1vq"]
+[ext_resource type="Texture2D" uid="uid://2gkqg0whnsv2" path="res://graphics/ui/fight/convince/convince0011.png" id="89_flf4c"]
+[ext_resource type="Texture2D" uid="uid://bop5w6a7a36qe" path="res://graphics/ui/fight/convince/convince0013.png" id="90_eeobj"]
+[ext_resource type="Texture2D" uid="uid://btna25td0vh0l" path="res://graphics/ui/fight/convince/convince0012.png" id="91_fkxhw"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_l5lus"]
 animations = [{
@@ -79,6 +104,29 @@ animations = [{
 "loop": true,
 "name": &"default",
 "speed": 6.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_o1blt"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("13_5frrx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_mxqhq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_0k81x")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_atqh1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_gmas1")
+}],
+"loop": false,
+"name": &"default",
+"speed": 8.0
 }]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_04ufl"]
@@ -104,27 +152,32 @@ animations = [{
 "speed": 12.0
 }]
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_o1blt"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_q3pv2"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("13_5frrx")
+"texture": ExtResource("12_g1kv2")
 }, {
 "duration": 1.0,
-"texture": ExtResource("14_mxqhq")
-}, {
-"duration": 1.0,
-"texture": ExtResource("15_0k81x")
-}, {
-"duration": 1.0,
-"texture": ExtResource("16_atqh1")
-}, {
-"duration": 1.0,
-"texture": ExtResource("11_gmas1")
+"texture": ExtResource("13_xrjr2")
 }],
-"loop": false,
+"loop": true,
 "name": &"default",
-"speed": 8.0
+"speed": 6.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_yxlib"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("27_v7y17")
+}, {
+"duration": 1.0,
+"texture": ExtResource("28_p6d1e")
+}],
+"loop": true,
+"name": &"default",
+"speed": 6.0
 }]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_s3b0q"]
@@ -237,6 +290,126 @@ animations = [{
 "speed": 8.0
 }]
 
+[sub_resource type="SpriteFrames" id="SpriteFrames_mo7jc"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("71_kwgyq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("72_wt3wd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("73_t6awf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("74_ni2s5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("75_oiuxk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("76_mqpe0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("77_31e4p")
+}],
+"loop": false,
+"name": &"bite",
+"speed": 12.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_uup8v"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("78_bl6p5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("79_kxxdf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("80_67dq7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("81_nrwnj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("82_4mmxp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("83_hkfpx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("84_kpemx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("85_4ebbb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("86_8u4n5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("87_41w8w")
+}, {
+"duration": 1.0,
+"texture": ExtResource("88_4g1vq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("89_flf4c")
+}, {
+"duration": 1.0,
+"texture": ExtResource("90_eeobj")
+}],
+"loop": false,
+"name": &"fail",
+"speed": 6.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("78_bl6p5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("79_kxxdf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("80_67dq7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("81_nrwnj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("82_4mmxp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("83_hkfpx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("84_kpemx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("85_4ebbb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("86_8u4n5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("87_41w8w")
+}, {
+"duration": 1.0,
+"texture": ExtResource("88_4g1vq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("89_flf4c")
+}, {
+"duration": 1.0,
+"texture": ExtResource("91_fkxhw")
+}],
+"loop": false,
+"name": &"success",
+"speed": 6.0
+}]
+
 [node name="FightUI" type="CanvasLayer"]
 script = ExtResource("1_gmjmh")
 
@@ -249,42 +422,6 @@ grow_horizontal = 2
 grow_vertical = 2
 pivot_offset = Vector2(320, 240)
 theme = ExtResource("2_vrryk")
-
-[node name="Stamp" type="TextureRect" parent="C"]
-layout_mode = 0
-anchor_right = 0.15
-anchor_bottom = 0.2
-rotation = -0.349066
-pivot_offset = Vector2(48, 48)
-texture = ExtResource("10_14l8i")
-metadata/_edit_use_anchors_ = true
-
-[node name="AlertBG" type="AnimatedSprite2D" parent="C"]
-sprite_frames = SubResource("SpriteFrames_l5lus")
-autoplay = "default"
-metadata/_edit_use_anchors_ = true
-
-[node name="Alert" type="TextureRect" parent="C/AlertBG"]
-anchors_preset = -1
-anchor_left = 0.323223
-anchor_top = 0.193814
-anchor_right = 0.676777
-anchor_bottom = 0.806186
-offset_left = -36.6863
-offset_top = -28.4041
-offset_right = -27.3137
-offset_bottom = -35.5959
-grow_horizontal = 2
-grow_vertical = 2
-rotation = 0.261799
-pivot_offset = Vector2(16, 16)
-texture = ExtResource("4_38n5p")
-metadata/_edit_use_anchors_ = true
-
-[node name="Update" type="AnimatedSprite2D" parent="C/AlertBG"]
-sprite_frames = SubResource("SpriteFrames_04ufl")
-frame = 4
-frame_progress = 1.0
 
 [node name="Pet" type="TextureButton" parent="C"]
 layout_mode = 1
@@ -374,6 +511,29 @@ offset_bottom = 76.9998
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "treat !"
 
+[node name="TreatCount" type="AnimatedSprite2D" parent="C/Treat"]
+position = Vector2(112, 10.9998)
+sprite_frames = SubResource("SpriteFrames_l5lus")
+autoplay = "default"
+metadata/_edit_use_anchors_ = true
+
+[node name="Text" type="Label" parent="C/Treat/TreatCount"]
+anchors_preset = -1
+anchor_left = 0.25
+anchor_top = 0.140625
+anchor_right = 0.71875
+anchor_bottom = 0.890625
+offset_left = -32.0
+offset_top = -32.0
+offset_right = -32.0
+offset_bottom = -32.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("32_ae1hu")
+theme_override_font_sizes/font_size = 24
+text = "8"
+horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
+
 [node name="Call" type="TextureButton" parent="C"]
 layout_mode = 1
 anchors_preset = -1
@@ -417,6 +577,8 @@ anchors_preset = -1
 anchor_left = 0.151562
 anchor_right = 0.351562
 anchor_bottom = 0.266667
+offset_left = 95.0003
+offset_right = 95.0003
 mouse_default_cursor_shape = 2
 disabled = true
 action_mode = 0
@@ -429,6 +591,79 @@ metadata/_edit_use_anchors_ = true
 [node name="Animation" type="AnimatedSprite2D" parent="C/Sticker"]
 sprite_frames = SubResource("SpriteFrames_o1blt")
 centered = false
+
+[node name="Stamp" type="TextureRect" parent="C"]
+layout_mode = 0
+anchor_right = 0.15
+anchor_bottom = 0.2
+offset_left = -13.5222
+offset_top = 19.3117
+offset_right = -13.5222
+offset_bottom = 19.3117
+rotation = -0.349066
+pivot_offset = Vector2(48, 48)
+mouse_filter = 2
+texture = ExtResource("10_14l8i")
+metadata/_edit_use_anchors_ = true
+
+[node name="AlertBG" type="AnimatedSprite2D" parent="C"]
+sprite_frames = SubResource("SpriteFrames_l5lus")
+autoplay = "default"
+metadata/_edit_use_anchors_ = true
+
+[node name="Alert" type="TextureRect" parent="C/AlertBG"]
+anchors_preset = -1
+anchor_left = 0.323223
+anchor_top = 0.193814
+anchor_right = 0.676777
+anchor_bottom = 0.806186
+offset_left = -36.6863
+offset_top = -28.4041
+offset_right = -27.3137
+offset_bottom = -35.5959
+grow_horizontal = 2
+grow_vertical = 2
+rotation = 0.261799
+pivot_offset = Vector2(16, 16)
+texture = ExtResource("4_38n5p")
+metadata/_edit_use_anchors_ = true
+
+[node name="Update" type="AnimatedSprite2D" parent="C/AlertBG"]
+sprite_frames = SubResource("SpriteFrames_04ufl")
+frame = 4
+frame_progress = 1.0
+
+[node name="HPAlertBG" type="AnimatedSprite2D" parent="C"]
+visible = false
+sprite_frames = SubResource("SpriteFrames_q3pv2")
+autoplay = "default"
+metadata/_edit_use_anchors_ = true
+
+[node name="Update" type="AnimatedSprite2D" parent="C/HPAlertBG"]
+sprite_frames = SubResource("SpriteFrames_04ufl")
+frame = 4
+frame_progress = 1.0
+
+[node name="HealthBG" type="AnimatedSprite2D" parent="C"]
+position = Vector2(177, 78)
+sprite_frames = SubResource("SpriteFrames_yxlib")
+autoplay = "default"
+metadata/_edit_use_anchors_ = true
+
+[node name="Text" type="Label" parent="C/HealthBG"]
+offset_left = 7.0
+offset_top = -26.0
+offset_right = 21.0
+offset_bottom = 22.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("32_ae1hu")
+theme_override_font_sizes/font_size = 24
+text = "8"
+
+[node name="Update" type="AnimatedSprite2D" parent="C/HealthBG"]
+sprite_frames = SubResource("SpriteFrames_04ufl")
+frame = 4
+frame_progress = 1.0
 
 [node name="Progress" type="Label" parent="C"]
 layout_mode = 0
@@ -465,15 +700,6 @@ offset_right = -58.0
 theme_override_font_sizes/font_size = 24
 text = "0%"
 metadata/_edit_use_anchors_ = true
-
-[node name="Health" type="Label" parent="C"]
-layout_mode = 0
-offset_left = 144.0
-offset_top = 283.0
-offset_right = 174.0
-offset_bottom = 331.0
-theme_override_font_sizes/font_size = 24
-text = "10"
 
 [node name="RPS" type="Control" parent="."]
 visible = false
@@ -837,13 +1063,62 @@ color_ramp = SubResource("Gradient_vvbp1")
 visible = false
 texture = ExtResource("20_lyd7w")
 
+[node name="Count" type="Label" parent="Hand"]
+visible = false
+anchors_preset = -1
+anchor_left = 0.28125
+anchor_top = 0.875
+anchor_right = 0.71875
+anchor_bottom = 1.20833
+offset_left = -48.0
+offset_top = -48.0
+offset_right = -48.0
+offset_bottom = -48.0
+theme_override_fonts/font = ExtResource("32_ae1hu")
+horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
+
 [node name="RPSAnim" type="AnimatedSprite2D" parent="."]
 visible = false
 sprite_frames = SubResource("SpriteFrames_oets8")
 animation = &"rock_win"
 
+[node name="SurpriseBite" type="AnimatedSprite2D" parent="."]
+visible = false
+position = Vector2(160, 82)
+sprite_frames = SubResource("SpriteFrames_s3b0q")
+autoplay = "default"
+centered = false
+
+[node name="Label" type="Label" parent="SurpriseBite"]
+offset_left = 52.0
+offset_top = 40.0
+offset_right = 248.0
+offset_bottom = 148.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/line_spacing = -32
+theme_override_fonts/font = ExtResource("32_ae1hu")
+theme_override_font_sizes/font_size = 32
+text = "sudden
+       bite!"
+vertical_alignment = 1
+
+[node name="BiteAnim" type="AnimatedSprite2D" parent="."]
+visible = false
+sprite_frames = SubResource("SpriteFrames_mo7jc")
+animation = &"bite"
+metadata/_edit_use_anchors_ = true
+
+[node name="ConvinceAnim" type="AnimatedSprite2D" parent="."]
+visible = false
+sprite_frames = SubResource("SpriteFrames_uup8v")
+animation = &"fail"
+metadata/_edit_use_anchors_ = true
+
 [connection signal="pressed" from="C/Pet" to="." method="_on_pet_pressed"]
 [connection signal="pressed" from="C/Kick" to="." method="_on_kick_pressed"]
+[connection signal="mouse_entered" from="C/Treat" to="." method="_on_treat_mouse_entered"]
+[connection signal="mouse_exited" from="C/Treat" to="." method="_on_treat_mouse_exited"]
 [connection signal="pressed" from="C/Treat" to="." method="_on_treat_pressed"]
 [connection signal="pressed" from="C/Call" to="." method="_on_call_pressed"]
 [connection signal="pressed" from="C/Sticker" to="." method="_on_sticker_pressed"]

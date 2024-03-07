@@ -25,9 +25,9 @@ func _ready():
 		$Player.can_move = true
 		mouse_mode = Input.MOUSE_MODE_CAPTURED
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-	else:
-		$Overlay/M/FPS.show()
-		query()
+	#else:
+	$Overlay/M/FPS.show()
+	query()
 
 func query():
 	while true:

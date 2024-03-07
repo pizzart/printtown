@@ -1,0 +1,15 @@
+[remap]
+
+importer="dialogue_manager_compiler_11"
+type="Resource"
+uid="uid://ydedu3t1pthm"
+path="res://.godot/imported/tutorialfight_gaveup.dialogue-ac6fa5c6312e74652561e4fe37c8c60f.tres"
+
+[deps]
+
+source_file="res://dialogue/tutorial_fight/tutorialfight_gaveup.dialogue"
+dest_files=["res://.godot/imported/tutorialfight_gaveup.dialogue-ac6fa5c6312e74652561e4fe37c8c60f.tres"]
+
+[params]
+
+defaults=true

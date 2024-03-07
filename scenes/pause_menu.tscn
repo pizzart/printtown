@@ -144,7 +144,7 @@ bg_color = Color(1, 1, 1, 0.184314)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2mel3"]
 bg_color = Color(0, 0, 0, 0)
 border_width_bottom = 2
-border_color = Color(0, 0, 0, 1)
+border_color = Color(0.141176, 0, 0.0901961, 1)
 
 [node name="PauseMenu" type="Node3D"]
 script = ExtResource("1_l81ig")
@@ -339,7 +339,7 @@ shaded = true
 texture_filter = 0
 render_priority = 1
 sprite_frames = SubResource("SpriteFrames_ayucu")
-animation = &"selected"
+animation = &"deselected"
 
 [node name="Clock" type="Node3D" parent="Book/Options"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.155137, 0.003, 0.000497205)
@@ -630,10 +630,10 @@ metadata/_edit_use_anchors_ = true
 [node name="Timer" type="Button" parent="UI/OptionsUI"]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.648438
-anchor_top = 0.524434
+anchor_left = 0.690625
+anchor_top = 0.514017
 anchor_right = 0.878955
-anchor_bottom = 0.514017
+anchor_bottom = 0.489017
 offset_top = 1.2718
 offset_right = -6.53149
 offset_bottom = 33.2718
@@ -650,10 +650,10 @@ metadata/_edit_use_anchors_ = true
 [node name="CA" type="Button" parent="UI/OptionsUI"]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.596875
-anchor_top = 0.614017
-anchor_right = 0.902393
-anchor_bottom = 0.5911
+anchor_left = 0.626562
+anchor_top = 0.601517
+anchor_right = 0.90083
+anchor_bottom = 0.574434
 offset_top = 1.2718
 offset_right = -6.53149
 offset_bottom = 33.2718

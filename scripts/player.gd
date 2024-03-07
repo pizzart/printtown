@@ -297,8 +297,11 @@ func air(delta: float, input_dir: Vector2):
 			last_floor_y = global_position.y - col_shape.shape.height / 2
 			state = State.LEDGE
 			jump_buffered = false
-		elif velocity.y <= 0:
-			state = State.WALLSLIDE
+		elif velocity.y <= 1.0:
+			if jump_buffered:
+				wall_slide_jump(direction)
+			else:
+				state = State.WALLSLIDE
 			jump_buffered = false
 
 func ledge(delta: float, input_dir: Vector2):
@@ -364,19 +367,7 @@ func wall_slide(delta: float, input_dir: Vector2):
 	velocity.z = hvelo.z
 	
 	if Input.is_action_just_pressed("jump"):
-		if wall_cast.is_colliding():
-			jump_time = JUMP_LENGTH + delta
-			if not head_cast.is_colliding():
-				velocity.y = JUMP_VELOCITY
-			else:
-				add_velo += wall_cast.get_collision_normal(0) * WALLJUMP_HORIZONTAL * Vector3(1, 0, 1) + direction * WALLJUMP_HORIZONTAL / 2
-				velocity.y = WALLJUMP_VELOCITY * maxf(pow(stamina / MAX_STAMINA, 0.4), 0.05)
-				last_floor_y = global_position.y - col_shape.shape.height / 2
-				stamina -= WALLJUMP_COST
-			state = State.AIR
-			smoke_particles.emitting = false
-			#$JumpParticles.restart()
-			spawn_jump_particles()
+		wall_slide_jump(direction)
 	
 	if is_on_floor():
 		jump_time = 0
@@ -393,6 +384,21 @@ func wall_slide(delta: float, input_dir: Vector2):
 				velocity.y = 0
 				state = State.LEDGE
 				smoke_particles.emitting = false
+
+func wall_slide_jump(direction: Vector3):
+	if wall_cast.is_colliding():
+		jump_time = JUMP_LENGTH + 0.1
+		if not head_cast.is_colliding():
+			velocity.y = JUMP_VELOCITY
+		else:
+			add_velo += wall_cast.get_collision_normal(0) * WALLJUMP_HORIZONTAL * Vector3(1, 0, 1) + direction * WALLJUMP_HORIZONTAL / 2
+			velocity.y = WALLJUMP_VELOCITY * maxf(pow(stamina / MAX_STAMINA, 0.4), 0.05)
+			last_floor_y = global_position.y - col_shape.shape.height / 2
+			stamina -= WALLJUMP_COST
+		state = State.AIR
+		smoke_particles.emitting = false
+		#$JumpParticles.restart()
+		spawn_jump_particles()
 
 #func roll(delta: float, _input_dir: Vector2):
 	#roll_time += delta

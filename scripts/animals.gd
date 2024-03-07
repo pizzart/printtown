@@ -17,6 +17,7 @@ class Animal:
 	# after it's been stickered
 	var convincing: float
 	var healing: int
+	var preference: Global.RPS
 	
 	func _init(_texture: Texture2D, _animal_name: StringName, _mood: float, _guard: float, _cooperation: float, _health: int, _damage: int, _convincing: float, _healing: int):
 		randomize()
@@ -31,6 +32,7 @@ class Animal:
 		convincing = _convincing
 		healing = _healing
 		satisfaction = 0
+		preference = randi_range(0, 2)
 	
 	func add_mood(amount: float):
 		mood = clampf(mood + amount, 0.0, 1.0)

@@ -33,8 +33,10 @@ func _ready():
 	
 	$UI/UI/M/Buttons.hide()
 	$UI/UI/C.hide()
-	
 	$BlackOverlay/Color.show()
+	
+	await get_tree().create_timer(1.0)
+	
 	$IntroVoice.play()
 	intro_voice_playing = true
 	var tween = create_tween()

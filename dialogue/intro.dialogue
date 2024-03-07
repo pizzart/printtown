@@ -17,6 +17,6 @@ jake: well, you have to do it. come on, i know i tricked you into signing the co
 jake: you'll probably have to leave the giraffe there... as for the dogs, you can probably give all of them to a local animal shelter.
 {{player_name}}: okay, what about me?
 jake: uh... not my problem. I'LL CALL YOU BACK SOON. SEE YA
-{{player_name}}: WAIT-[wait=1] fuck
+{{player_name}}: WAIT-[wait=0.5] fuck
 
 => END

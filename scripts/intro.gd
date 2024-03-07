@@ -3,7 +3,7 @@ extends CanvasLayer
 signal voice_stopped
 
 const ALLOWED_CHARS = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ01234567890"
-const FAKE_NOTICE = "© 2023 PIZZART ENTERTAINMENT LLC."
+const FAKE_NOTICE = "© 2024 PIZZART ENTERTAINMENT LLC."
 const HUM_VOL = -35
 
 var pressed: bool

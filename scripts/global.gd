@@ -14,3 +14,6 @@ var treats: int = 0
 var collected_treats: int = 0
 var total_treats: int = 0
 var animals: Array[Animals.Animal] = debug_animals if OS.is_debug_build() else []
+
+var ca_enabled: bool = true
+var timer_enabled: bool = true

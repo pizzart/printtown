@@ -18,7 +18,7 @@ animations = [{
 "speed": 4.0
 }]
 
-[node name="Pedestrian" type="Node3D"]
+[node name="Pedestrian" type="Node3D" groups=["pedestrian"]]
 script = ExtResource("1_nyasc")
 
 [node name="Sprite" type="AnimatedSprite3D" parent="."]
@@ -27,7 +27,7 @@ modulate = Color(0.560784, 0.560784, 0.560784, 1)
 pixel_size = 0.005
 billboard = 2
 shaded = true
-alpha_cut = 1
+alpha_cut = 3
 texture_filter = 0
 sprite_frames = SubResource("SpriteFrames_dbvck")
 autoplay = "default"

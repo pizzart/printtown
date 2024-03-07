@@ -64,5 +64,13 @@ func ask_new_target():
 	var pos = await get_random_pos()
 	navagent.target_position = pos
 
+func disappear():
+	var tween = create_tween()
+	tween.tween_property($Sprite, "transparency", 1.0, 2.0)
+
+func appear():
+	var tween = create_tween()
+	tween.tween_property($Sprite, "transparency", 0.0, 2.0)
+
 func _on_idle_timer_timeout():
 	ask_new_target()

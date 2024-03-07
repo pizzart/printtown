@@ -30,6 +30,7 @@ func _process(delta):
 
 func start_dialogue(dialogue: DialogueResource, is_call: bool):
 	dialogue_res = dialogue
+	text_label.text = ""
 	show()
 	if is_call:
 		$C.hide()

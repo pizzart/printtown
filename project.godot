@@ -127,3 +127,7 @@ ca_strength={
 "type": "float",
 "value": 0.004
 }
+ca_enabled={
+"type": "bool",
+"value": true
+}

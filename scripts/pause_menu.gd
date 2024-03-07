@@ -60,7 +60,7 @@ func update_volume():
 
 func _input(event):
 	if event.is_action_pressed("pause"):
-		if can_unpause:
+		if can_unpause and main_ui.visible:
 			unpause()
 	
 	if event is InputEventMouseButton:
@@ -173,3 +173,19 @@ func _on_back_options_pressed():
 	
 	main_ui.show()
 	main_book.show()
+
+func _on_timer_pressed():
+	Global.timer_enabled = not Global.timer_enabled
+	$Book/Main/TimerText.visible = Global.timer_enabled
+	if Global.timer_enabled:
+		$Book/Options/TimerPin.play("selected")
+	else:
+		$Book/Options/TimerPin.play("deselected")
+
+func _on_ca_pressed():
+	Global.ca_enabled = not Global.ca_enabled
+	RenderingServer.global_shader_parameter_set("ca_enabled", Global.ca_enabled)
+	if Global.ca_enabled:
+		$Book/Options/CAPin.play("selected")
+	else:
+		$Book/Options/CAPin.play("deselected")

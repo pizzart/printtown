@@ -2,8 +2,10 @@ extends Node3D
 
 const INTRO_DIALOGUE = preload("res://dialogue/intro.dialogue")
 const PEDESTRIAN = preload("res://scenes/pedestrian.tscn")
+
 var timer: float
 var mouse_mode = Input.MOUSE_MODE_CAPTURED
+
 @onready var pause_menu = $PauseLayer/Container/SubViewport/PauseMenu
 
 func _ready():
@@ -12,6 +14,8 @@ func _ready():
 		add_child(PEDESTRIAN.instantiate())
 	
 	if not OS.is_debug_build():
+		$Overlay/M/FPS.hide()
+		
 		mouse_mode = Input.MOUSE_MODE_VISIBLE
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 		$Player.global_position = $PlayerSpawn.global_position
@@ -33,6 +37,7 @@ func query():
 func _process(delta):
 	timer += delta
 	$Overlay/M/Timer.text = get_time_text()
+	$Overlay/M/Timer.visible = Global.timer_enabled
 
 func _input(event):
 	if event.is_action_pressed("restart") and OS.is_debug_build():

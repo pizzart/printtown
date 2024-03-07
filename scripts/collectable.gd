@@ -19,14 +19,6 @@ func _on_area_entered(area):
 	if area.is_in_group("player_collect"):
 		set_deferred("monitoring", false)
 		
-		if not tutorial_given:
-			tutorial_given = true
-			area.get_parent().sprite.play("idle_back")
-			area.get_parent().can_move = false
-			DialogueUI.start_dialogue(TUTORIAL_DIALOGUE, true)
-			await DialogueUI.finished
-			area.get_parent().can_move = true
-		
 		Global.treats += 1
 		Global.collected_treats += 1
 		Global.treat_collected.emit()
@@ -37,6 +29,15 @@ func _on_area_entered(area):
 		tween.tween_property($Mesh, "global_position", global_position + Vector3(0, 100, 0), 1.0).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_IN)
 		tween.tween_method(set_explosion_progress, 0.0, 1.0, 1.0).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
 		await tween.finished
+		
+		if not tutorial_given:
+			tutorial_given = true
+			area.get_parent().sprite.play("idle_back")
+			area.get_parent().can_move = false
+			DialogueUI.start_dialogue(TUTORIAL_DIALOGUE, true)
+			await DialogueUI.finished
+			area.get_parent().can_move = true
+		
 		queue_free()
 
 func set_explosion_progress(progress: float):

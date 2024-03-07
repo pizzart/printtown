@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://bqv13fmmqt71v"]
+[gd_scene load_steps=28 format=3 uid="uid://bqv13fmmqt71v"]
 
 [ext_resource type="Texture2D" uid="uid://bf4fm6ce01idn" path="res://graphics/ui/fight/stickerbook/stickerbook0002.png" id="1_6370c"]
 [ext_resource type="Script" path="res://scripts/pause_menu.gd" id="1_l81ig"]
@@ -10,6 +10,8 @@
 [ext_resource type="FontFile" uid="uid://cgjjr8ld3la1k" path="res://misc/GloriaHallelujah-Regular.ttf" id="7_3al63"]
 [ext_resource type="Texture2D" uid="uid://djdpyix06bq0u" path="res://graphics/ui/fight/call_actions/action.png" id="7_4ls4m"]
 [ext_resource type="Texture2D" uid="uid://cfei2fg0pqtu3" path="res://graphics/ui/pause/stickerbook_closed.png" id="9_n5wi1"]
+[ext_resource type="Texture2D" uid="uid://dj72xixso0rl5" path="res://graphics/ui/pause/pin/selected.png" id="10_3k6ee"]
+[ext_resource type="Texture2D" uid="uid://bhn6qkxh15x5w" path="res://graphics/ui/pause/pin/deselected.png" id="10_ei3g8"]
 [ext_resource type="Texture2D" uid="uid://dor5fexnpbcqi" path="res://graphics/ui/pause/clock/clock_bg.png" id="10_ffhjb"]
 [ext_resource type="Texture2D" uid="uid://mkicgd3h1tby" path="res://graphics/ui/pause/clock/clock_arrow_small.png" id="11_jvlnh"]
 [ext_resource type="Texture2D" uid="uid://c00d8te4k7o5m" path="res://graphics/ui/pause/clock/clock_arrow_big.png" id="12_f11qv"]
@@ -97,6 +99,25 @@ animations = [{
 "speed": 16.0
 }]
 
+[sub_resource type="SpriteFrames" id="SpriteFrames_ayucu"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("10_ei3g8")
+}],
+"loop": false,
+"name": &"deselected",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("10_3k6ee")
+}],
+"loop": false,
+"name": &"selected",
+"speed": 5.0
+}]
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_lfm0w"]
 render_priority = 0
 shader = ExtResource("6_jiugw")
@@ -119,6 +140,11 @@ bg_color = Color(1, 1, 1, 0.184314)
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ypxn5"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qdfbi"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2mel3"]
+bg_color = Color(0, 0, 0, 0)
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
 
 [node name="PauseMenu" type="Node3D"]
 script = ExtResource("1_l81ig")
@@ -270,6 +296,50 @@ modulate = Color(0.109804, 0.109804, 0.368627, 1)
 text = "volume"
 font = ExtResource("7_3al63")
 outline_size = 0
+
+[node name="CAText" type="Label3D" parent="Book/Options"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.178289, 0.002, 0.109384)
+pixel_size = 0.001
+shaded = true
+texture_filter = 0
+render_priority = 1
+modulate = Color(0.109804, 0.109804, 0.368627, 1)
+text = "chromatic aberration"
+font = ExtResource("7_3al63")
+font_size = 20
+outline_size = 0
+
+[node name="TimerText" type="Label3D" parent="Book/Options"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.20715, 0.002, 0.0835739)
+pixel_size = 0.001
+shaded = true
+texture_filter = 0
+render_priority = 1
+modulate = Color(0.109804, 0.109804, 0.368627, 1)
+text = "speedrun timer"
+font = ExtResource("7_3al63")
+font_size = 20
+outline_size = 0
+
+[node name="CAPin" type="AnimatedSprite3D" parent="Book/Options"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.064742, 0, 0.0962431)
+pixel_size = 0.001
+axis = 1
+shaded = true
+texture_filter = 0
+render_priority = 1
+sprite_frames = SubResource("SpriteFrames_ayucu")
+animation = &"selected"
+
+[node name="TimerPin" type="AnimatedSprite3D" parent="Book/Options"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.125961, 0, 0.0684161)
+pixel_size = 0.001
+axis = 1
+shaded = true
+texture_filter = 0
+render_priority = 1
+sprite_frames = SubResource("SpriteFrames_ayucu")
+animation = &"selected"
 
 [node name="Clock" type="Node3D" parent="Book/Options"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.155137, 0.003, 0.000497205)
@@ -557,6 +627,46 @@ theme_override_styles/focus = SubResource("StyleBoxEmpty_pbpn8")
 action_mode = 0
 metadata/_edit_use_anchors_ = true
 
+[node name="Timer" type="Button" parent="UI/OptionsUI"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.648438
+anchor_top = 0.524434
+anchor_right = 0.878955
+anchor_bottom = 0.514017
+offset_top = 1.2718
+offset_right = -6.53149
+offset_bottom = 33.2718
+rotation = -0.418879
+mouse_default_cursor_shape = 2
+theme_override_styles/normal = SubResource("StyleBoxEmpty_ypxn5")
+theme_override_styles/hover = SubResource("StyleBoxFlat_2mel3")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_2ymrk")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_qdfbi")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_pbpn8")
+action_mode = 0
+metadata/_edit_use_anchors_ = true
+
+[node name="CA" type="Button" parent="UI/OptionsUI"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.596875
+anchor_top = 0.614017
+anchor_right = 0.902393
+anchor_bottom = 0.5911
+offset_top = 1.2718
+offset_right = -6.53149
+offset_bottom = 33.2718
+rotation = -0.418879
+mouse_default_cursor_shape = 2
+theme_override_styles/normal = SubResource("StyleBoxEmpty_ypxn5")
+theme_override_styles/hover = SubResource("StyleBoxFlat_2mel3")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_2ymrk")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_qdfbi")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_pbpn8")
+action_mode = 0
+metadata/_edit_use_anchors_ = true
+
 [node name="ClosedUI" type="Control" parent="UI"]
 visible = false
 layout_mode = 3
@@ -612,5 +722,7 @@ metadata/_edit_use_anchors_ = true
 [connection signal="pressed" from="UI/MainUI/Quit" to="." method="_on_quit_pressed"]
 [connection signal="pressed" from="UI/MainUI/Options" to="." method="_on_options_pressed"]
 [connection signal="pressed" from="UI/OptionsUI/Back" to="." method="_on_back_options_pressed"]
+[connection signal="pressed" from="UI/OptionsUI/Timer" to="." method="_on_timer_pressed"]
+[connection signal="pressed" from="UI/OptionsUI/CA" to="." method="_on_ca_pressed"]
 [connection signal="pressed" from="UI/ClosedUI/BackClosed" to="." method="_on_back_closed_pressed"]
 [connection signal="pressed" from="UI/ClosedUI/QuitClosed" to="." method="_on_quit_closed_pressed"]

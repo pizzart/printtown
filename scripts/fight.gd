@@ -134,6 +134,7 @@ func activate_fight():
 	get_parent().mouse_mode = Input.MOUSE_MODE_VISIBLE
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	
+	get_tree().call_group("pedestrian", "disappear")
 	player.prepare_fight()
 	
 	book.show()
@@ -200,8 +201,9 @@ func apply_damage(damage: int):
 	update_ui()
 	if health <= 0:
 		FightUI.disable_all()
-		DialogueUI.start_dialogue(dialogue_lost, false)
-		await DialogueUI.finished
+		if dialogue_lost != null:
+			DialogueUI.start_dialogue(dialogue_lost, false)
+			await DialogueUI.finished
 		if is_tutorial:
 			enemy = Animals.animals[animal].new()
 			health = INIT_HEALTH
@@ -211,6 +213,8 @@ func apply_damage(damage: int):
 		else:
 			FightUI.hide()
 			fight_active = false
+			set_deferred("monitoring", false)
+			can_activate = false
 
 func is_satisfied():
 	return enemy.satisfaction >= enemy.SATISFACTION_MIN
@@ -456,13 +460,14 @@ func _on_stickered():
 		get_viewport().gui_disable_input = false
 		get_parent().mouse_mode = Input.MOUSE_MODE_CAPTURED
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+		get_tree().call_group("pedestrian", "appear")
+		hide()
 		
 		tween = create_tween().set_parallel()
 		tween.tween_property(camera, "global_transform", player.camera.global_transform, 1.0).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
 		tween.tween_property(camera, "fov", player.camera.fov, 1.0).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
 		
 		await tween.finished
-		hide()
 		
 		player.post_fight()
 		queue_free()

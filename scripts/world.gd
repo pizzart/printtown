@@ -12,6 +12,8 @@ var mouse_mode = Input.MOUSE_MODE_CAPTURED
 @onready var pause_menu = $PauseLayer/Container/SubViewport/PauseMenu
 
 func _ready():
+	$Shader.show()
+	
 	Global.total_treats = $Collectables.get_child_count()
 	for _i in range(50):
 		add_child(PEDESTRIAN.instantiate())
@@ -62,6 +64,10 @@ func _input(event):
 		pause_menu.pause(ImageTexture.create_from_image(get_viewport().get_texture().get_image()), $Player.camera, mouse_mode, get_time_text())
 		#$Pause.show()
 		get_tree().paused = true
+	
+	if event.is_action_pressed("wave"):
+		get_tree().root.use_occlusion_culling = not get_tree().root.use_occlusion_culling
+		print(get_tree().root.use_occlusion_culling)
 
 func transition():
 	var tween = create_tween()

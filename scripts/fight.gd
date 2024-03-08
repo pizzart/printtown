@@ -493,10 +493,10 @@ func finish_fight(success: bool):
 	
 	fight_active = false
 	
+	var tween = create_tween()
 	if success:
 		get_viewport().gui_disable_input = true
 		
-		var tween = create_tween()
 		tween.tween_property($Animal, "global_position", $Animal.global_position + Vector3(0, 20, 0), 1.0).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
 		tween.tween_callback(book.play.bind("open"))
 		tween.tween_callback(FightUI.main_ui.hide)
@@ -525,7 +525,7 @@ func finish_fight(success: bool):
 	get_tree().call_group("pedestrian", "appear")
 	hide()
 	
-	var tween = create_tween().set_parallel()
+	tween = create_tween().set_parallel()
 	tween.tween_property(camera, "global_transform", player.camera.global_transform, 1.0).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
 	tween.tween_property(camera, "fov", player.camera.fov, 1.0).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
 	

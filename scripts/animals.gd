@@ -32,7 +32,7 @@ class Animal:
 		convincing = _convincing
 		healing = _healing
 		satisfaction = 0
-		preference = randi_range(0, 2)
+		preference = randi_range(0, 2) as Global.RPS
 	
 	func add_mood(amount: float):
 		mood = clampf(mood + amount * cooperation, 0.0, 1.0)

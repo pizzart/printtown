@@ -6,6 +6,6 @@ extends Area3D
 func _ready():
 	$CollisionShape3D.shape = shape
 
-func _process(delta):
+func _process(_delta):
 	if Engine.is_editor_hint():
 		$CollisionShape3D.shape = shape

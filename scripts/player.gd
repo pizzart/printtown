@@ -122,6 +122,7 @@ func _process(delta):
 		MiscUI.interact_icon.position = lerp(MiscUI.interact_icon.position, camera.unproject_position(global_position), delta * 10)
 	
 	MiscUI.collectables_popup.position = lerp(MiscUI.collectables_popup.position, camera.unproject_position(global_position) + Vector2(cos(time * COLLECT_SPIN_SPEED), sin(time * COLLECT_SPIN_SPEED)) * COLLECT_SPIN_RAD, delta * 10)
+	MiscUI.pets_popup.position = lerp(MiscUI.collectables_popup.position, camera.unproject_position(global_position) + Vector2(sin(time * COLLECT_SPIN_SPEED), cos(time * COLLECT_SPIN_SPEED)) * COLLECT_SPIN_RAD, delta * 10)
 	
 	if trigger_area.has_overlapping_areas():
 		gimbal.spring_length = lerpf(gimbal.spring_length, SHORT_SPRING_LEN, delta * 10)
@@ -311,6 +312,8 @@ func air(delta: float, input_dir: Vector2):
 			jump_buffered = false
 		elif velocity.y <= 1.0:
 			if jump_buffered:
+				sprite.play("wall_side")
+				sprite.flip_h = camera.global_basis.z.signed_angle_to(wall_cast.get_collision_normal(0), Vector3.UP) > 0
 				wall_slide_jump(direction)
 			else:
 				state = State.WALLSLIDE
@@ -324,7 +327,6 @@ func ledge(delta: float, input_dir: Vector2):
 	
 	if wall_cast.is_colliding():
 		var angle = (camera.global_basis.z * Vector3(1, 0, 1)).signed_angle_to(wall_cast.get_collision_normal(0), Vector3.UP)
-		#sprite.flip_h = 
 		if absf(angle) < PI / 5:
 			sprite.play("ledge_back")
 			if input_dir.x < 0:

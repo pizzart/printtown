@@ -1,4 +1,4 @@
-[gd_scene load_steps=513 format=3 uid="uid://5th0yhcrbxbj"]
+[gd_scene load_steps=528 format=3 uid="uid://5th0yhcrbxbj"]
 
 [ext_resource type="PackedScene" uid="uid://b026alsepp2vu" path="res://scenes/player.tscn" id="1_lquvg"]
 [ext_resource type="Script" path="res://scripts/world.gd" id="1_mmxcb"]
@@ -11,7 +11,6 @@
 [ext_resource type="Resource" uid="uid://caweipi58si4w" path="res://dialogue/tutorial_fight/tutorialfight_start.dialogue" id="7_7rlel"]
 [ext_resource type="Resource" uid="uid://cle0brpnsdxov" path="res://dialogue/tutorial_fight/tutorialfight_lost.dialogue" id="8_hdsci"]
 [ext_resource type="Resource" uid="uid://bq2m8jkmt2aiw" path="res://dialogue/test_pre.dialogue" id="9_ai7yc"]
-[ext_resource type="Resource" uid="uid://cqa7hjb7ure7x" path="res://dialogue/finale/giraffe_encounter.dialogue" id="11_13ulw"]
 [ext_resource type="PackedScene" uid="uid://dr3l4xyq5kccl" path="res://scenes/fx.tscn" id="11_qfrrq"]
 [ext_resource type="Resource" uid="uid://c5q1mvxu7k1f8" path="res://dialogue/finale/giraffe_fight_start.dialogue" id="12_yilce"]
 [ext_resource type="Shader" path="res://misc/3d_outline.gdshader" id="13_25iw6"]
@@ -23,6 +22,7 @@
 [ext_resource type="Material" uid="uid://cwwujeligexb" path="res://materials/building.tres" id="15_ycgyk"]
 [ext_resource type="PackedScene" uid="uid://njemcft4bcul" path="res://scenes/props/billboard.tscn" id="21_2inpv"]
 [ext_resource type="PackedScene" uid="uid://cvsg7tf1neb40" path="res://scenes/props/trashcan.tscn" id="22_7a3ly"]
+[ext_resource type="Shader" path="res://misc/circle.gdshader" id="22_isgsw"]
 [ext_resource type="PackedScene" uid="uid://mgyefgmew2ml" path="res://scenes/shelter.tscn" id="24_v7n0l"]
 [ext_resource type="Script" path="res://scripts/cutscene.gd" id="25_w7kha"]
 [ext_resource type="Script" path="res://scripts/cutscene_action.gd" id="26_e12w1"]
@@ -228,27 +228,27 @@ face_selected = PackedByteArray(0, 0, 0, 0, 0, 0)
 active_face = -1
 face_ids = PackedInt32Array(0, 1, 2, 3, 4, 5)
 
-[sub_resource type="Resource" id="Resource_j0rht"]
+[sub_resource type="Resource" id="Resource_obue1"]
 script = ExtResource("5_q8k46")
 selected = false
 active = false
 collsion = true
 physics_layer = 0
 physics_mask = 0
-vertex_points = PackedVector3Array(61, 0, -88, -121, 0, -88, -121, 0, 91, 61, 0, 91, -121, 1, -88, 61, 1, -88, 61, 1, 91, -121, 1, 91)
+vertex_points = PackedVector3Array(61, 0, 103, 61, 0, -88, -121, 0, -88, -121, 0, 103, -121, 1, 103, -121, 1, -88, 61, 1, -88, 61, 1, 103)
 vertex_selected = PackedByteArray(0, 0, 0, 0, 0, 0, 0, 0)
 active_vertex = -1
-edge_vertex_indices = PackedInt32Array(0, 1, 1, 2, 2, 3, 3, 0, 4, 1, 0, 5, 5, 4, 6, 5, 3, 6, 7, 2, 4, 7, 6, 7)
+edge_vertex_indices = PackedInt32Array(0, 1, 1, 2, 2, 3, 3, 0, 4, 3, 2, 5, 5, 4, 6, 5, 1, 6, 4, 7, 7, 0, 6, 7)
 edge_selected = PackedByteArray(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
 active_edge = -1
-edge_face_indices = PackedInt32Array(0, 1, 0, 3, 0, 5, 0, 2, 1, 3, 1, 2, 1, 4, 2, 4, 2, 5, 3, 5, 3, 4, 4, 5)
+edge_face_indices = PackedInt32Array(0, 5, 0, 2, 0, 1, 0, 3, 1, 3, 1, 2, 1, 4, 2, 4, 2, 5, 3, 4, 3, 5, 4, 5)
 face_vertex_count = PackedInt32Array(4, 4, 4, 4, 4, 4)
-face_vertex_indices = PackedInt32Array(0, 1, 2, 3, 4, 1, 0, 5, 6, 5, 0, 3, 7, 2, 1, 4, 6, 7, 4, 5, 6, 3, 2, 7)
+face_vertex_indices = PackedInt32Array(0, 1, 2, 3, 4, 3, 2, 5, 6, 5, 2, 1, 0, 3, 4, 7, 6, 7, 4, 5, 0, 7, 6, 1)
 face_material_indices = PackedInt32Array(0, 0, 0, 0, 0, 0)
 face_uv_transform = Array[Transform2D]([Transform2D(1, 0, 0, 1, 0, 0), Transform2D(1, 0, 0, 1, 0, 0), Transform2D(1, 0, 0, 1, 0, 0), Transform2D(1, 0, 0, 1, 0, 0), Transform2D(1, 0, 0, 1, 0, 0), Transform2D(1, 0, 0, 1, 0, 0)])
 face_visible = PackedByteArray(1, 1, 1, 1, 1, 1)
 face_color = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1)
-face_selected = PackedByteArray(0, 0, 0, 0, 0, 0)
+face_selected = PackedByteArray(0, 0, 0, 1, 0, 0)
 active_face = -1
 face_ids = PackedInt32Array(0, 1, 2, 3, 4, 5)
 
@@ -10284,11 +10284,111 @@ face_selected = PackedByteArray(0, 0, 0, 0, 0, 0)
 active_face = -1
 face_ids = PackedInt32Array(0, 1, 2, 3, 4, 5)
 
+[sub_resource type="Resource" id="Resource_73j26"]
+script = ExtResource("5_q8k46")
+selected = false
+active = false
+collsion = true
+physics_layer = 0
+physics_mask = 0
+vertex_points = PackedVector3Array(0, 17, 0, 0, 17, 12, 0, 0, 12, 0, 0, 0, 8, 17, 0, 8, 17, 12, 8, 0, 12, 8, 0, 0)
+vertex_selected = PackedByteArray(0, 0, 0, 0, 0, 0, 0, 0)
+active_vertex = -1
+edge_vertex_indices = PackedInt32Array(0, 1, 1, 2, 2, 3, 3, 0, 7, 6, 6, 5, 5, 4, 4, 7, 0, 4, 5, 1, 6, 2, 7, 3)
+edge_selected = PackedByteArray(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+active_edge = -1
+edge_face_indices = PackedInt32Array(0, 2, 0, 3, 0, 4, 0, 5, 1, 4, 1, 3, 1, 2, 1, 5, 2, 5, 2, 3, 3, 4, 4, 5)
+face_vertex_count = PackedInt32Array(4, 4, 4, 4, 4, 4)
+face_vertex_indices = PackedInt32Array(0, 1, 2, 3, 7, 6, 5, 4, 1, 0, 4, 5, 2, 1, 5, 6, 3, 2, 6, 7, 0, 3, 7, 4)
+face_material_indices = PackedInt32Array(0, 0, 0, 0, 0, 0)
+face_uv_transform = Array[Transform2D]([Transform2D(1, 0, 0, 1, 0, 0), Transform2D(1, 0, 0, 1, 0, 0), Transform2D(1, 0, 0, 1, 0, 0), Transform2D(1, 0, 0, 1, 0, 0), Transform2D(1, 0, 0, 1, 0, 0), Transform2D(1, 0, 0, 1, 0, 0)])
+face_visible = PackedByteArray(1, 1, 1, 1, 1, 1)
+face_color = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1)
+face_selected = PackedByteArray(0, 0, 0, 0, 0, 0)
+active_face = -1
+face_ids = PackedInt32Array(0, 1, 2, 3, 4, 5)
+
+[sub_resource type="Resource" id="Resource_2nxql"]
+script = ExtResource("5_q8k46")
+selected = false
+active = false
+collsion = true
+physics_layer = 0
+physics_mask = 0
+vertex_points = PackedVector3Array(0, 22, 0, 0, 22, 8, 0, 0, 8, 0, 0, 0, 11, 22, 0, 11, 22, 8, 11, 0, 8, 11, 0, 0)
+vertex_selected = PackedByteArray(0, 0, 0, 0, 0, 0, 0, 0)
+active_vertex = -1
+edge_vertex_indices = PackedInt32Array(0, 1, 1, 2, 2, 3, 3, 0, 7, 6, 6, 5, 5, 4, 4, 7, 0, 4, 5, 1, 6, 2, 7, 3)
+edge_selected = PackedByteArray(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+active_edge = -1
+edge_face_indices = PackedInt32Array(0, 2, 0, 3, 0, 4, 0, 5, 1, 4, 1, 3, 1, 2, 1, 5, 2, 5, 2, 3, 3, 4, 4, 5)
+face_vertex_count = PackedInt32Array(4, 4, 4, 4, 4, 4)
+face_vertex_indices = PackedInt32Array(0, 1, 2, 3, 7, 6, 5, 4, 1, 0, 4, 5, 2, 1, 5, 6, 3, 2, 6, 7, 0, 3, 7, 4)
+face_material_indices = PackedInt32Array(0, 0, 0, 0, 0, 0)
+face_uv_transform = Array[Transform2D]([Transform2D(1, 0, 0, 1, 0, 0), Transform2D(1, 0, 0, 1, 0, 0), Transform2D(1, 0, 0, 1, 0, 0), Transform2D(1, 0, 0, 1, 0, 0), Transform2D(1, 0, 0, 1, 0, 0), Transform2D(1, 0, 0, 1, 0, 0)])
+face_visible = PackedByteArray(1, 1, 1, 1, 1, 1)
+face_color = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1)
+face_selected = PackedByteArray(0, 0, 0, 0, 0, 0)
+active_face = -1
+face_ids = PackedInt32Array(0, 1, 2, 3, 4, 5)
+
+[sub_resource type="Resource" id="Resource_w7y16"]
+script = ExtResource("5_q8k46")
+selected = false
+active = false
+collsion = true
+physics_layer = 0
+physics_mask = 0
+vertex_points = PackedVector3Array(0, 16, 0, 0, 16, 8, 0, 0, 8, 0, 0, 0, 7, 16, 0, 7, 16, 8, 7, 0, 8, 7, 0, 0)
+vertex_selected = PackedByteArray(0, 0, 0, 0, 0, 0, 0, 0)
+active_vertex = -1
+edge_vertex_indices = PackedInt32Array(0, 1, 1, 2, 2, 3, 3, 0, 7, 6, 6, 5, 5, 4, 4, 7, 0, 4, 5, 1, 6, 2, 7, 3)
+edge_selected = PackedByteArray(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+active_edge = -1
+edge_face_indices = PackedInt32Array(0, 2, 0, 3, 0, 4, 0, 5, 1, 4, 1, 3, 1, 2, 1, 5, 2, 5, 2, 3, 3, 4, 4, 5)
+face_vertex_count = PackedInt32Array(4, 4, 4, 4, 4, 4)
+face_vertex_indices = PackedInt32Array(0, 1, 2, 3, 7, 6, 5, 4, 1, 0, 4, 5, 2, 1, 5, 6, 3, 2, 6, 7, 0, 3, 7, 4)
+face_material_indices = PackedInt32Array(0, 0, 0, 0, 0, 0)
+face_uv_transform = Array[Transform2D]([Transform2D(1, 0, 0, 1, 0, 0), Transform2D(1, 0, 0, 1, 0, 0), Transform2D(1, 0, 0, 1, 0, 0), Transform2D(1, 0, 0, 1, 0, 0), Transform2D(1, 0, 0, 1, 0, 0), Transform2D(1, 0, 0, 1, 0, 0)])
+face_visible = PackedByteArray(1, 1, 1, 1, 1, 1)
+face_color = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1)
+face_selected = PackedByteArray(0, 0, 0, 0, 0, 0)
+active_face = -1
+face_ids = PackedInt32Array(0, 1, 2, 3, 4, 5)
+
+[sub_resource type="Resource" id="Resource_4lork"]
+script = ExtResource("5_q8k46")
+selected = false
+active = false
+collsion = true
+physics_layer = 0
+physics_mask = 0
+vertex_points = PackedVector3Array(0, 18, 0, 0, 18, 8, 0, 0, 8, 0, 0, 0, 10, 18, 0, 10, 18, 8, 10, 0, 8, 10, 0, 0)
+vertex_selected = PackedByteArray(0, 0, 0, 0, 0, 0, 0, 0)
+active_vertex = -1
+edge_vertex_indices = PackedInt32Array(0, 1, 1, 2, 2, 3, 3, 0, 7, 6, 6, 5, 5, 4, 4, 7, 0, 4, 5, 1, 6, 2, 7, 3)
+edge_selected = PackedByteArray(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+active_edge = -1
+edge_face_indices = PackedInt32Array(0, 2, 0, 3, 0, 4, 0, 5, 1, 4, 1, 3, 1, 2, 1, 5, 2, 5, 2, 3, 3, 4, 4, 5)
+face_vertex_count = PackedInt32Array(4, 4, 4, 4, 4, 4)
+face_vertex_indices = PackedInt32Array(0, 1, 2, 3, 7, 6, 5, 4, 1, 0, 4, 5, 2, 1, 5, 6, 3, 2, 6, 7, 0, 3, 7, 4)
+face_material_indices = PackedInt32Array(0, 0, 0, 0, 0, 0)
+face_uv_transform = Array[Transform2D]([Transform2D(1, 0, 0, 1, 0, 0), Transform2D(1, 0, 0, 1, 0, 0), Transform2D(1, 0, 0, 1, 0, 0), Transform2D(1, 0, 0, 1, 0, 0), Transform2D(1, 0, 0, 1, 0, 0), Transform2D(1, 0, 0, 1, 0, 0)])
+face_visible = PackedByteArray(1, 1, 1, 1, 1, 1)
+face_color = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1)
+face_selected = PackedByteArray(0, 0, 0, 0, 0, 0)
+active_face = -1
+face_ids = PackedInt32Array(0, 1, 2, 3, 4, 5)
+
 [sub_resource type="BoxShape3D" id="BoxShape3D_hyr7s"]
 size = Vector3(5.98, 14.98, 6.27)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_0m6om"]
 size = Vector3(21.935, 3.2, 13.94)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8v66q"]
+shader = ExtResource("22_isgsw")
+shader_parameter/size = 1.0
 
 [sub_resource type="Environment" id="Environment_g5wqo"]
 background_mode = 1
@@ -10333,7 +10433,7 @@ wait = true
 [sub_resource type="Resource" id="Resource_apsgv"]
 script = ExtResource("26_e12w1")
 action = 2
-node_title = null
+node_title = "start"
 is_call = false
 move_node = NodePath("../../Player")
 move_point = NodePath("Player1")
@@ -10343,24 +10443,24 @@ ease_type = 1
 camera_follow = false
 wait_time = 0.0
 look_at = NodePath("")
-animation_name = null
+animation_name = ""
 wait = true
 
 [sub_resource type="Resource" id="Resource_j35jv"]
 script = ExtResource("26_e12w1")
 action = 6
-node_title = null
+node_title = "start"
 is_call = false
 move_node = NodePath("")
 move_point = NodePath("")
 move_time = 0.0
 transition_type = 5
 ease_type = 1
-camera_follow = null
+camera_follow = false
 wait_time = 0.0
 look_at = NodePath("")
 animation_name = "idle_back"
-wait = null
+wait = true
 
 [sub_resource type="Resource" id="Resource_cfc7s"]
 script = ExtResource("26_e12w1")
@@ -10389,10 +10489,10 @@ move_point = NodePath("")
 move_time = 0.0
 transition_type = 5
 ease_type = 1
-camera_follow = null
+camera_follow = false
 wait_time = 0.0
 look_at = NodePath("")
-animation_name = null
+animation_name = ""
 wait = true
 
 [sub_resource type="Resource" id="Resource_j7jxj"]
@@ -10444,21 +10544,21 @@ look_at = NodePath("")
 animation_name = ""
 wait = true
 
-[sub_resource type="Resource" id="Resource_rkk2e"]
+[sub_resource type="Resource" id="Resource_m7mv2"]
 script = ExtResource("26_e12w1")
-action = 3
+action = 6
 node_title = "start"
 is_call = false
 move_node = NodePath("")
-move_point = NodePath("Camera2")
-move_time = 0.5
+move_point = NodePath("")
+move_time = 0.0
 transition_type = 5
 ease_type = 1
 camera_follow = false
 wait_time = 0.0
 look_at = NodePath("")
-animation_name = ""
-wait = false
+animation_name = "run_back"
+wait = true
 
 [sub_resource type="Resource" id="Resource_3i4q6"]
 script = ExtResource("26_e12w1")
@@ -10469,6 +10569,22 @@ move_node = NodePath("")
 move_point = NodePath("Player2")
 move_time = 0.5
 transition_type = 0
+ease_type = 1
+camera_follow = false
+wait_time = 0.0
+look_at = NodePath("")
+animation_name = ""
+wait = false
+
+[sub_resource type="Resource" id="Resource_rkk2e"]
+script = ExtResource("26_e12w1")
+action = 3
+node_title = "start"
+is_call = false
+move_node = NodePath("")
+move_point = NodePath("Camera2")
+move_time = 0.5
+transition_type = 5
 ease_type = 1
 camera_follow = false
 wait_time = 0.0
@@ -10486,13 +10602,13 @@ move_point = NodePath("Player3")
 move_time = 1.0
 transition_type = 1
 ease_type = 1
-camera_follow = true
+camera_follow = false
 wait_time = 0.0
 look_at = NodePath("")
 animation_name = ""
 wait = true
 
-[sub_resource type="Resource" id="Resource_m7mv2"]
+[sub_resource type="Resource" id="Resource_d45vw"]
 script = ExtResource("26_e12w1")
 action = 6
 node_title = "start"
@@ -10505,8 +10621,308 @@ ease_type = 1
 camera_follow = false
 wait_time = 0.0
 look_at = NodePath("")
-animation_name = "run_back"
+animation_name = "idle_back"
 wait = true
+
+[sub_resource type="Resource" id="Resource_twgos"]
+script = ExtResource("26_e12w1")
+action = 3
+node_title = "start"
+is_call = false
+move_node = NodePath("")
+move_point = NodePath("Camera3")
+move_time = 1.0
+transition_type = 5
+ease_type = 1
+camera_follow = false
+wait_time = 0.0
+look_at = NodePath("")
+animation_name = ""
+wait = true
+
+[sub_resource type="Resource" id="Resource_bwpil"]
+script = ExtResource("26_e12w1")
+action = 4
+dialogue = ExtResource("27_o1f3t")
+node_title = "meet"
+is_call = false
+move_node = NodePath("")
+move_point = NodePath("")
+move_time = 0.0
+transition_type = 5
+ease_type = 1
+camera_follow = false
+wait_time = 0.0
+look_at = NodePath("")
+animation_name = ""
+wait = true
+
+[sub_resource type="Resource" id="Resource_tqxwh"]
+script = ExtResource("26_e12w1")
+action = 6
+node_title = "start"
+is_call = false
+move_node = NodePath("")
+move_point = NodePath("")
+move_time = 0.0
+transition_type = 5
+ease_type = 1
+camera_follow = false
+wait_time = 0.0
+look_at = NodePath("")
+animation_name = "walk_back"
+wait = true
+
+[sub_resource type="Resource" id="Resource_hv4oy"]
+script = ExtResource("26_e12w1")
+action = 2
+node_title = "start"
+is_call = false
+move_node = NodePath("")
+move_point = NodePath("Player4")
+move_time = 0.5
+transition_type = 0
+ease_type = 1
+camera_follow = false
+wait_time = 0.0
+look_at = NodePath("")
+animation_name = ""
+wait = true
+
+[sub_resource type="Resource" id="Resource_2flwv"]
+script = ExtResource("26_e12w1")
+action = 6
+node_title = "start"
+is_call = false
+move_node = NodePath("")
+move_point = NodePath("")
+move_time = 0.0
+transition_type = 5
+ease_type = 1
+camera_follow = false
+wait_time = 0.0
+look_at = NodePath("")
+animation_name = "idle_back"
+wait = true
+
+[sub_resource type="Resource" id="Resource_fg3nx"]
+script = ExtResource("26_e12w1")
+action = 0
+node_title = "start"
+is_call = false
+move_node = NodePath("")
+move_point = NodePath("")
+move_time = 0.0
+transition_type = 5
+ease_type = 1
+camera_follow = false
+wait_time = 1.0
+look_at = NodePath("")
+animation_name = ""
+wait = true
+
+[sub_resource type="Resource" id="Resource_rcr5m"]
+script = ExtResource("26_e12w1")
+action = 4
+dialogue = ExtResource("27_o1f3t")
+node_title = "closed"
+is_call = false
+move_node = NodePath("")
+move_point = NodePath("")
+move_time = 0.0
+transition_type = 5
+ease_type = 1
+camera_follow = false
+wait_time = 0.0
+look_at = NodePath("")
+animation_name = ""
+wait = true
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_re6vy"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("27_v1wyq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("28_g4a7d")
+}],
+"loop": true,
+"name": &"idle_back",
+"speed": 3.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("29_l88ik")
+}, {
+"duration": 1.0,
+"texture": ExtResource("30_5rr7a")
+}],
+"loop": true,
+"name": &"idle_side",
+"speed": 3.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("31_tgooe")
+}],
+"loop": false,
+"name": &"jump_back",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("32_6l6qu")
+}],
+"loop": false,
+"name": &"jump_front",
+"speed": 6.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("33_onwqw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("34_64ero")
+}],
+"loop": false,
+"name": &"land_back",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("35_repua")
+}, {
+"duration": 1.0,
+"texture": ExtResource("36_2cyn5")
+}],
+"loop": true,
+"name": &"ledge_back",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("37_stme7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("38_ynm6y")
+}],
+"loop": true,
+"name": &"ledge_side",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("39_m62ub")
+}, {
+"duration": 1.0,
+"texture": ExtResource("40_4k6ou")
+}, {
+"duration": 1.0,
+"texture": ExtResource("41_jx2ng")
+}, {
+"duration": 1.0,
+"texture": ExtResource("42_tyj1n")
+}],
+"loop": true,
+"name": &"run_back",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("43_8xpsw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("44_gq0uq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("45_dxyfq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("46_p37v1")
+}],
+"loop": true,
+"name": &"run_front",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("47_23gmx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("48_v6oob")
+}, {
+"duration": 1.0,
+"texture": ExtResource("49_2ale5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("50_n0x3r")
+}],
+"loop": true,
+"name": &"run_side",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("51_8qifh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("52_mjhf2")
+}],
+"loop": true,
+"name": &"walk_back",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("53_d4d1q")
+}, {
+"duration": 1.0,
+"texture": ExtResource("54_vk8o0")
+}],
+"loop": true,
+"name": &"walk_front",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("55_whjsk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("56_gt8ky")
+}, {
+"duration": 1.0,
+"texture": ExtResource("57_ri48y")
+}, {
+"duration": 1.0,
+"texture": ExtResource("58_ugfjo")
+}],
+"loop": true,
+"name": &"walk_side",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("59_rh7qp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("60_yl5gu")
+}],
+"loop": true,
+"name": &"wall_side",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("61_8f1f2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("62_ws1h1")
+}],
+"loop": true,
+"name": &"wave",
+"speed": 6.0
+}]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_hmg4u"]
 animations = [{
@@ -10694,7 +11110,10 @@ animations = [{
 "speed": 6.0
 }]
 
-[node name="World" type="Node3D"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_s31bp"]
+size = Vector3(10, 10, 10)
+
+[node name="World" type="Node3D" groups=["world"]]
 script = ExtResource("1_mmxcb")
 
 [node name="Shader" type="MeshInstance3D" parent="."]
@@ -10704,6 +11123,7 @@ mesh = SubResource("QuadMesh_nopq4")
 
 [node name="Clouds" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 200, 0)
+cast_shadow = 0
 mesh = SubResource("QuadMesh_otpsv")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
@@ -10720,7 +11140,7 @@ shadow_enabled = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.17587, -0.329553, 55.2028)
 
 [node name="Player" parent="." instance=ExtResource("1_lquvg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -27.7035, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.37197, -0.238457, 62.8507)
 
 [node name="FightArea" parent="." node_paths=PackedStringArray("next_fight") instance=ExtResource("6_xn4hq")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24.3104, -1.09081, 17.6427)
@@ -10739,9 +11159,8 @@ dialogue_pre = ExtResource("9_ai7yc")
 init_enabled = true
 
 [node name="FightArea3" parent="." instance=ExtResource("6_xn4hq")]
-transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 36.6383, -28.0603, -14.0267)
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 36.6383, -28.1393, -14.9406)
 animal = 2
-dialogue_pre = ExtResource("11_13ulw")
 dialogue_start = ExtResource("12_yilce")
 is_finale = true
 init_enabled = true
@@ -10766,7 +11185,7 @@ materials = Array[Material]([ExtResource("15_ycgyk"), ExtResource("15_prd7q")])
 [node name="Block_1" type="Node3D" parent="NavigationRegion3D/Blocks"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, -3, -4)
 script = ExtResource("4_4o2d6")
-block_data = SubResource("Resource_j0rht")
+block_data = SubResource("Resource_obue1")
 materials = Array[Material]([ExtResource("15_1nm1o")])
 
 [node name="Block_0" type="Node3D" parent="NavigationRegion3D/Blocks"]
@@ -13266,6 +13685,30 @@ script = ExtResource("4_4o2d6")
 block_data = SubResource("Resource_a3h4e")
 materials = Array[Material]([ExtResource("15_ycgyk")])
 
+[node name="Block_129" type="Node3D" parent="NavigationRegion3D/Blocks"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, -2, 77)
+script = ExtResource("4_4o2d6")
+block_data = SubResource("Resource_73j26")
+materials = Array[Material]([ExtResource("15_ycgyk")])
+
+[node name="Block_249" type="Node3D" parent="NavigationRegion3D/Blocks"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, -2, 78)
+script = ExtResource("4_4o2d6")
+block_data = SubResource("Resource_2nxql")
+materials = Array[Material]([ExtResource("15_ycgyk")])
+
+[node name="Block_250" type="Node3D" parent="NavigationRegion3D/Blocks"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, -2, 86)
+script = ExtResource("4_4o2d6")
+block_data = SubResource("Resource_w7y16")
+materials = Array[Material]([ExtResource("15_ycgyk")])
+
+[node name="Block_251" type="Node3D" parent="NavigationRegion3D/Blocks"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, -2, 89)
+script = ExtResource("4_4o2d6")
+block_data = SubResource("Resource_4lork")
+materials = Array[Material]([ExtResource("15_ycgyk")])
+
 [node name="Collectables" type="Node3D" parent="."]
 
 [node name="Collectable" parent="Collectables" instance=ExtResource("14_uo4l1")]
@@ -13356,6 +13799,15 @@ transform = Transform3D(0.965926, 0, 0.258819, 0, 1, 0, -0.258819, 0, 0.965926, 
 
 [node name="Overlay" type="CanvasLayer" parent="."]
 
+[node name="Trans" type="ColorRect" parent="Overlay"]
+material = SubResource("ShaderMaterial_8v66q")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
 [node name="M" type="MarginContainer" parent="Overlay"]
 anchors_preset = 15
 anchor_right = 1.0
@@ -13409,12 +13861,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -30, 0)
 [node name="CutscenePlayer" type="Node3D" parent="Shelter" node_paths=PackedStringArray("player", "init_camera_position", "camera", "init_position")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 30, 0)
 script = ExtResource("25_w7kha")
-actions = Array[ExtResource("26_e12w1")]([SubResource("Resource_7x47f"), SubResource("Resource_2atvh"), SubResource("Resource_apsgv"), SubResource("Resource_j35jv"), SubResource("Resource_cfc7s"), SubResource("Resource_x6dxc"), SubResource("Resource_j7jxj"), SubResource("Resource_7365e"), SubResource("Resource_sll0w"), SubResource("Resource_rkk2e"), SubResource("Resource_3i4q6"), SubResource("Resource_bjjmp"), SubResource("Resource_m7mv2")])
+actions = Array[ExtResource("26_e12w1")]([SubResource("Resource_7x47f"), SubResource("Resource_2atvh"), SubResource("Resource_apsgv"), SubResource("Resource_j35jv"), SubResource("Resource_cfc7s"), SubResource("Resource_x6dxc"), SubResource("Resource_j7jxj"), SubResource("Resource_7365e"), SubResource("Resource_sll0w"), SubResource("Resource_m7mv2"), SubResource("Resource_3i4q6"), SubResource("Resource_rkk2e"), SubResource("Resource_bjjmp"), SubResource("Resource_d45vw"), SubResource("Resource_twgos"), SubResource("Resource_bwpil"), SubResource("Resource_tqxwh"), SubResource("Resource_hv4oy"), SubResource("Resource_2flwv"), SubResource("Resource_fg3nx"), SubResource("Resource_rcr5m")])
 player = NodePath("../../Player")
 init_animation_name = "idle_back"
 init_camera_position = NodePath("Player0")
+camera = NodePath("Camera3/Camera3D")
 camera_start = 1
-camera = NodePath("Camera2/Camera3D")
 init_position = NodePath("Camera0")
 
 [node name="Receptionist" type="AnimatedSprite3D" parent="Shelter/CutscenePlayer"]
@@ -13426,9 +13878,9 @@ billboard = 2
 shaded = true
 alpha_cut = 1
 texture_filter = 0
-sprite_frames = SubResource("SpriteFrames_hmg4u")
-animation = &"idle_back"
-autoplay = "idle_back"
+sprite_frames = SubResource("SpriteFrames_re6vy")
+animation = &"walk_front"
+autoplay = "walk_front"
 
 [node name="Player0" type="Marker3D" parent="Shelter/CutscenePlayer"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.1972, -27.7329, 4.34014)
@@ -13494,6 +13946,22 @@ sprite_frames = SubResource("SpriteFrames_hmg4u")
 animation = &"idle_back"
 autoplay = "idle_back"
 
+[node name="Player4" type="Marker3D" parent="Shelter/CutscenePlayer"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30.561, -27.733, -14.5829)
+
+[node name="Sprite" type="AnimatedSprite3D" parent="Shelter/CutscenePlayer/Player4"]
+visible = false
+layers = 2
+cast_shadow = 0
+pixel_size = 0.005
+billboard = 2
+shaded = true
+alpha_cut = 1
+texture_filter = 0
+sprite_frames = SubResource("SpriteFrames_hmg4u")
+animation = &"idle_back"
+autoplay = "idle_back"
+
 [node name="Camera0" type="Marker3D" parent="Shelter/CutscenePlayer"]
 transform = Transform3D(0.993572, 0.013796, 0.112359, 0, 0.992546, -0.121869, -0.113203, 0.121086, 0.986166, -2.199, -28.47, 8.748)
 
@@ -13503,6 +13971,19 @@ transform = Transform3D(-0.551937, -0.108844, 0.826752, 0, 0.991445, 0.130526, -
 [node name="Camera2" type="Marker3D" parent="Shelter/CutscenePlayer"]
 transform = Transform3D(-0.0610486, 0.192163, -0.979462, 0, 0.981293, 0.192522, 0.998135, 0.0117532, -0.0599065, -2.922, -24.31, -16.219)
 
-[node name="Camera3D" type="Camera3D" parent="Shelter/CutscenePlayer/Camera2"]
-transform = Transform3D(1, -3.72529e-09, -2.98023e-08, 1.49012e-08, 1, 1.49012e-08, 0, -3.72529e-09, 1, -9.53674e-07, -1.90735e-06, 0)
+[node name="Camera3" type="Marker3D" parent="Shelter/CutscenePlayer"]
+transform = Transform3D(0.278991, -0.189809, -0.941348, 0, 0.980272, -0.197657, 0.960294, 0.0551446, 0.273487, 21.873, -28.45, -11.954)
+
+[node name="Camera3D" type="Camera3D" parent="Shelter/CutscenePlayer/Camera3"]
+transform = Transform3D(1, -1.21072e-08, -1.49012e-08, 1.39698e-08, 1, -2.82889e-08, 3.72529e-09, 1.69966e-08, 1, -1.90735e-06, -1.90735e-06, -1.19209e-07)
 fov = 50.0
+
+[node name="ShelterArea" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -80.2896, 20.6971, -40.3017)
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ShelterArea"]
+shape = SubResource("BoxShape3D_s31bp")
+
+[connection signal="body_entered" from="ShelterArea" to="." method="_on_shelter_area_body_entered"]
+[connection signal="body_exited" from="ShelterArea" to="." method="_on_shelter_area_body_exited"]

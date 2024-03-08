@@ -12,6 +12,7 @@ enum CameraStart {
 var cam_follow_node: Node3D = null
 var cam_interp_pos: Vector3
 
+## the array of actions to perform
 @export var actions: Array[CutsceneAction] = []
 	#set(val):
 		#actions = val
@@ -23,17 +24,18 @@ var cam_interp_pos: Vector3
 		update_configuration_warnings()
 @export var init_animation_name: String = ""
 @export var init_camera_position: Marker3D = null
+## show the cursor when the cutscene is playing
 @export var show_cursor: bool = true
 @export var disable_controls: bool = true
 @export_group("Camera")
+@export var camera: Camera3D = null:
+	set(val):
+		camera = val
+		update_configuration_warnings()
 @export var camera_start: CameraStart = CameraStart.PLAYER:
 	set(val):
 		camera_start = val
 		notify_property_list_changed()
-		update_configuration_warnings()
-@export var camera: Camera3D = null:
-	set(val):
-		camera = val
 		update_configuration_warnings()
 @export var init_position: Marker3D = null:
 	set(val):
@@ -53,6 +55,7 @@ func play_cutscene():
 	if init_animation_name:
 		player.sprite.play(init_animation_name)
 	if show_cursor:
+		get_tree().get_first_node_in_group("world").mouse_mode = Input.MOUSE_MODE_VISIBLE
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	
 	var init_fov = camera.fov
@@ -77,6 +80,7 @@ func play_cutscene():
 	player.camera.make_current()
 	
 	if show_cursor:
+		get_tree().get_first_node_in_group("world").mouse_mode = Input.MOUSE_MODE_CAPTURED
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	
 	finished.emit()

@@ -1,8 +1,9 @@
 ~ start
+receptionist: ...
 {{player_name}}: stop what you're doing! this is a giraffe robbery!
 receptionist: sorry?
 {{player_name}}: i said, this is a robbery! put your hands in the air!
-receptionist: okay...
+receptionist: okay, okay...
 => END
 
 ~ where0
@@ -21,4 +22,11 @@ receptionist: um, just down the hallway.
 ~ closed
 {{player_name}}: oh... oh no.
 giraffe: and so we finally meet...
+giraffe: you thought you could take me so easily? just quickly raid the place and go? do you even [wave amp=25 freq=5]know[/wave] who i am?
+{{player_name}}: i mean, you're a giraffe.
+giraffe: not just a giraffe!!! i'm the MANAGER of this place! they said it couldn't be done...
+giraffe: i knew of your plan from the very start. you've fallen right into my trap...
+giraffe: ...i'm not exactly sure what happens next.
+{{player_name}}: do you want to fight?
+giraffe: that works. show me the strength of your army!
 => END

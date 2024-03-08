@@ -1,40 +1,27 @@
 extends Node3D
 
-const INTRO_DIALOGUE = preload("res://dialogue/intro.dialogue")
+const INTRO_DIALOGUE = preload("res://dialogue/bonus.dialogue")
 const PEDESTRIAN = preload("res://scenes/pedestrian.tscn")
 
 var timer: float
 var mouse_mode = Input.MOUSE_MODE_CAPTURED
+
 @onready var pause_menu = $PauseLayer/Container/SubViewport/PauseMenu
 
 func _ready():
-	Global.total_treats = $Collectables.get_child_count()
-	for _i in range(50):
-		add_child(PEDESTRIAN.instantiate())
+	Global.total_treats = $Collectibles.get_child_count()
+	Global.treats = 0
+	Global.collected_treats = 0
 	
-	if not OS.is_debug_build():
-		$Overlay/M/FPS.hide()
-		
-		mouse_mode = Input.MOUSE_MODE_VISIBLE
-		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-		$Player.global_position = $PlayerSpawn.global_position
-		$Player.can_move = false
-		DialogueUI.start_dialogue(INTRO_DIALOGUE, true)
-		await DialogueUI.finished
-		$Player.can_move = true
-		mouse_mode = Input.MOUSE_MODE_CAPTURED
-		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-	#else:
-	#$Overlay/M/FPS.show()
-	query()
-	
-	await get_tree().create_timer(3.0).timeout
-	await $Shelter/CutscenePlayer.play_cutscene()
-
-func query():
-	while true:
-		$Overlay/M/FPS.text = "FPS: %s" % Performance.get_monitor(Performance.TIME_FPS)
-		await get_tree().create_timer(1.0).timeout
+	mouse_mode = Input.MOUSE_MODE_VISIBLE
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+	$Player.global_position = $PlayerSpawn.global_position
+	$Player.can_move = false
+	DialogueUI.start_dialogue(INTRO_DIALOGUE, true)
+	await DialogueUI.finished
+	$Player.can_move = true
+	mouse_mode = Input.MOUSE_MODE_CAPTURED
+	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 func _process(delta):
 	timer += delta

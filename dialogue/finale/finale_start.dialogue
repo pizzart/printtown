@@ -1,0 +1,24 @@
+~ start
+{{player_name}}: stop what you're doing! this is a giraffe robbery!
+receptionist: sorry?
+{{player_name}}: i said, this is a robbery! put your hands in the air!
+receptionist: okay...
+=> END
+
+~ where0
+{{player_name}}: where is the giraffe? quick!!
+receptionist: um, just down the hallway.
+=> END
+
+~ where1
+{{player_name}}: oh. thank you.
+=> END
+
+~ meet
+{{player_name}}: here you are...
+=> END
+
+~ closed
+{{player_name}}: oh... oh no.
+giraffe: and so we finally meet...
+=> END

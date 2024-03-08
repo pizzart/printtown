@@ -28,7 +28,7 @@ func _process(delta):
 	
 	time += delta
 
-func start_dialogue(dialogue: DialogueResource, is_call: bool):
+func start_dialogue(dialogue: DialogueResource, is_call: bool, start_node: String = "start"):
 	dialogue_res = dialogue
 	text_label.text = ""
 	show()
@@ -45,14 +45,14 @@ func start_dialogue(dialogue: DialogueResource, is_call: bool):
 	tween.tween_property($C, "scale", Vector2.ONE, 0.8).set_trans(Tween.TRANS_ELASTIC).set_ease(Tween.EASE_IN_OUT)
 	tween.tween_property($BG, "modulate", Color.WHITE, 0.8)
 	await get_tree().create_timer(0.5).timeout
-	next_line(true)
+	next_line(true, start_node)
 	active = true
 
 func _input(event):
 	if event.is_action_pressed("next_dialogue") and active:
 		next_line(false)
 
-func next_line(started: bool):
+func next_line(started: bool, start_node: String = "start"):
 	if text_label.is_typing:
 		text_label.skip_typing()
 		return
@@ -61,7 +61,7 @@ func next_line(started: bool):
 	tip.hide()
 	
 	if started:
-		dialogue_line = await dialogue_res.get_next_dialogue_line("start")
+		dialogue_line = await dialogue_res.get_next_dialogue_line(start_node)
 	else:
 		dialogue_line = await dialogue_res.get_next_dialogue_line(dialogue_line.next_id)
 	

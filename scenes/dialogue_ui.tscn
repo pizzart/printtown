@@ -65,7 +65,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"default",
-"speed": 6.0
+"speed": 8.0
 }]
 
 [node name="DialogueUI" type="CanvasLayer"]

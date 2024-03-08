@@ -40,6 +40,7 @@ path_postprocessing = 1
 one_shot = true
 
 [node name="Ray" type="RayCast3D" parent="."]
+enabled = false
 target_position = Vector3(0, -100, 0)
 
 [connection signal="timeout" from="IdleTimer" to="." method="_on_idle_timer_timeout"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=53 format=3 uid="uid://b026alsepp2vu"]
+[gd_scene load_steps=55 format=3 uid="uid://b026alsepp2vu"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_465au"]
 [ext_resource type="Texture2D" uid="uid://bfyxrs0ch5h5i" path="res://graphics/player/idle_back/idle_back0000.png" id="2_hhdjh"]
@@ -38,6 +38,8 @@
 [ext_resource type="Texture2D" uid="uid://c2dfdvrdekg7e" path="res://graphics/player/wall_side/wall_side0000.png" id="25_m5jxl"]
 [ext_resource type="Texture2D" uid="uid://ct3bmcokbkh4i" path="res://graphics/player/wall_side/wall_side0001.png" id="26_4gy22"]
 [ext_resource type="Texture2D" uid="uid://cuaimrv0s6e5w" path="res://graphics/player/sweat.png" id="31_b88am"]
+[ext_resource type="Texture2D" uid="uid://s5df4ew465y" path="res://graphics/player/wave/wave0000.png" id="36_akanq"]
+[ext_resource type="Texture2D" uid="uid://c3o1afdpow4iw" path="res://graphics/player/wave/wave0001.png" id="37_53xsh"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_hk1wg"]
 animations = [{
@@ -212,6 +214,17 @@ animations = [{
 "loop": true,
 "name": &"wall_side",
 "speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("36_akanq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("37_53xsh")
+}],
+"loop": true,
+"name": &"wave",
+"speed": 6.0
 }]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_mvfix"]
@@ -230,11 +243,11 @@ radius = 1.0
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_1ceg7"]
 height = 0.1
-radius = 0.6
+radius = 0.62
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_nmm0k"]
 height = 0.1
-radius = 0.6
+radius = 0.62
 
 [sub_resource type="Curve" id="Curve_4lh5e"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.263736), 0.0, 0.0, 0, 0]
@@ -303,7 +316,7 @@ shaded = true
 alpha_cut = 1
 texture_filter = 0
 sprite_frames = SubResource("SpriteFrames_hk1wg")
-animation = &"walk_front"
+animation = &"idle_back"
 autoplay = "idle_back"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
@@ -362,11 +375,13 @@ target_position = Vector3(0, 0.6, 0)
 [node name="StepCastTop" type="ShapeCast3D" parent="."]
 shape = SubResource("CylinderShape3D_1ceg7")
 target_position = Vector3(0, -1.14, 0)
+margin = 0.04
 
 [node name="StepCastBottom" type="ShapeCast3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.14574, 0)
 shape = SubResource("CylinderShape3D_nmm0k")
 target_position = Vector3(0, 0, 0)
+margin = 0.04
 
 [node name="LandCast" type="ShapeCast3D" parent="."]
 shape = SubResource("CylinderShape3D_nmm0k")

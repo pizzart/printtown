@@ -1,3 +1,4 @@
+class_name FightArea
 extends Area3D
 
 #signal won
@@ -44,6 +45,8 @@ static var low_hp_tutorial_given: bool = false
 static var gave_up_tutorial_given: bool = false
 
 @export var animal: Animals.AnimalType
+@export var next_fight: FightArea
+
 # this is kind of a mess tbh
 @export var dialogue_pre: DialogueResource
 @export var dialogue_start: DialogueResource
@@ -53,6 +56,8 @@ static var gave_up_tutorial_given: bool = false
 @export var dialogue_kicked: DialogueResource
 
 @export var is_tutorial: bool
+@export var is_finale: bool
+@export var init_enabled: bool
 #@export var animation_player: AnimationPlayer
 #@export var animation_name: String
 @onready var camera = $CameraPoint/Camera
@@ -61,6 +66,13 @@ static var gave_up_tutorial_given: bool = false
 func _ready():
 	$Animal.texture = Animals.animals[animal].TEXTURE
 	$Animal.offset.y = Animals.animals[animal].TEXTURE.get_height() / 2 - 256
+	
+	if init_enabled:
+		set_deferred("monitoring", true)
+		show()
+	else:
+		set_deferred("monitoring", false)
+		hide()
 
 func _process(delta):
 	if not fight_active:

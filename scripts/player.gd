@@ -12,7 +12,7 @@ enum State {
 const JUMP_PARTICLES = preload("res://scenes/jump_particles.tscn")
 
 const SPRING_LEN = 8.0
-const SHORT_SPRING_LEN = 2.0
+const SHORT_SPRING_LEN = 3.0
 
 const ACCEL = 0.15
 const DECEL = 0.27
@@ -217,8 +217,10 @@ func ground(_delta: float, input_dir: Vector2):
 			sprite.play("walk_front")
 		elif last_input.x != 0:
 			sprite.play("idle_side")
-		else:
+		elif not Input.is_action_pressed("wave"):
 			sprite.play("idle_back")
+		else:
+			sprite.play("wave")
 	
 	if Input.is_action_just_pressed("jump"):
 		coyote = COYOTE_TIME + 0.1
@@ -231,10 +233,10 @@ func ground(_delta: float, input_dir: Vector2):
 	if not is_on_floor():
 		state = State.AIR
 	
-	if step_cast_top.is_colliding():
+	if step_cast_top.is_colliding() and not direction.is_equal_approx(Vector3.ZERO):
 		var diff = absf(step_cast_top.get_collision_point(0).y - global_position.y + 1.2)
 		if diff < STEP_HEIGHT:
-			if step_cast_bot.get_collision_normal(0).dot(direction) < 0:
+			if step_cast_bot.get_collision_normal(0).dot(direction) <= 0:
 				global_position.y += diff + 0.01
 
 func air(delta: float, input_dir: Vector2):

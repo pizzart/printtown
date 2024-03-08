@@ -1,0 +1,15 @@
+[remap]
+
+importer="dialogue_manager_compiler_11"
+type="Resource"
+uid="uid://ejd5v5dy6gw3"
+path="res://.godot/imported/bonus.dialogue-df390480f5adbc069cc1b7fb72292f73.tres"
+
+[deps]
+
+source_file="res://dialogue/bonus.dialogue"
+dest_files=["res://.godot/imported/bonus.dialogue-df390480f5adbc069cc1b7fb72292f73.tres"]
+
+[params]
+
+defaults=true

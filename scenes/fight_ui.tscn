@@ -512,6 +512,7 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "treat !"
 
 [node name="TreatCount" type="AnimatedSprite2D" parent="C/Treat"]
+visible = false
 position = Vector2(112, 10.9998)
 sprite_frames = SubResource("SpriteFrames_l5lus")
 autoplay = "default"

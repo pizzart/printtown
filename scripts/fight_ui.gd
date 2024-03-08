@@ -101,10 +101,10 @@ func disable_all():
 	call_btn.disabled = true
 	sticker_btn.disabled = true
 
-func enable_all(treats: int, can_sticker: bool):
+func enable_all(can_treat: bool, can_sticker: bool):
 	pet_btn.disabled = false
 	kick_btn.disabled = false
-	treat_btn.disabled = treats <= 0
+	treat_btn.disabled = not can_treat
 	call_btn.disabled = Global.animals.size() == 0
 	#sticker_btn.visible = can_sticker
 	if can_sticker and sticker_btn.disabled:

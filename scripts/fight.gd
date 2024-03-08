@@ -19,18 +19,20 @@ const TEXT_SPIN_RAD = 75.0
 const TEXT_SPIN_SPEED = 0.8
 
 const INIT_HEALTH = 8
+const TREAT_COOLDOWN = 3
 
 const BAD_PETS = 5000.0
 const OK_PETS = 8000.0
 const GOOD_PETS = 15000.0
 
-var player: Player
 var can_activate: bool
+var fight_active: bool
+var player: Player
 var enemy: Animals.Animal
 var health: int = INIT_HEALTH
-var fight_active: bool
 var time: float
 var shake: float
+var treat_cooldown: int = 0
 
 var petting: bool
 var pets_given: float
@@ -198,7 +200,7 @@ func activate_fight():
 		DialogueUI.start_dialogue(dialogue_start, true)
 		await DialogueUI.finished
 	
-	FightUI.enable_all(Global.treats, false)
+	FightUI.enable_all(Global.treats > 0, false)
 	
 	update_ui()
 
@@ -225,6 +227,9 @@ func apply_damage(damage: int):
 func is_satisfied():
 	return enemy.satisfaction >= enemy.SATISFACTION_MIN
 
+func can_treat():
+	return Global.treats > 0 and treat_cooldown == 0
+
 func check_enemy_health():
 	if enemy.health <= roundi(enemy.init_health / 3.0):
 		if not low_hp_tutorial_given:
@@ -241,7 +246,7 @@ func check_enemy_health():
 			FightUI.disable_all()
 			FightUI.sticker_btn.disabled = false
 		else:
-			FightUI.enable_all(Global.treats, true)
+			FightUI.enable_all(Global.treats > 0, true)
 			enemy.satisfaction = enemy.SATISFACTION_MIN
 
 func _on_petted():
@@ -323,7 +328,7 @@ func _on_petted():
 	
 	update_ui()
 	
-	FightUI.enable_all(Global.treats, is_satisfied())
+	FightUI.enable_all(Global.treats > 0, is_satisfied())
 	FightUI.unhide()
 	
 	pets_given = 0
@@ -337,7 +342,7 @@ func _on_petted():
 			FightUI.disable_all()
 			FightUI.sticker_btn.disabled = false
 		else:
-			FightUI.enable_all(Global.treats, true)
+			FightUI.enable_all(Global.treats > 0, true)
 
 func _on_kicked():
 	var tween = create_tween().set_parallel()
@@ -419,7 +424,7 @@ func _on_kicked():
 	
 	check_enemy_health()
 	
-	FightUI.enable_all(Global.treats, is_satisfied())
+	FightUI.enable_all(Global.treats > 0, is_satisfied())
 	FightUI.unhide()
 	
 	#if damage != 0:
@@ -440,7 +445,7 @@ func _on_treated():
 	tween.tween_property(camera, "transform", Transform3D(), 1.5).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
 	tween.tween_property(player, "global_position", $PlayerPoint.global_position, 1.0).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 	
-	FightUI.enable_all(Global.treats, is_satisfied())
+	FightUI.enable_all(Global.treats > 0, is_satisfied())
 	FightUI.unhide()
 	
 	Global.treats -= 1
@@ -471,7 +476,7 @@ func finish_fight(success: bool):
 			enemy = Animals.animals[animal].new()
 			health = INIT_HEALTH
 			update_ui()
-			FightUI.enable_all(Global.treats, false)
+			FightUI.enable_all(Global.treats > 0, false)
 			return
 	
 	fight_active = false
@@ -531,7 +536,7 @@ func _on_healed(pet: Animals.Animal):
 	tween.tween_property($Pet, "global_position", $AnimalBitePoint.global_position + Vector3(0, 10, 0), 0.5).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_IN)
 	tween.tween_callback($Pet.hide)
 	
-	FightUI.enable_all(Global.treats, is_satisfied())
+	FightUI.enable_all(Global.treats > 0, is_satisfied())
 	FightUI.unhide()
 	
 	health = clampi(health + pet.healing, 0, INIT_HEALTH)
@@ -554,7 +559,7 @@ func _on_bitten(pet: Animals.Animal):
 	await tween.finished
 	$Pet.hide()
 	
-	FightUI.enable_all(Global.treats, is_satisfied())
+	FightUI.enable_all(Global.treats > 0, is_satisfied())
 	FightUI.unhide()
 	
 	enemy.health -= pet.damage

@@ -1,0 +1,15 @@
+[remap]
+
+importer="dialogue_manager_compiler_11"
+type="Resource"
+uid="uid://bq2m8jkmt2aiw"
+path="res://.godot/imported/test_pre.dialogue-6af1341ad1bf0b1027096a67cf22e506.tres"
+
+[deps]
+
+source_file="res://dialogue/tutorial_fight2/test_pre.dialogue"
+dest_files=["res://.godot/imported/test_pre.dialogue-6af1341ad1bf0b1027096a67cf22e506.tres"]
+
+[params]
+
+defaults=true

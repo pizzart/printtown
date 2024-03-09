@@ -189,3 +189,11 @@ func _on_ca_pressed():
 		$Book/Options/CAPin.play("selected")
 	else:
 		$Book/Options/CAPin.play("deselected")
+
+func _on_fs_pressed():
+	if get_window().mode == Window.MODE_FULLSCREEN:
+		get_window().mode = Window.MODE_WINDOWED
+		$Book/Options/CAPin.play("deselected")
+	else:
+		get_window().mode = Window.MODE_FULLSCREEN
+		$Book/Options/CAPin.play("selected")

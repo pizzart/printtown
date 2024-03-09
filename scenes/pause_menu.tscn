@@ -173,6 +173,7 @@ frame = 10
 frame_progress = 1.0
 
 [node name="Main" type="Node3D" parent="Book"]
+visible = false
 
 [node name="GameTexture" type="Sprite3D" parent="Book/Main"]
 transform = Transform3D(0.965804, 0, 0.259274, 0, 1, 0, -0.259274, 0, 0.965804, -0.118106, 0.001, -0.0561178)
@@ -274,7 +275,6 @@ outline_size = 0
 line_spacing = -8.0
 
 [node name="Options" type="Node3D" parent="Book"]
-visible = false
 
 [node name="OptionsText" type="Label3D" parent="Book/Options"]
 transform = Transform3D(0.991839, -0.127497, -5.57309e-09, 0, -4.37114e-08, 1, -0.127497, -0.991839, -4.33546e-08, -0.218191, 0.002, -0.154527)
@@ -310,6 +310,16 @@ font = ExtResource("7_3al63")
 font_size = 20
 outline_size = 0
 
+[node name="CAPin" type="AnimatedSprite3D" parent="Book/Options"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.064742, 0, 0.0962431)
+pixel_size = 0.001
+axis = 1
+shaded = true
+texture_filter = 0
+render_priority = 1
+sprite_frames = SubResource("SpriteFrames_ayucu")
+animation = &"selected"
+
 [node name="TimerText" type="Label3D" parent="Book/Options"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.20715, 0.002, 0.0835739)
 pixel_size = 0.001
@@ -322,18 +332,30 @@ font = ExtResource("7_3al63")
 font_size = 20
 outline_size = 0
 
-[node name="CAPin" type="AnimatedSprite3D" parent="Book/Options"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.064742, 0, 0.0962431)
+[node name="TimerPin" type="AnimatedSprite3D" parent="Book/Options"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.125961, 0, 0.0684161)
 pixel_size = 0.001
 axis = 1
 shaded = true
 texture_filter = 0
 render_priority = 1
 sprite_frames = SubResource("SpriteFrames_ayucu")
-animation = &"selected"
+animation = &"deselected"
 
-[node name="TimerPin" type="AnimatedSprite3D" parent="Book/Options"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.125961, 0, 0.0684161)
+[node name="FSText" type="Label3D" parent="Book/Options"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.229886, 0.00199997, 0.0566294)
+pixel_size = 0.001
+shaded = true
+texture_filter = 0
+render_priority = 1
+modulate = Color(0.109804, 0.109804, 0.368627, 1)
+text = "fullscreen"
+font = ExtResource("7_3al63")
+font_size = 20
+outline_size = 0
+
+[node name="FSPin" type="AnimatedSprite3D" parent="Book/Options"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.175357, -2.98023e-08, 0.0414716)
 pixel_size = 0.001
 axis = 1
 shaded = true
@@ -531,6 +553,7 @@ offset_right = 40.0
 offset_bottom = 23.0
 
 [node name="MainUI" type="Control" parent="UI"]
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -600,7 +623,6 @@ action_mode = 0
 metadata/_edit_use_anchors_ = true
 
 [node name="OptionsUI" type="Control" parent="UI"]
-visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -635,6 +657,26 @@ anchor_left = 0.690625
 anchor_top = 0.489017
 anchor_right = 0.878955
 anchor_bottom = 0.489017
+offset_top = 1.2718
+offset_right = -6.53149
+offset_bottom = 33.2718
+rotation = -0.418879
+mouse_default_cursor_shape = 2
+theme_override_styles/normal = SubResource("StyleBoxEmpty_ypxn5")
+theme_override_styles/hover = SubResource("StyleBoxFlat_2mel3")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_2ymrk")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_qdfbi")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_pbpn8")
+action_mode = 0
+metadata/_edit_use_anchors_ = true
+
+[node name="FS" type="Button" parent="UI/OptionsUI"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.728125
+anchor_top = 0.4161
+anchor_right = 0.846143
+anchor_bottom = 0.4161
 offset_top = 1.2718
 offset_right = -6.53149
 offset_bottom = 33.2718
@@ -724,6 +766,7 @@ metadata/_edit_use_anchors_ = true
 [connection signal="pressed" from="UI/MainUI/Options" to="." method="_on_options_pressed"]
 [connection signal="pressed" from="UI/OptionsUI/Back" to="." method="_on_back_options_pressed"]
 [connection signal="pressed" from="UI/OptionsUI/Timer" to="." method="_on_timer_pressed"]
+[connection signal="pressed" from="UI/OptionsUI/FS" to="." method="_on_fs_pressed"]
 [connection signal="pressed" from="UI/OptionsUI/CA" to="." method="_on_ca_pressed"]
 [connection signal="pressed" from="UI/ClosedUI/BackClosed" to="." method="_on_back_closed_pressed"]
 [connection signal="pressed" from="UI/ClosedUI/QuitClosed" to="." method="_on_quit_closed_pressed"]

@@ -1,0 +1,15 @@
+[remap]
+
+importer="dialogue_manager_compiler_11"
+type="Resource"
+uid="uid://dl37v4rggcg6s"
+path="res://.godot/imported/guard_tutorial.dialogue-bca44c84ed0d672a6bf47e8ed2f3c035.tres"
+
+[deps]
+
+source_file="res://dialogue/tutorial_fight2/guard_tutorial.dialogue"
+dest_files=["res://.godot/imported/guard_tutorial.dialogue-bca44c84ed0d672a6bf47e8ed2f3c035.tres"]
+
+[params]
+
+defaults=true

@@ -255,6 +255,7 @@ func check_enemy_health():
 			DialogueUI.start_dialogue(dialogue_kicked, false)
 			await DialogueUI.finished
 		if is_tutorial:
+			FightUI.enable_all(Global.treats > 0, true)
 			FightUI.disable_all()
 			FightUI.sticker_btn.disabled = false
 		else:
@@ -472,6 +473,10 @@ func _on_stickered():
 	#FightUI.used_animals.clear()
 	finish_fight(true)
 
+func enable():
+	set_deferred("monitoring", true)
+	show()
+
 func finish_fight(success: bool):
 	FightUI.disable_all()
 	
@@ -524,9 +529,11 @@ func finish_fight(success: bool):
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	get_tree().call_group("pedestrian", "appear")
 	hide()
-	
 	tween = create_tween().set_parallel()
-	tween.tween_property(camera, "global_transform", player.camera.global_transform, 1.0).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
+	if next_fight and success:
+		next_fight.enable()
+		tween.tween_property(camera, "global_transform", camera.global_transform.translated(Vector3(0, 40, 0)).looking_at(next_fight.global_position), 2.0).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
+	tween.chain().tween_property(camera, "global_transform", player.camera.global_transform, 1.0).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
 	tween.tween_property(camera, "fov", player.camera.fov, 1.0).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
 	
 	await tween.finished

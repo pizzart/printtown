@@ -78,6 +78,8 @@ class Animal:
 	#func sticker():
 		#return satisfaction >= SATISFACTION_MIN or pow(randf(), 2) >= 0.97
 
+# mood, guard, cooperation, health, damage, convincing, healing
+
 class Dog:
 	extends Animal
 	const TEXTURE = preload("res://graphics/animals/dog.png")
@@ -88,7 +90,13 @@ class BadDog:
 	extends Animal
 	const TEXTURE = preload("res://graphics/animals/dog.png")
 	func _init():
-		super._init(TEXTURE, &"dog", 0.1, 0.9, 0.7, 10, 3, 0.7, 2)
+		super._init(TEXTURE, &"dog", 0.1, 0.9, 0.7, 10, 3, 0.6, 2)
+
+class Cat:
+	extends Animal
+	const TEXTURE = preload("res://graphics/animals/cat.png")
+	func _init():
+		super._init(TEXTURE, &"cat", 0.4, 0.8, 0.5, 9, 2, 0.8, 1)
 
 class Giraffe:
 	extends Animal
@@ -99,11 +107,13 @@ class Giraffe:
 enum AnimalType {
 	DOG,
 	BAD_DOG,
+	CAT,
 	GIRAFFE,
 }
 
 var animals = {
 	AnimalType.DOG: Dog,
 	AnimalType.BAD_DOG: BadDog,
+	AnimalType.CAT: Cat,
 	AnimalType.GIRAFFE: Giraffe,
 }

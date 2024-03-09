@@ -84,7 +84,8 @@ func _ready():
 	mesh_instance = MeshInstance3D.new()
 	add_child(mesh_instance)
 	mesh_instance.gi_mode = GeometryInstance3D.GI_MODE_STATIC
-	mesh_instance.extra_cull_margin = 2
+	if !Engine.is_editor_hint():
+		mesh_instance.extra_cull_margin = 2
 
 	#print("block owner path %s" % owner.get_path())
 
@@ -94,8 +95,9 @@ func _ready():
 	
 	collision_shape = CollisionShape3D.new()
 
-	occluder = OccluderInstance3D.new()
-	add_child(occluder)
+	if !Engine.is_editor_hint():
+		occluder = OccluderInstance3D.new()
+		add_child(occluder)
 	
 	build_from_block()
 	update_physics_body()
@@ -167,12 +169,12 @@ func build_from_block():
 	shape.points = vol.get_points()
 	collision_shape.shape = shape
 	
-	#if !Engine.is_editor_hint():
+	if !Engine.is_editor_hint():
 		##Disabling this in the editor for now since this is causing slowdown
-	var occluder_object:ArrayOccluder3D = ArrayOccluder3D.new()
-	occluder_object.vertices = vol.get_points()
-	occluder_object.indices = vol.get_trimesh_indices()
-	occluder.occluder = occluder_object
+		var occluder_object:ArrayOccluder3D = ArrayOccluder3D.new()
+		occluder_object.vertices = vol.get_points()
+		occluder_object.indices = vol.get_trimesh_indices()
+		occluder.occluder = occluder_object
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):

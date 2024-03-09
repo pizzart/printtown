@@ -23,7 +23,7 @@ var cam_interp_pos: Vector3
 		player = val
 		update_configuration_warnings()
 @export var init_animation_name: String = ""
-@export var init_camera_position: Marker3D = null
+@export var init_player_position: Marker3D = null
 ## show the cursor when the cutscene is playing
 @export var show_cursor: bool = true
 @export var disable_controls: bool = true
@@ -50,8 +50,8 @@ func _process(delta):
 func play_cutscene():
 	player.can_move = not disable_controls
 	
-	if init_camera_position:
-		player.global_position = init_camera_position.global_position
+	if init_player_position:
+		player.global_position = init_player_position.global_position
 	if init_animation_name:
 		player.sprite.play(init_animation_name)
 	if show_cursor:
@@ -72,10 +72,15 @@ func play_cutscene():
 	for action in actions:
 		await _do_action(action)
 	
+	player.velocity = Vector3.ZERO
+	player.gimbal.global_position = player.global_position
+	player.last_floor_y = player.global_position.y - 1
+	
 	tween = create_tween().set_parallel()
 	tween.tween_property(camera, "global_transform", player.camera.global_transform, 1.0).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
 	tween.tween_property(camera, "fov", player.camera.fov, 1.0).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
 	await tween.finished
+	
 	player.can_move = true
 	player.camera.make_current()
 	

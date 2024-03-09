@@ -226,6 +226,7 @@ outline_size = 0
 
 [node name="TimerText" type="Label3D" parent="Book/Main"]
 transform = Transform3D(0.96957, -0.244816, -1.07013e-08, 1.30421e-15, -4.37114e-08, 1, -0.244816, -0.96957, -4.23812e-08, -0.0987262, 0.00199997, 0.00370533)
+visible = false
 pixel_size = 0.001
 shaded = true
 texture_filter = 0

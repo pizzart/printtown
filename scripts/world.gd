@@ -97,3 +97,8 @@ func _on_shelter_area_body_exited(body):
 	if body is Player:
 		body.can_interact = false
 		can_interact_shelter = false
+
+func _on_cutscene_start_body_entered(body):
+	if body is Player:
+		$Tutorial/CutsceneStart.set_deferred("monitoring", false)
+		$Tutorial/CutscenePlayer.play_cutscene()

@@ -5,6 +5,7 @@ signal voice_stopped
 const ALLOWED_CHARS = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ01234567890"
 const FAKE_NOTICE = "© 2024 PIZZART ENTERTAINMENT LLC."
 const HUM_VOL = -35
+const WORLD_SCENE = "res://scenes/world.tscn"
 
 var pressed: bool
 var intro_voice_playing: bool = true
@@ -35,7 +36,7 @@ func _ready():
 	$UI/UI/C.hide()
 	$BlackOverlay/Color.show()
 	
-	await get_tree().create_timer(1.0)
+	await get_tree().create_timer(1.0).timeout
 	
 	$IntroVoice.play()
 	intro_voice_playing = true
@@ -136,7 +137,21 @@ func _on_name_edit_text_changed(new_text):
 
 func _on_done_pressed():
 	Global.player_name = name_edit.text.strip_edges() # just in case
-	get_tree().change_scene_to_file("res://scenes/world.tscn")
+	ResourceLoader.load_threaded_request(WORLD_SCENE, "", true)
+	$UI/UI/M/Name.hide()
+	$UI/UI/C/View/Cube/Box/Percent.show()
+	done_btn.disconnect("mouse_entered", _on_done_mouse_entered)
+	done_btn.disconnect("mouse_exited", _on_done_mouse_exited)
+	current_rotation = Quaternion(0, PI / 2, 0, PI / 2).normalized()
+	await get_tree().create_timer(0.3).timeout
+	while true:
+		var progress = []
+		var status = ResourceLoader.load_threaded_get_status(WORLD_SCENE, progress)
+		$UI/UI/C/View/Cube/Box/Percent.text = "%d%%" % ceili(progress[0] * 100)
+		if status == ResourceLoader.ThreadLoadStatus.THREAD_LOAD_LOADED:
+			get_tree().change_scene_to_packed(ResourceLoader.load_threaded_get(WORLD_SCENE))
+			break
+		await get_tree().create_timer(0.1).timeout
 
 func _on_done_mouse_entered():
 	current_rotation = Quaternion(0, -PI / 2, 0, PI / 2).normalized()

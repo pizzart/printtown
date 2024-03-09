@@ -539,7 +539,8 @@ func finish_fight(success: bool):
 	await tween.finished
 	
 	player.post_fight()
-	queue_free()
+	if success:
+		queue_free()
 
 func _on_healed(pet: Animals.Animal):
 	$Pet.texture = pet.texture

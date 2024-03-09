@@ -2,9 +2,9 @@ extends Node3D
 
 signal transitioned
 
-const INTRO_DIALOGUE = preload("res://dialogue/intro.dialogue")
+#const INTRO_DIALOGUE = preload("res://dialogue/intro.dialogue")
 const PEDESTRIAN = preload("res://scenes/pedestrian.tscn")
-const PETS_REQUIRED = 4
+const PETS_REQUIRED = 2
 
 var timer: float
 var can_interact_shelter: bool
@@ -21,18 +21,19 @@ func _ready():
 	if not OS.is_debug_build():
 		$Overlay/M/FPS.hide()
 		
-		mouse_mode = Input.MOUSE_MODE_VISIBLE
-		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-		$Player.global_position = $PlayerSpawn.global_position
-		$Player.can_move = false
-		DialogueUI.start_dialogue(INTRO_DIALOGUE, true)
-		await DialogueUI.finished
-		$Player.can_move = true
-		mouse_mode = Input.MOUSE_MODE_CAPTURED
-		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+		#mouse_mode = Input.MOUSE_MODE_VISIBLE
+		#Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+		#$Player.global_position = $PlayerSpawn.global_position
+		#$Player.can_move = false
+		#DialogueUI.start_dialogue(INTRO_DIALOGUE, true)
+		#await DialogueUI.finished
+		#$Player.can_move = true
+		#mouse_mode = Input.MOUSE_MODE_CAPTURED
+		#Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	#else:
 	#$Overlay/M/FPS.show()
-	query()
+	else:
+		query()
 
 func _process(delta):
 	timer += delta

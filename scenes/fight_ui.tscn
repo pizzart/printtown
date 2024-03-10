@@ -1038,6 +1038,24 @@ width = 3.0
 width_curve = SubResource("Curve_sps00")
 end_cap_mode = 2
 
+[node name="PetStat" type="AnimatedSprite2D" parent="."]
+visible = false
+position = Vector2(17, 295)
+sprite_frames = SubResource("SpriteFrames_s3b0q")
+autoplay = "default"
+centered = false
+
+[node name="Label" type="Label" parent="PetStat"]
+offset_left = 41.0
+offset_top = 43.0
+offset_right = 237.0
+offset_bottom = 151.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/line_spacing = -32
+theme_override_fonts/font = ExtResource("32_ae1hu")
+theme_override_font_sizes/font_size = 32
+vertical_alignment = 1
+
 [node name="StampAnimation" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_nys5v")
 animation = &"stamp"

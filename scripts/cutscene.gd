@@ -63,6 +63,8 @@ func play_cutscene():
 	camera.global_transform = player.camera.global_transform
 	camera.make_current()
 	
+	MiscUI.show_bars()
+	
 	var tween = create_tween().set_parallel()
 	tween.tween_property(camera, "fov", init_fov, 1.0).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
 	if camera_start == CameraStart.POSITION:
@@ -83,6 +85,8 @@ func play_cutscene():
 	
 	player.can_move = true
 	player.camera.make_current()
+	
+	MiscUI.hide_bars()
 	
 	if show_cursor:
 		get_tree().get_first_node_in_group("world").mouse_mode = Input.MOUSE_MODE_CAPTURED

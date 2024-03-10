@@ -1,0 +1,15 @@
+[remap]
+
+importer="dialogue_manager_compiler_11"
+type="Resource"
+uid="uid://ujufs1og8p15"
+path="res://.godot/imported/tutorialfight_treat.dialogue-b2da3ad52f5f6c6cb70c7bce146a43de.tres"
+
+[deps]
+
+source_file="res://dialogue/tutorial_fight/tutorialfight_treat.dialogue"
+dest_files=["res://.godot/imported/tutorialfight_treat.dialogue-b2da3ad52f5f6c6cb70c7bce146a43de.tres"]
+
+[params]
+
+defaults=true

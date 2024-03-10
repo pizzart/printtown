@@ -30,6 +30,9 @@ const RPS_TEXTURES = {
 
 const ANIMAL_BTN = preload("res://scenes/animal_button.tscn")
 
+const PET_STAT_TEXT = """u pettin'
+	   %s !"""
+
 var actual_progress: float
 var progress: float
 var picked_animal_index: int = -1
@@ -61,6 +64,7 @@ var picked_animal_index: int = -1
 @onready var pet_particles = $PetParticles
 @onready var surprise_bite = $SurpriseBite
 @onready var pet_count = $Hand/Count
+@onready var pet_stat = $PetStat
 
 @onready var rps_choose_text = $RPS/Choose
 @onready var rps_action = $RPS/Action
@@ -305,6 +309,9 @@ func set_notes(animal: Animals.Animal):
 		note.text = "well-rounded"
 	else:
 		note.text = text
+
+func set_pet_stat(stat: String):
+	$PetStat/Label.text = PET_STAT_TEXT % stat
 
 func remove_picked():
 	note.text = ""

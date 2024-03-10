@@ -9,6 +9,7 @@ signal pets_ended
 const PET_TUTORIAL = preload("res://dialogue/tutorial_fight/tutorialfight_pet.dialogue")
 const KICK_TUTORIAL = preload("res://dialogue/tutorial_fight/tutorialfight_kick.dialogue")
 const LOWHP_TUTORIAL = preload("res://dialogue/tutorial_fight/tutorialfight_lowhp.dialogue")
+const TREAT_TUTORIAL = preload("res://dialogue/tutorial_fight/tutorialfight_treat.dialogue")
 
 const CAMERA_FOV = 45.0
 const SHAKE_REDUCE = 7.0
@@ -41,6 +42,7 @@ var pet_awaiting: bool
 
 static var pet_tutorial_given: bool = OS.is_debug_build()
 static var kick_tutorial_given: bool = OS.is_debug_build()
+static var treat_tutorial_given: bool = OS.is_debug_build()
 static var low_hp_tutorial_given: bool = false
 static var gave_up_tutorial_given: bool = false
 
@@ -146,6 +148,14 @@ func _input(event):
 				pets_given += event.relative.length()
 				#FightUI.pet_count.text = str(ceili(pets_given / 100.0))
 				add_shake(0.001)
+				if pets_given < BAD_PETS:
+					FightUI.set_pet_stat("BAD")
+				elif pets_given < OK_PETS:
+					FightUI.set_pet_stat("OK")
+				elif pets_given < GOOD_PETS:
+					FightUI.set_pet_stat("GOOD")
+				else:
+					FightUI.set_pet_stat("COOL")
 
 func _on_body_entered(body):
 	if body is Player:
@@ -158,9 +168,11 @@ func _on_body_exited(body):
 		player.can_interact = false
 		can_activate = false
 
-func activate_fight():
+func activate_fight(pl: Player = player):
 	set_deferred("monitoring", false)
 	can_activate = false
+	if player == null:
+		player = pl
 	player.can_interact = false
 	
 	get_parent().mouse_mode = Input.MOUSE_MODE_VISIBLE
@@ -283,6 +295,7 @@ func _on_petted():
 	
 	pet_awaiting = true
 	await pets_started
+	FightUI.pet_stat.show()
 	FightUI.pet_particles.emitting = true
 	petting = true
 	
@@ -294,8 +307,9 @@ func _on_petted():
 	
 	if will_bite:
 		FightUI.show_sudden_bite()
+		FightUI.pet_stat.hide()
 	
-	print("your score: %s" % pets_given)
+	#print("your score: %s" % pets_given)
 	
 	FightUI.hand.hide()
 	FightUI.pet_particles.emitting = false
@@ -305,6 +319,7 @@ func _on_petted():
 	tween.tween_property(camera, "global_transform", $CameraPoint.global_transform, 1.5).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
 	tween.tween_property(player, "global_position", $PlayerPoint.global_position, 1.0).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 	await get_tree().create_timer(0.8).timeout
+	FightUI.pet_stat.hide()
 	
 	if will_bite:
 		var animal_tween = create_tween()
@@ -323,21 +338,21 @@ func _on_petted():
 		apply_damage(enemy.damage)
 	else:
 		if pets_given < BAD_PETS:
-			enemy.add_mood(0.05 + randfn(0, 0.02))
+			enemy.add_mood(0.05 + randf_range(0, 0.02))
 			enemy.add_satisfaction(0.1 + randfn(0, 0.02))
 			enemy.add_guard(-0.02 + randfn(0, 0.01))
 		elif pets_given < OK_PETS:
-			enemy.add_mood(0.15 + randfn(0, 0.02))
+			enemy.add_mood(0.15 + randf_range(0, 0.02))
 			enemy.add_satisfaction(0.2 + randfn(0, 0.03))
 			enemy.add_guard(-0.04 + randfn(0, 0.01))
 		elif pets_given < GOOD_PETS:
-			enemy.add_mood(0.2 + randfn(0, 0.02))
+			enemy.add_mood(0.2 + randf_range(0, 0.02))
 			enemy.add_satisfaction(0.3 + randfn(0, 0.03))
 			enemy.add_guard(-0.05 + randfn(0, 0.01))
 		else:
-			enemy.add_mood(0.25 + randfn(0, 0.02))
-			enemy.add_satisfaction(0.35 + randf_range(0, 0.05))
-			enemy.add_guard(-0.07 + randfn(0, 0.01))
+			enemy.add_mood(0.25 + randf_range(0, 0.02))
+			enemy.add_satisfaction(0.4 + randf_range(0, 0.05))
+			enemy.add_guard(-0.08 + randfn(0, 0.01))
 	
 	update_ui()
 	
@@ -453,18 +468,21 @@ func _on_treated():
 	FightUI.partial_hide()
 	
 	await tween.finished
+	if not treat_tutorial_given:
+		DialogueUI.start_dialogue(TREAT_TUTORIAL, false)
+		await DialogueUI.finished
 	
 	tween = create_tween().set_parallel()
 	tween.tween_property(camera, "transform", Transform3D(), 1.5).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
 	tween.tween_property(player, "global_position", $PlayerPoint.global_position, 1.0).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 	
-	FightUI.enable_all(Global.treats > 0, is_satisfied())
-	FightUI.unhide()
-	
 	Global.treats -= 1
 	enemy.add_mood(0.2 + randf_range(0.05, 0.2))
 	enemy.add_guard(-0.25 - randf_range(0.05, 0.15))
 	enemy.add_satisfaction(0.35 + randf_range(0.05, 0.1))
+	
+	FightUI.enable_all(Global.treats > 0, is_satisfied())
+	FightUI.unhide()
 	
 	update_ui()
 

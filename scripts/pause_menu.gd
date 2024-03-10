@@ -193,7 +193,13 @@ func _on_ca_pressed():
 func _on_fs_pressed():
 	if get_window().mode == Window.MODE_FULLSCREEN:
 		get_window().mode = Window.MODE_WINDOWED
-		$Book/Options/CAPin.play("deselected")
+		$Book/Options/FSPin.play("deselected")
 	else:
 		get_window().mode = Window.MODE_FULLSCREEN
-		$Book/Options/CAPin.play("selected")
+		$Book/Options/FSPin.play("selected")
+
+func _on_quit_closed_mouse_entered():
+	$Book/Closed/AskText.show()
+
+func _on_quit_closed_mouse_exited():
+	$Book/Closed/AskText.hide()

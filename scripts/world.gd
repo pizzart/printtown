@@ -23,16 +23,17 @@ func _ready():
 		
 		#mouse_mode = Input.MOUSE_MODE_VISIBLE
 		#Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-		#$Player.global_position = $PlayerSpawn.global_position
+		$Player.global_position = $PlayerSpawn.global_position
 		#$Player.can_move = false
 		#DialogueUI.start_dialogue(INTRO_DIALOGUE, true)
 		#await DialogueUI.finished
 		#$Player.can_move = true
 		#mouse_mode = Input.MOUSE_MODE_CAPTURED
 		#Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-	#else:
-	#$Overlay/M/FPS.show()
 	else:
+		$Player.global_position = $PlayerSpawnDebug.global_position
+		#$Player.global_position = $PlayerSpawn.global_position
+		#$Overlay/M/FPS.show()
 		query()
 
 func _process(delta):
@@ -54,6 +55,7 @@ func _input(event):
 		transition()
 		await transitioned
 		await $Shelter/CutscenePlayer.play_cutscene()
+		$FinalFight.activate_fight($Player)
 	
 	if event.is_action_pressed("restart") and OS.is_debug_build():
 		get_tree().reload_current_scene()
@@ -66,9 +68,9 @@ func _input(event):
 		#$Pause.show()
 		get_tree().paused = true
 	
-	if event.is_action_pressed("wave"):
-		get_tree().root.use_occlusion_culling = not get_tree().root.use_occlusion_culling
-		print(get_tree().root.use_occlusion_culling)
+	#if event.is_action_pressed("wave"):
+		#get_tree().root.use_occlusion_culling = not get_tree().root.use_occlusion_culling
+		#print(get_tree().root.use_occlusion_culling)
 
 func transition():
 	var tween = create_tween()

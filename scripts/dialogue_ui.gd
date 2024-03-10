@@ -4,8 +4,8 @@ enum Character {
 	TOP,
 	BOTTOM,
 }
-const JAKE_ICON = preload("res://graphics/ui/dialogue/dialogue_other.png")
 signal finished
+const JAKE_ICON = preload("res://graphics/ui/dialogue/dialogue_other.png")
 var dialogue_res = preload("res://dialogue/intro.dialogue")
 var active: bool = false
 var dialogue_line: DialogueLine
@@ -27,6 +27,9 @@ func _process(delta):
 		$C/TopIcon.rotation = 0
 	
 	time += delta
+	
+	if Input.is_action_pressed("skip_dialogue") and active:
+		next_line(false)
 
 func start_dialogue(dialogue: DialogueResource, is_call: bool, start_node: String = "start"):
 	dialogue_res = dialogue
@@ -51,7 +54,7 @@ func start_dialogue(dialogue: DialogueResource, is_call: bool, start_node: Strin
 func _input(event):
 	if event.is_action_pressed("next_dialogue") and active:
 		next_line(false)
-
+	
 func next_line(started: bool, start_node: String = "start"):
 	if text_label.is_typing:
 		text_label.skip_typing()
@@ -98,7 +101,7 @@ func next_line(started: bool, start_node: String = "start"):
 
 func _on_dialogue_timer_timeout():
 	tip.show()
-	$DialogueTimer.wait_time = 10
+	$DialogueTimer.wait_time = 15
 
 func _on_dialogue_finished_typing():
 	$DialogueTimer.start()

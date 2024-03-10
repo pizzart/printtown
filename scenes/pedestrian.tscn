@@ -1,17 +1,17 @@
 [gd_scene load_steps=5 format=3 uid="uid://dyfpbu8146y35"]
 
 [ext_resource type="Script" path="res://scripts/pedestrian.gd" id="1_nyasc"]
-[ext_resource type="Texture2D" uid="uid://bu7yj6t30t1mr" path="res://graphics/player/back/back0000.png" id="2_0qeqq"]
-[ext_resource type="Texture2D" uid="uid://cde6nf4xpvkac" path="res://graphics/player/back/back0001.png" id="3_raywh"]
+[ext_resource type="Texture2D" uid="uid://buvyjcblxaoio" path="res://graphics/world/pedestrian/pedestrian0000.png" id="2_31181"]
+[ext_resource type="Texture2D" uid="uid://dk5sol14daekv" path="res://graphics/world/pedestrian/pedestrian0001.png" id="3_q674r"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_dbvck"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("2_0qeqq")
+"texture": ExtResource("2_31181")
 }, {
 "duration": 1.0,
-"texture": ExtResource("3_raywh")
+"texture": ExtResource("3_q674r")
 }],
 "loop": true,
 "name": &"default",
@@ -31,9 +31,10 @@ alpha_cut = 3
 texture_filter = 0
 sprite_frames = SubResource("SpriteFrames_dbvck")
 autoplay = "default"
+frame_progress = 0.0483944
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
-path_height_offset = -0.8
+path_height_offset = -0.7
 path_postprocessing = 1
 
 [node name="IdleTimer" type="Timer" parent="."]

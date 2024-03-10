@@ -1,4 +1,4 @@
-[gd_scene load_steps=570 format=3 uid="uid://5th0yhcrbxbj"]
+[gd_scene load_steps=573 format=3 uid="uid://5th0yhcrbxbj"]
 
 [ext_resource type="PackedScene" uid="uid://b026alsepp2vu" path="res://scenes/player.tscn" id="1_lquvg"]
 [ext_resource type="Script" path="res://scripts/world.gd" id="1_mmxcb"]
@@ -71,6 +71,7 @@
 [ext_resource type="Texture2D" uid="uid://cdeo1ktrk8oph" path="res://graphics/controls/space.png" id="67_jkq86"]
 [ext_resource type="Texture2D" uid="uid://6vors5sj6hi" path="res://graphics/controls/hang.png" id="67_yp0nb"]
 [ext_resource type="Resource" uid="uid://dy1qfd4d8iqku" path="res://dialogue/intro.dialogue" id="70_mvfw0"]
+[ext_resource type="Texture2D" uid="uid://daa6sdbyb0ka5" path="res://graphics/controls/shift.png" id="70_wpika"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_sxwpf"]
 render_priority = 0
@@ -10484,23 +10485,23 @@ face_selected = PackedByteArray(1, 0, 0, 0, 0, 0)
 active_face = -1
 face_ids = PackedInt32Array(0, 1, 2, 3, 4, 5)
 
-[sub_resource type="Resource" id="Resource_sbngl"]
+[sub_resource type="Resource" id="Resource_ye0d8"]
 script = ExtResource("5_q8k46")
 selected = false
 active = false
 collsion = true
 physics_layer = 0
 physics_mask = 0
-vertex_points = PackedVector3Array(7, 35, 8, 0, 35, 8, 0, 35, 0, 7, 35, 0, 0, 0, 0, 0, 0, 8, 7, 0, 0, 7, 0, 8)
+vertex_points = PackedVector3Array(0, 0, 8, 0, 0, 0, 0, 39, 0, 0, 39, 8, 7, 39, 0, 7, 39, 8, 7, 0, 8, 7, 0, 0)
 vertex_selected = PackedByteArray(0, 0, 0, 0, 0, 0, 0, 0)
 active_vertex = -1
-edge_vertex_indices = PackedInt32Array(0, 1, 1, 2, 2, 3, 3, 0, 4, 2, 1, 5, 5, 4, 6, 3, 4, 6, 7, 5, 0, 7, 7, 6)
+edge_vertex_indices = PackedInt32Array(0, 1, 1, 2, 2, 3, 3, 0, 4, 5, 5, 3, 2, 4, 6, 0, 5, 6, 7, 4, 1, 7, 6, 7)
 edge_selected = PackedByteArray(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
 active_edge = -1
-edge_face_indices = PackedInt32Array(0, 3, 0, 1, 0, 2, 0, 5, 1, 2, 1, 3, 1, 4, 2, 5, 2, 4, 3, 4, 3, 5, 4, 5)
+edge_face_indices = PackedInt32Array(0, 4, 0, 3, 0, 1, 0, 2, 1, 5, 1, 2, 1, 3, 2, 4, 2, 5, 3, 5, 3, 4, 4, 5)
 face_vertex_count = PackedInt32Array(4, 4, 4, 4, 4, 4)
-face_vertex_indices = PackedInt32Array(0, 1, 2, 3, 4, 2, 1, 5, 6, 3, 2, 4, 7, 5, 1, 0, 7, 6, 4, 5, 7, 0, 3, 6)
-face_material_indices = PackedInt32Array(1, 0, 0, 0, 0, 0)
+face_vertex_indices = PackedInt32Array(0, 1, 2, 3, 4, 5, 3, 2, 6, 0, 3, 5, 7, 4, 2, 1, 7, 1, 0, 6, 7, 6, 5, 4)
+face_material_indices = PackedInt32Array(0, 1, 0, 0, 0, 0)
 face_uv_transform = Array[Transform2D]([Transform2D(1, 0, 0, 1, 0, 0), Transform2D(1, 0, 0, 1, 0, 0), Transform2D(1, 0, 0, 1, 0, 0), Transform2D(1, 0, 0, 1, 0, 0), Transform2D(1, 0, 0, 1, 0, 0), Transform2D(1, 0, 0, 1, 0, 0)])
 face_visible = PackedByteArray(1, 1, 1, 1, 1, 1)
 face_color = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1)
@@ -11826,6 +11827,38 @@ look_at = NodePath("")
 animation_name = ""
 wait = true
 
+[sub_resource type="Resource" id="Resource_s6bdf"]
+script = ExtResource("26_e12w1")
+action = 3
+node_title = "start"
+is_call = false
+move_node = NodePath("")
+move_point = NodePath("../Camera3")
+move_time = 1.0
+transition_type = 5
+ease_type = 1
+camera_follow = false
+wait_time = 0.0
+look_at = NodePath("")
+animation_name = ""
+wait = true
+
+[sub_resource type="Resource" id="Resource_2frl2"]
+script = ExtResource("26_e12w1")
+action = 0
+node_title = "start"
+is_call = false
+move_node = NodePath("")
+move_point = NodePath("")
+move_time = 0.0
+transition_type = 5
+ease_type = 1
+camera_follow = false
+wait_time = 2.0
+look_at = NodePath("")
+animation_name = ""
+wait = true
+
 [sub_resource type="BoxShape3D" id="BoxShape3D_7cbsm"]
 size = Vector3(18.2498, 14.5057, 10)
 
@@ -11860,11 +11893,14 @@ directional_shadow_blend_splits = true
 [node name="PlayerSpawn" type="Marker3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.25182, -0.785852, 97.2202)
 
+[node name="PlayerSpawnDebug" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23.7577, 11.7257, -10.684)
+
 [node name="Player" parent="." instance=ExtResource("1_lquvg")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 6.25182, -0.785852, 97.2202)
 
 [node name="FightArea" parent="." node_paths=PackedStringArray("next_fight") instance=ExtResource("6_xn4hq")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24.3104, -1.09081, 17.6427)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31.6048, 10.8815, 17.6427)
 next_fight = NodePath("../FightArea2")
 dialogue_start = ExtResource("7_7rlel")
 dialogue_big_progress = ExtResource("6_yx4mr")
@@ -11874,14 +11910,14 @@ is_tutorial = true
 init_enabled = true
 
 [node name="FightArea2" parent="." instance=ExtResource("6_xn4hq")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -34.07, 17.9079, -33.9944)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -34.07, 17.8739, -33.9944)
 animal = 1
 dialogue_pre = ExtResource("9_ai7yc")
 dialogue_start = ExtResource("11_j3wn1")
 
-[node name="FightArea3" parent="." instance=ExtResource("6_xn4hq")]
+[node name="FinalFight" parent="." instance=ExtResource("6_xn4hq")]
 transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 36.6383, -28.1393, -14.9406)
-animal = 2
+animal = 3
 dialogue_start = ExtResource("12_yilce")
 is_finale = true
 init_enabled = true
@@ -14460,7 +14496,7 @@ materials = Array[Material]([ExtResource("15_ycgyk"), ExtResource("15_prd7q")])
 [node name="Block_389" type="Node3D" parent="NavigationRegion3D/Blocks"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, -2, 59)
 script = ExtResource("4_4o2d6")
-block_data = SubResource("Resource_sbngl")
+block_data = SubResource("Resource_ye0d8")
 materials = Array[Material]([ExtResource("15_ycgyk"), ExtResource("15_prd7q")])
 
 [node name="Block_430" type="Node3D" parent="NavigationRegion3D/Blocks"]
@@ -14599,6 +14635,9 @@ transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 46.5, 
 
 [node name="Collectable11" parent="Collectables" instance=ExtResource("14_uo4l1")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -99, 27, 30)
+
+[node name="Collectable12" parent="Collectables" instance=ExtResource("14_uo4l1")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -29, 19, -34)
 
 [node name="Triggers" type="Node3D" parent="."]
 
@@ -14881,6 +14920,15 @@ distance_fade_begin = 50.0
 distance_fade_length = 20.0
 cull_mask = 1048573
 
+[node name="Decal6" type="Decal" parent="Tutorial"]
+transform = Transform3D(1, -2.62268e-07, -8.74228e-08, -8.74228e-08, -4.37114e-08, -1, 2.62268e-07, 1, -4.37114e-08, 11.189, 4.57269, 72.8899)
+size = Vector3(7, 4, 3.5)
+texture_albedo = ExtResource("70_wpika")
+distance_fade_enabled = true
+distance_fade_begin = 50.0
+distance_fade_length = 20.0
+cull_mask = 1048573
+
 [node name="Decal3" type="Decal" parent="Tutorial"]
 transform = Transform3D(1, -8.74228e-08, -8.74228e-08, -8.74228e-08, -4.37114e-08, -1, 8.74228e-08, 1, -4.37114e-08, 8.41073, -0.70546, 80.1518)
 size = Vector3(7.2, 4, 3.6)
@@ -14892,10 +14940,10 @@ cull_mask = 1048573
 
 [node name="CutscenePlayer" type="Node3D" parent="Tutorial" node_paths=PackedStringArray("player", "camera", "init_position")]
 script = ExtResource("25_w7kha")
-actions = Array[ExtResource("26_e12w1")]([SubResource("Resource_n73rd"), SubResource("Resource_j8hby"), SubResource("Resource_vs5cb"), SubResource("Resource_byqa8"), SubResource("Resource_owcih"), SubResource("Resource_22ywh"), SubResource("Resource_wy7be"), SubResource("Resource_8ln81"), SubResource("Resource_xb0hh"), SubResource("Resource_1ag61"), SubResource("Resource_4ph6c")])
+actions = Array[ExtResource("26_e12w1")]([SubResource("Resource_n73rd"), SubResource("Resource_j8hby"), SubResource("Resource_vs5cb"), SubResource("Resource_byqa8"), SubResource("Resource_owcih"), SubResource("Resource_22ywh"), SubResource("Resource_wy7be"), SubResource("Resource_8ln81"), SubResource("Resource_xb0hh"), SubResource("Resource_1ag61"), SubResource("Resource_4ph6c"), SubResource("Resource_s6bdf"), SubResource("Resource_2frl2")])
 player = NodePath("../../Player")
 init_animation_name = "idle_back"
-camera = NodePath("../Camera1/Camera3D")
+camera = NodePath("../Camera3/Camera3D")
 camera_start = 1
 init_position = NodePath("../Camera0")
 
@@ -14905,11 +14953,15 @@ transform = Transform3D(0.951057, 0.0642482, 0.302264, 0, 0.978148, -0.207912, -
 [node name="Camera1" type="Marker3D" parent="Tutorial"]
 transform = Transform3D(0.998135, -0.00585124, -0.0607675, 0, 0.995396, -0.0958458, 0.0610485, 0.095667, 0.99354, 1.985, 28.435, 68.224)
 
-[node name="Camera3D" type="Camera3D" parent="Tutorial/Camera1"]
-fov = 50.0
-
 [node name="Camera2" type="Marker3D" parent="Tutorial"]
 transform = Transform3D(0.946649, 0.0106848, 0.322088, 0, 0.99945, -0.0331552, -0.322266, 0.0313863, 0.946129, 0.434, 34.524, 55.838)
+
+[node name="Camera3" type="Marker3D" parent="Tutorial"]
+transform = Transform3D(0.768283, -0.330638, 0.548105, 0, 0.856267, 0.516533, -0.64011, -0.396844, 0.657856, -10.841, 29.139, 42.043)
+
+[node name="Camera3D" type="Camera3D" parent="Tutorial/Camera3"]
+transform = Transform3D(1, -1.76951e-08, 9.23872e-07, -9.31323e-10, 1, 2.98023e-08, 2.98023e-08, 3.72529e-09, 1, 0, 0, 0)
+fov = 50.0
 
 [node name="Player0" type="Marker3D" parent="Tutorial"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.44438, 24.2449, 61.1706)

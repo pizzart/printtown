@@ -106,10 +106,15 @@ wave={
 "events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":70,"key_label":0,"unicode":102,"echo":false,"script":null)
 ]
 }
+skip_dialogue={
+"deadzone": 0.5,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":81,"key_label":0,"unicode":113,"echo":false,"script":null)
+]
+}
 
 [internationalization]
 
-locale/translations_pot_files=PackedStringArray("res://dialogue/intro.dialogue", "res://dialogue/tutorial_fight/tutorialfight_lost.dialogue", "res://dialogue/tutorial_fight/tutorialfight_progress.dialogue", "res://dialogue/tutorial_fight/tutorialfight_won.dialogue", "res://dialogue/tutorial_fight/tutorialfight_start.dialogue", "res://dialogue/tutorial_fight/tutorialfight_pet.dialogue", "res://dialogue/tutorial_fight/tutorialfight_kick.dialogue", "res://dialogue/collectable_tutorial.dialogue", "res://dialogue/tutorial_fight/tutorialfight_lowhp.dialogue", "res://dialogue/tutorial_fight/tutorialfight_gaveup.dialogue", "res://dialogue/finale/giraffe_encounter.dialogue", "res://dialogue/finale/giraffe_fight_start.dialogue", "res://dialogue/bonus.dialogue", "res://dialogue/finale/finale_start.dialogue", "res://dialogue/encounters/cat.dialogue", "res://dialogue/tutorial_fight2/test_pre.dialogue", "res://dialogue/tutorial_fight2/guard_tutorial.dialogue")
+locale/translations_pot_files=PackedStringArray("res://dialogue/intro.dialogue", "res://dialogue/tutorial_fight/tutorialfight_lost.dialogue", "res://dialogue/tutorial_fight/tutorialfight_progress.dialogue", "res://dialogue/tutorial_fight/tutorialfight_won.dialogue", "res://dialogue/tutorial_fight/tutorialfight_start.dialogue", "res://dialogue/tutorial_fight/tutorialfight_pet.dialogue", "res://dialogue/tutorial_fight/tutorialfight_kick.dialogue", "res://dialogue/collectable_tutorial.dialogue", "res://dialogue/tutorial_fight/tutorialfight_lowhp.dialogue", "res://dialogue/tutorial_fight/tutorialfight_gaveup.dialogue", "res://dialogue/finale/giraffe_encounter.dialogue", "res://dialogue/finale/giraffe_fight_start.dialogue", "res://dialogue/bonus.dialogue", "res://dialogue/finale/finale_start.dialogue", "res://dialogue/encounters/cat.dialogue", "res://dialogue/tutorial_fight2/test_pre.dialogue", "res://dialogue/tutorial_fight2/guard_tutorial.dialogue", "res://dialogue/tutorial_fight/tutorialfight_treat.dialogue")
 
 [physics]
 

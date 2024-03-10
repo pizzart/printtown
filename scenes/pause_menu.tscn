@@ -173,7 +173,6 @@ frame = 10
 frame_progress = 1.0
 
 [node name="Main" type="Node3D" parent="Book"]
-visible = false
 
 [node name="GameTexture" type="Sprite3D" parent="Book/Main"]
 transform = Transform3D(0.965804, 0, 0.259274, 0, 1, 0, -0.259274, 0, 0.965804, -0.118106, 0.001, -0.0561178)
@@ -275,6 +274,7 @@ outline_size = 0
 line_spacing = -8.0
 
 [node name="Options" type="Node3D" parent="Book"]
+visible = false
 
 [node name="OptionsText" type="Label3D" parent="Book/Options"]
 transform = Transform3D(0.991839, -0.127497, -5.57309e-09, 0, -4.37114e-08, 1, -0.127497, -0.991839, -4.33546e-08, -0.218191, 0.002, -0.154527)
@@ -518,6 +518,23 @@ horizontal_alignment = 0
 vertical_alignment = 0
 line_spacing = -24.0
 
+[node name="AskText" type="Label3D" parent="Book/Closed"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.0452334, 0.00199997, 0.11108)
+visible = false
+pixel_size = 0.001
+shaded = true
+texture_filter = 0
+render_priority = 1
+modulate = Color(0.109804, 0.109804, 0.368627, 1)
+text = "are you sure you want to
+quit this interactive experience?"
+font = ExtResource("7_3al63")
+font_size = 15
+outline_size = 0
+horizontal_alignment = 0
+vertical_alignment = 0
+line_spacing = -8.0
+
 [node name="SpotLight3D" type="SpotLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -0.35, 0.905, -0.06)
 light_color = Color(0.929412, 0.905882, 0.866667, 1)
@@ -553,7 +570,6 @@ offset_right = 40.0
 offset_bottom = 23.0
 
 [node name="MainUI" type="Control" parent="UI"]
-visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -623,6 +639,7 @@ action_mode = 0
 metadata/_edit_use_anchors_ = true
 
 [node name="OptionsUI" type="Control" parent="UI"]
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -653,10 +670,10 @@ metadata/_edit_use_anchors_ = true
 [node name="Timer" type="Button" parent="UI/OptionsUI"]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.690625
-anchor_top = 0.489017
-anchor_right = 0.878955
-anchor_bottom = 0.489017
+anchor_left = 0.673437
+anchor_top = 0.50985
+anchor_right = 0.877393
+anchor_bottom = 0.499434
 offset_top = 1.2718
 offset_right = -6.53149
 offset_bottom = 33.2718
@@ -673,10 +690,10 @@ metadata/_edit_use_anchors_ = true
 [node name="FS" type="Button" parent="UI/OptionsUI"]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.728125
-anchor_top = 0.4161
-anchor_right = 0.846143
-anchor_bottom = 0.4161
+anchor_left = 0.723437
+anchor_top = 0.430684
+anchor_right = 0.85083
+anchor_bottom = 0.418184
 offset_top = 1.2718
 offset_right = -6.53149
 offset_bottom = 33.2718
@@ -693,10 +710,10 @@ metadata/_edit_use_anchors_ = true
 [node name="CA" type="Button" parent="UI/OptionsUI"]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.626562
-anchor_top = 0.574434
-anchor_right = 0.90083
-anchor_bottom = 0.574434
+anchor_left = 0.632812
+anchor_top = 0.593184
+anchor_right = 0.893018
+anchor_bottom = 0.568184
 offset_top = 1.2718
 offset_right = -6.53149
 offset_bottom = 33.2718
@@ -769,4 +786,6 @@ metadata/_edit_use_anchors_ = true
 [connection signal="pressed" from="UI/OptionsUI/FS" to="." method="_on_fs_pressed"]
 [connection signal="pressed" from="UI/OptionsUI/CA" to="." method="_on_ca_pressed"]
 [connection signal="pressed" from="UI/ClosedUI/BackClosed" to="." method="_on_back_closed_pressed"]
+[connection signal="mouse_entered" from="UI/ClosedUI/QuitClosed" to="." method="_on_quit_closed_mouse_entered"]
+[connection signal="mouse_exited" from="UI/ClosedUI/QuitClosed" to="." method="_on_quit_closed_mouse_exited"]
 [connection signal="pressed" from="UI/ClosedUI/QuitClosed" to="." method="_on_quit_closed_pressed"]

@@ -139,16 +139,16 @@ func _physics_process(delta):
 	var input_dir = Input.get_vector("left", "right", "forward", "backward")
 	match state:
 		State.GROUND:
-			$CanvasLayer/Label.text = "state: GROUND"
+			#$CanvasLayer/Label.text = "state: GROUND"
 			ground(delta, input_dir)
 		State.AIR:
-			$CanvasLayer/Label.text = "state: AIR"
+			#$CanvasLayer/Label.text = "state: AIR"
 			air(delta, input_dir)
 		State.LEDGE:
-			$CanvasLayer/Label.text = "state: LEDGE"
+			#$CanvasLayer/Label.text = "state: LEDGE"
 			ledge(delta, input_dir)
 		State.WALLSLIDE:
-			$CanvasLayer/Label.text = "state: WALLSLIDE"
+			#$CanvasLayer/Label.text = "state: WALLSLIDE"
 			wall_slide(delta, input_dir)
 		#State.ROLL:
 			#$CanvasLayer/Label.text = "state: ROLL"
@@ -157,8 +157,8 @@ func _physics_process(delta):
 	velocity += add_velo
 	last_velocity = get_real_velocity()
 	
-	$CanvasLayer/Label.text += "\nvelocity: %s // %s" % [get_real_velocity(), get_real_velocity().length()]
-	$CanvasLayer/Label.text += "\nstamina: %s // %s" % [snappedf(stamina, 0.01), snappedf(pow(stamina / MAX_STAMINA, 0.4), 0.01)]
+	#$CanvasLayer/Label.text += "\nvelocity: %s // %s" % [get_real_velocity(), get_real_velocity().length()]
+	#$CanvasLayer/Label.text += "\nstamina: %s // %s" % [snappedf(stamina, 0.01), snappedf(pow(stamina / MAX_STAMINA, 0.4), 0.01)]
 	
 	if input_dir:
 		last_input = input_dir
@@ -198,30 +198,31 @@ func ground(_delta: float, input_dir: Vector2):
 	elif input_dir.x > 0:
 		sprite.flip_h = false
 	
-	if input_dir.y > 0:
-		if Input.is_action_pressed("run"):
-			sprite.play("run_front")
+	if not Input.is_action_pressed("wave"):
+		if input_dir.y > 0:
+			if Input.is_action_pressed("run"):
+				sprite.play("run_front")
+			else:
+				sprite.play("walk_front")
+		elif input_dir.y < 0:
+			if Input.is_action_pressed("run"):
+				sprite.play("run_back")
+			else:
+				sprite.play("walk_back")
+		elif input_dir.x != 0:
+			if Input.is_action_pressed("run"):
+				sprite.play("run_side")
+			else:
+				sprite.play("walk_side")
 		else:
-			sprite.play("walk_front")
-	elif input_dir.y < 0:
-		if Input.is_action_pressed("run"):
-			sprite.play("run_back")
-		else:
-			sprite.play("walk_back")
-	elif input_dir.x != 0:
-		if Input.is_action_pressed("run"):
-			sprite.play("run_side")
-		else:
-			sprite.play("walk_side")
-	else:
-		if last_input.y > 0:
-			sprite.play("walk_front")
-		elif last_input.x != 0:
-			sprite.play("idle_side")
-		elif not Input.is_action_pressed("wave"):
-			sprite.play("idle_back")
-		else:
-			sprite.play("wave")
+			if last_input.y > 0:
+				sprite.play("walk_front")
+			elif last_input.x != 0:
+				sprite.play("idle_side")
+			elif not Input.is_action_pressed("wave"):
+				sprite.play("idle_back")
+	elif input_dir == Vector2.ZERO:
+		sprite.play("wave")
 	
 	if Input.is_action_just_pressed("jump"):
 		coyote = COYOTE_TIME + 0.1

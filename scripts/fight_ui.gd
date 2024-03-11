@@ -351,6 +351,10 @@ func show_convince(success: bool):
 	await get_tree().create_timer(0.5).timeout
 	convince_anim.hide()
 
+func enable_all_animals():
+	for c in animal_grid.get_children():
+		c.disabled = false
+
 func _on_animal_pressed(index: int):
 	heal_btn.disabled = false
 	bite_btn.disabled = false

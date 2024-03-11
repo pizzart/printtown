@@ -1,0 +1,7 @@
+~ start
+
+giraffe: not so strong now, are you? that's a shame. i kind of wanted to fight more...
+{{player_name}}: i can still fight though.
+giraffe: oh, really? okay then. let's continue.
+
+=> END

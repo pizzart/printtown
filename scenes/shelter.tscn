@@ -1,10 +1,12 @@
-[gd_scene load_steps=29 format=3 uid="uid://mgyefgmew2ml"]
+[gd_scene load_steps=30 format=3 uid="uid://mgyefgmew2ml"]
 
 [ext_resource type="Script" path="res://addons/cyclops_level_builder/nodes/cyclops_block.gd" id="1_4jv5s"]
 [ext_resource type="Script" path="res://addons/cyclops_level_builder/resources/convex_block_data.gd" id="2_u0wdd"]
 [ext_resource type="Material" uid="uid://ckswjh3a4puo2" path="res://materials/wall.tres" id="3_i2eue"]
 [ext_resource type="PackedScene" uid="uid://cpv3hlggawogv" path="res://scenes/close_camera_area.tscn" id="4_k8xn4"]
 [ext_resource type="Material" uid="uid://bw8s137rehho2" path="res://materials/mesh.tres" id="5_78y3s"]
+[ext_resource type="Texture2D" uid="uid://b7vij1q44oa4b" path="res://graphics/animals/dog.png" id="6_7yuuv"]
+[ext_resource type="Texture2D" uid="uid://cj0r454b8qnmf" path="res://graphics/shadow.png" id="7_8t24w"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_i1ko4"]
 size = Vector3(100, 10, 100)
@@ -489,10 +491,6 @@ face_selected = PackedByteArray(0, 0, 0, 0, 0, 0)
 active_face = -1
 face_ids = PackedInt32Array(0, 1, 2, 3, 4, 5)
 
-[sub_resource type="QuadMesh" id="QuadMesh_h0rv8"]
-material = ExtResource("5_78y3s")
-size = Vector2(9, 6)
-
 [sub_resource type="Resource" id="Resource_bxj5m"]
 script = ExtResource("2_u0wdd")
 selected = false
@@ -556,6 +554,32 @@ omni_range = 15.66
 omni_attenuation = 0.241484
 
 [node name="SpotLight3D" type="SpotLight3D" parent="OmniLight3D3"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
+light_color = Color(0.811765, 0.858824, 0.901961, 1)
+light_energy = 2.959
+spot_range = 15.024
+spot_angle = 59.69
+
+[node name="OmniLight3D4" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.19501, 6.64462, -22.3594)
+light_color = Color(0.811765, 0.858824, 0.901961, 1)
+omni_range = 15.66
+omni_attenuation = 0.241484
+
+[node name="SpotLight3D" type="SpotLight3D" parent="OmniLight3D4"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
+light_color = Color(0.811765, 0.858824, 0.901961, 1)
+light_energy = 2.959
+spot_range = 15.024
+spot_angle = 59.69
+
+[node name="OmniLight3D6" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25.7522, 6.64462, -25.9713)
+light_color = Color(0.811765, 0.858824, 0.901961, 1)
+omni_range = 15.66
+omni_attenuation = 0.241484
+
+[node name="SpotLight3D" type="SpotLight3D" parent="OmniLight3D6"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
 light_color = Color(0.811765, 0.858824, 0.901961, 1)
 light_energy = 2.959
@@ -694,12 +718,160 @@ script = ExtResource("1_4jv5s")
 block_data = SubResource("Resource_sa1k4")
 materials = Array[Material]([ExtResource("3_i2eue")])
 
-[node name="Mesh" type="MeshInstance3D" parent="."]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 29, 4, -14.5)
-mesh = SubResource("QuadMesh_h0rv8")
-
 [node name="Block_19" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 28, 1, -1)
 script = ExtResource("1_4jv5s")
 block_data = SubResource("Resource_bxj5m")
 materials = Array[Material]([ExtResource("3_i2eue")])
+
+[node name="Animal" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.13256, 1.90075, -24.9345)
+layers = 2
+pixel_size = 0.004
+billboard = 2
+shaded = true
+alpha_cut = 1
+texture_filter = 0
+texture = ExtResource("6_7yuuv")
+
+[node name="Shadow" type="Decal" parent="Animal"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.8, 0)
+size = Vector3(2, 1, 2)
+texture_albedo = ExtResource("7_8t24w")
+lower_fade = 0.439226
+distance_fade_begin = 3.4
+distance_fade_length = 13.5
+cull_mask = 1048573
+
+[node name="Animal2" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.71502, 1.90075, -22.4764)
+layers = 2
+pixel_size = 0.004
+billboard = 2
+shaded = true
+alpha_cut = 1
+texture_filter = 0
+texture = ExtResource("6_7yuuv")
+
+[node name="Shadow" type="Decal" parent="Animal2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.8, 0)
+size = Vector3(2, 1, 2)
+texture_albedo = ExtResource("7_8t24w")
+lower_fade = 0.439226
+distance_fade_begin = 3.4
+distance_fade_length = 13.5
+cull_mask = 1048573
+
+[node name="Animal3" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.224, 1.90075, -23.9694)
+layers = 2
+pixel_size = 0.004
+billboard = 2
+shaded = true
+alpha_cut = 1
+texture_filter = 0
+texture = ExtResource("6_7yuuv")
+
+[node name="Shadow" type="Decal" parent="Animal3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.8, 0)
+size = Vector3(2, 1, 2)
+texture_albedo = ExtResource("7_8t24w")
+lower_fade = 0.439226
+distance_fade_begin = 3.4
+distance_fade_length = 13.5
+cull_mask = 1048573
+
+[node name="Animal6" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.07089, 1.90075, 3.1319)
+layers = 2
+pixel_size = 0.004
+billboard = 2
+shaded = true
+alpha_cut = 1
+texture_filter = 0
+texture = ExtResource("6_7yuuv")
+
+[node name="Shadow" type="Decal" parent="Animal6"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.8, 0)
+size = Vector3(2, 1, 2)
+texture_albedo = ExtResource("7_8t24w")
+lower_fade = 0.439226
+distance_fade_begin = 3.4
+distance_fade_length = 13.5
+cull_mask = 1048573
+
+[node name="Animal7" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.65335, 1.90075, 5.58999)
+layers = 2
+pixel_size = 0.004
+billboard = 2
+shaded = true
+alpha_cut = 1
+texture_filter = 0
+texture = ExtResource("6_7yuuv")
+
+[node name="Shadow" type="Decal" parent="Animal7"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.8, 0)
+size = Vector3(2, 1, 2)
+texture_albedo = ExtResource("7_8t24w")
+lower_fade = 0.439226
+distance_fade_begin = 3.4
+distance_fade_length = 13.5
+cull_mask = 1048573
+
+[node name="Animal8" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.1624, 1.90075, 4.097)
+layers = 2
+pixel_size = 0.004
+billboard = 2
+shaded = true
+alpha_cut = 1
+texture_filter = 0
+texture = ExtResource("6_7yuuv")
+
+[node name="Shadow" type="Decal" parent="Animal8"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.8, 0)
+size = Vector3(2, 1, 2)
+texture_albedo = ExtResource("7_8t24w")
+lower_fade = 0.439226
+distance_fade_begin = 3.4
+distance_fade_length = 13.5
+cull_mask = 1048573
+
+[node name="Animal4" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24.214, 1.90075, -22.3301)
+layers = 2
+pixel_size = 0.004
+billboard = 2
+shaded = true
+alpha_cut = 1
+texture_filter = 0
+texture = ExtResource("6_7yuuv")
+
+[node name="Shadow" type="Decal" parent="Animal4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.8, 0)
+size = Vector3(2, 1, 2)
+texture_albedo = ExtResource("7_8t24w")
+lower_fade = 0.439226
+distance_fade_begin = 3.4
+distance_fade_length = 13.5
+cull_mask = 1048573
+
+[node name="Animal5" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 27.1795, 1.90075, -25.2316)
+layers = 2
+pixel_size = 0.004
+billboard = 2
+shaded = true
+alpha_cut = 1
+texture_filter = 0
+texture = ExtResource("6_7yuuv")
+
+[node name="Shadow" type="Decal" parent="Animal5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.8, 0)
+size = Vector3(2, 1, 2)
+texture_albedo = ExtResource("7_8t24w")
+lower_fade = 0.439226
+distance_fade_begin = 3.4
+distance_fade_length = 13.5
+cull_mask = 1048573

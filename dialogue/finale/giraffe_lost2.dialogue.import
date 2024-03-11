@@ -1,0 +1,15 @@
+[remap]
+
+importer="dialogue_manager_compiler_11"
+type="Resource"
+uid="uid://ohlon52m1jrg"
+path="res://.godot/imported/giraffe_lost2.dialogue-0a48f845dd465f6b217520c5811526b7.tres"
+
+[deps]
+
+source_file="res://dialogue/finale/giraffe_lost2.dialogue"
+dest_files=["res://.godot/imported/giraffe_lost2.dialogue-0a48f845dd465f6b217520c5811526b7.tres"]
+
+[params]
+
+defaults=true

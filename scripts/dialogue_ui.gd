@@ -105,3 +105,7 @@ func _on_dialogue_timer_timeout():
 
 func _on_dialogue_finished_typing():
 	$DialogueTimer.start()
+
+func _on_dialogue_label_spoke(letter, letter_index, speed):
+	if letter_index % 2 == 0:
+		$TalkSFX.play()

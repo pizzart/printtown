@@ -32,6 +32,7 @@ script = ExtResource("1_554st")
 shape = SubResource("SphereShape3D_4en8m")
 
 [node name="Sphere" type="MeshInstance3D" parent="."]
+layers = 2
 mesh = SubResource("SphereMesh_fykjs")
 
 [node name="Mesh" parent="." instance=ExtResource("3_5mkwm")]

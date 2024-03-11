@@ -1,0 +1,8 @@
+~ start
+
+jake: hey, you've collected all of the treats here! that's awesome.
+jake: you'll get access to the bonus content once you finish the game.
+{{player_name}}: sorry, what?
+jake: how many times do i have to tell you? just go with it...
+
+=> END

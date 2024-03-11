@@ -14,6 +14,9 @@ const JUMP_PARTICLES = preload("res://scenes/jump_particles.tscn")
 const SPRING_LEN = 8.0
 const SHORT_SPRING_LEN = 3.0
 
+const LERP_XZ_HL = -0.05 / (log(0.005) / log(2.0))
+const LERP_Y_HL = -1.0 / (log(0.01) / log(2.0))
+
 const ACCEL = 0.15
 const DECEL = 0.27
 const AIR_ACCEL = 0.03
@@ -95,9 +98,11 @@ func _process(delta):
 	#gimbal.global_position = lerp(gimbal.global_position, global_position, delta * 2)
 	time += delta
 	
-	gimbal.global_position.y = lerpf(gimbal.global_position.y, last_floor_y + CAMERA_HEIGHT, delta * 5)
-	gimbal.global_position.x = lerpf(gimbal.global_position.x, global_position.x, delta * 100)
-	gimbal.global_position.z = lerpf(gimbal.global_position.z, global_position.z, delta * 100)
+	# thanks freya <3
+	gimbal.global_position.y = lerpf(gimbal.global_position.y, last_floor_y + CAMERA_HEIGHT, 1.0 - pow(2, -delta / LERP_Y_HL))
+	gimbal.global_position.x = lerpf(gimbal.global_position.x, global_position.x, 1.0 - pow(2, -delta / LERP_XZ_HL))
+	gimbal.global_position.z = lerpf(gimbal.global_position.z, global_position.z, 1.0 - pow(2, -delta / LERP_XZ_HL))
+	
 	gimbal.rotation.y = rotation.y
 	
 	shadow.global_position.x = global_position.x
@@ -168,11 +173,10 @@ func _physics_process(delta):
 	#sprite.speed_scale = 1.6 if Input.is_action_pressed("run") else 1.0
 	
 	#stamina = clampf(stamina + delta * 1.5, 0, MAX_STAMINA)
-
-	move_and_slide()
-	
 	RenderingServer.global_shader_parameter_set("ca_strength", maxf((get_real_velocity().length() - RUN_SPEED) * 0.001 + Global.DEFAULT_CA, Global.DEFAULT_CA))
 	sprite.scale.y = 1.0 + absf(get_real_velocity().y) / 75.0
+
+	move_and_slide()
 
 func ground(_delta: float, input_dir: Vector2):
 	coyote = 0
@@ -305,9 +309,11 @@ func air(delta: float, input_dir: Vector2):
 			velocity.y = JUMP_VELOCITY
 			play_jump_animation(input_dir)
 			spawn_jump_particles()
-			$SFX/Step.play()
+			#$SFX/Step.play()
 		else:
 			state = State.GROUND
+		set_land_vol()
+		$SFX/Land.play()
 	elif wall_cast.is_colliding():
 		if grab_cast.is_colliding() and not head_cast.is_colliding() and velocity.y < 0:
 			velocity.y = 0
@@ -323,6 +329,9 @@ func air(delta: float, input_dir: Vector2):
 				state = State.WALLSLIDE
 				$SFX/Slide.play()
 			jump_buffered = false
+
+func set_land_vol():
+	$SFX/Land.volume_db = linear_to_db(clampf(absf(get_real_velocity().y) / 30.0, 0.35, 1.2))
 
 func ledge(delta: float, input_dir: Vector2):
 	stamina = MAX_STAMINA
@@ -401,6 +410,8 @@ func wall_slide(delta: float, input_dir: Vector2):
 		jump_time = 0
 		state = State.GROUND
 		smoke_particles.emitting = false
+		set_land_vol()
+		$SFX/Land.play()
 		$SFX/Slide.stop()
 	elif not wall_cast.is_colliding() or velocity.y > 0:
 		state = State.AIR

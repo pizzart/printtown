@@ -48,7 +48,8 @@ func _process(delta):
 		camera.look_at(cam_interp_pos)
 
 func play_cutscene():
-	player.can_move = not disable_controls
+	if disable_controls:
+		player.prepare_fight()
 	
 	if init_player_position:
 		player.global_position = init_player_position.global_position

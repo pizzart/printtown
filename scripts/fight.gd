@@ -11,6 +11,7 @@ const KICK_TUTORIAL = preload("res://dialogue/tutorial_fight/tutorialfight_kick.
 const LOWHP_TUTORIAL = preload("res://dialogue/tutorial_fight/tutorialfight_lowhp.dialogue")
 const TREAT_TUTORIAL = preload("res://dialogue/tutorial_fight/tutorialfight_treat.dialogue")
 const GAVE_UP_TUTORIAL = preload("res://dialogue/tutorial_fight/tutorialfight_gaveup.dialogue")
+const STICKER_TUTORIAL = preload("res://dialogue/tutorial_fight/tutorialfight_stickers.dialogue")
 
 const CAMERA_FOV = 45.0
 const SHAKE_REDUCE = 7.0
@@ -35,7 +36,8 @@ var enemy: Animals.Animal
 var health: int = INIT_HEALTH
 var time: float
 var shake: float
-var treat_cooldown: int = 0
+#var treat_cooldown: int = 0
+var death_count: int = 0
 
 var petting: bool
 var pets_given: float
@@ -46,6 +48,7 @@ static var kick_tutorial_given: bool = OS.is_debug_build()
 static var treat_tutorial_given: bool = OS.is_debug_build()
 static var low_hp_tutorial_given: bool = false
 static var gave_up_tutorial_given: bool = false
+static var sticker_tutorial_given: bool = false
 
 @export var animal: Animals.AnimalType
 @export var next_fight: FightArea
@@ -56,6 +59,7 @@ static var gave_up_tutorial_given: bool = false
 @export var dialogue_big_progress: DialogueResource
 @export var dialogue_won: DialogueResource
 @export var dialogue_lost: DialogueResource
+@export var dialogue_lost2: DialogueResource
 @export var dialogue_kicked: DialogueResource
 
 @export var is_tutorial: bool
@@ -227,7 +231,7 @@ func activate_fight(pl: Player = player):
 		DialogueUI.start_dialogue(dialogue_start, true)
 		await DialogueUI.finished
 	
-	FightUI.enable_all(Global.treats > 0, false)
+	FightUI.enable_all(can_treat(), false)
 	
 	update_ui()
 
@@ -255,7 +259,7 @@ func is_satisfied():
 	return enemy.satisfaction >= enemy.SATISFACTION_MIN
 
 func can_treat():
-	return Global.treats > 0 and treat_cooldown == 0
+	return Global.treats > 0# and treat_cooldown == 0
 
 func check_enemy_health():
 	if enemy.health <= roundi(enemy.init_health / 3.0):
@@ -271,11 +275,11 @@ func check_enemy_health():
 			DialogueUI.start_dialogue(GAVE_UP_TUTORIAL, false)
 			await DialogueUI.finished
 		if is_tutorial:
-			FightUI.enable_all(Global.treats > 0, true)
+			FightUI.enable_all(can_treat(), true)
 			FightUI.disable_all()
 			FightUI.sticker_btn.disabled = false
 		else:
-			FightUI.enable_all(Global.treats > 0, true)
+			FightUI.enable_all(can_treat(), true)
 			enemy.satisfaction = enemy.SATISFACTION_MIN
 
 func _on_petted():
@@ -370,7 +374,7 @@ func _on_petted():
 			FightUI.disable_all()
 			DialogueUI.start_dialogue(dialogue_big_progress, false)
 			await DialogueUI.finished
-		FightUI.enable_all(Global.treats > 0, true)
+		FightUI.enable_all(can_treat(), true)
 		if is_tutorial:
 			FightUI.disable_all()
 			FightUI.sticker_btn.disabled = false
@@ -455,7 +459,7 @@ func _on_kicked():
 	
 	check_enemy_health()
 	
-	FightUI.enable_all(Global.treats > 0, is_satisfied())
+	FightUI.enable_all(can_treat(), is_satisfied())
 	FightUI.unhide()
 	
 	#if damage != 0:
@@ -484,7 +488,7 @@ func _on_treated():
 	enemy.add_guard(-0.25 - randf_range(0.05, 0.15))
 	enemy.add_satisfaction(0.35 + randf_range(0.05, 0.1))
 	
-	FightUI.enable_all(Global.treats > 0, is_satisfied())
+	FightUI.enable_all(can_treat(), is_satisfied())
 	FightUI.unhide()
 	
 	update_ui()
@@ -500,21 +504,28 @@ func enable():
 
 func finish_fight(success: bool):
 	FightUI.disable_all()
+	FightUI.enable_all_animals()
 	
 	if success:
 		if dialogue_won != null:
 			DialogueUI.start_dialogue(dialogue_won, false)
 			await DialogueUI.finished
 	else:
-		if dialogue_lost != null:
-			DialogueUI.start_dialogue(dialogue_lost, false)
-			await DialogueUI.finished
+		death_count += 1
+		if death_count == 0:
+			if dialogue_lost != null:
+				DialogueUI.start_dialogue(dialogue_lost, false)
+				await DialogueUI.finished
+		else:
+			if dialogue_lost2 != null:
+				DialogueUI.start_dialogue(dialogue_lost2, false)
+				await DialogueUI.finished
 		
-		if is_tutorial:
+		if is_tutorial or is_finale:
 			enemy = Animals.animals[animal].new()
 			health = INIT_HEALTH
 			update_ui()
-			FightUI.enable_all(Global.treats > 0, false)
+			FightUI.enable_all(can_treat(), false)
 			return
 	
 	fight_active = false
@@ -579,7 +590,7 @@ func _on_healed(pet: Animals.Animal):
 	tween.tween_property($Pet, "global_position", $AnimalBitePoint.global_position + Vector3(0, 10, 0), 0.5).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_IN)
 	tween.tween_callback($Pet.hide)
 	
-	FightUI.enable_all(Global.treats > 0, is_satisfied())
+	FightUI.enable_all(can_treat(), is_satisfied())
 	FightUI.unhide()
 	
 	health = clampi(health + pet.healing, 0, INIT_HEALTH)
@@ -602,7 +613,7 @@ func _on_bitten(pet: Animals.Animal):
 	await tween.finished
 	$Pet.hide()
 	
-	FightUI.enable_all(Global.treats > 0, is_satisfied())
+	FightUI.enable_all(can_treat(), is_satisfied())
 	FightUI.unhide()
 	
 	enemy.health -= pet.damage
@@ -635,11 +646,11 @@ func _on_convinced(pet: Animals.Animal):
 	if success:
 		enemy.add_mood(randf_range(0.05, 0.1))
 		enemy.add_satisfaction(randf_range(0.03, 0.07))
-		enemy.add_guard(-randf_range(0.05, 0.08))
+		enemy.add_guard(-randf_range(0.1, 0.15))
 	else:
 		enemy.add_mood(randf_range(0.02, 0.04))
 		enemy.add_satisfaction(-randf_range(0.02, 0.03))
-		enemy.add_guard(randf_range(0.01, 0.03))
+		enemy.add_guard(-randf_range(0.01, 0.03))
 	
 	update_ui()
 
@@ -648,6 +659,10 @@ func _on_stickers_opened():
 	tween.tween_property(camera, "global_transform", $CameraPoint/RotationPoint.global_transform, 1.0).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
 	book.play("open")
 	await book.animation_finished
+	if not sticker_tutorial_given:
+		sticker_tutorial_given = true
+		DialogueUI.start_dialogue(STICKER_TUTORIAL, false)
+		await DialogueUI.finished
 	FightUI.sticker_ui.show()
 
 func _on_stickers_closed():

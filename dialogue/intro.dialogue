@@ -3,12 +3,19 @@
 jake: hey. is everything in place?
 {{player_name}}: hi. yeah, i'm ready. soo,,, what is the plan?
 jake: okay. since you've already signed the contract you can't turn away. just don't yell at me, okay?
-jake: i want you to get on top of the highest building in town and put a graffiti on top of it.
+jake: see that skyscraper in the distance?
+
+=> END
+
+~ continue
+{{player_name}}: what about it?
+jake: i want you to get on top of it and put a graffiti there.
 {{player_name}}: are you...
 jake: and i think our best bet is climbing a giraffe to get up-
 {{player_name}}: i'm sorry, WHAT!? what kind of joke is that???
 jake: it's not a joke. i know, sounds ridiculous, but just trust me on this.
 jake: there's an animal shelter in this town. someone left a giraffe at their doorstep, it's been living there ever since.
+jake: coincidentally, it's located right next to that skyscraper.
 jake: my only concern is that you'll quickly be stopped doing something like this, so you'll have to get an army of dogs to help with the-
 {{player_name}}: oh my god. stop talking. NOW
 jake: well, you have to do it. come on, i know i tricked you into signing the contract, but you can't do anything about it.

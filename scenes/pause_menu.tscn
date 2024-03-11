@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://bqv13fmmqt71v"]
+[gd_scene load_steps=29 format=3 uid="uid://bqv13fmmqt71v"]
 
 [ext_resource type="Texture2D" uid="uid://bf4fm6ce01idn" path="res://graphics/ui/fight/stickerbook/stickerbook0002.png" id="1_6370c"]
 [ext_resource type="Script" path="res://scripts/pause_menu.gd" id="1_l81ig"]
@@ -15,6 +15,7 @@
 [ext_resource type="Texture2D" uid="uid://dor5fexnpbcqi" path="res://graphics/ui/pause/clock/clock_bg.png" id="10_ffhjb"]
 [ext_resource type="Texture2D" uid="uid://mkicgd3h1tby" path="res://graphics/ui/pause/clock/clock_arrow_small.png" id="11_jvlnh"]
 [ext_resource type="Texture2D" uid="uid://c00d8te4k7o5m" path="res://graphics/ui/pause/clock/clock_arrow_big.png" id="12_f11qv"]
+[ext_resource type="AudioStream" uid="uid://cx2x3xlxpu1n1" path="res://audio/sfx/clock.wav" id="16_p41uy"]
 
 [sub_resource type="Environment" id="Environment_wwbrt"]
 background_mode = 1
@@ -777,6 +778,11 @@ theme_override_styles/disabled = SubResource("StyleBoxEmpty_qdfbi")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_pbpn8")
 action_mode = 0
 metadata/_edit_use_anchors_ = true
+
+[node name="ClockSFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("16_p41uy")
+volume_db = -10.0
+bus = &"sfx"
 
 [connection signal="pressed" from="UI/MainUI/Unpause" to="." method="_on_unpause_pressed"]
 [connection signal="pressed" from="UI/MainUI/Quit" to="." method="_on_quit_pressed"]

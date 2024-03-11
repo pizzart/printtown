@@ -4,6 +4,7 @@ signal transitioned
 
 #const INTRO_DIALOGUE = preload("res://dialogue/intro.dialogue")
 const BUFFER_DIALOGUE = preload("res://dialogue/buffer_tutorial.dialogue")
+const BONUS_DIALOGUE = preload("res://dialogue/bonus_later.dialogue")
 const PEDESTRIAN = preload("res://scenes/pedestrian.tscn")
 const PETS_REQUIRED = 2
 
@@ -17,6 +18,7 @@ func _ready():
 	$Shader.show()
 	
 	Global.total_treats = $Collectables.get_child_count()
+	Global.treat_collected.connect(_on_treat_collected)
 	for _i in range(50):
 		add_child(PEDESTRIAN.instantiate())
 	
@@ -34,6 +36,7 @@ func _ready():
 		#Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	else:
 		$Player.global_position = $PlayerSpawnDebug.global_position
+		$ParkourMusic.play()
 		#$Player.global_position = $PlayerSpawn.global_position
 		#$Overlay/M/FPS.show()
 		query()
@@ -65,6 +68,7 @@ func _input(event):
 	if event.is_action_pressed("pause"):
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 		RenderingServer.global_shader_parameter_set("ca_strength", Global.DEFAULT_CA)
+		AudioServer.set_bus_effect_enabled(2, 0, true) # lp filter
 		$PauseLayer.show()
 		pause_menu.pause(ImageTexture.create_from_image(get_viewport().get_texture().get_image()), $Player.camera, mouse_mode, get_time_text())
 		#$Pause.show()
@@ -106,13 +110,39 @@ func _on_shelter_area_body_exited(body):
 func _on_cutscene_start_body_entered(body):
 	if body is Player:
 		$Tutorial/CutsceneStart.set_deferred("monitoring", false)
-		$Tutorial/CutscenePlayer.play_cutscene()
+		await $Tutorial/CutscenePlayer.play_cutscene()
+		$ParkourMusic.volume_db = -80
+		$ParkourMusic.play()
+		var tween = create_tween()
+		tween.tween_property($ParkourMusic, "volume_db", -20, 3.0).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
 
 func _on_buffering_tutorial_body_entered(body):
 	if body is Player and not "buffer" in tutorials_given:
-		body.sprite.play("idle_back")
-		body.can_move = false
+		
+		tutorials_given.append("buffer")
+		
+		mouse_mode = Input.MOUSE_MODE_VISIBLE
+		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+		
+		body.prepare_fight()
+		
 		DialogueUI.start_dialogue(BUFFER_DIALOGUE, true)
 		await DialogueUI.finished
+		
 		body.can_move = true
-		tutorials_given.append("buffer")
+		mouse_mode = Input.MOUSE_MODE_CAPTURED
+		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+
+func _on_treat_collected():
+	if Global.collected_treats == Global.total_treats:
+		mouse_mode = Input.MOUSE_MODE_VISIBLE
+		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+		
+		$Player.prepare_fight()
+		
+		DialogueUI.start_dialogue(BONUS_DIALOGUE, true)
+		await DialogueUI.finished
+		
+		$Player.can_move = true
+		mouse_mode = Input.MOUSE_MODE_CAPTURED
+		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED

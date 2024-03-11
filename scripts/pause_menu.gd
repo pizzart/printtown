@@ -25,6 +25,7 @@ var game_camera: Camera3D
 var mouse_mode: Input.MouseMode
 var can_unpause: bool
 var holding_arrow: Arrow = Arrow.None
+var prev_angle: float
 
 @onready var paused_text = $Book/Main/PausedText
 @onready var name_text = $Book/Closed/NameText
@@ -85,12 +86,15 @@ func _input(event):
 				var angle: float = camera.unproject_position($Book/Options/Clock.global_position).direction_to(get_viewport().get_mouse_position()).angle() - camera.rotation.y
 				var snap_angle: float = snappedf(-angle, PI / 6)
 				var volume_angle: float = -(snap_angle - PI / 2 if snap_angle - PI / 2 <= 0 else snap_angle - PI / 2 - PI * 2) / (PI * 2)
+				if prev_angle != volume_angle:
+					$ClockSFX.play()
 				if holding_arrow == Arrow.Minute:
 					arrow_big.rotation.y = snap_angle
 					AudioServer.set_bus_volume_db(1, linear_to_db(volume_angle))
 				else:
 					arrow_small.rotation.y = snap_angle
 					AudioServer.set_bus_volume_db(2, linear_to_db(volume_angle))
+				prev_angle = volume_angle
 				update_volume()
 			else:
 				var dist = camera.unproject_position($Book/Options/Clock.global_position).distance_to(get_viewport().get_mouse_position())
@@ -125,6 +129,7 @@ func unpause():
 	await tween.finished
 	Input.mouse_mode = mouse_mode
 	#game_camera.make_current()
+	AudioServer.set_bus_effect_enabled(2, 0, false) # lp filter
 	get_parent().get_parent().get_parent().hide()
 	get_tree().paused = false
 

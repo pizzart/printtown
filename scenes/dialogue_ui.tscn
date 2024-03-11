@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://dc4i8fxnj56tx"]
+[gd_scene load_steps=22 format=3 uid="uid://dc4i8fxnj56tx"]
 
 [ext_resource type="Script" path="res://scripts/dialogue_ui.gd" id="1_dhjqm"]
 [ext_resource type="Theme" uid="uid://dn7uhmqeylu42" path="res://misc/ui.theme" id="2_6his5"]
@@ -15,6 +15,7 @@
 [ext_resource type="Texture2D" uid="uid://lb6svmvv27t1" path="res://graphics/ui/dialogue/tip/tip0000.png" id="8_vxfig"]
 [ext_resource type="Texture2D" uid="uid://chalgpvxgvc06" path="res://graphics/ui/dialogue/newcall/newcall0005.png" id="8_yvcc7"]
 [ext_resource type="Texture2D" uid="uid://bh1lvjke7tnkx" path="res://graphics/ui/dialogue/tip/tip0001.png" id="9_oudjb"]
+[ext_resource type="AudioStream" uid="uid://3t1pc5ps1fux" path="res://audio/sfx/talk.wav" id="16_ny362"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_q0raq"]
 bg_color = Color(0, 0, 0, 0.25098)
@@ -67,6 +68,12 @@ animations = [{
 "name": &"default",
 "speed": 8.0
 }]
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_sdrv5"]
+random_pitch = 1.05
+streams_count = 1
+stream_0/stream = ExtResource("16_ny362")
+stream_0/weight = 1.0
 
 [node name="DialogueUI" type="CanvasLayer"]
 layer = 2
@@ -185,5 +192,12 @@ centered = false
 wait_time = 3.0
 one_shot = true
 
+[node name="TalkSFX" type="AudioStreamPlayer" parent="."]
+stream = SubResource("AudioStreamRandomizer_sdrv5")
+volume_db = -10.0
+mix_target = 2
+bus = &"sfx"
+
 [connection signal="finished_typing" from="C/Text/DialogueLabel" to="." method="_on_dialogue_finished_typing"]
+[connection signal="spoke" from="C/Text/DialogueLabel" to="." method="_on_dialogue_label_spoke"]
 [connection signal="timeout" from="DialogueTimer" to="." method="_on_dialogue_timer_timeout"]

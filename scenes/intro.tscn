@@ -140,7 +140,7 @@ background_color = Color(0.372549, 0.372549, 0.372549, 1)
 glow_enabled = true
 glow_bloom = 0.16
 
-[sub_resource type="Shader" id="Shader_8lqwe"]
+[sub_resource type="Shader" id="Shader_5bgu3"]
 code = "shader_type canvas_item;
 
 uniform float static_intensity : hint_range(0.0, 1.0, 0.05) = 0.25;
@@ -155,7 +155,7 @@ void fragment() {
 }"
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_xdd1n"]
-shader = SubResource("Shader_8lqwe")
+shader = SubResource("Shader_5bgu3")
 shader_parameter/static_intensity = 0.05
 
 [node name="Intro" type="CanvasLayer"]

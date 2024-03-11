@@ -1,6 +1,7 @@
 extends Node3D
 
 const INTRO_DIALOGUE = preload("res://dialogue/bonus.dialogue")
+const END_DIALOGUE = preload("res://dialogue/bonus_end.dialogue")
 const PEDESTRIAN = preload("res://scenes/pedestrian.tscn")
 
 var timer: float
@@ -22,6 +23,8 @@ func _ready():
 	$Player.can_move = true
 	mouse_mode = Input.MOUSE_MODE_CAPTURED
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	
+	Global.treat_collected.connect(_on_treat_collected)
 
 func _process(delta):
 	timer += delta
@@ -45,3 +48,13 @@ func _input(event):
 
 func get_time_text():
 	return "%d:%06.3f" % [floori(timer / 60.0), timer - floorf(timer / 60.0) * 60.0]
+
+func _on_treat_collected():
+	if Global.collected_treats == Global.total_treats:
+		mouse_mode = Input.MOUSE_MODE_VISIBLE
+		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+		$Player.global_position = $PlayerSpawn.global_position
+		$Player.can_move = false
+		DialogueUI.start_dialogue(END_DIALOGUE, true)
+		await DialogueUI.finished
+		get_tree().change_scene_to_file("res://scenes/bonus_world.tscn")

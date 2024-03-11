@@ -1,0 +1,15 @@
+[remap]
+
+importer="dialogue_manager_compiler_11"
+type="Resource"
+uid="uid://bq2m8jkmt2aiw"
+path="res://.godot/imported/baddog_pre.dialogue-0e527bae58bd3a8d69935403fc2be34b.tres"
+
+[deps]
+
+source_file="res://dialogue/tutorial_fight2/baddog_pre.dialogue"
+dest_files=["res://.godot/imported/baddog_pre.dialogue-0e527bae58bd3a8d69935403fc2be34b.tres"]
+
+[params]
+
+defaults=true

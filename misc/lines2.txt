@@ -1,0 +1,7 @@
+well, you found me. congratulations.
+was it worth it?
+===
+thanks for looking into the code! (or at least into this file)
+it's kind of messy around here, but it does not seem that buggy (from my extensive playtesting)
+there is bonus content for collecting all treats, if you haven't done that.
+it includes a secret message! if you're a fan of that sort of thing you might want to try to decipher it.

@@ -1,5 +1,17 @@
-[gd_resource type="StandardMaterial3D" format=3 uid="uid://bw8s137rehho2"]
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://bw8s137rehho2"]
+
+[ext_resource type="Texture2D" uid="uid://rb4yxohtab4f" path="res://materials/metalgrid/grid.png" id="1_krkwd"]
 
 [resource]
+transparency = 2
+alpha_scissor_threshold = 0.5
+alpha_antialiasing_mode = 0
 cull_mode = 2
+diffuse_mode = 3
+specular_mode = 1
+albedo_texture = ExtResource("1_krkwd")
+metallic = 0.7
+roughness = 0.3
+uv1_scale = Vector3(0.1, 0.14, 0.1)
+uv1_triplanar = true
 texture_filter = 0

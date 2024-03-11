@@ -1,4 +1,4 @@
-[gd_scene load_steps=55 format=3 uid="uid://b026alsepp2vu"]
+[gd_scene load_steps=59 format=3 uid="uid://b026alsepp2vu"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_465au"]
 [ext_resource type="Texture2D" uid="uid://bfyxrs0ch5h5i" path="res://graphics/player/idle_back/idle_back0000.png" id="2_hhdjh"]
@@ -40,6 +40,9 @@
 [ext_resource type="Texture2D" uid="uid://cuaimrv0s6e5w" path="res://graphics/player/sweat.png" id="31_b88am"]
 [ext_resource type="Texture2D" uid="uid://s5df4ew465y" path="res://graphics/player/wave/wave0000.png" id="36_akanq"]
 [ext_resource type="Texture2D" uid="uid://c3o1afdpow4iw" path="res://graphics/player/wave/wave0001.png" id="37_53xsh"]
+[ext_resource type="AudioStream" uid="uid://nieic867a3f4" path="res://audio/sfx/world/step2.wav" id="41_5f3cn"]
+[ext_resource type="AudioStream" uid="uid://yarcnx5odaob" path="res://audio/sfx/world/step0.wav" id="41_ywl4n"]
+[ext_resource type="AudioStream" uid="uid://ct0bbwydaiv2c" path="res://audio/sfx/world/slide0.wav" id="43_yyl5o"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_hk1wg"]
 animations = [{
@@ -129,7 +132,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"run_back",
-"speed": 12.0
+"speed": 10.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -146,7 +149,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"run_front",
-"speed": 12.0
+"speed": 10.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -291,6 +294,15 @@ radius = 2.0
 height = 2.5
 radius = 0.6
 
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_l3mnp"]
+random_pitch = 1.1
+random_volume_offset_db = 0.5
+streams_count = 2
+stream_0/stream = ExtResource("41_ywl4n")
+stream_0/weight = 1.0
+stream_1/stream = ExtResource("41_5f3cn")
+stream_1/weight = 1.0
+
 [node name="Player" type="CharacterBody3D" groups=["player"]]
 process_physics_priority = -1
 collision_layer = 2
@@ -318,7 +330,7 @@ shaded = true
 alpha_cut = 1
 texture_filter = 0
 sprite_frames = SubResource("SpriteFrames_hk1wg")
-animation = &"idle_back"
+animation = &"run_side"
 autoplay = "idle_back"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
@@ -410,3 +422,24 @@ collision_mask = 2
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="TriggerArea"]
 shape = SubResource("CylinderShape3D_vvxi4")
+
+[node name="SFX" type="Node3D" parent="."]
+
+[node name="Step" type="AudioStreamPlayer3D" parent="SFX"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.22452, 0)
+stream = SubResource("AudioStreamRandomizer_l3mnp")
+attenuation_model = 3
+pitch_scale = 0.95
+max_polyphony = 2
+bus = &"sfx"
+attenuation_filter_cutoff_hz = 20500.0
+
+[node name="Slide" type="AudioStreamPlayer3D" parent="SFX"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.22452, 0)
+stream = ExtResource("43_yyl5o")
+attenuation_model = 3
+max_polyphony = 2
+bus = &"sfx"
+attenuation_filter_cutoff_hz = 20500.0
+
+[connection signal="frame_changed" from="Sprite" to="." method="_on_sprite_frame_changed"]

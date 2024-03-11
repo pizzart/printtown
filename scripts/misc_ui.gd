@@ -1,7 +1,6 @@
 extends CanvasLayer
 
-const PETS_TEXT = """
-you have %s pets
+const PETS_TEXT = """you have %s pets
 out of %s
 to raid the place
 """

@@ -3,12 +3,14 @@ extends Node3D
 signal transitioned
 
 #const INTRO_DIALOGUE = preload("res://dialogue/intro.dialogue")
+const BUFFER_DIALOGUE = preload("res://dialogue/buffer_tutorial.dialogue")
 const PEDESTRIAN = preload("res://scenes/pedestrian.tscn")
 const PETS_REQUIRED = 2
 
 var timer: float
 var can_interact_shelter: bool
 var mouse_mode = Input.MOUSE_MODE_CAPTURED
+var tutorials_given: Array[String] = []
 @onready var pause_menu = $PauseLayer/Container/SubViewport/PauseMenu
 
 func _ready():
@@ -105,3 +107,12 @@ func _on_cutscene_start_body_entered(body):
 	if body is Player:
 		$Tutorial/CutsceneStart.set_deferred("monitoring", false)
 		$Tutorial/CutscenePlayer.play_cutscene()
+
+func _on_buffering_tutorial_body_entered(body):
+	if body is Player and not "buffer" in tutorials_given:
+		body.sprite.play("idle_back")
+		body.can_move = false
+		DialogueUI.start_dialogue(BUFFER_DIALOGUE, true)
+		await DialogueUI.finished
+		body.can_move = true
+		tutorials_given.append("buffer")

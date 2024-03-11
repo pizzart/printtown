@@ -10,6 +10,7 @@ const PET_TUTORIAL = preload("res://dialogue/tutorial_fight/tutorialfight_pet.di
 const KICK_TUTORIAL = preload("res://dialogue/tutorial_fight/tutorialfight_kick.dialogue")
 const LOWHP_TUTORIAL = preload("res://dialogue/tutorial_fight/tutorialfight_lowhp.dialogue")
 const TREAT_TUTORIAL = preload("res://dialogue/tutorial_fight/tutorialfight_treat.dialogue")
+const GAVE_UP_TUTORIAL = preload("res://dialogue/tutorial_fight/tutorialfight_gaveup.dialogue")
 
 const CAMERA_FOV = 45.0
 const SHAKE_REDUCE = 7.0
@@ -140,6 +141,8 @@ func _input(event):
 				pets_started.emit()
 				FightUI.hand.position = get_viewport().get_mouse_position()
 				FightUI.pet_particles.position = get_viewport().get_mouse_position()
+				FightUI.pet_stat.show()
+				FightUI.set_pet_stat("BAD")
 		if event is InputEventMouseMotion:
 			if petting or pet_awaiting:
 				FightUI.hand.position = get_viewport().get_mouse_position()
@@ -147,7 +150,7 @@ func _input(event):
 				FightUI.pet_particles.position = get_viewport().get_mouse_position()
 				pets_given += event.relative.length()
 				#FightUI.pet_count.text = str(ceili(pets_given / 100.0))
-				add_shake(0.001)
+				add_shake(event.relative.length() * 0.0001)
 				if pets_given < BAD_PETS:
 					FightUI.set_pet_stat("BAD")
 				elif pets_given < OK_PETS:
@@ -263,8 +266,9 @@ func check_enemy_health():
 	
 	if enemy.health <= 0:
 		FightUI.disable_all()
-		if dialogue_kicked:
-			DialogueUI.start_dialogue(dialogue_kicked, false)
+		if not gave_up_tutorial_given:
+			gave_up_tutorial_given = true
+			DialogueUI.start_dialogue(GAVE_UP_TUTORIAL, false)
 			await DialogueUI.finished
 		if is_tutorial:
 			FightUI.enable_all(Global.treats > 0, true)
@@ -366,11 +370,10 @@ func _on_petted():
 			FightUI.disable_all()
 			DialogueUI.start_dialogue(dialogue_big_progress, false)
 			await DialogueUI.finished
+		FightUI.enable_all(Global.treats > 0, true)
 		if is_tutorial:
 			FightUI.disable_all()
 			FightUI.sticker_btn.disabled = false
-		else:
-			FightUI.enable_all(Global.treats > 0, true)
 
 func _on_kicked():
 	var tween = create_tween().set_parallel()
@@ -559,6 +562,8 @@ func finish_fight(success: bool):
 	player.post_fight()
 	if success:
 		queue_free()
+	else:
+		enable()
 
 func _on_healed(pet: Animals.Animal):
 	$Pet.texture = pet.texture

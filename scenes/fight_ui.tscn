@@ -1046,7 +1046,7 @@ autoplay = "default"
 centered = false
 
 [node name="Label" type="Label" parent="PetStat"]
-offset_left = 41.0
+offset_left = 54.0
 offset_top = 43.0
 offset_right = 237.0
 offset_bottom = 151.0

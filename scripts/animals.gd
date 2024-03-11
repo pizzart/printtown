@@ -90,7 +90,7 @@ class BadDog:
 	extends Animal
 	const TEXTURE = preload("res://graphics/animals/dog.png")
 	func _init():
-		super._init(TEXTURE, &"dog", 0.1, 0.9, 0.7, 10, 3, 0.6, 2)
+		super._init(TEXTURE, &"dog", 0.3, 0.7, 0.8, 8, 2, 0.7, 2)
 
 class Cat:
 	extends Animal
@@ -104,11 +104,25 @@ class Giraffe:
 	func _init():
 		super._init(TEXTURE, &"giraffe", 0.0, 1.0, 0.1, 30, 5, 0.9, 5)
 
+class BadderDog:
+	extends Animal
+	const TEXTURE = preload("res://graphics/animals/dog.png")
+	func _init():
+		super._init(TEXTURE, &"dog", 0.1, 0.9, 0.5, 10, 3, 0.6, 3)
+
+class Pigeon:
+	extends Animal
+	const TEXTURE = preload("res://graphics/animals/cat.png")
+	func _init():
+		super._init(TEXTURE, &"cat", 0.3, 1.0, 0.5, 5, 1, 0.4, 4)
+
 enum AnimalType {
 	DOG,
 	BAD_DOG,
 	CAT,
 	GIRAFFE,
+	BADDER_DOG,
+	PIGEON,
 }
 
 var animals = {
@@ -116,4 +130,6 @@ var animals = {
 	AnimalType.BAD_DOG: BadDog,
 	AnimalType.CAT: Cat,
 	AnimalType.GIRAFFE: Giraffe,
+	AnimalType.BADDER_DOG: BadderDog,
+	AnimalType.PIGEON: Pigeon,
 }

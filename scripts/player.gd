@@ -230,6 +230,7 @@ func ground(_delta: float, input_dir: Vector2):
 		state = State.AIR
 		play_jump_animation(input_dir)
 		spawn_jump_particles()
+		$SFX/Step.play()
 		#$JumpParticles.restart()
 	
 	if not is_on_floor():
@@ -267,6 +268,7 @@ func air(delta: float, input_dir: Vector2):
 			coyote = COYOTE_TIME + delta
 			velocity.y = JUMP_VELOCITY
 			play_jump_animation(input_dir)
+			$SFX/Step.play()
 		else:
 			jump_buffered = true
 	
@@ -303,6 +305,7 @@ func air(delta: float, input_dir: Vector2):
 			velocity.y = JUMP_VELOCITY
 			play_jump_animation(input_dir)
 			spawn_jump_particles()
+			$SFX/Step.play()
 		else:
 			state = State.GROUND
 	elif wall_cast.is_colliding():
@@ -318,6 +321,7 @@ func air(delta: float, input_dir: Vector2):
 				wall_slide_jump(direction)
 			else:
 				state = State.WALLSLIDE
+				$SFX/Slide.play()
 			jump_buffered = false
 
 func ledge(delta: float, input_dir: Vector2):
@@ -363,6 +367,7 @@ func ledge(delta: float, input_dir: Vector2):
 		velocity.y = JUMP_VELOCITY
 		state = State.AIR
 		play_jump_animation(input_dir)
+		$SFX/Step.play()
 
 func wall_slide(delta: float, input_dir: Vector2):
 	stamina = clampf(stamina + WALL_RECOVERY * delta, 0, MAX_STAMINA)
@@ -396,9 +401,11 @@ func wall_slide(delta: float, input_dir: Vector2):
 		jump_time = 0
 		state = State.GROUND
 		smoke_particles.emitting = false
+		$SFX/Slide.stop()
 	elif not wall_cast.is_colliding() or velocity.y > 0:
 		state = State.AIR
 		smoke_particles.emitting = false
+		$SFX/Slide.stop()
 	else:
 		if grab_cast.is_colliding():
 			var normal = grab_cast.get_collision_normal(0)
@@ -407,6 +414,7 @@ func wall_slide(delta: float, input_dir: Vector2):
 				velocity.y = 0
 				state = State.LEDGE
 				smoke_particles.emitting = false
+				$SFX/Slide.stop()
 
 func wall_slide_jump(direction: Vector3):
 	if wall_cast.is_colliding():
@@ -422,6 +430,7 @@ func wall_slide_jump(direction: Vector3):
 		smoke_particles.emitting = false
 		#$JumpParticles.restart()
 		spawn_jump_particles()
+		$SFX/Step.play()
 
 #func roll(delta: float, _input_dir: Vector2):
 	#roll_time += delta
@@ -445,6 +454,7 @@ func prepare_fight():
 	RenderingServer.global_shader_parameter_set("ca_strength", Global.DEFAULT_CA)
 	sprite.play("idle_back")
 	can_move = false
+	sprite.scale.y = 1.0
 
 func post_fight():
 	can_move = true
@@ -476,3 +486,17 @@ func _input(event):
 	if event is InputEventMouseMotion:
 		rotation.y -= event.relative.x * 0.002
 		gimbal.rotation.x = clampf(gimbal.rotation.x - event.relative.y * 0.002, -PI / 2.5, PI / 6)
+
+func _on_sprite_frame_changed():
+	if is_on_floor():
+		if sprite.animation.begins_with("walk"):
+			if sprite.animation == "walk_front" and Input.get_vector("left", "right", "forward", "backward") == Vector2.ZERO:
+				return
+			if sprite.frame % 2 == 0:
+				$SFX/Step.play()
+		elif sprite.animation == "run_side":
+			if sprite.frame == 0:
+				$SFX/Step.play()
+		elif sprite.animation.begins_with("run"):
+			if sprite.frame % 2 != 0:
+				$SFX/Step.play()

@@ -1,8 +1,0 @@
-~ start
-
-dog: woof, woof! (where do you think you are?)
-{{player_name}}: ummm.. woof?
-dog: woof!!!! (that's right!!!!) woof WOOF (get out of here, NOW)
-{{player_name}}: sorry, i don't understand...
-
-=> END

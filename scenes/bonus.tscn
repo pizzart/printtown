@@ -300,7 +300,7 @@ alignment = 2
 [node name="Notice2" type="Label" parent="M/Text"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.105882, 0.105882, 0.105882, 1)
-text = "did you know you could skip text with E?"
+text = "did you know you could skip text with Q?"
 horizontal_alignment = 2
 
 [node name="Notice" type="Label" parent="M/Text"]

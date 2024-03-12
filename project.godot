@@ -39,6 +39,10 @@ window/size/window_width_override=960
 window/size/window_height_override=720
 window/stretch/mode="viewport"
 
+[editor]
+
+run/main_run_args="prime-run %command%"
+
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/cyclops_level_builder/plugin.cfg", "res://addons/dialogue_manager/plugin.cfg")
@@ -132,7 +136,6 @@ textures/default_filters/anisotropic_filtering_level=3
 textures/decals/filter=0
 textures/light_projectors/filter=0
 occlusion_culling/use_occlusion_culling=true
-mesh_lod/lod_change/threshold_pixels=107.0
 
 [shader_globals]
 

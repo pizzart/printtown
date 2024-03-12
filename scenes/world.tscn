@@ -1,4 +1,4 @@
-[gd_scene load_steps=642 format=3 uid="uid://5th0yhcrbxbj"]
+[gd_scene load_steps=643 format=3 uid="uid://5th0yhcrbxbj"]
 
 [ext_resource type="PackedScene" uid="uid://b026alsepp2vu" path="res://scenes/player.tscn" id="1_lquvg"]
 [ext_resource type="Script" path="res://scripts/world.gd" id="1_mmxcb"]
@@ -31,6 +31,7 @@
 [ext_resource type="PackedScene" uid="uid://mgyefgmew2ml" path="res://scenes/shelter.tscn" id="24_v7n0l"]
 [ext_resource type="Script" path="res://scripts/cutscene.gd" id="25_w7kha"]
 [ext_resource type="Script" path="res://scripts/cutscene_action.gd" id="26_e12w1"]
+[ext_resource type="PackedScene" uid="uid://b5kno7lcrno2h" path="res://scenes/props/lamp.tscn" id="26_sn62p"]
 [ext_resource type="Resource" uid="uid://dlalgljyspuhv" path="res://dialogue/finale/finale_start.dialogue" id="27_o1f3t"]
 [ext_resource type="Texture2D" uid="uid://bfyxrs0ch5h5i" path="res://graphics/player/idle_back/idle_back0000.png" id="27_v1wyq"]
 [ext_resource type="Texture2D" uid="uid://birm7weds64kj" path="res://graphics/player/idle_back/idle_back0001.png" id="28_g4a7d"]
@@ -82,17 +83,6 @@
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_sxwpf"]
 render_priority = 0
 shader = ExtResource("13_25iw6")
-shader_parameter/outlineColor = Color(0, 0, 0, 1)
-shader_parameter/depth_threshold = 0.025
-shader_parameter/normal_threshold = 0.4
-shader_parameter/normal_smoothing = 0.25
-shader_parameter/max_thickness = 1.8
-shader_parameter/min_thickness = 0.1
-shader_parameter/max_distance = 200.0
-shader_parameter/min_distance = 2.0
-shader_parameter/grazing_fresnel_power = 5.0
-shader_parameter/grazing_angle_mask_power = 1.0
-shader_parameter/grazing_angle_modulation_factor = 50.0
 
 [sub_resource type="QuadMesh" id="QuadMesh_nopq4"]
 material = SubResource("ShaderMaterial_sxwpf")
@@ -16406,6 +16396,42 @@ transform = Transform3D(0.258819, 0, -0.965926, 0, 1, 0, 0.965926, 0, 0.258819, 
 [node name="Billboard3" parent="Props" instance=ExtResource("21_2inpv")]
 transform = Transform3D(0.965926, 0, 0.258819, 0, 1, 0, -0.258819, 0, 0.965926, -59, 27, -6)
 
+[node name="Lamp" parent="Props" instance=ExtResource("26_sn62p")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -116, -2, -17)
+
+[node name="Lamp2" parent="Props" instance=ExtResource("26_sn62p")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -69, 3, 35)
+
+[node name="Lamp3" parent="Props" instance=ExtResource("26_sn62p")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -28, -2, 26)
+
+[node name="Lamp4" parent="Props" instance=ExtResource("26_sn62p")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 27, -2, 16)
+
+[node name="Lamp5" parent="Props" instance=ExtResource("26_sn62p")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21, -2, 55)
+
+[node name="Lamp6" parent="Props" instance=ExtResource("26_sn62p")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -28, 3, -16)
+
+[node name="Lamp7" parent="Props" instance=ExtResource("26_sn62p")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -75, -2, -17)
+
+[node name="Lamp8" parent="Props" instance=ExtResource("26_sn62p")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -86, 8, -37)
+
+[node name="Lamp9" parent="Props" instance=ExtResource("26_sn62p")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -43, 8, -78)
+
+[node name="Lamp10" parent="Props" instance=ExtResource("26_sn62p")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 8, -64)
+
+[node name="Lamp11" parent="Props" instance=ExtResource("26_sn62p")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30, -2, -58)
+
+[node name="Lamp12" parent="Props" instance=ExtResource("26_sn62p")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -56, -2, 10)
+
 [node name="FX" parent="." instance=ExtResource("11_qfrrq")]
 
 [node name="Overlay" type="CanvasLayer" parent="."]
@@ -16687,7 +16713,6 @@ transform = Transform3D(0.946649, 0.0106848, 0.322088, 0, 0.99945, -0.0331552, -
 transform = Transform3D(0.722967, 0.224929, 0.653242, 0, 0.945518, -0.325568, -0.690882, 0.235375, 0.683579, -16.931, 56.924, 14.463)
 
 [node name="Camera3D" type="Camera3D" parent="Tutorial/Camera4"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 fov = 50.0
 
 [node name="Camera3" type="Marker3D" parent="Tutorial"]

@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://b5kno7lcrno2h"]
+
+[ext_resource type="PackedScene" uid="uid://dtv185n6ll8a8" path="res://models/lamp.glb" id="1_krc0k"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_utrjq"]
+size = Vector3(2.15259, 12.8337, 1.95801)
+
+[node name="Lamp" instance=ExtResource("1_krc0k")]
+
+[node name="Cylinder" parent="." index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.93328, 0)
+
+[node name="Cube" parent="." index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10.5333, 0)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.40035, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" index="0"]
+shape = SubResource("BoxShape3D_utrjq")

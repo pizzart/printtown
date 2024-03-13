@@ -1,0 +1,18 @@
+[gd_scene load_steps=2 format=3 uid="uid://b1dge5jcyxat3"]
+
+[ext_resource type="PackedScene" uid="uid://ccbiamyuijj13" path="res://models/light.glb" id="1_eimrv"]
+
+[node name="Lightbulb" instance=ExtResource("1_eimrv")]
+
+[node name="OmniLight3D" type="OmniLight3D" parent="." index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.8, 0)
+light_color = Color(0.811765, 0.858824, 0.901961, 1)
+omni_range = 15.66
+omni_attenuation = 0.241484
+
+[node name="SpotLight3D" type="SpotLight3D" parent="OmniLight3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
+light_color = Color(0.811765, 0.858824, 0.901961, 1)
+light_energy = 2.959
+spot_range = 15.024
+spot_angle = 59.69

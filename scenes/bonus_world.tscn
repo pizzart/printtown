@@ -290,3 +290,9 @@ render_target_update_mode = 0
 
 [node name="PauseMenu" parent="PauseLayer/Container/SubViewport" instance=ExtResource("23_4u8fh")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -310, 0)
+
+[node name="Image" type="Sprite3D" parent="."]
+transform = Transform3D(0.923793, 0, -0.382893, 0, 1, 0, 0.382893, 0, 0.923793, 72.0518, 1.05416, -49.8749)
+pixel_size = 0.16
+axis = 1
+texture_filter = 0

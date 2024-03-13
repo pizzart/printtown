@@ -196,7 +196,7 @@ frame_progress = 1.0
 
 [node name="FlipSFX" type="AudioStreamPlayer3D" parent="StickerbookPoint"]
 stream = SubResource("AudioStreamRandomizer_43nrj")
-volume_db = -10.0
+volume_db = -15.0
 bus = &"sfx"
 
 [node name="AppearSFX" type="AudioStreamPlayer3D" parent="StickerbookPoint"]

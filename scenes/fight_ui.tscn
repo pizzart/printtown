@@ -1,4 +1,4 @@
-[gd_scene load_steps=111 format=3 uid="uid://pdbbxowv0d4p"]
+[gd_scene load_steps=113 format=3 uid="uid://pdbbxowv0d4p"]
 
 [ext_resource type="Script" path="res://scripts/fight_ui.gd" id="1_gmjmh"]
 [ext_resource type="Theme" uid="uid://dn7uhmqeylu42" path="res://misc/ui.theme" id="2_vrryk"]
@@ -95,6 +95,7 @@
 [ext_resource type="AudioStream" uid="uid://c15i23ub435n7" path="res://audio/sfx/fight/btn_disabled.wav" id="93_yiot5"]
 [ext_resource type="AudioStream" uid="uid://yflouckgthlg" path="res://audio/sfx/pop/pop0.wav" id="94_l16j3"]
 [ext_resource type="AudioStream" uid="uid://b4tn2tk83egkk" path="res://audio/sfx/pop/pop1.wav" id="95_2s44f"]
+[ext_resource type="AudioStream" uid="uid://c1p825dwihngc" path="res://audio/sfx/fight/stamp.wav" id="96_w7yug"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_l5lus"]
 animations = [{
@@ -433,6 +434,13 @@ stream_0/stream = ExtResource("94_l16j3")
 stream_0/weight = 1.0
 stream_1/stream = ExtResource("95_2s44f")
 stream_1/weight = 1.0
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_0fu42"]
+random_pitch = 1.1
+random_volume_offset_db = 1.0
+streams_count = 1
+stream_0/stream = ExtResource("96_w7yug")
+stream_0/weight = 1.0
 
 [node name="FightUI" type="CanvasLayer"]
 script = ExtResource("1_gmjmh")
@@ -1170,6 +1178,10 @@ bus = &"sfx"
 
 [node name="Select" type="AudioStreamPlayer" parent="SFX"]
 stream = SubResource("AudioStreamRandomizer_ht1i6")
+bus = &"sfx"
+
+[node name="Stamp" type="AudioStreamPlayer" parent="SFX"]
+stream = SubResource("AudioStreamRandomizer_0fu42")
 bus = &"sfx"
 
 [connection signal="pressed" from="C/Pet" to="." method="_on_pet_pressed"]

@@ -55,8 +55,9 @@ func _input(event):
 	if event.is_action_pressed("interact") and can_interact_shelter and Global.animals.size() >= PETS_REQUIRED:
 		$ShelterArea.set_deferred("monitoring", false)
 		can_interact_shelter = false
-		$Player.can_move = false
-		await get_tree().create_timer(2.0).timeout
+		$Player.prepare_fight()
+		$Ambience.stop()
+		#await get_tree().create_timer(2.0).timeout
 		transition()
 		await transitioned
 		await $Shelter/CutscenePlayer.play_cutscene()
@@ -82,6 +83,7 @@ func transition():
 	var tween = create_tween()
 	tween.tween_method(set_trans, 1.0, 0.0, 1.0).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
 	tween.tween_callback(emit_signal.bind("transitioned"))
+	tween.tween_interval(0.1)
 	tween.tween_method(set_trans, 0.0, 1.0, 1.0).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_IN)
 
 func get_time_text():
@@ -118,7 +120,6 @@ func _on_cutscene_start_body_entered(body):
 
 func _on_buffering_tutorial_body_entered(body):
 	if body is Player and not "buffer" in tutorials_given:
-		
 		tutorials_given.append("buffer")
 		
 		mouse_mode = Input.MOUSE_MODE_VISIBLE
@@ -135,6 +136,7 @@ func _on_buffering_tutorial_body_entered(body):
 
 func _on_treat_collected():
 	if Global.collected_treats == Global.total_treats:
+		Global.bonus_unlocked = true
 		mouse_mode = Input.MOUSE_MODE_VISIBLE
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 		

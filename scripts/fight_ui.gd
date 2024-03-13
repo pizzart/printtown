@@ -157,6 +157,7 @@ func update_mood(mood: float):
 		$StampAnimation.play("stamp")
 		await $StampAnimation.frame_changed
 		await $StampAnimation.frame_changed
+		$SFX/Stamp.play()
 		stamp.texture = new_texture
 
 func update_guard(guard: float):
@@ -349,7 +350,11 @@ func show_convince(success: bool):
 		convince_anim.play("success")
 	else:
 		convince_anim.play("fail")
+	$SFX/Select.play()
+	await get_tree().create_timer(1).timeout
+	$SFX/Select.play()
 	await convince_anim.animation_finished
+	$SFX/Select.play()
 	await get_tree().create_timer(0.5).timeout
 	convince_anim.hide()
 
@@ -415,12 +420,14 @@ func _on_scissors_pressed():
 	rps_chosen.emit(Global.RPS.SCISSORS)
 
 func _on_stickers_back_pressed():
+	$SFX/Sticker.play()
 	unhide()
 	remove_picked()
 	sticker_ui.hide()
 	stickers_closed.emit()
 
 func _on_heal_pressed():
+	$SFX/Sticker.play()
 	healed.emit(Global.animals[picked_animal_index])
 	stickers_closed.emit()
 	animal_grid.get_child(picked_animal_index).disabled = true
@@ -431,6 +438,7 @@ func _on_heal_pressed():
 	partial_hide()
 
 func _on_bite_pressed():
+	$SFX/Sticker.play()
 	bitten.emit(Global.animals[picked_animal_index])
 	stickers_closed.emit()
 	animal_grid.get_child(picked_animal_index).disabled = true
@@ -441,6 +449,7 @@ func _on_bite_pressed():
 	partial_hide()
 
 func _on_convince_pressed():
+	$SFX/Sticker.play()
 	convinced.emit(Global.animals[picked_animal_index])
 	stickers_closed.emit()
 	animal_grid.get_child(picked_animal_index).disabled = true

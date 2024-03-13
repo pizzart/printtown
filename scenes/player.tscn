@@ -40,11 +40,11 @@
 [ext_resource type="Texture2D" uid="uid://cuaimrv0s6e5w" path="res://graphics/player/sweat.png" id="31_b88am"]
 [ext_resource type="Texture2D" uid="uid://s5df4ew465y" path="res://graphics/player/wave/wave0000.png" id="36_akanq"]
 [ext_resource type="Texture2D" uid="uid://c3o1afdpow4iw" path="res://graphics/player/wave/wave0001.png" id="37_53xsh"]
-[ext_resource type="AudioStream" uid="uid://nieic867a3f4" path="res://audio/sfx/world/player/step2.wav" id="41_5f3cn"]
-[ext_resource type="AudioStream" uid="uid://bo8f4jyx6evh2" path="res://audio/sfx/world/player/land0.wav" id="41_8wnub"]
-[ext_resource type="AudioStream" uid="uid://yarcnx5odaob" path="res://audio/sfx/world/player/step0.wav" id="41_ywl4n"]
-[ext_resource type="AudioStream" uid="uid://cw5ok22mmkfei" path="res://audio/sfx/world/player/land1.wav" id="43_nsxuy"]
-[ext_resource type="AudioStream" uid="uid://d4frjdh1cn0tr" path="res://audio/sfx/world/player/slide1.wav" id="43_y1act"]
+[ext_resource type="AudioStream" uid="uid://nieic867a3f4" path="res://audio/sfx/player/step2.wav" id="41_5f3cn"]
+[ext_resource type="AudioStream" uid="uid://bo8f4jyx6evh2" path="res://audio/sfx/player/land0.wav" id="41_8wnub"]
+[ext_resource type="AudioStream" uid="uid://yarcnx5odaob" path="res://audio/sfx/player/step0.wav" id="41_ywl4n"]
+[ext_resource type="AudioStream" uid="uid://cw5ok22mmkfei" path="res://audio/sfx/player/land1.wav" id="43_nsxuy"]
+[ext_resource type="AudioStream" uid="uid://d4frjdh1cn0tr" path="res://audio/sfx/player/slide1.wav" id="43_y1act"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_hk1wg"]
 animations = [{

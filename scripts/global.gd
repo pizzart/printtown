@@ -13,6 +13,8 @@ var player_name: String = "player"
 var treats: int = 0
 var collected_treats: int = 0
 var total_treats: int = 0
+var bonus_unlocked: bool
+var bonus_visited: bool
 var animals: Array[Animals.Animal] = debug_animals if OS.is_debug_build() else []
 
 var ca_enabled: bool = true

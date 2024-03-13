@@ -224,82 +224,39 @@ theme_override_constants/margin_right = 16
 theme_override_constants/margin_bottom = 16
 
 [node name="Buttons" type="VBoxContainer" parent="M"]
-visible = false
 layout_mode = 2
 size_flags_horizontal = 0
 alignment = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="M/Buttons"]
-custom_minimum_size = Vector2(133, 0)
-layout_mode = 2
-size_flags_horizontal = 0
-
-[node name="World" type="Button" parent="M/Buttons/VBoxContainer"]
+[node name="World" type="Button" parent="M/Buttons"]
 layout_mode = 2
 mouse_default_cursor_shape = 2
 action_mode = 0
 text = "bonus world"
 metadata/_edit_use_anchors_ = true
 
-[node name="Codes" type="Button" parent="M/Buttons/VBoxContainer"]
-layout_mode = 2
-mouse_default_cursor_shape = 2
-action_mode = 0
-text = "codes"
-metadata/_edit_use_anchors_ = true
-
-[node name="Quit" type="Button" parent="M/Buttons/VBoxContainer"]
+[node name="Quit" type="Button" parent="M/Buttons"]
 layout_mode = 2
 mouse_default_cursor_shape = 2
 action_mode = 0
 text = "quit to desktop"
 metadata/_edit_use_anchors_ = true
 
-[node name="Codes" type="VBoxContainer" parent="M"]
-custom_minimum_size = Vector2(320, 0)
-layout_mode = 2
-size_flags_horizontal = 0
-alignment = 1
-
-[node name="Label" type="Label" parent="M/Codes"]
-layout_mode = 2
-text = "codes"
-
-[node name="Base64Edit" type="LineEdit" parent="M/Codes"]
-layout_mode = 2
-placeholder_text = "decode base64..."
-caret_blink = true
-
-[node name="CodeEdit" type="LineEdit" parent="M/Codes"]
-layout_mode = 2
-placeholder_text = "enter code..."
-caret_blink = true
-
-[node name="Submit" type="Button" parent="M/Codes"]
-layout_mode = 2
-mouse_default_cursor_shape = 2
-action_mode = 0
-text = "submit"
-metadata/_edit_use_anchors_ = true
-
-[node name="Back" type="Button" parent="M/Codes"]
-layout_mode = 2
-mouse_default_cursor_shape = 2
-action_mode = 0
-text = "back"
-metadata/_edit_use_anchors_ = true
-
-[node name="RichTextLabel" type="RichTextLabel" parent="M/Codes"]
-layout_mode = 2
-
 [node name="Text" type="VBoxContainer" parent="M"]
 layout_mode = 2
 mouse_filter = 2
 alignment = 2
 
+[node name="Hint" type="Label" parent="M/Text"]
+visible = false
+layout_mode = 2
+theme_override_colors/font_color = Color(0.0745098, 0.0745098, 0.0745098, 1)
+text = "check the cube"
+horizontal_alignment = 2
+
 [node name="Notice2" type="Label" parent="M/Text"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.105882, 0.105882, 0.105882, 1)
+theme_override_colors/font_color = Color(0.145098, 0.145098, 0.145098, 1)
 text = "did you know you could skip text with Q?"
 horizontal_alignment = 2
 
@@ -343,6 +300,16 @@ font = ExtResource("1_bvo5t")
 font_size = 28
 outline_size = 8
 
+[node name="Hint" type="Label3D" parent="C/View/Cube/Box"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.501, 0, 0)
+visible = false
+pixel_size = 0.0098
+texture_filter = 0
+text = "base64"
+font = ExtResource("1_bvo5t")
+font_size = 8
+outline_size = 8
+
 [node name="Camera3D" type="Camera3D" parent="C/View/Cube"]
 transform = Transform3D(0.984808, 0, -0.173648, 0, 1, 0, 0.173648, 0, 0.984808, -0.5, 0, 3)
 fov = 45.0
@@ -371,6 +338,6 @@ volume_db = -35.0
 autoplay = true
 bus = &"sfx"
 
-[connection signal="text_changed" from="M/Codes/Base64Edit" to="." method="_on_base_64_edit_text_changed"]
-[connection signal="text_changed" from="M/Codes/CodeEdit" to="." method="_on_code_edit_text_changed"]
+[connection signal="pressed" from="M/Buttons/World" to="." method="_on_world_pressed"]
+[connection signal="pressed" from="M/Buttons/Quit" to="." method="_on_quit_pressed"]
 [connection signal="gui_input" from="C" to="." method="_on_3dview_input"]

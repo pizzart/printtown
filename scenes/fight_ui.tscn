@@ -1,4 +1,4 @@
-[gd_scene load_steps=104 format=3 uid="uid://pdbbxowv0d4p"]
+[gd_scene load_steps=111 format=3 uid="uid://pdbbxowv0d4p"]
 
 [ext_resource type="Script" path="res://scripts/fight_ui.gd" id="1_gmjmh"]
 [ext_resource type="Theme" uid="uid://dn7uhmqeylu42" path="res://misc/ui.theme" id="2_vrryk"]
@@ -91,6 +91,10 @@
 [ext_resource type="Texture2D" uid="uid://2gkqg0whnsv2" path="res://graphics/ui/fight/convince/convince0011.png" id="89_flf4c"]
 [ext_resource type="Texture2D" uid="uid://bop5w6a7a36qe" path="res://graphics/ui/fight/convince/convince0013.png" id="90_eeobj"]
 [ext_resource type="Texture2D" uid="uid://btna25td0vh0l" path="res://graphics/ui/fight/convince/convince0012.png" id="91_fkxhw"]
+[ext_resource type="AudioStream" uid="uid://yef730k3xoa3" path="res://audio/sfx/fight/sticker.wav" id="92_em132"]
+[ext_resource type="AudioStream" uid="uid://c15i23ub435n7" path="res://audio/sfx/fight/btn_disabled.wav" id="93_yiot5"]
+[ext_resource type="AudioStream" uid="uid://yflouckgthlg" path="res://audio/sfx/pop/pop0.wav" id="94_l16j3"]
+[ext_resource type="AudioStream" uid="uid://b4tn2tk83egkk" path="res://audio/sfx/pop/pop1.wav" id="95_2s44f"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_l5lus"]
 animations = [{
@@ -409,6 +413,26 @@ animations = [{
 "name": &"success",
 "speed": 6.0
 }]
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_qxi8c"]
+random_pitch = 1.5
+streams_count = 1
+stream_0/stream = ExtResource("92_em132")
+stream_0/weight = 1.0
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_tmol5"]
+random_pitch = 1.5
+streams_count = 1
+stream_0/stream = ExtResource("93_yiot5")
+stream_0/weight = 1.0
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_ht1i6"]
+random_pitch = 1.1
+streams_count = 2
+stream_0/stream = ExtResource("94_l16j3")
+stream_0/weight = 1.0
+stream_1/stream = ExtResource("95_2s44f")
+stream_1/weight = 1.0
 
 [node name="FightUI" type="CanvasLayer"]
 script = ExtResource("1_gmjmh")
@@ -1134,11 +1158,27 @@ sprite_frames = SubResource("SpriteFrames_uup8v")
 animation = &"fail"
 metadata/_edit_use_anchors_ = true
 
+[node name="SFX" type="Node" parent="."]
+
+[node name="Sticker" type="AudioStreamPlayer" parent="SFX"]
+stream = SubResource("AudioStreamRandomizer_qxi8c")
+bus = &"sfx"
+
+[node name="Disabled" type="AudioStreamPlayer" parent="SFX"]
+stream = SubResource("AudioStreamRandomizer_tmol5")
+bus = &"sfx"
+
+[node name="Select" type="AudioStreamPlayer" parent="SFX"]
+stream = SubResource("AudioStreamRandomizer_ht1i6")
+bus = &"sfx"
+
 [connection signal="pressed" from="C/Pet" to="." method="_on_pet_pressed"]
 [connection signal="pressed" from="C/Kick" to="." method="_on_kick_pressed"]
+[connection signal="gui_input" from="C/Treat" to="." method="_on_treat_gui_input"]
 [connection signal="mouse_entered" from="C/Treat" to="." method="_on_treat_mouse_entered"]
 [connection signal="mouse_exited" from="C/Treat" to="." method="_on_treat_mouse_exited"]
 [connection signal="pressed" from="C/Treat" to="." method="_on_treat_pressed"]
+[connection signal="gui_input" from="C/Call" to="." method="_on_call_gui_input"]
 [connection signal="pressed" from="C/Call" to="." method="_on_call_pressed"]
 [connection signal="pressed" from="C/Sticker" to="." method="_on_sticker_pressed"]
 [connection signal="pressed" from="RPS/Rock" to="." method="_on_rock_pressed"]

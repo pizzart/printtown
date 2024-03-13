@@ -112,9 +112,9 @@ class BadderDog:
 
 class Pigeon:
 	extends Animal
-	const TEXTURE = preload("res://graphics/animals/cat.png")
+	const TEXTURE = preload("res://graphics/animals/pigeon.png")
 	func _init():
-		super._init(TEXTURE, &"cat", 0.3, 1.0, 0.5, 5, 1, 0.4, 4)
+		super._init(TEXTURE, &"pigeon", 0.3, 1.0, 0.5, 5, 1, 0.8, 4)
 
 enum AnimalType {
 	DOG,

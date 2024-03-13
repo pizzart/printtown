@@ -258,6 +258,7 @@ func update_grid():
 		c.queue_free()
 	for i in range(Global.animals.size()):
 		var btn = ANIMAL_BTN.instantiate()
+		btn.health = Global.animals[i].health
 		btn.disabled = Global.animals[i].health <= 0
 		btn.pressed.connect(_on_animal_pressed.bind(i))
 		btn.mouse_entered.connect(_on_animal_hovered.bind(Global.animals[i]))
@@ -267,6 +268,7 @@ func update_grid():
 
 func add_animal(animal: Animals.Animal):
 	var btn = ANIMAL_BTN.instantiate()
+	btn.health = animal.health
 	btn.disabled = animal.health <= 0
 	btn.icon = animal.texture
 	animal_grid.add_child(btn)
@@ -353,9 +355,11 @@ func show_convince(success: bool):
 
 func enable_all_animals():
 	for c in animal_grid.get_children():
-		c.disabled = false
+		c.disabled = c.health <= 0
 
 func _on_animal_pressed(index: int):
+	$SFX/Select.play()
+	
 	heal_btn.disabled = false
 	bite_btn.disabled = false
 	convince_btn.disabled = false
@@ -377,29 +381,37 @@ func _on_animal_unhovered():
 		note.text = ""
 
 func _on_pet_pressed():
+	$SFX/Sticker.play()
 	petted.emit()
 
 func _on_kick_pressed():
+	$SFX/Sticker.play()
 	kicked.emit()
 
 func _on_sticker_pressed():
+	#$SFX/Sticker.play()
 	stickered.emit()
 
 func _on_treat_pressed():
+	$SFX/Sticker.play()
 	treated.emit()
 
 func _on_call_pressed():
+	$SFX/Sticker.play()
 	partial_hide()
 	show_stickers()
 	stickers_opened.emit()
 
 func _on_rock_pressed():
+	$SFX/Sticker.play()
 	rps_chosen.emit(Global.RPS.ROCK)
 
 func _on_paper_pressed():
+	$SFX/Sticker.play()
 	rps_chosen.emit(Global.RPS.PAPER)
 
 func _on_scissors_pressed():
+	$SFX/Sticker.play()
 	rps_chosen.emit(Global.RPS.SCISSORS)
 
 func _on_stickers_back_pressed():
@@ -444,3 +456,15 @@ func _on_treat_mouse_entered():
 
 func _on_treat_mouse_exited():
 	$C/Treat/TreatCount.hide()
+
+func _on_treat_gui_input(event):
+	if event is InputEventMouseButton:
+		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+			if treat_btn.disabled:
+				$SFX/Disabled.play()
+
+func _on_call_gui_input(event):
+	if event is InputEventMouseButton:
+		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+			if call_btn.disabled:
+				$SFX/Disabled.play()

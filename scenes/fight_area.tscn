@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://3wjt4mg1ab42"]
+[gd_scene load_steps=20 format=3 uid="uid://3wjt4mg1ab42"]
 
 [ext_resource type="Script" path="res://scripts/fight.gd" id="1_u3h0q"]
 [ext_resource type="Texture2D" uid="uid://b7vij1q44oa4b" path="res://graphics/animals/dog.png" id="3_ovfvl"]
@@ -7,6 +7,9 @@
 [ext_resource type="Texture2D" uid="uid://bbu2mesp10n80" path="res://graphics/ui/fight/stickerbook/stickerbook0000.png" id="5_h12cg"]
 [ext_resource type="Texture2D" uid="uid://4apha2vltyoi" path="res://graphics/ui/fight/stickerbook/stickerbook0001.png" id="6_ekaih"]
 [ext_resource type="Texture2D" uid="uid://bf4fm6ce01idn" path="res://graphics/ui/fight/stickerbook/stickerbook0002.png" id="7_au4u1"]
+[ext_resource type="AudioStream" uid="uid://d2epi2wiawpao" path="res://audio/sfx/book_flip.wav" id="8_107m2"]
+[ext_resource type="AudioStream" uid="uid://yflouckgthlg" path="res://audio/sfx/pop/pop0.wav" id="9_v3njq"]
+[ext_resource type="AudioStream" uid="uid://b4tn2tk83egkk" path="res://audio/sfx/pop/pop1.wav" id="10_fg50f"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_5mdvx"]
 size = Vector3(5, 2, 6)
@@ -80,6 +83,21 @@ animations = [{
 "name": &"open",
 "speed": 16.0
 }]
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_43nrj"]
+random_pitch = 1.2
+random_volume_offset_db = 0.3
+streams_count = 1
+stream_0/stream = ExtResource("8_107m2")
+stream_0/weight = 1.0
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_60pvs"]
+random_pitch = 1.1
+streams_count = 2
+stream_0/stream = ExtResource("9_v3njq")
+stream_0/weight = 1.0
+stream_1/stream = ExtResource("10_fg50f")
+stream_1/weight = 1.0
 
 [node name="FightArea" type="Area3D"]
 collision_mask = 2
@@ -173,6 +191,17 @@ alpha_cut = 1
 texture_filter = 0
 sprite_frames = SubResource("SpriteFrames_mu7b8")
 animation = &"open"
+frame = 10
+frame_progress = 1.0
+
+[node name="FlipSFX" type="AudioStreamPlayer3D" parent="StickerbookPoint"]
+stream = SubResource("AudioStreamRandomizer_43nrj")
+volume_db = -10.0
+bus = &"sfx"
+
+[node name="AppearSFX" type="AudioStreamPlayer3D" parent="StickerbookPoint"]
+stream = SubResource("AudioStreamRandomizer_60pvs")
+bus = &"sfx"
 
 [node name="PlayerInteractPoint" type="Marker3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.732, 0.495, -1.643)

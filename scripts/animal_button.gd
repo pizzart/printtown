@@ -3,6 +3,7 @@ extends Button
 const OUTLINE_MAT = preload("res://misc/outline.tres")
 var new_rotation: float = 0.0
 var selected: bool
+var health: int
 
 func _process(_delta):
 	rotation = new_rotation
@@ -28,3 +29,9 @@ func _on_mouse_entered():
 func _on_mouse_exited():
 	if not selected:
 		remove_outline()
+
+func _on_gui_input(event):
+	if event is InputEventMouseButton:
+		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+			if disabled:
+				$DisabledSFX.play()

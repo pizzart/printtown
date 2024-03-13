@@ -137,6 +137,7 @@ func _on_unpause_pressed():
 	unpause()
 
 func _on_quit_pressed():
+	$FlipSFX.play()
 	main_ui.hide()
 	main_book.hide()
 	
@@ -147,6 +148,7 @@ func _on_quit_pressed():
 	closed_ui.show()
 
 func _on_back_closed_pressed():
+	$FlipSFX.play()
 	closed_book.hide()
 	closed_ui.hide()
 	
@@ -160,6 +162,7 @@ func _on_quit_closed_pressed():
 	get_tree().quit()
 
 func _on_options_pressed():
+	$FlipSFX.play()
 	main_ui.hide()
 	main_book.hide()
 	
@@ -170,6 +173,7 @@ func _on_options_pressed():
 	options_ui.show()
 
 func _on_back_options_pressed():
+	$FlipSFX.play()
 	options_book.hide()
 	options_ui.hide()
 	
@@ -186,6 +190,7 @@ func _on_timer_pressed():
 		$Book/Options/TimerPin.play("selected")
 	else:
 		$Book/Options/TimerPin.play("deselected")
+	$SelectSFX.play()
 
 func _on_ca_pressed():
 	Global.ca_enabled = not Global.ca_enabled
@@ -194,6 +199,7 @@ func _on_ca_pressed():
 		$Book/Options/CAPin.play("selected")
 	else:
 		$Book/Options/CAPin.play("deselected")
+	$SelectSFX.play()
 
 func _on_fs_pressed():
 	if get_window().mode == Window.MODE_FULLSCREEN:
@@ -202,6 +208,7 @@ func _on_fs_pressed():
 	else:
 		get_window().mode = Window.MODE_FULLSCREEN
 		$Book/Options/FSPin.play("selected")
+	$SelectSFX.play()
 
 func _on_quit_closed_mouse_entered():
 	$Book/Closed/AskText.show()

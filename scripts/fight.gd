@@ -536,6 +536,7 @@ func finish_fight(success: bool):
 		
 		tween.tween_property($Animal, "global_position", $Animal.global_position + Vector3(0, 20, 0), 1.0).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
 		tween.tween_callback(book.play.bind("open"))
+		tween.tween_callback($StickerbookPoint/FlipSFX.play)
 		tween.tween_callback(FightUI.main_ui.hide)
 		tween.tween_property(camera, "global_transform", $CameraPoint/RotationPoint.global_transform, 1.0).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
 		await book.animation_finished
@@ -544,12 +545,14 @@ func finish_fight(success: bool):
 		FightUI.sticker_ui.show()
 		
 		await get_tree().create_timer(0.5).timeout
+		$StickerbookPoint/AppearSFX.play()
 		FightUI.add_animal(enemy)
 		Global.animals.append(enemy)
 		await get_tree().create_timer(1.5).timeout
 		FightUI.sticker_ui.hide()
 		FightUI.show_not_grid()
 		book.play("open")
+		$StickerbookPoint/FlipSFX.play()
 		await get_tree().create_timer(0.2).timeout
 		
 		get_viewport().gui_disable_input = false
@@ -655,6 +658,7 @@ func _on_convinced(pet: Animals.Animal):
 	update_ui()
 
 func _on_stickers_opened():
+	$StickerbookPoint/FlipSFX.play()
 	var tween = create_tween()
 	tween.tween_property(camera, "global_transform", $CameraPoint/RotationPoint.global_transform, 1.0).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
 	book.play("open")

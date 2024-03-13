@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://bqv13fmmqt71v"]
+[gd_scene load_steps=34 format=3 uid="uid://bqv13fmmqt71v"]
 
 [ext_resource type="Texture2D" uid="uid://bf4fm6ce01idn" path="res://graphics/ui/fight/stickerbook/stickerbook0002.png" id="1_6370c"]
 [ext_resource type="Script" path="res://scripts/pause_menu.gd" id="1_l81ig"]
@@ -16,6 +16,9 @@
 [ext_resource type="Texture2D" uid="uid://mkicgd3h1tby" path="res://graphics/ui/pause/clock/clock_arrow_small.png" id="11_jvlnh"]
 [ext_resource type="Texture2D" uid="uid://c00d8te4k7o5m" path="res://graphics/ui/pause/clock/clock_arrow_big.png" id="12_f11qv"]
 [ext_resource type="AudioStream" uid="uid://cx2x3xlxpu1n1" path="res://audio/sfx/clock.wav" id="16_p41uy"]
+[ext_resource type="AudioStream" uid="uid://d2epi2wiawpao" path="res://audio/sfx/book_flip.wav" id="17_e175r"]
+[ext_resource type="AudioStream" uid="uid://yflouckgthlg" path="res://audio/sfx/pop/pop0.wav" id="18_th2xj"]
+[ext_resource type="AudioStream" uid="uid://b4tn2tk83egkk" path="res://audio/sfx/pop/pop1.wav" id="19_pwje7"]
 
 [sub_resource type="Environment" id="Environment_wwbrt"]
 background_mode = 1
@@ -146,6 +149,21 @@ bg_color = Color(1, 1, 1, 0.184314)
 bg_color = Color(0, 0, 0, 0)
 border_width_bottom = 2
 border_color = Color(0.141176, 0, 0.0901961, 1)
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_bnubk"]
+random_pitch = 1.2
+random_volume_offset_db = 0.3
+streams_count = 1
+stream_0/stream = ExtResource("17_e175r")
+stream_0/weight = 1.0
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_5gv2e"]
+random_pitch = 1.1
+streams_count = 2
+stream_0/stream = ExtResource("18_th2xj")
+stream_0/weight = 1.0
+stream_1/stream = ExtResource("19_pwje7")
+stream_1/weight = 1.0
 
 [node name="PauseMenu" type="Node3D"]
 script = ExtResource("1_l81ig")
@@ -782,6 +800,15 @@ metadata/_edit_use_anchors_ = true
 [node name="ClockSFX" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("16_p41uy")
 volume_db = -10.0
+bus = &"sfx"
+
+[node name="FlipSFX" type="AudioStreamPlayer" parent="."]
+stream = SubResource("AudioStreamRandomizer_bnubk")
+volume_db = -10.0
+bus = &"sfx"
+
+[node name="SelectSFX" type="AudioStreamPlayer" parent="."]
+stream = SubResource("AudioStreamRandomizer_5gv2e")
 bus = &"sfx"
 
 [connection signal="pressed" from="UI/MainUI/Unpause" to="." method="_on_unpause_pressed"]

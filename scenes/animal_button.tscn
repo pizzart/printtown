@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://di4pt32bf5216"]
+[gd_scene load_steps=15 format=3 uid="uid://di4pt32bf5216"]
 
 [ext_resource type="Texture2D" uid="uid://b7vij1q44oa4b" path="res://graphics/animals/dog.png" id="1_fx4b3"]
 [ext_resource type="Script" path="res://scripts/animal_button.gd" id="2_byhm3"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://h230p88yu8l" path="res://graphics/ui/fight/alert/update/alert_update0002.png" id="5_8xswr"]
 [ext_resource type="Texture2D" uid="uid://vqv1g1crtj7m" path="res://graphics/ui/fight/alert/update/alert_update0003.png" id="6_fdmn5"]
 [ext_resource type="Texture2D" uid="uid://uyv7xbtqmair" path="res://graphics/ui/fight/alert/update/alert_update0004.png" id="7_x7gfp"]
+[ext_resource type="AudioStream" uid="uid://c15i23ub435n7" path="res://audio/sfx/fight/btn_disabled.wav" id="8_im8x6"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_dri8i"]
 
@@ -39,6 +40,12 @@ animations = [{
 "speed": 12.0
 }]
 
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_8fwwy"]
+random_pitch = 1.5
+streams_count = 1
+stream_0/stream = ExtResource("8_im8x6")
+stream_0/weight = 1.0
+
 [node name="AnimalButton" type="Button"]
 custom_minimum_size = Vector2(64, 64)
 anchors_preset = -1
@@ -70,6 +77,11 @@ frame = 4
 frame_progress = 1.0
 centered = false
 
+[node name="DisabledSFX" type="AudioStreamPlayer" parent="."]
+stream = SubResource("AudioStreamRandomizer_8fwwy")
+bus = &"sfx"
+
+[connection signal="gui_input" from="." to="." method="_on_gui_input"]
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

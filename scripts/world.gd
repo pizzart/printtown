@@ -13,7 +13,7 @@ var cur_mus: int = 0
 var can_interact_shelter: bool
 var mouse_mode = Input.MOUSE_MODE_CAPTURED
 var tutorials_given: Array[String] = []
-var fights_finished: int = 0
+var fights_finished: int = 9 if OS.is_debug_build() else 0
 @onready var pause_menu = $PauseLayer/Container/SubViewport/PauseMenu
 
 func _ready():
@@ -148,7 +148,7 @@ func _on_action_started(idx: int):
 		get_tree().paused = true
 		get_tree().change_scene_to_file("res://scenes/ending.tscn")
 
-func _on_final_fight_finished():
+func _on_final_fight_finished(_success: bool):
 	$Player.prepare_fight()
 	$Shelter/CutscenePlayer2/Giraffe.show()
 	$Shelter/CutscenePlayer2/Giraffe3.show()

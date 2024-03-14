@@ -1,14 +1,12 @@
 extends Node3D
 
-signal transitioned
-
 #const INTRO_DIALOGUE = preload("res://dialogue/intro.dialogue")
 const BUFFER_DIALOGUE = preload("res://dialogue/buffer_tutorial.dialogue")
 const BONUS_DIALOGUE = preload("res://dialogue/bonus_later.dialogue")
 const PEDESTRIAN = preload("res://scenes/pedestrian.tscn")
 const PETS_REQUIRED = 2
 
-var timer: float
+#var timer: float
 var can_interact_shelter: bool
 var mouse_mode = Input.MOUSE_MODE_CAPTURED
 var tutorials_given: Array[String] = []
@@ -19,7 +17,7 @@ func _ready():
 	
 	Global.total_treats = $Collectables.get_child_count()
 	Global.treat_collected.connect(_on_treat_collected)
-	for _i in range(50):
+	for _i in range(70):
 		add_child(PEDESTRIAN.instantiate())
 	
 	if not OS.is_debug_build():
@@ -40,10 +38,11 @@ func _ready():
 		#$Player.global_position = $PlayerSpawn.global_position
 		#$Overlay/M/FPS.show()
 		query()
+		#_on_final_fight_finished()
 
 func _process(delta):
-	timer += delta
-	$Overlay/M/Timer.text = get_time_text()
+	Global.time += delta
+	$Overlay/M/Timer.text = Global.get_time_text()
 	$Overlay/M/Timer.visible = Global.timer_enabled
 	
 	if $Player.global_position.y < -40:
@@ -53,13 +52,13 @@ func _process(delta):
 
 func _input(event):
 	if event.is_action_pressed("interact") and can_interact_shelter and Global.animals.size() >= PETS_REQUIRED:
-		$ShelterArea.set_deferred("monitoring", false)
+		$Triggers/ShelterArea.set_deferred("monitoring", false)
 		can_interact_shelter = false
 		$Player.prepare_fight()
 		$Ambience.stop()
 		#await get_tree().create_timer(2.0).timeout
-		transition()
-		await transitioned
+		MiscUI.transition()
+		await MiscUI.transitioned
 		await $Shelter/CutscenePlayer.play_cutscene()
 		$FinalFight.activate_fight($Player)
 	
@@ -71,7 +70,7 @@ func _input(event):
 		RenderingServer.global_shader_parameter_set("ca_strength", Global.DEFAULT_CA)
 		AudioServer.set_bus_effect_enabled(2, 0, true) # lp filter
 		$PauseLayer.show()
-		pause_menu.pause(ImageTexture.create_from_image(get_viewport().get_texture().get_image()), $Player.camera, mouse_mode, get_time_text())
+		pause_menu.pause(ImageTexture.create_from_image(get_viewport().get_texture().get_image()), $Player.camera, mouse_mode, Global.get_time_text())
 		#$Pause.show()
 		get_tree().paused = true
 	
@@ -79,23 +78,10 @@ func _input(event):
 		#get_tree().root.use_occlusion_culling = not get_tree().root.use_occlusion_culling
 		#print(get_tree().root.use_occlusion_culling)
 
-func transition():
-	var tween = create_tween()
-	tween.tween_method(set_trans, 1.0, 0.0, 1.0).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
-	tween.tween_callback(emit_signal.bind("transitioned"))
-	tween.tween_interval(0.1)
-	tween.tween_method(set_trans, 0.0, 1.0, 1.0).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_IN)
-
-func get_time_text():
-	return "%d:%06.3f" % [floori(timer / 60.0), timer - floorf(timer / 60.0) * 60.0]
-
 func query():
 	while true:
 		$Overlay/M/FPS.text = "FPS: %s" % Performance.get_monitor(Performance.TIME_FPS)
 		await get_tree().create_timer(1.0).timeout
-
-func set_trans(value: float):
-	$Overlay/Trans.material.set_shader_parameter("size", value)
 
 func _on_shelter_area_body_entered(body):
 	if body is Player:
@@ -148,3 +134,23 @@ func _on_treat_collected():
 		$Player.can_move = true
 		mouse_mode = Input.MOUSE_MODE_CAPTURED
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+
+func _on_action_started(idx: int):
+	#if idx == 0:
+		#$Shelter/CutscenePlayer2.skip_to_action(18)
+	
+	if idx == 17:
+		MiscUI.play_video()
+	
+	if idx == 24:
+		MiscUI.slow_transition(3.0, 3.0)
+		await get_tree().create_timer(3.0).timeout
+		get_tree().change_scene_to_file("res://scenes/ending.tscn")
+
+func _on_final_fight_finished():
+	$Player.prepare_fight()
+	$Shelter/CutscenePlayer2/Giraffe.show()
+	$Shelter/CutscenePlayer2/Giraffe3.show()
+	await get_tree().create_timer(0.1).timeout
+	$Shelter/CutscenePlayer2.started_action.connect(_on_action_started)
+	$Shelter/CutscenePlayer2.play_cutscene()

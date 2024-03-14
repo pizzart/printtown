@@ -1,0 +1,16 @@
+~ start
+jake: the only guy who has tried to fight this giraffe before got brutally stomped. he still has scars...
+giraffe: he got what he deserved. anyways, you wanted to get to the top of the skyscraper, right?
+giraffe: i still have one more trick up my sleeve.
+giraffe: see this elevator?
+=> END
+
+~ elevator_shown
+giraffe: this can lead us directly to the top of my office.
+giraffe: and conveniently, the skyscraper is located right next to it.
+=> END
+
+~ back
+{{player_name}}: and then..?
+giraffe: i'll show you. let's go.
+=> END

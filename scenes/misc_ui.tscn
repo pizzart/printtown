@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://bh7fai0xs0eyk"]
+[gd_scene load_steps=18 format=3 uid="uid://bh7fai0xs0eyk"]
 
 [ext_resource type="Texture2D" uid="uid://doosm4dyc8u7k" path="res://graphics/ui/misc/interact/interact0000.png" id="1_aed7w"]
 [ext_resource type="Script" path="res://scripts/misc_ui.gd" id="1_eh3jt"]
@@ -8,6 +8,11 @@
 [ext_resource type="FontFile" uid="uid://cgjjr8ld3la1k" path="res://misc/GloriaHallelujah-Regular.ttf" id="6_o6uii"]
 [ext_resource type="Texture2D" uid="uid://dn5dnlhc8slwp" path="res://graphics/ui/misc/candy/candy0000.png" id="7_mg3ba"]
 [ext_resource type="Texture2D" uid="uid://1np4i5bampmg" path="res://graphics/ui/misc/candy/candy0001.png" id="8_qt0ub"]
+[ext_resource type="Shader" path="res://misc/circle.gdshader" id="9_tk02h"]
+[ext_resource type="VideoStream" path="res://misc/finale_anim.ogv" id="10_swhd3"]
+[ext_resource type="Texture2D" uid="uid://ce3rijvoyrtxd" path="res://misc/finale_anim_lastf.png" id="11_hccyw"]
+[ext_resource type="AudioStream" uid="uid://bupbevrot01vu" path="res://audio/sfx/shake.wav" id="11_uh8qr"]
+[ext_resource type="AudioStream" uid="uid://dvxbh6hilp3i4" path="res://audio/sfx/spray.wav" id="12_6o1c0"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_cj0m4"]
 animations = [{
@@ -50,6 +55,10 @@ animations = [{
 "name": &"default",
 "speed": 6.0
 }]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_uraqx"]
+shader = ExtResource("9_tk02h")
+shader_parameter/size = 1.0
 
 [node name="MiscUI" type="CanvasLayer"]
 script = ExtResource("1_eh3jt")
@@ -138,3 +147,51 @@ grow_horizontal = 2
 grow_vertical = 0
 mouse_filter = 2
 color = Color(0, 0, 0, 1)
+
+[node name="Video" type="VideoStreamPlayer" parent="."]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+stream = ExtResource("10_swhd3")
+
+[node name="LastFrame" type="TextureRect" parent="."]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("11_hccyw")
+
+[node name="Trans" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_uraqx")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Black" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0)
+
+[node name="ShakeSFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("11_uh8qr")
+volume_db = -6.0
+bus = &"sfx"
+
+[node name="SpraySFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("12_6o1c0")
+volume_db = -6.0
+bus = &"sfx"

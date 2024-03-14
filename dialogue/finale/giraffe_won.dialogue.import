@@ -1,0 +1,15 @@
+[remap]
+
+importer="dialogue_manager_compiler_11"
+type="Resource"
+uid="uid://dicfjnqb3kt5h"
+path="res://.godot/imported/giraffe_won.dialogue-179329800965b8e6d7429196dae9e1d3.tres"
+
+[deps]
+
+source_file="res://dialogue/finale/giraffe_won.dialogue"
+dest_files=["res://.godot/imported/giraffe_won.dialogue-179329800965b8e6d7429196dae9e1d3.tres"]
+
+[params]
+
+defaults=true

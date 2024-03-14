@@ -1,11 +1,14 @@
-[gd_scene load_steps=20 format=3 uid="uid://3wjt4mg1ab42"]
+[gd_scene load_steps=25 format=3 uid="uid://3wjt4mg1ab42"]
 
 [ext_resource type="Script" path="res://scripts/fight.gd" id="1_u3h0q"]
 [ext_resource type="Texture2D" uid="uid://b7vij1q44oa4b" path="res://graphics/animals/dog.png" id="3_ovfvl"]
 [ext_resource type="Texture2D" uid="uid://bh28w1e3onjcv" path="res://graphics/ui/fight/pet/pet_heart.png" id="4_4j4r4"]
 [ext_resource type="Texture2D" uid="uid://cj0r454b8qnmf" path="res://graphics/shadow.png" id="4_dtwva"]
+[ext_resource type="AudioStream" uid="uid://c4tpanvausblr" path="res://audio/sfx/fight/cut.wav" id="4_elgfi"]
 [ext_resource type="Texture2D" uid="uid://bbu2mesp10n80" path="res://graphics/ui/fight/stickerbook/stickerbook0000.png" id="5_h12cg"]
+[ext_resource type="AudioStream" uid="uid://btjbm8s22p0kn" path="res://audio/sfx/talk/talk0.wav" id="6_a3ssi"]
 [ext_resource type="Texture2D" uid="uid://4apha2vltyoi" path="res://graphics/ui/fight/stickerbook/stickerbook0001.png" id="6_ekaih"]
+[ext_resource type="AudioStream" uid="uid://d4lvq5p37qu5e" path="res://audio/sfx/talk/talk1.wav" id="7_6qtal"]
 [ext_resource type="Texture2D" uid="uid://bf4fm6ce01idn" path="res://graphics/ui/fight/stickerbook/stickerbook0002.png" id="7_au4u1"]
 [ext_resource type="AudioStream" uid="uid://d2epi2wiawpao" path="res://audio/sfx/book_flip.wav" id="8_107m2"]
 [ext_resource type="AudioStream" uid="uid://yflouckgthlg" path="res://audio/sfx/pop/pop0.wav" id="9_v3njq"]
@@ -13,6 +16,22 @@
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_5mdvx"]
 size = Vector3(5, 2, 6)
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_7mivq"]
+random_pitch = 1.1
+random_volume_offset_db = 1.0
+streams_count = 1
+stream_0/stream = ExtResource("4_elgfi")
+stream_0/weight = 1.0
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_4wkve"]
+random_pitch = 1.3
+random_volume_offset_db = 1.0
+streams_count = 2
+stream_0/stream = ExtResource("6_a3ssi")
+stream_0/weight = 1.0
+stream_1/stream = ExtResource("7_6qtal")
+stream_1/weight = 1.0
 
 [sub_resource type="Curve" id="Curve_5jlgh"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -127,6 +146,27 @@ distance_fade_begin = 3.4
 distance_fade_length = 13.5
 cull_mask = 1048573
 
+[node name="AttackSFX" type="AudioStreamPlayer3D" parent="Animal"]
+stream = SubResource("AudioStreamRandomizer_7mivq")
+volume_db = -7.0
+bus = &"sfx"
+
+[node name="HealSFX" type="AudioStreamPlayer3D" parent="Animal"]
+stream = SubResource("AudioStreamRandomizer_4wkve")
+volume_db = -12.0
+unit_size = 15.0
+bus = &"sfx"
+
+[node name="HealParticles" type="GPUParticles3D" parent="Animal"]
+layers = 2
+emitting = false
+amount = 1
+lifetime = 3.0
+one_shot = true
+randomness = 0.42
+process_material = SubResource("ParticleProcessMaterial_vqhsh")
+draw_pass_1 = SubResource("QuadMesh_b65ge")
+
 [node name="Pet" type="Sprite3D" parent="."]
 visible = false
 layers = 2
@@ -156,6 +196,11 @@ one_shot = true
 randomness = 0.42
 process_material = SubResource("ParticleProcessMaterial_vqhsh")
 draw_pass_1 = SubResource("QuadMesh_b65ge")
+
+[node name="HealSFX" type="AudioStreamPlayer3D" parent="Pet"]
+stream = SubResource("AudioStreamRandomizer_4wkve")
+volume_db = -7.0
+bus = &"sfx"
 
 [node name="AnimalPoint" type="Marker3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.02879, 0.0145887, -2.72723)
@@ -196,7 +241,8 @@ frame_progress = 1.0
 
 [node name="FlipSFX" type="AudioStreamPlayer3D" parent="StickerbookPoint"]
 stream = SubResource("AudioStreamRandomizer_43nrj")
-volume_db = -15.0
+attenuation_model = 3
+max_db = -10.0
 bus = &"sfx"
 
 [node name="AppearSFX" type="AudioStreamPlayer3D" parent="StickerbookPoint"]
@@ -209,5 +255,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.732, 0.495, -1.643)
 [node name="PetInteractPoint" type="Marker3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.732, 0.00841856, -1.643)
 
+[node name="PetAudioTimer" type="Timer" parent="."]
+wait_time = 0.08
+
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="body_exited" from="." to="." method="_on_body_exited"]
+[connection signal="timeout" from="PetAudioTimer" to="." method="_on_pet_audio_timer_timeout"]

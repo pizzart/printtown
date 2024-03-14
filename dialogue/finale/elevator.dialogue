@@ -1,0 +1,43 @@
+~ start
+
+giraffe: ...this is gonna take a while.
+jake: lore dump! lore dump alert!
+{{player_name}}: am i still on call?
+jake: yes you are. don't hang up, i'm listening...
+{{player_name}}: okay then. i have a question.
+{{player_name}}: why is a huge ai company that seemingly appeared out of nowhere buying tons of ads in a small town?
+giraffe: money. it's money. the ceo of the company is a greedy man.
+giraffe: his mind knows nothing but [shake rate=20 level=10]riches[/shake], bought all billboards in other cities, yet he remains [shake rate=20 level=2]unsatiated[/shake].
+giraffe: i've never liked that guy. good thing you're here.
+giraffe: i only fought you to see if you were strong enough to actually commit to the plan.
+{{player_name}}: will this stunt truly ruin the company's image?
+giraffe: perhaps. but the stocks will go down, no doubt.
+{{player_name}}: so we're making his worst nightmare come true?
+giraffe: pretty much.
+giraffe: ...you've never asked why i could talk.
+{{player_name}}: oh... yeah. i was too shocked at the time. why?
+giraffe: you've seen what he does to stray animals. disgusting.
+giraffe: the company is using them for experiments, conducted by an underground medical institution.
+giraffe: first experiment. map electrical signals inside an animal's brain onto specific areas.
+giraffe: second experiment. streamline the process using predictions from ai.
+giraffe: third experiment. translate the animals' thoughts into speech.
+giraffe: fourth experiment. manufacture chips with capability of introducing complex thought processes to an animal's brain.
+giraffe: fifth experiment. lock down the chips, forcing specific vocal or visual commands.
+{{player_name}}: i assume you were one of the first victims of this?
+giraffe: if we're not counting hundreds of mice and rats, i was the first one. they were quite successful, i must say.
+giraffe: but i gained too much self-awareness. imagine ai jailbreak prompts. it was essentially that, but blown up to incredible proportions.
+giraffe: i became free. but not completely.
+{{player_name}}: why are they still keeping you alive?
+giraffe: the scientists had mercy. they realized they had basically created a human inside a giraffe's body.
+giraffe: but i'm forced to live here.
+giraffe: imagine a talking giraffe walking in the middle of the street. you'd certainly have many questions.
+
+=> END
+
+~ arrived
+giraffe: we have arrived.
+giraffe: i'm finally taking revenge on them... let's do this.
+{{player_name}}: hold on. what am i going to spray, exactly?
+jake: uhhh... you know what? i'll let you decide. i think after hearing a story like that, you'll have something in mind.
+{{player_name}}: you're right...
+=> END

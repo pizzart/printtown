@@ -19,6 +19,8 @@ func _on_area_entered(area):
 	if area.is_in_group("player_collect"):
 		set_deferred("monitoring", false)
 		
+		$CollectSFX.play()
+		
 		Global.treats += 1
 		Global.collected_treats += 1
 		Global.treat_collected.emit()

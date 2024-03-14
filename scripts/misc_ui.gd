@@ -1,5 +1,6 @@
 extends CanvasLayer
 
+signal transitioned
 const PETS_TEXT = """you have %s pets
 out of %s
 to raid the place
@@ -30,3 +31,41 @@ func show_bars():
 
 func hide_bars():
 	bars_shown = false
+
+func transition():
+	var tween = create_tween()
+	tween.tween_method(_set_trans, 1.0, 0.0, 1.0).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
+	tween.tween_callback(emit_signal.bind("transitioned"))
+	tween.tween_interval(0.1)
+	tween.tween_method(_set_trans, 0.0, 1.0, 1.0).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_IN)
+
+func slow_transition(time_in: float, time_out: float):
+	var tween = create_tween()
+	tween.tween_property($Black, "color", Color(0, 0, 0, 1), time_in)
+	tween.tween_callback(emit_signal.bind("transitioned"))
+	tween.tween_property($Black, "color", Color(0, 0, 0, 0), time_out)
+
+func _set_trans(value: float):
+	$Trans.material.set_shader_parameter("size", value)
+
+func play_video():
+	var tween = create_tween()
+	tween.tween_property($Black, "color", Color(0, 0, 0, 1), 3.0)
+	await tween.finished
+	$Video.show()
+	$Video.play()
+	tween = create_tween()
+	tween.tween_property($Black, "color", Color(0, 0, 0, 0), 1.0)
+	await get_tree().create_timer(4.8).timeout
+	$ShakeSFX.play()
+	await get_tree().create_timer(0.6).timeout
+	$SpraySFX.play()
+	await $Video.finished
+	$LastFrame.show()
+	tween = create_tween()
+	tween.tween_property($Black, "color", Color(0, 0, 0, 1), 3.0)
+	await tween.finished
+	$LastFrame.hide()
+	$Video.hide()
+	tween = create_tween()
+	tween.tween_property($Black, "color", Color(0, 0, 0, 0), 1.0)

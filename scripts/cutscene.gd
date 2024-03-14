@@ -2,13 +2,14 @@
 class_name CutscenePlayer
 extends Node3D
 
+signal started_action(idx: int)
 signal finished
 
 enum CameraStart {
 	PLAYER,
 	POSITION,
 }
-
+var current_action: int = 0
 var cam_follow_node: Node3D = null
 var cam_interp_pos: Vector3
 
@@ -72,8 +73,11 @@ func play_cutscene():
 		tween.tween_property(camera, "global_transform", init_position.global_transform, 1.0).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
 	await tween.finished
 	
-	for action in actions:
-		await _do_action(action)
+	current_action = 0
+	while current_action < actions.size():
+		started_action.emit(current_action)
+		await _do_action(actions[current_action])
+		current_action += 1
 	
 	player.velocity = Vector3.ZERO
 	player.gimbal.global_position = player.global_position
@@ -95,6 +99,9 @@ func play_cutscene():
 	
 	finished.emit()
 
+func skip_to_action(idx: int):
+	current_action = idx
+
 func _do_action(action: CutsceneAction):
 	#if action.additional_action:
 		#_do_action(action.additional_action)
@@ -114,10 +121,13 @@ func _do_action(action: CutsceneAction):
 				cam_follow_node = move_node
 				cam_interp_pos = cam_follow_node.global_position
 			
-			var tween = create_tween()
-			tween.tween_property(move_node, "global_transform", get_node(action.move_point).global_transform, action.move_time).set_trans(action.transition_type).set_ease(action.ease_type)
-			if action.wait:
-				await tween.finished
+			if action.move_time != 0:
+				var tween = create_tween()
+				tween.tween_property(move_node, "global_transform", get_node(action.move_point).global_transform, action.move_time).set_trans(action.transition_type).set_ease(action.ease_type)
+				if action.wait:
+					await tween.finished
+			else:
+				move_node.global_transform = get_node(action.move_point).global_transform
 			
 			if action.camera_follow and action.action != CutsceneAction.Action.MOVE_CAMERA:
 				cam_follow_node = null
@@ -129,6 +139,11 @@ func _do_action(action: CutsceneAction):
 			camera.look_at(get_node(action.look_at).global_position)
 		CutsceneAction.Action.PLAY_ANIMATION:
 			player.sprite.play(action.animation_name)
+		CutsceneAction.Action.TRANSITION:
+			MiscUI.transition()
+			await MiscUI.transitioned
+		CutsceneAction.Action.CALL_NODE:
+			get_node(action.called_node).call(action.function_name)
 
 func _validate_property(property: Dictionary):
 	#var has_look: bool = false

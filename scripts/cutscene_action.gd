@@ -10,6 +10,8 @@ enum Action {
 	DIALOGUE,
 	LOOK_AT,
 	PLAY_ANIMATION,
+	TRANSITION,
+	CALL_NODE,
 }
 
 @export var action: Action = Action.WAIT:
@@ -29,6 +31,8 @@ enum Action {
 #@export_node_path("Camera3D") var camera: NodePath
 @export_node_path("Node3D") var look_at: NodePath = ""
 @export var animation_name: String = ""
+@export var called_node: NodePath = ""
+@export var function_name: String = ""
 @export var wait: bool = true
 #@export var additional_action: CutsceneAction = null
 
@@ -43,11 +47,11 @@ enum Action {
 func _validate_property(property: Dictionary):
 	if property.name in ["wait_time"] and action != Action.WAIT:
 		property.usage = PROPERTY_USAGE_NO_EDITOR
-	elif property.name in ["move_point", "move_time", "transition_type", "ease_type"] and action != Action.MOVE_NODE and action != Action.MOVE_PLAYER and action != Action.MOVE_CAMERA:
+	elif property.name in ["move_point", "move_time", "transition_type", "ease_type"] and not action in [Action.MOVE_NODE, Action.MOVE_PLAYER, Action.MOVE_CAMERA]:
 		property.usage = PROPERTY_USAGE_NO_EDITOR
 	elif property.name == "move_node" and action != Action.MOVE_NODE:
 		property.usage = PROPERTY_USAGE_NO_EDITOR
-	elif property.name == "camera_follow" and action != Action.MOVE_NODE and action != Action.MOVE_PLAYER:
+	elif property.name == "camera_follow" and not action in [Action.MOVE_NODE, Action.MOVE_PLAYER]:
 		property.usage = PROPERTY_USAGE_NO_EDITOR
 	elif property.name in ["dialogue", "is_call", "node_title"] and action != Action.DIALOGUE:
 		property.usage = PROPERTY_USAGE_NO_EDITOR
@@ -55,5 +59,7 @@ func _validate_property(property: Dictionary):
 		property.usage = PROPERTY_USAGE_NO_EDITOR
 	elif property.name in ["animation_name"] and action != Action.PLAY_ANIMATION:
 		property.usage = PROPERTY_USAGE_NO_EDITOR
-	elif property.name == "wait" and (action == Action.WAIT or action == Action.PLAY_ANIMATION):
+	elif property.name == "wait" and action in [Action.WAIT, Action.PLAY_ANIMATION, Action.TRANSITION, Action.CALL_NODE]:
+		property.usage = PROPERTY_USAGE_NO_EDITOR
+	elif property.name in ["called_node", "function_name"] and action != Action.CALL_NODE:
 		property.usage = PROPERTY_USAGE_NO_EDITOR

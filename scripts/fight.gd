@@ -5,6 +5,7 @@ extends Area3D
 #signal lost
 signal pets_started
 signal pets_ended
+signal fight_finished
 
 const PET_TUTORIAL = preload("res://dialogue/tutorial_fight/tutorialfight_pet.dialogue")
 const KICK_TUTORIAL = preload("res://dialogue/tutorial_fight/tutorialfight_kick.dialogue")
@@ -305,12 +306,14 @@ func _on_petted():
 	await pets_started
 	FightUI.pet_stat.show()
 	FightUI.pet_particles.emitting = true
+	$PetAudioTimer.start()
 	petting = true
 	
 	#FightUI.pet_particles.restart()
 	Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
 	
 	await get_tree().create_timer(randf_range(1.0, 2.0) if will_bite else 3.0).timeout
+	$PetAudioTimer.stop()
 	petting = false
 	
 	if will_bite:
@@ -336,6 +339,7 @@ func _on_petted():
 		animal_tween.tween_callback(FightUI.show_bite)
 		animal_tween.tween_interval(0.25)
 		animal_tween.tween_callback(add_shake.bind(0.08))
+		animal_tween.tween_callback($Animal/AttackSFX.play)
 		animal_tween.tween_interval(0.4)
 		animal_tween.tween_property($Animal, "global_position", $AnimalPoint.global_position, 0.8).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 		await animal_tween.finished
@@ -423,6 +427,7 @@ func _on_kicked():
 		animal_tween.tween_callback(FightUI.play_win_anim.bind(enemy_choice))
 		animal_tween.tween_interval(0.125)
 		animal_tween.tween_callback(add_shake.bind(0.08))
+		animal_tween.tween_callback($Animal/AttackSFX.play)
 		animal_tween.tween_interval(0.4)
 		animal_tween.tween_property($Animal, "global_position", $AnimalPoint.global_position, 0.8).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 		await animal_tween.finished
@@ -433,7 +438,9 @@ func _on_kicked():
 		apply_damage(ceili(enemy.damage / 2.0))
 	elif (enemy_choice + 1) % 3 == player_choice: # player won
 		FightUI.play_win_anim(player_choice)
-		await get_tree().create_timer(1.0).timeout
+		await get_tree().create_timer(0.2).timeout
+		$Animal/AttackSFX.play()
+		await get_tree().create_timer(0.8).timeout
 		
 		enemy.add_mood(-0.05)
 		enemy.add_satisfaction(-0.03)
@@ -478,6 +485,11 @@ func _on_treated():
 	if not treat_tutorial_given:
 		DialogueUI.start_dialogue(TREAT_TUTORIAL, false)
 		await DialogueUI.finished
+	
+	await get_tree().create_timer(0.25).timeout
+	$Animal/HealSFX.play()
+	$Animal/HealParticles.restart()
+	await get_tree().create_timer(0.25).timeout
 	
 	tween = create_tween().set_parallel()
 	tween.tween_property(camera, "transform", Transform3D(), 1.5).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
@@ -531,7 +543,7 @@ func finish_fight(success: bool):
 	fight_active = false
 	
 	var tween = create_tween()
-	if success:
+	if success and not is_finale:
 		get_viewport().gui_disable_input = true
 		
 		tween.tween_property($Animal, "global_position", $Animal.global_position + Vector3(0, 20, 0), 1.0).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
@@ -574,6 +586,8 @@ func finish_fight(success: bool):
 	await tween.finished
 	
 	player.post_fight()
+	fight_finished.emit()
+	
 	if success:
 		queue_free()
 	else:
@@ -585,9 +599,14 @@ func _on_healed(pet: Animals.Animal):
 	$Pet.show()
 	
 	await get_tree().create_timer(1.0).timeout
+	$Pet/HealSFX.play()
+	await get_tree().create_timer(0.4).timeout
+	$Pet/HealSFX.play()
+	await get_tree().create_timer(0.5).timeout
+	$Pet/HealSFX.play()
 	$Pet/HealParticles.amount = pet.healing
 	$Pet/HealParticles.restart()
-	await get_tree().create_timer(4.0).timeout
+	await get_tree().create_timer(2.5).timeout
 	
 	var tween = create_tween()
 	tween.tween_property($Pet, "global_position", $AnimalBitePoint.global_position + Vector3(0, 10, 0), 0.5).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_IN)
@@ -611,6 +630,7 @@ func _on_bitten(pet: Animals.Animal):
 	tween.tween_callback(FightUI.show_bite)
 	tween.tween_interval(0.25)
 	tween.tween_callback(add_shake.bind(0.08))
+	tween.tween_callback($Animal/AttackSFX.play)
 	tween.tween_interval(0.5)
 	tween.tween_property($Pet, "global_position", $PetInteractPoint.global_position + Vector3(0, 10, 0), 0.5).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_IN)
 	await tween.finished
@@ -672,3 +692,6 @@ func _on_stickers_opened():
 func _on_stickers_closed():
 	var tween = create_tween()
 	tween.tween_property(camera, "transform", Transform3D(), 1.0).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
+
+func _on_pet_audio_timer_timeout():
+	$Animal/HealSFX.play()

@@ -1,9 +1,9 @@
 https://github.com/nathanhoad/godot_dialogue_manager (MIT)
 https://github.com/blackears/cyclopsLevelBuilder (MIT)
 
-this psx shader is based on some shader from godotshaders.com but idr which one (TODO ?)
+https://github.com/AnalogFeelings/godot-psx (MIT)
 https://godotshaders.com/shader/high-quality-post-process-outline/ (MIT) (goated)
-https://godotshaders.com/shader/redacted/ (CC0) (temporary?)
+https://godotshaders.com/shader/redacted/ (CC0)
 https://godotshaders.com/shader/simple-energy-shield/ (CC0)
 
 https://fonts.google.com/specimen/Gloria+Hallelujah (OFL)
@@ -13,4 +13,6 @@ https://polyhaven.com/a/ground_grey (CC0)
 https://polyhaven.com/a/concrete_wall_008 (CC0)
 https://cc0-textures.com/t/st-metal-grid (CC0)
 
-https://freesound.org/people/Jamafel/sounds/352967/
+https://freesound.org/people/Jamafel/sounds/352967/ (CC0)
+https://freesound.org/people/abstraktgeneriert/sounds/213003/ (CC0)
+https://freesound.org/people/sagetyrtle/sounds/102108/ (CC0)

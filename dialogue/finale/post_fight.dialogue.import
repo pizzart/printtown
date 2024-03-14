@@ -1,0 +1,15 @@
+[remap]
+
+importer="dialogue_manager_compiler_11"
+type="Resource"
+uid="uid://cnw3nxetsf6ju"
+path="res://.godot/imported/post_fight.dialogue-a4d69411d4a1ef8275d70816d38f90af.tres"
+
+[deps]
+
+source_file="res://dialogue/finale/post_fight.dialogue"
+dest_files=["res://.godot/imported/post_fight.dialogue-a4d69411d4a1ef8275d70816d38f90af.tres"]
+
+[params]
+
+defaults=true

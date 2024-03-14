@@ -102,7 +102,7 @@ class Giraffe:
 	extends Animal
 	const TEXTURE = preload("res://graphics/animals/giraffe.png")
 	func _init():
-		super._init(TEXTURE, &"giraffe", 0.0, 1.0, 0.1, 30, 5, 0.9, 5)
+		super._init(TEXTURE, &"giraffe", 0.0, 1.0, 0.15, 2, 5, 0.9, 5)
 
 class BadderDog:
 	extends Animal

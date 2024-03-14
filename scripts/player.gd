@@ -441,7 +441,8 @@ func wall_slide_jump(direction: Vector3):
 		smoke_particles.emitting = false
 		#$JumpParticles.restart()
 		spawn_jump_particles()
-		$SFX/Step.play()
+		#$SFX/Step.play()
+		$SFX/WallJump.play()
 
 #func roll(delta: float, _input_dir: Vector2):
 	#roll_time += delta

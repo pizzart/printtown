@@ -1,10 +1,11 @@
-[gd_scene load_steps=23 format=3 uid="uid://bqm3gbkb2yc73"]
+[gd_scene load_steps=25 format=3 uid="uid://bqm3gbkb2yc73"]
 
 [ext_resource type="FontFile" uid="uid://b0ln5kfvpyrdw" path="res://misc/Orbitron-Regular.ttf" id="1_bvo5t"]
 [ext_resource type="Shader" path="res://misc/menu_bg.gdshader" id="2_hpgnf"]
 [ext_resource type="Script" path="res://scripts/bonus_menu.gd" id="2_wg02v"]
 [ext_resource type="Shader" path="res://misc/menu_text.gdshader" id="3_bijnf"]
 [ext_resource type="PackedScene" uid="uid://dr3l4xyq5kccl" path="res://scenes/fx.tscn" id="4_7f1bx"]
+[ext_resource type="FontFile" uid="uid://ciyfmcpfqerpg" path="res://misc/Orbitron-Medium.ttf" id="5_khedc"]
 [ext_resource type="AudioStream" uid="uid://dvioddnd2doyb" path="res://audio/sfx/electricity.wav" id="6_8wa6j"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qkc5v"]
@@ -124,6 +125,8 @@ shader_parameter/gradient_out = Color(0, 0, 0, 1)
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ocmq5"]
 shader = ExtResource("3_bijnf")
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_bxcrt"]
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2kpww"]
 emission_enabled = true
 emission = Color(0.360784, 0.403922, 0.611765, 1)
@@ -211,7 +214,88 @@ text = "0 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 clip_text = true
 metadata/_edit_use_anchors_ = true
 
-[node name="M" type="MarginContainer" parent="."]
+[node name="Credits" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="CreditsText" type="RichTextLabel" parent="Credits"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = -0.247917
+anchor_right = 1.0
+anchor_bottom = 1.24792
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_fonts/bold_font = ExtResource("5_khedc")
+theme_override_font_sizes/bold_font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxEmpty_bxcrt")
+bbcode_enabled = true
+text = "[center]
+[b]CREDITS[/b]
+your time: %s
+---
+[b]GODOT PLUGINS[/b]
+Cyclops Level Builder by blackears
+Dialogue Manager by Nathan Hoad
+[b]SHADERS[/b]
+Godot PSX by AnalogFeelings
+High Quality Post Process Outline by EMBYR
+[ REDACTED ] by BalaDeSilver
+Simple Energy Shield by MinusZero
+[b]TEXTURES[/b]
+Ground Grey from PolyHaven
+Concrete Wall 008 from PolyHaven
+Metal Grid from CC0 Textures
+[b]SOUNDS[/b]
+John Paul 2nd city park.wav by Jamafel
+Stamp.wav by abstraktgeneriert
+072510_distant_cheer.wav by sagetyrtle
+---
+pizzart entertainment llc. is NOT A REAL COMPANY
+i'm pizzart
+hi
+thank you for playing this
+INTERACTIVE
+EXPERIENCE.
+i hope you had fun!
+the game has a few secrets.
+collect all of the treats if you haven't already!
+bonus content shall wait for you if you did.
+---
+all rights reserved!
+[/center]"
+fit_content = true
+scroll_active = false
+metadata/_edit_use_anchors_ = true
+
+[node name="M" type="MarginContainer" parent="Credits"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+
+[node name="Help" type="Label" parent="Credits/M"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_colors/font_color = Color(0.145098, 0.145098, 0.145098, 1)
+text = "scroll fast with Q"
+horizontal_alignment = 2
+
+[node name="Main" type="MarginContainer" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -223,49 +307,50 @@ theme_override_constants/margin_top = 16
 theme_override_constants/margin_right = 16
 theme_override_constants/margin_bottom = 16
 
-[node name="Buttons" type="VBoxContainer" parent="M"]
+[node name="Buttons" type="VBoxContainer" parent="Main"]
 layout_mode = 2
 size_flags_horizontal = 0
 alignment = 1
 
-[node name="World" type="Button" parent="M/Buttons"]
+[node name="World" type="Button" parent="Main/Buttons"]
 layout_mode = 2
 mouse_default_cursor_shape = 2
 action_mode = 0
 text = "bonus world"
 metadata/_edit_use_anchors_ = true
 
-[node name="Quit" type="Button" parent="M/Buttons"]
+[node name="Quit" type="Button" parent="Main/Buttons"]
 layout_mode = 2
 mouse_default_cursor_shape = 2
 action_mode = 0
 text = "quit to desktop"
 metadata/_edit_use_anchors_ = true
 
-[node name="Text" type="VBoxContainer" parent="M"]
+[node name="Text" type="VBoxContainer" parent="Main"]
 layout_mode = 2
 mouse_filter = 2
 alignment = 2
 
-[node name="Hint" type="Label" parent="M/Text"]
+[node name="Hint" type="Label" parent="Main/Text"]
 visible = false
 layout_mode = 2
 theme_override_colors/font_color = Color(0.0745098, 0.0745098, 0.0745098, 1)
 text = "check the cube"
 horizontal_alignment = 2
 
-[node name="Notice2" type="Label" parent="M/Text"]
+[node name="Notice2" type="Label" parent="Main/Text"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.145098, 0.145098, 0.145098, 1)
-text = "did you know you could skip text with Q?"
+text = "did you know you could skip dialogue text with Q?"
 horizontal_alignment = 2
 
-[node name="Notice" type="Label" parent="M/Text"]
+[node name="Notice" type="Label" parent="Main/Text"]
 layout_mode = 2
 text = "thank you for playing!"
 horizontal_alignment = 2
 
 [node name="C" type="SubViewportContainer" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.560938
@@ -282,7 +367,7 @@ transparent_bg = true
 handle_input_locally = false
 canvas_item_default_texture_filter = 0
 size = Vector2i(256, 256)
-render_target_update_mode = 4
+render_target_update_mode = 0
 
 [node name="Cube" type="Node3D" parent="C/View"]
 
@@ -338,6 +423,6 @@ volume_db = -35.0
 autoplay = true
 bus = &"sfx"
 
-[connection signal="pressed" from="M/Buttons/World" to="." method="_on_world_pressed"]
-[connection signal="pressed" from="M/Buttons/Quit" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="Main/Buttons/World" to="." method="_on_world_pressed"]
+[connection signal="pressed" from="Main/Buttons/Quit" to="." method="_on_quit_pressed"]
 [connection signal="gui_input" from="C" to="." method="_on_3dview_input"]

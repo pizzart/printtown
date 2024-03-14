@@ -14235,7 +14235,6 @@ dialogue_pre = ExtResource("13_knl1c")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.24832, 13.8999, -18.0357)
 animal = 1
 next_fight = NodePath("../FightArea6")
-dialogue_pre = ExtResource("13_knl1c")
 
 [node name="FightArea6" parent="." node_paths=PackedStringArray("next_fight") instance=ExtResource("6_xn4hq")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -63.4634, 34.9359, -13.9812)

@@ -1,6 +1,6 @@
 extends Control
 
-const SPEED_NORMAL = 20.0
+const SPEED_NORMAL = 15.0
 const SPEED_FAST = 220.0
 var time: float
 var can_rotate: bool
@@ -23,9 +23,12 @@ func _ready():
 		$Credits.hide()
 		$Main.show()
 		$C.show()
-	
-	$Credits/CreditsText.text = $Credits/CreditsText.text % Global.get_time_text()
-	$Credits/CreditsText.position.y = 480.0
+	else:
+		$Credits/CreditsText.text = $Credits/CreditsText.text % [Global.collected_treats, Global.get_time_text()]
+		$Credits/CreditsText.position.y = 480.0
+		
+		await get_tree().create_timer(1).timeout
+		$Music.play()
 
 func _process(delta):
 	if $Credits.visible:

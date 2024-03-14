@@ -238,9 +238,12 @@ theme_override_font_sizes/bold_font_size = 20
 theme_override_styles/normal = SubResource("StyleBoxEmpty_bxcrt")
 bbcode_enabled = true
 text = "[center]
-[b]CREDITS[/b]
+[b]PRINTTOWN![/b]
+pets collected: 10
+treats collected: %s
 your time: %s
 ---
+[b]CREDITS[/b]
 [b]GODOT PLUGINS[/b]
 Cyclops Level Builder by blackears
 Dialogue Manager by Nathan Hoad
@@ -428,7 +431,6 @@ bus = &"sfx"
 
 [node name="Music" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("8_nblbh")
-autoplay = true
 bus = &"mus"
 
 [connection signal="pressed" from="Main/Buttons/World" to="." method="_on_world_pressed"]

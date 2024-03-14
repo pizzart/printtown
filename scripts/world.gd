@@ -102,7 +102,7 @@ func _on_cutscene_start_body_entered(body):
 		$ParkourMusic.volume_db = -80
 		$ParkourMusic.play()
 		var tween = create_tween()
-		tween.tween_property($ParkourMusic, "volume_db", -20, 3.0).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
+		tween.tween_property($ParkourMusic, "volume_db", 0, 3.0).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
 
 func _on_buffering_tutorial_body_entered(body):
 	if body is Player and not "buffer" in tutorials_given:
@@ -163,10 +163,11 @@ func _on_parkour_music_finished():
 	$ParkourMusic.stream = MUSIC[cur_mus]
 	$ParkourMusic.play()
 
-func _on_fight_finished():
-	fights_finished += 1
-	if fights_finished == PETS_REQUIRED:
-		$Player.prepare_fight()
-		DialogueUI.start_dialogue(ENOUGH_DIALOGUE, true)
-		await DialogueUI.finished
-		$Player.can_move = true
+func _on_fight_finished(success: bool):
+	if success:
+		fights_finished += 1
+		if fights_finished == PETS_REQUIRED:
+			$Player.prepare_fight()
+			DialogueUI.start_dialogue(ENOUGH_DIALOGUE, true)
+			await DialogueUI.finished
+			$Player.can_move = true

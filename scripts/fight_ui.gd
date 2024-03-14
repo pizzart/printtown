@@ -298,12 +298,12 @@ func set_notes(animal: Animals.Animal):
 	elif animal.convincing < 0.3:
 		text = "unconvincing\n"
 	
-	if animal.damage > 4:
+	if animal.damage >= 4:
 		text += "strong\n"
-	elif animal.healing < 2:
+	elif animal.damage < 2:
 		text += "weak\n"
 	
-	if animal.healing > 5:
+	if animal.healing >= 4:
 		text += "cute\n"
 	elif animal.healing < 2:
 		text += "ugly\n"

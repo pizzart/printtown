@@ -5,7 +5,7 @@ extends Area3D
 #signal lost
 signal pets_started
 signal pets_ended
-signal fight_finished
+signal fight_finished(success: bool)
 
 const PET_TUTORIAL = preload("res://dialogue/tutorial_fight/tutorialfight_pet.dialogue")
 const KICK_TUTORIAL = preload("res://dialogue/tutorial_fight/tutorialfight_kick.dialogue")
@@ -536,10 +536,11 @@ func finish_fight(success: bool):
 				DialogueUI.start_dialogue(dialogue_lost2, false)
 				await DialogueUI.finished
 		
+		Global.treats = initial_treats
+		health = INIT_HEALTH
+		
 		if is_tutorial or is_finale:
 			enemy = Animals.animals[animal].new()
-			health = INIT_HEALTH
-			Global.treats = initial_treats
 			update_ui()
 			FightUI.enable_all(can_treat(), false)
 			return
@@ -590,7 +591,7 @@ func finish_fight(success: bool):
 	await tween.finished
 	
 	player.post_fight()
-	fight_finished.emit()
+	fight_finished.emit(success)
 	
 	if success:
 		queue_free()

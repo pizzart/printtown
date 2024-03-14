@@ -10,11 +10,11 @@ config_version=5
 
 [application]
 
-config/name="acerola-jam-0"
+config/name="PRINTTOWN!"
 run/main_scene="res://scenes/intro.tscn"
 config/features=PackedStringArray("4.2", "Mobile")
 boot_splash/show_image=false
-config/icon="res://icon.svg"
+config/icon="res://graphics/icon.png"
 run/main_scene.debug="res://scenes/world.tscn"
 
 [autoload]
@@ -114,7 +114,7 @@ skip_dialogue={
 
 [internationalization]
 
-locale/translations_pot_files=PackedStringArray("res://dialogue/intro.dialogue", "res://dialogue/tutorial_fight/tutorialfight_lost.dialogue", "res://dialogue/tutorial_fight/tutorialfight_progress.dialogue", "res://dialogue/tutorial_fight/tutorialfight_won.dialogue", "res://dialogue/tutorial_fight/tutorialfight_start.dialogue", "res://dialogue/tutorial_fight/tutorialfight_pet.dialogue", "res://dialogue/tutorial_fight/tutorialfight_kick.dialogue", "res://dialogue/collectable_tutorial.dialogue", "res://dialogue/tutorial_fight/tutorialfight_lowhp.dialogue", "res://dialogue/tutorial_fight/tutorialfight_gaveup.dialogue", "res://dialogue/finale/giraffe_encounter.dialogue", "res://dialogue/finale/giraffe_fight_start.dialogue", "res://dialogue/bonus.dialogue", "res://dialogue/finale/finale_start.dialogue", "res://dialogue/encounters/cat.dialogue", "res://dialogue/tutorial_fight2/guard_tutorial.dialogue", "res://dialogue/tutorial_fight/tutorialfight_treat.dialogue", "res://dialogue/bonus_end.dialogue", "res://dialogue/buffer_tutorial.dialogue", "res://dialogue/tutorial_fight2/baddog_pre.dialogue", "res://dialogue/tutorial_fight2/tutorialfight2_lost.dialogue", "res://dialogue/finale/giraffe_lost.dialogue", "res://dialogue/finale/giraffe_lost2.dialogue", "res://dialogue/tutorial_fight/tutorialfight_stickers.dialogue", "res://dialogue/bonus_later.dialogue", "res://dialogue/encounters/pigeon.dialogue", "res://dialogue/finale/giraffe_won.dialogue", "res://dialogue/finale/post_fight.dialogue", "res://dialogue/finale/elevator.dialogue", "res://dialogue/finale/final.dialogue", "res://dialogue/finale/post_graffiti.dialogue", "res://dialogue/finale/ending.dialogue", "res://dialogue/encounters/snake.dialogue")
+locale/translations_pot_files=PackedStringArray("res://dialogue/intro.dialogue", "res://dialogue/tutorial_fight/tutorialfight_lost.dialogue", "res://dialogue/tutorial_fight/tutorialfight_progress.dialogue", "res://dialogue/tutorial_fight/tutorialfight_won.dialogue", "res://dialogue/tutorial_fight/tutorialfight_start.dialogue", "res://dialogue/tutorial_fight/tutorialfight_pet.dialogue", "res://dialogue/tutorial_fight/tutorialfight_kick.dialogue", "res://dialogue/collectable_tutorial.dialogue", "res://dialogue/tutorial_fight/tutorialfight_lowhp.dialogue", "res://dialogue/tutorial_fight/tutorialfight_gaveup.dialogue", "res://dialogue/finale/giraffe_encounter.dialogue", "res://dialogue/finale/giraffe_fight_start.dialogue", "res://dialogue/bonus.dialogue", "res://dialogue/finale/finale_start.dialogue", "res://dialogue/encounters/cat.dialogue", "res://dialogue/tutorial_fight2/guard_tutorial.dialogue", "res://dialogue/tutorial_fight/tutorialfight_treat.dialogue", "res://dialogue/bonus_end.dialogue", "res://dialogue/buffer_tutorial.dialogue", "res://dialogue/tutorial_fight2/baddog_pre.dialogue", "res://dialogue/tutorial_fight2/tutorialfight2_lost.dialogue", "res://dialogue/finale/giraffe_lost.dialogue", "res://dialogue/finale/giraffe_lost2.dialogue", "res://dialogue/tutorial_fight/tutorialfight_stickers.dialogue", "res://dialogue/bonus_later.dialogue", "res://dialogue/encounters/pigeon.dialogue", "res://dialogue/finale/giraffe_won.dialogue", "res://dialogue/finale/post_fight.dialogue", "res://dialogue/finale/elevator.dialogue", "res://dialogue/finale/final.dialogue", "res://dialogue/finale/post_graffiti.dialogue", "res://dialogue/finale/ending.dialogue", "res://dialogue/encounters/snake.dialogue", "res://dialogue/enough.dialogue", "res://dialogue/encounters/cat_smart.dialogue")
 
 [physics]
 

@@ -1,0 +1,8 @@
+~ start
+
+cat: hello.
+{{player_name}}: huh??
+cat: you suck
+{{player_name}}: why do they talk....
+
+=> END

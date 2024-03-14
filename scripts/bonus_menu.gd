@@ -20,6 +20,9 @@ func _ready():
 	if Global.bonus_visited:
 		$Main/Text/Hint.show()
 		$C/View/Cube/Box/Hint.show()
+		$Credits.hide()
+		$Main.show()
+		$C.show()
 	
 	$Credits/CreditsText.text = $Credits/CreditsText.text % Global.get_time_text()
 	$Credits/CreditsText.position.y = 480.0

@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://bqm3gbkb2yc73"]
+[gd_scene load_steps=26 format=3 uid="uid://bqm3gbkb2yc73"]
 
 [ext_resource type="FontFile" uid="uid://b0ln5kfvpyrdw" path="res://misc/Orbitron-Regular.ttf" id="1_bvo5t"]
 [ext_resource type="Shader" path="res://misc/menu_bg.gdshader" id="2_hpgnf"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://dr3l4xyq5kccl" path="res://scenes/fx.tscn" id="4_7f1bx"]
 [ext_resource type="FontFile" uid="uid://ciyfmcpfqerpg" path="res://misc/Orbitron-Medium.ttf" id="5_khedc"]
 [ext_resource type="AudioStream" uid="uid://dvioddnd2doyb" path="res://audio/sfx/electricity.wav" id="6_8wa6j"]
+[ext_resource type="AudioStream" uid="uid://bdce6jdmj23or" path="res://audio/mus/finale.ogg" id="8_nblbh"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qkc5v"]
 content_margin_left = 2.0
@@ -256,6 +257,8 @@ Metal Grid from CC0 Textures
 John Paul 2nd city park.wav by Jamafel
 Stamp.wav by abstraktgeneriert
 072510_distant_cheer.wav by sagetyrtle
+Doorbell by Squidems
+Glass Break by unfa
 ---
 pizzart entertainment llc. is NOT A REAL COMPANY
 i'm pizzart
@@ -422,6 +425,11 @@ stream = ExtResource("6_8wa6j")
 volume_db = -35.0
 autoplay = true
 bus = &"sfx"
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_nblbh")
+autoplay = true
+bus = &"mus"
 
 [connection signal="pressed" from="Main/Buttons/World" to="." method="_on_world_pressed"]
 [connection signal="pressed" from="Main/Buttons/Quit" to="." method="_on_quit_pressed"]

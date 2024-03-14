@@ -485,6 +485,7 @@ func _on_treated():
 	
 	await tween.finished
 	if not treat_tutorial_given:
+		treat_tutorial_given = true
 		DialogueUI.start_dialogue(TREAT_TUTORIAL, false)
 		await DialogueUI.finished
 	

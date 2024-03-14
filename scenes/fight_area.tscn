@@ -118,7 +118,7 @@ stream_0/weight = 1.0
 stream_1/stream = ExtResource("10_fg50f")
 stream_1/weight = 1.0
 
-[node name="FightArea" type="Area3D"]
+[node name="FightArea" type="Area3D" groups=["fighta"]]
 collision_mask = 2
 monitoring = false
 script = ExtResource("1_u3h0q")

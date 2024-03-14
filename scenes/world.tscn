@@ -1,4 +1,4 @@
-[gd_scene load_steps=708 format=3 uid="uid://5th0yhcrbxbj"]
+[gd_scene load_steps=709 format=3 uid="uid://5th0yhcrbxbj"]
 
 [ext_resource type="PackedScene" uid="uid://b026alsepp2vu" path="res://scenes/player.tscn" id="1_lquvg"]
 [ext_resource type="Script" path="res://scripts/world.gd" id="1_mmxcb"]
@@ -28,6 +28,7 @@
 [ext_resource type="PackedScene" uid="uid://cpv3hlggawogv" path="res://scenes/close_camera_area.tscn" id="15_x5jbb"]
 [ext_resource type="Resource" uid="uid://ohlon52m1jrg" path="res://dialogue/finale/giraffe_lost2.dialogue" id="15_xfosj"]
 [ext_resource type="Material" uid="uid://cwwujeligexb" path="res://materials/building.tres" id="15_ycgyk"]
+[ext_resource type="Resource" uid="uid://bl4jyyuscoa31" path="res://dialogue/encounters/cat_smart.dialogue" id="15_ytvp6"]
 [ext_resource type="PackedScene" uid="uid://njemcft4bcul" path="res://scenes/props/billboard.tscn" id="21_2inpv"]
 [ext_resource type="PackedScene" uid="uid://cvsg7tf1neb40" path="res://scenes/props/trashcan.tscn" id="22_7a3ly"]
 [ext_resource type="PackedScene" uid="uid://mgyefgmew2ml" path="res://scenes/shelter.tscn" id="24_v7n0l"]
@@ -14232,7 +14233,7 @@ dialogue_pre = ExtResource("13_knl1c")
 
 [node name="FightArea5" parent="." node_paths=PackedStringArray("next_fight") instance=ExtResource("6_xn4hq")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.24832, 13.8999, -18.0357)
-animal = 5
+animal = 1
 next_fight = NodePath("../FightArea6")
 dialogue_pre = ExtResource("13_knl1c")
 
@@ -14247,9 +14248,20 @@ transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -98.48
 animal = 7
 next_fight = NodePath("../FightArea8")
 
-[node name="FightArea8" parent="." instance=ExtResource("6_xn4hq")]
+[node name="FightArea8" parent="." node_paths=PackedStringArray("next_fight") instance=ExtResource("6_xn4hq")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 48.3927, 16.8741, 18.8678)
 animal = 4
+next_fight = NodePath("../FightArea9")
+
+[node name="FightArea9" parent="." node_paths=PackedStringArray("next_fight") instance=ExtResource("6_xn4hq")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -10.9451, 18.8887, 37.7967)
+animal = 2
+next_fight = NodePath("../FightArea10")
+dialogue_pre = ExtResource("15_ytvp6")
+
+[node name="FightArea10" parent="." instance=ExtResource("6_xn4hq")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -32.3102, 15.9019, -15.8005)
+animal = 5
 
 [node name="FinalFight" parent="." instance=ExtResource("6_xn4hq")]
 transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 36.6383, -28.1393, -14.9406)
@@ -18101,6 +18113,9 @@ text = "FPS: 0"
 [node name="Timer" type="Label" parent="Overlay/M"]
 layout_mode = 2
 size_flags_vertical = 0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
 text = "0:00"
 horizontal_alignment = 2
 

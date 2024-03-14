@@ -1,6 +1,6 @@
 extends Node
 
-var debug_animals: Array[Animals.Animal] = [Animals.Dog.new(), Animals.Dog.new(), Animals.BadDog.new(), Animals.BadDog.new(), Animals.Dog.new(), Animals.Cat.new(), Animals.Pigeon.new()]
+var debug_animals: Array[Animals.Animal] = [Animals.Dog.new(), Animals.BadDog.new(), Animals.Cat.new(), Animals.Pigeon.new(), Animals.BadDog.new(), Animals.Snake.new(), Animals.Turtle.new(), Animals.BadderDog.new(), Animals.Cat.new()]
 
 signal treat_collected
 enum RPS {

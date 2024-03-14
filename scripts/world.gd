@@ -1,17 +1,19 @@
 extends Node3D
 
 #const INTRO_DIALOGUE = preload("res://dialogue/intro.dialogue")
+const ENOUGH_DIALOGUE = preload("res://dialogue/enough.dialogue")
 const BUFFER_DIALOGUE = preload("res://dialogue/buffer_tutorial.dialogue")
 const BONUS_DIALOGUE = preload("res://dialogue/bonus_later.dialogue")
 const PEDESTRIAN = preload("res://scenes/pedestrian.tscn")
 const MUSIC = [preload("res://audio/mus/parkour.ogg"), preload("res://audio/mus/parkour2.ogg")]
-const PETS_REQUIRED = 2
+const PETS_REQUIRED = 10
 
 #var timer: float
 var cur_mus: int = 0
 var can_interact_shelter: bool
 var mouse_mode = Input.MOUSE_MODE_CAPTURED
 var tutorials_given: Array[String] = []
+var fights_finished: int = 0
 @onready var pause_menu = $PauseLayer/Container/SubViewport/PauseMenu
 
 func _ready():
@@ -23,24 +25,15 @@ func _ready():
 		add_child(PEDESTRIAN.instantiate())
 	
 	if not OS.is_debug_build():
+		Global.mouse_sens = 0.0005
 		$Overlay/M/FPS.hide()
-		
-		#mouse_mode = Input.MOUSE_MODE_VISIBLE
-		#Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 		$Player.global_position = $PlayerSpawn.global_position
-		#$Player.can_move = false
-		#DialogueUI.start_dialogue(INTRO_DIALOGUE, true)
-		#await DialogueUI.finished
-		#$Player.can_move = true
-		#mouse_mode = Input.MOUSE_MODE_CAPTURED
-		#Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	else:
 		$Player.global_position = $PlayerSpawnDebug.global_position
 		$ParkourMusic.play()
-		#$Player.global_position = $PlayerSpawn.global_position
-		#$Overlay/M/FPS.show()
 		query()
-		#_on_final_fight_finished()
+	for f in get_tree().get_nodes_in_group("fighta"):
+		f.fight_finished.connect(_on_fight_finished)
 
 func _process(delta):
 	Global.time += delta
@@ -54,6 +47,8 @@ func _process(delta):
 
 func _input(event):
 	if event.is_action_pressed("interact") and can_interact_shelter and Global.animals.size() >= PETS_REQUIRED:
+		var tween = create_tween()
+		tween.tween_property($ParkourMusic, "volume_db", -80, 1.0)
 		$Triggers/ShelterArea.set_deferred("monitoring", false)
 		can_interact_shelter = false
 		$Player.prepare_fight()
@@ -61,7 +56,10 @@ func _input(event):
 		#await get_tree().create_timer(2.0).timeout
 		MiscUI.transition()
 		await MiscUI.transitioned
+		$ParkourMusic.stop()
 		await $Shelter/CutscenePlayer.play_cutscene()
+		$ParkourMusic.volume_db = 0
+		$ParkourMusic.play()
 		$FinalFight.activate_fight($Player)
 	
 	if event.is_action_pressed("restart") and OS.is_debug_build():
@@ -90,7 +88,7 @@ func _on_shelter_area_body_entered(body):
 		MiscUI.update_pet_count(Global.animals.size(), PETS_REQUIRED)
 		if Global.animals.size() >= PETS_REQUIRED:
 			body.can_interact = true
-			can_interact_shelter = true
+		can_interact_shelter = true
 
 func _on_shelter_area_body_exited(body):
 	if body is Player:
@@ -157,8 +155,18 @@ func _on_final_fight_finished():
 	await get_tree().create_timer(0.1).timeout
 	$Shelter/CutscenePlayer2.started_action.connect(_on_action_started)
 	$Shelter/CutscenePlayer2.play_cutscene()
+	var tween = create_tween()
+	tween.tween_property($ParkourMusic, "volume_db", -80, 3.0)
 
 func _on_parkour_music_finished():
 	cur_mus = (cur_mus + 1) % 2
 	$ParkourMusic.stream = MUSIC[cur_mus]
 	$ParkourMusic.play()
+
+func _on_fight_finished():
+	fights_finished += 1
+	if fights_finished == PETS_REQUIRED:
+		$Player.prepare_fight()
+		DialogueUI.start_dialogue(ENOUGH_DIALOGUE, true)
+		await DialogueUI.finished
+		$Player.can_move = true

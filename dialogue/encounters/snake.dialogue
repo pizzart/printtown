@@ -3,6 +3,6 @@
 snake: hiss... hiss... you...
 {{player_name}}: ?
 snake: you... smell...
-{{player_name}}: oh.
+{{player_name}}: oh, what?
 
 => END

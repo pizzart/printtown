@@ -1,0 +1,15 @@
+[remap]
+
+importer="dialogue_manager_compiler_11"
+type="Resource"
+uid="uid://bl4jyyuscoa31"
+path="res://.godot/imported/cat_smart.dialogue-d4c2804b19dce222875cfb0a25f2ee5e.tres"
+
+[deps]
+
+source_file="res://dialogue/encounters/cat_smart.dialogue"
+dest_files=["res://.godot/imported/cat_smart.dialogue-d4c2804b19dce222875cfb0a25f2ee5e.tres"]
+
+[params]
+
+defaults=true

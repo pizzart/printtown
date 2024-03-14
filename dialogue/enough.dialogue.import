@@ -1,0 +1,15 @@
+[remap]
+
+importer="dialogue_manager_compiler_11"
+type="Resource"
+uid="uid://by10018sxivl1"
+path="res://.godot/imported/enough.dialogue-5c3515fe6551bcfe4212e8a29fc47ed2.tres"
+
+[deps]
+
+source_file="res://dialogue/enough.dialogue"
+dest_files=["res://.godot/imported/enough.dialogue-5c3515fe6551bcfe4212e8a29fc47ed2.tres"]
+
+[params]
+
+defaults=true

@@ -12,7 +12,7 @@ dest_files=["res://.godot/imported/parkour.ogg-801bb74df96a3c5df68b8debae3e04bc.
 
 [params]
 
-loop=true
+loop=false
 loop_offset=0.0
 bpm=0.0
 beat_count=0

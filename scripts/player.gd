@@ -496,8 +496,8 @@ func _input(event):
 		return
 	
 	if event is InputEventMouseMotion:
-		rotation.y -= event.relative.x * 0.002
-		gimbal.rotation.x = clampf(gimbal.rotation.x - event.relative.y * 0.002, -PI / 2.5, PI / 6)
+		rotation.y -= event.relative.x * Global.mouse_sens
+		gimbal.rotation.x = clampf(gimbal.rotation.x - event.relative.y * Global.mouse_sens, -PI / 2.5, PI / 6)
 
 func _on_sprite_frame_changed():
 	if is_on_floor():

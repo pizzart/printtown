@@ -215,3 +215,9 @@ func _on_quit_closed_mouse_entered():
 
 func _on_quit_closed_mouse_exited():
 	$Book/Closed/AskText.hide()
+
+func _on_sens_value_changed(value):
+	$Book/Options/SensSlider.region_rect.size.x = 64 + (10 - value) * 21
+	$Book/Options/SensSlider.offset.x = (10 - value) * -21
+	Global.mouse_sens = (10 - value) * 0.0015 + 0.0005
+	$ClockSFX.play()

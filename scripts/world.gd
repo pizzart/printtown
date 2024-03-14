@@ -4,9 +4,11 @@ extends Node3D
 const BUFFER_DIALOGUE = preload("res://dialogue/buffer_tutorial.dialogue")
 const BONUS_DIALOGUE = preload("res://dialogue/bonus_later.dialogue")
 const PEDESTRIAN = preload("res://scenes/pedestrian.tscn")
+const MUSIC = [preload("res://audio/mus/parkour.ogg"), preload("res://audio/mus/parkour2.ogg")]
 const PETS_REQUIRED = 2
 
 #var timer: float
+var cur_mus: int = 0
 var can_interact_shelter: bool
 var mouse_mode = Input.MOUSE_MODE_CAPTURED
 var tutorials_given: Array[String] = []
@@ -139,12 +141,13 @@ func _on_action_started(idx: int):
 	#if idx == 0:
 		#$Shelter/CutscenePlayer2.skip_to_action(18)
 	
-	if idx == 17:
+	if idx == 18:
 		MiscUI.play_video()
 	
-	if idx == 24:
+	if idx == 25:
 		MiscUI.slow_transition(3.0, 3.0)
 		await get_tree().create_timer(3.0).timeout
+		get_tree().paused = true
 		get_tree().change_scene_to_file("res://scenes/ending.tscn")
 
 func _on_final_fight_finished():
@@ -154,3 +157,8 @@ func _on_final_fight_finished():
 	await get_tree().create_timer(0.1).timeout
 	$Shelter/CutscenePlayer2.started_action.connect(_on_action_started)
 	$Shelter/CutscenePlayer2.play_cutscene()
+
+func _on_parkour_music_finished():
+	cur_mus = (cur_mus + 1) % 2
+	$ParkourMusic.stream = MUSIC[cur_mus]
+	$ParkourMusic.play()

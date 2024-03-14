@@ -1,4 +1,4 @@
-[gd_scene load_steps=703 format=3 uid="uid://5th0yhcrbxbj"]
+[gd_scene load_steps=708 format=3 uid="uid://5th0yhcrbxbj"]
 
 [ext_resource type="PackedScene" uid="uid://b026alsepp2vu" path="res://scenes/player.tscn" id="1_lquvg"]
 [ext_resource type="Script" path="res://scripts/world.gd" id="1_mmxcb"]
@@ -19,6 +19,7 @@
 [ext_resource type="Resource" uid="uid://dehxgb2qombc" path="res://dialogue/encounters/pigeon.dialogue" id="13_knl1c"]
 [ext_resource type="Texture2D" uid="uid://cnmh44kxnyruh" path="res://graphics/animals/giraffe.png" id="14_6f2o1"]
 [ext_resource type="Resource" uid="uid://ddyh27mkoyapv" path="res://dialogue/finale/giraffe_lost.dialogue" id="14_huu3r"]
+[ext_resource type="Resource" uid="uid://cbpsccof4evls" path="res://dialogue/encounters/snake.dialogue" id="14_jlr3s"]
 [ext_resource type="PackedScene" uid="uid://bqv13fmmqt71v" path="res://scenes/pause_menu.tscn" id="14_ub6xt"]
 [ext_resource type="PackedScene" uid="uid://ba7b5gxxbgyiv" path="res://scenes/collectable.tscn" id="14_uo4l1"]
 [ext_resource type="Material" uid="uid://dr8bxmwxk7xuk" path="res://materials/floor.tres" id="15_1nm1o"]
@@ -82,10 +83,11 @@
 [ext_resource type="Material" uid="uid://bw8s137rehho2" path="res://materials/mesh.tres" id="74_drxlt"]
 [ext_resource type="Resource" uid="uid://cnw3nxetsf6ju" path="res://dialogue/finale/post_fight.dialogue" id="79_4yhwv"]
 [ext_resource type="Texture2D" uid="uid://cj0r454b8qnmf" path="res://graphics/shadow.png" id="79_o2cuk"]
-[ext_resource type="AudioStream" uid="uid://caiyi3cj2nq37" path="res://audio/mus/parkour2.ogg" id="79_t4xvc"]
 [ext_resource type="AudioStream" uid="uid://ds7bcug845h2f" path="res://audio/sfx/world/ambience.wav" id="80_2nl4i"]
+[ext_resource type="Texture2D" uid="uid://bfkyp8x0p8no8" path="res://graphics/world/receptionist.png" id="80_6ng0f"]
 [ext_resource type="Resource" uid="uid://clfdm7wh6q6tn" path="res://dialogue/finale/elevator.dialogue" id="81_3e6yf"]
 [ext_resource type="Texture2D" uid="uid://0xbvlvbs2t63" path="res://graphics/world/washere.png" id="81_r0nbj"]
+[ext_resource type="AudioStream" uid="uid://ct0bbwydaiv2c" path="res://audio/sfx/player/slide0.wav" id="81_t8tyx"]
 [ext_resource type="PackedScene" uid="uid://dwuobkd0clsta" path="res://scenes/props/bench.tscn" id="82_0fc6o"]
 [ext_resource type="AudioStream" uid="uid://dvioddnd2doyb" path="res://audio/sfx/electricity.wav" id="82_cdfev"]
 [ext_resource type="Resource" uid="uid://ba56nqtpjepv0" path="res://dialogue/finale/final.dialogue" id="82_vrau8"]
@@ -95,6 +97,7 @@
 [ext_resource type="Texture2D" uid="uid://m067b0wn3nb1" path="res://graphics/world/sign_logo.png" id="85_r51ri"]
 [ext_resource type="Texture2D" uid="uid://b06hhwbhap3wi" path="res://graphics/world/sign_changed.png" id="85_t72l3"]
 [ext_resource type="AudioStream" uid="uid://ddob0ov8u78bi" path="res://audio/sfx/cheer.wav" id="86_i5t0i"]
+[ext_resource type="AudioStream" uid="uid://dsiuqado65l30" path="res://audio/mus/parkour.ogg" id="95_r3ts5"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_sxwpf"]
 render_priority = 0
@@ -13147,192 +13150,6 @@ animations = [{
 [sub_resource type="BoxShape3D" id="BoxShape3D_7cbsm"]
 size = Vector3(18.2498, 14.5057, 10)
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_re6vy"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("27_v1wyq")
-}, {
-"duration": 1.0,
-"texture": ExtResource("28_g4a7d")
-}],
-"loop": true,
-"name": &"idle_back",
-"speed": 3.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("29_l88ik")
-}, {
-"duration": 1.0,
-"texture": ExtResource("30_5rr7a")
-}],
-"loop": true,
-"name": &"idle_side",
-"speed": 3.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("31_tgooe")
-}],
-"loop": false,
-"name": &"jump_back",
-"speed": 12.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("32_6l6qu")
-}],
-"loop": false,
-"name": &"jump_front",
-"speed": 6.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("33_onwqw")
-}, {
-"duration": 1.0,
-"texture": ExtResource("34_64ero")
-}],
-"loop": false,
-"name": &"land_back",
-"speed": 8.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("35_repua")
-}, {
-"duration": 1.0,
-"texture": ExtResource("36_2cyn5")
-}],
-"loop": true,
-"name": &"ledge_back",
-"speed": 4.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("37_stme7")
-}, {
-"duration": 1.0,
-"texture": ExtResource("38_ynm6y")
-}],
-"loop": true,
-"name": &"ledge_side",
-"speed": 4.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("39_m62ub")
-}, {
-"duration": 1.0,
-"texture": ExtResource("40_4k6ou")
-}, {
-"duration": 1.0,
-"texture": ExtResource("41_jx2ng")
-}, {
-"duration": 1.0,
-"texture": ExtResource("42_tyj1n")
-}],
-"loop": true,
-"name": &"run_back",
-"speed": 12.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("43_8xpsw")
-}, {
-"duration": 1.0,
-"texture": ExtResource("44_gq0uq")
-}, {
-"duration": 1.0,
-"texture": ExtResource("45_dxyfq")
-}, {
-"duration": 1.0,
-"texture": ExtResource("46_p37v1")
-}],
-"loop": true,
-"name": &"run_front",
-"speed": 12.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("47_23gmx")
-}, {
-"duration": 1.0,
-"texture": ExtResource("48_v6oob")
-}, {
-"duration": 1.0,
-"texture": ExtResource("49_2ale5")
-}, {
-"duration": 1.0,
-"texture": ExtResource("50_n0x3r")
-}],
-"loop": true,
-"name": &"run_side",
-"speed": 12.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("51_8qifh")
-}, {
-"duration": 1.0,
-"texture": ExtResource("52_mjhf2")
-}],
-"loop": true,
-"name": &"walk_back",
-"speed": 4.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("53_d4d1q")
-}, {
-"duration": 1.0,
-"texture": ExtResource("54_vk8o0")
-}],
-"loop": true,
-"name": &"walk_front",
-"speed": 4.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("55_whjsk")
-}, {
-"duration": 1.0,
-"texture": ExtResource("56_gt8ky")
-}, {
-"duration": 1.0,
-"texture": ExtResource("57_ri48y")
-}, {
-"duration": 1.0,
-"texture": ExtResource("58_ugfjo")
-}],
-"loop": true,
-"name": &"walk_side",
-"speed": 4.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("59_rh7qp")
-}, {
-"duration": 1.0,
-"texture": ExtResource("60_yl5gu")
-}],
-"loop": true,
-"name": &"wall_side",
-"speed": 4.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("61_8f1f2")
-}, {
-"duration": 1.0,
-"texture": ExtResource("62_ws1h1")
-}],
-"loop": true,
-"name": &"wave",
-"speed": 6.0
-}]
-
 [sub_resource type="QuadMesh" id="QuadMesh_s2g23"]
 material = ExtResource("74_drxlt")
 size = Vector2(9, 6)
@@ -13701,6 +13518,24 @@ called_node = NodePath("")
 function_name = ""
 wait = true
 
+[sub_resource type="Resource" id="Resource_u37d3"]
+script = ExtResource("26_e12w1")
+action = 8
+node_title = "start"
+is_call = false
+move_node = NodePath("")
+move_point = NodePath("")
+move_time = 0.0
+transition_type = 5
+ease_type = 1
+camera_follow = false
+wait_time = 0.0
+look_at = NodePath("")
+animation_name = ""
+called_node = NodePath("../MeshNoise")
+function_name = "play"
+wait = true
+
 [sub_resource type="Resource" id="Resource_turdd"]
 script = ExtResource("26_e12w1")
 action = 1
@@ -13717,6 +13552,24 @@ look_at = NodePath("")
 animation_name = ""
 called_node = NodePath("")
 function_name = ""
+wait = true
+
+[sub_resource type="Resource" id="Resource_272yq"]
+script = ExtResource("26_e12w1")
+action = 8
+node_title = "start"
+is_call = false
+move_node = NodePath("")
+move_point = NodePath("")
+move_time = 0.0
+transition_type = 5
+ease_type = 1
+camera_follow = false
+wait_time = 0.0
+look_at = NodePath("")
+animation_name = ""
+called_node = NodePath("../MeshNoise")
+function_name = "stop"
 wait = true
 
 [sub_resource type="Resource" id="Resource_yd4g4"]
@@ -14067,6 +13920,24 @@ called_node = NodePath("")
 function_name = ""
 wait = true
 
+[sub_resource type="Resource" id="Resource_kcegg"]
+script = ExtResource("26_e12w1")
+action = 8
+node_title = "start"
+is_call = false
+move_node = NodePath("")
+move_point = NodePath("")
+move_time = 0.0
+transition_type = 5
+ease_type = 1
+camera_follow = false
+wait_time = 0.0
+look_at = NodePath("")
+animation_name = ""
+called_node = NodePath("../../Ambience")
+function_name = "play"
+wait = true
+
 [sub_resource type="Resource" id="Resource_l3l8i"]
 script = ExtResource("26_e12w1")
 action = 3
@@ -14359,10 +14230,26 @@ animal = 5
 next_fight = NodePath("../FightArea5")
 dialogue_pre = ExtResource("13_knl1c")
 
-[node name="FightArea5" parent="." instance=ExtResource("6_xn4hq")]
+[node name="FightArea5" parent="." node_paths=PackedStringArray("next_fight") instance=ExtResource("6_xn4hq")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.24832, 13.8999, -18.0357)
 animal = 5
+next_fight = NodePath("../FightArea6")
 dialogue_pre = ExtResource("13_knl1c")
+
+[node name="FightArea6" parent="." node_paths=PackedStringArray("next_fight") instance=ExtResource("6_xn4hq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -63.4634, 34.9359, -13.9812)
+animal = 6
+next_fight = NodePath("../FightArea7")
+dialogue_pre = ExtResource("14_jlr3s")
+
+[node name="FightArea7" parent="." node_paths=PackedStringArray("next_fight") instance=ExtResource("6_xn4hq")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -98.4814, 23.8636, 8.70952)
+animal = 7
+next_fight = NodePath("../FightArea8")
+
+[node name="FightArea8" parent="." instance=ExtResource("6_xn4hq")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 48.3927, 16.8741, 18.8678)
+animal = 4
 
 [node name="FinalFight" parent="." instance=ExtResource("6_xn4hq")]
 transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 36.6383, -28.1393, -14.9406)
@@ -17851,7 +17738,7 @@ shape = SubResource("BoxShape3D_7cbsm")
 [node name="Shelter" parent="." instance=ExtResource("24_v7n0l")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -30, 0)
 
-[node name="Receptionist" type="AnimatedSprite3D" parent="Shelter"]
+[node name="Receptionist" type="Sprite3D" parent="Shelter"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.747, 2.267, -10.551)
 layers = 2
 cast_shadow = 0
@@ -17860,9 +17747,12 @@ billboard = 2
 shaded = true
 alpha_cut = 1
 texture_filter = 0
-sprite_frames = SubResource("SpriteFrames_re6vy")
-animation = &"walk_front"
-autoplay = "walk_front"
+texture = ExtResource("80_6ng0f")
+
+[node name="MeshNoise" type="AudioStreamPlayer3D" parent="Shelter"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 29, 6.81537, -14.5)
+stream = ExtResource("81_t8tyx")
+bus = &"sfx"
 
 [node name="Mesh" type="MeshInstance3D" parent="Shelter"]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 29, 9, -14.5)
@@ -17871,7 +17761,7 @@ mesh = SubResource("QuadMesh_s2g23")
 [node name="CutscenePlayer" type="Node3D" parent="Shelter" node_paths=PackedStringArray("player", "init_player_position", "camera", "init_position")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 30, 0)
 script = ExtResource("25_w7kha")
-actions = Array[ExtResource("26_e12w1")]([SubResource("Resource_7x47f"), SubResource("Resource_2atvh"), SubResource("Resource_apsgv"), SubResource("Resource_j35jv"), SubResource("Resource_cfc7s"), SubResource("Resource_x6dxc"), SubResource("Resource_j7jxj"), SubResource("Resource_7365e"), SubResource("Resource_sll0w"), SubResource("Resource_m7mv2"), SubResource("Resource_3i4q6"), SubResource("Resource_rkk2e"), SubResource("Resource_bjjmp"), SubResource("Resource_d45vw"), SubResource("Resource_twgos"), SubResource("Resource_bwpil"), SubResource("Resource_tqxwh"), SubResource("Resource_hv4oy"), SubResource("Resource_2flwv"), SubResource("Resource_fg3nx"), SubResource("Resource_turdd"), SubResource("Resource_yd4g4"), SubResource("Resource_s4fts"), SubResource("Resource_srv53"), SubResource("Resource_ad00n"), SubResource("Resource_t3bqi"), SubResource("Resource_rcr5m")])
+actions = Array[ExtResource("26_e12w1")]([SubResource("Resource_7x47f"), SubResource("Resource_2atvh"), SubResource("Resource_apsgv"), SubResource("Resource_j35jv"), SubResource("Resource_cfc7s"), SubResource("Resource_x6dxc"), SubResource("Resource_j7jxj"), SubResource("Resource_7365e"), SubResource("Resource_sll0w"), SubResource("Resource_m7mv2"), SubResource("Resource_3i4q6"), SubResource("Resource_rkk2e"), SubResource("Resource_bjjmp"), SubResource("Resource_d45vw"), SubResource("Resource_twgos"), SubResource("Resource_bwpil"), SubResource("Resource_tqxwh"), SubResource("Resource_hv4oy"), SubResource("Resource_2flwv"), SubResource("Resource_fg3nx"), SubResource("Resource_u37d3"), SubResource("Resource_turdd"), SubResource("Resource_272yq"), SubResource("Resource_yd4g4"), SubResource("Resource_s4fts"), SubResource("Resource_srv53"), SubResource("Resource_ad00n"), SubResource("Resource_t3bqi"), SubResource("Resource_rcr5m")])
 player = NodePath("../../Player")
 init_animation_name = "idle_back"
 init_player_position = NodePath("Player0")
@@ -17979,7 +17869,7 @@ transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 29, -2
 
 [node name="CutscenePlayer2" type="Node3D" parent="Shelter" node_paths=PackedStringArray("player", "camera", "init_position")]
 script = ExtResource("25_w7kha")
-actions = Array[ExtResource("26_e12w1")]([SubResource("Resource_x3vxb"), SubResource("Resource_sib71"), SubResource("Resource_m40jk"), SubResource("Resource_s4wu4"), SubResource("Resource_uorn5"), SubResource("Resource_ahkxy"), SubResource("Resource_naiwi"), SubResource("Resource_uo0ds"), SubResource("Resource_f72vm"), SubResource("Resource_0cme8"), SubResource("Resource_q4b2d"), SubResource("Resource_q2lg2"), SubResource("Resource_f5rhx"), SubResource("Resource_l3l8i"), SubResource("Resource_qfjav"), SubResource("Resource_0tcy0"), SubResource("Resource_5mgtt"), SubResource("Resource_5w0dm"), SubResource("Resource_phfm2"), SubResource("Resource_bg7tc"), SubResource("Resource_o51kq"), SubResource("Resource_xtctf"), SubResource("Resource_v60m1"), SubResource("Resource_15i7w"), SubResource("Resource_m7mgf")])
+actions = Array[ExtResource("26_e12w1")]([SubResource("Resource_x3vxb"), SubResource("Resource_sib71"), SubResource("Resource_m40jk"), SubResource("Resource_s4wu4"), SubResource("Resource_uorn5"), SubResource("Resource_ahkxy"), SubResource("Resource_naiwi"), SubResource("Resource_uo0ds"), SubResource("Resource_f72vm"), SubResource("Resource_0cme8"), SubResource("Resource_q4b2d"), SubResource("Resource_q2lg2"), SubResource("Resource_f5rhx"), SubResource("Resource_kcegg"), SubResource("Resource_l3l8i"), SubResource("Resource_qfjav"), SubResource("Resource_0tcy0"), SubResource("Resource_5mgtt"), SubResource("Resource_5w0dm"), SubResource("Resource_phfm2"), SubResource("Resource_bg7tc"), SubResource("Resource_o51kq"), SubResource("Resource_xtctf"), SubResource("Resource_v60m1"), SubResource("Resource_15i7w"), SubResource("Resource_m7mgf")])
 player = NodePath("../../Player")
 camera = NodePath("Camera3/Camera3D")
 camera_start = 1
@@ -18178,12 +18068,12 @@ bake_mask = 4294967293
 
 [node name="ParkourMusic" type="AudioStreamPlayer" parent="."]
 process_mode = 3
-stream = ExtResource("79_t4xvc")
+stream = ExtResource("95_r3ts5")
 bus = &"mus"
 
 [node name="Ambience" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("80_2nl4i")
-volume_db = -20.0
+volume_db = -15.0
 autoplay = true
 bus = &"sfx"
 
@@ -18231,6 +18121,7 @@ own_world_3d = true
 world_3d = SubResource("World3D_p3wga")
 handle_input_locally = false
 canvas_item_default_texture_filter = 0
+audio_listener_enable_3d = true
 size = Vector2i(640, 480)
 render_target_update_mode = 0
 
@@ -18242,5 +18133,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -310, 0)
 [connection signal="body_entered" from="Triggers/ShelterArea" to="." method="_on_shelter_area_body_entered"]
 [connection signal="body_exited" from="Triggers/ShelterArea" to="." method="_on_shelter_area_body_exited"]
 [connection signal="body_entered" from="Tutorial/CutsceneStart" to="." method="_on_cutscene_start_body_entered"]
+[connection signal="finished" from="ParkourMusic" to="." method="_on_parkour_music_finished"]
 
 [editable path="Props/Billboard2"]

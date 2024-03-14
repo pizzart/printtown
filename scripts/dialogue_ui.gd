@@ -36,6 +36,7 @@ func start_dialogue(dialogue: DialogueResource, is_call: bool, start_node: Strin
 	text_label.text = ""
 	show()
 	if is_call:
+		$CallSFX.play()
 		$C.hide()
 		$CallSprite.show()
 		$CallSprite.play("default")
@@ -73,6 +74,7 @@ func next_line(started: bool, start_node: String = "start"):
 		var tween = create_tween().set_parallel()
 		tween.tween_property($C, "scale", Vector2.ONE * 4, 0.8).set_trans(Tween.TRANS_ELASTIC).set_ease(Tween.EASE_IN_OUT)
 		tween.tween_property($BG, "modulate", Color(1, 1, 1, 0), 0.8)
+		$FinishSFX.play()
 		await get_tree().create_timer(0.5).timeout
 		hide()
 		await get_tree().create_timer(0.3).timeout

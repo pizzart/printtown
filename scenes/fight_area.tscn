@@ -148,13 +148,15 @@ cull_mask = 1048573
 
 [node name="AttackSFX" type="AudioStreamPlayer3D" parent="Animal"]
 stream = SubResource("AudioStreamRandomizer_7mivq")
-volume_db = -7.0
+volume_db = -6.0
+max_db = -1.0
 bus = &"sfx"
 
 [node name="HealSFX" type="AudioStreamPlayer3D" parent="Animal"]
 stream = SubResource("AudioStreamRandomizer_4wkve")
 volume_db = -12.0
 unit_size = 15.0
+max_db = -6.0
 bus = &"sfx"
 
 [node name="HealParticles" type="GPUParticles3D" parent="Animal"]

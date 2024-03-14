@@ -39,6 +39,7 @@ var time: float
 var shake: float
 #var treat_cooldown: int = 0
 var death_count: int = 0
+var initial_treats: int = 0
 
 var petting: bool
 var pets_given: float
@@ -182,6 +183,7 @@ func activate_fight(pl: Player = player):
 	if player == null:
 		player = pl
 	player.can_interact = false
+	initial_treats = Global.treats
 	
 	get_parent().mouse_mode = Input.MOUSE_MODE_VISIBLE
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
@@ -536,6 +538,7 @@ func finish_fight(success: bool):
 		if is_tutorial or is_finale:
 			enemy = Animals.animals[animal].new()
 			health = INIT_HEALTH
+			Global.treats = initial_treats
 			update_ui()
 			FightUI.enable_all(can_treat(), false)
 			return

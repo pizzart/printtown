@@ -250,6 +250,7 @@ text = "start game"
 metadata/_edit_use_anchors_ = true
 
 [node name="Credits" type="Button" parent="UI/UI/M/Buttons/VBoxContainer"]
+visible = false
 layout_mode = 2
 mouse_default_cursor_shape = 2
 action_mode = 0

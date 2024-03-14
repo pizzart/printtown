@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://bqv13fmmqt71v"]
+[gd_scene load_steps=42 format=3 uid="uid://bqv13fmmqt71v"]
 
 [ext_resource type="Texture2D" uid="uid://bf4fm6ce01idn" path="res://graphics/ui/fight/stickerbook/stickerbook0002.png" id="1_6370c"]
 [ext_resource type="Script" path="res://scripts/pause_menu.gd" id="1_l81ig"]
@@ -14,11 +14,13 @@
 [ext_resource type="Texture2D" uid="uid://bhn6qkxh15x5w" path="res://graphics/ui/pause/pin/deselected.png" id="10_ei3g8"]
 [ext_resource type="Texture2D" uid="uid://dor5fexnpbcqi" path="res://graphics/ui/pause/clock/clock_bg.png" id="10_ffhjb"]
 [ext_resource type="Texture2D" uid="uid://mkicgd3h1tby" path="res://graphics/ui/pause/clock/clock_arrow_small.png" id="11_jvlnh"]
+[ext_resource type="Texture2D" uid="uid://btaxqidy8t2b4" path="res://graphics/ui/pause/sens.png" id="12_dh6n5"]
 [ext_resource type="Texture2D" uid="uid://c00d8te4k7o5m" path="res://graphics/ui/pause/clock/clock_arrow_big.png" id="12_f11qv"]
 [ext_resource type="AudioStream" uid="uid://cx2x3xlxpu1n1" path="res://audio/sfx/clock.wav" id="16_p41uy"]
 [ext_resource type="AudioStream" uid="uid://d2epi2wiawpao" path="res://audio/sfx/book_flip.wav" id="17_e175r"]
 [ext_resource type="AudioStream" uid="uid://yflouckgthlg" path="res://audio/sfx/pop/pop0.wav" id="18_th2xj"]
 [ext_resource type="AudioStream" uid="uid://b4tn2tk83egkk" path="res://audio/sfx/pop/pop1.wav" id="19_pwje7"]
+[ext_resource type="AudioStream" uid="uid://dvioddnd2doyb" path="res://audio/sfx/electricity.wav" id="21_f0y4y"]
 
 [sub_resource type="Environment" id="Environment_wwbrt"]
 background_mode = 1
@@ -149,6 +151,18 @@ bg_color = Color(1, 1, 1, 0.184314)
 bg_color = Color(0, 0, 0, 0)
 border_width_bottom = 2
 border_color = Color(0.141176, 0, 0.0901961, 1)
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_01yty"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_pdfh3"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_8cnmg"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_o6hj4"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_41a13"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_elpyw"]
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_bnubk"]
 random_pitch = 1.2
@@ -373,8 +387,20 @@ font = ExtResource("7_3al63")
 font_size = 20
 outline_size = 0
 
+[node name="SensText" type="Label3D" parent="Book/Options"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.226, 0.002, -0.019)
+pixel_size = 0.001
+shaded = true
+texture_filter = 0
+render_priority = 1
+modulate = Color(0.109804, 0.109804, 0.368627, 1)
+text = "sensitivity"
+font = ExtResource("7_3al63")
+font_size = 20
+outline_size = 0
+
 [node name="FSPin" type="AnimatedSprite3D" parent="Book/Options"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.175357, -2.98023e-08, 0.0414716)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.175, 0.005, 0.041)
 pixel_size = 0.001
 axis = 1
 shaded = true
@@ -382,6 +408,18 @@ texture_filter = 0
 render_priority = 1
 sprite_frames = SubResource("SpriteFrames_ayucu")
 animation = &"deselected"
+
+[node name="SensSlider" type="Sprite3D" parent="Book/Options"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.224, 0.001, 0.149)
+centered = false
+pixel_size = 0.001
+axis = 1
+shaded = true
+texture_filter = 0
+render_priority = 1
+texture = ExtResource("12_dh6n5")
+region_enabled = true
+region_rect = Rect2(0, 0, 64, 256)
 
 [node name="Clock" type="Node3D" parent="Book/Options"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.155137, 0.003, 0.000497205)
@@ -729,13 +767,13 @@ metadata/_edit_use_anchors_ = true
 [node name="CA" type="Button" parent="UI/OptionsUI"]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.632812
-anchor_top = 0.568184
-anchor_right = 0.893018
-anchor_bottom = 0.568184
-offset_top = 1.2718
-offset_right = -6.53149
-offset_bottom = 33.2718
+anchor_left = 0.6375
+anchor_top = 0.495155
+anchor_right = 0.88241
+anchor_bottom = 0.495155
+offset_top = 41.3257
+offset_right = 3.25757
+offset_bottom = 67.3257
 rotation = -0.418879
 mouse_default_cursor_shape = 2
 theme_override_styles/normal = SubResource("StyleBoxEmpty_ypxn5")
@@ -744,6 +782,28 @@ theme_override_styles/pressed = SubResource("StyleBoxEmpty_2ymrk")
 theme_override_styles/disabled = SubResource("StyleBoxEmpty_qdfbi")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_pbpn8")
 action_mode = 0
+metadata/_edit_use_anchors_ = true
+
+[node name="Sens" type="HSlider" parent="UI/OptionsUI"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.560938
+anchor_top = 0.365789
+anchor_right = 0.836771
+anchor_bottom = 0.365789
+offset_top = 53.4213
+offset_right = 6.46625
+offset_bottom = 76.4213
+rotation = -0.418879
+theme_override_icons/grabber = SubResource("PlaceholderTexture2D_01yty")
+theme_override_icons/grabber_highlight = SubResource("PlaceholderTexture2D_pdfh3")
+theme_override_icons/grabber_disabled = SubResource("PlaceholderTexture2D_8cnmg")
+theme_override_styles/slider = SubResource("StyleBoxEmpty_o6hj4")
+theme_override_styles/grabber_area = SubResource("StyleBoxEmpty_41a13")
+theme_override_styles/grabber_area_highlight = SubResource("StyleBoxEmpty_elpyw")
+min_value = 1.0
+max_value = 10.0
+value = 1.0
 metadata/_edit_use_anchors_ = true
 
 [node name="ClosedUI" type="Control" parent="UI"]
@@ -811,6 +871,16 @@ bus = &"sfx"
 stream = SubResource("AudioStreamRandomizer_5gv2e")
 bus = &"sfx"
 
+[node name="Hum" type="AudioStreamPlayer3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.123557, 0, 0)
+stream = ExtResource("21_f0y4y")
+attenuation_model = 1
+unit_size = 0.3
+max_db = 0.0
+autoplay = true
+max_distance = 0.7
+bus = &"sfx"
+
 [connection signal="pressed" from="UI/MainUI/Unpause" to="." method="_on_unpause_pressed"]
 [connection signal="pressed" from="UI/MainUI/Quit" to="." method="_on_quit_pressed"]
 [connection signal="pressed" from="UI/MainUI/Options" to="." method="_on_options_pressed"]
@@ -818,6 +888,7 @@ bus = &"sfx"
 [connection signal="pressed" from="UI/OptionsUI/Timer" to="." method="_on_timer_pressed"]
 [connection signal="pressed" from="UI/OptionsUI/FS" to="." method="_on_fs_pressed"]
 [connection signal="pressed" from="UI/OptionsUI/CA" to="." method="_on_ca_pressed"]
+[connection signal="value_changed" from="UI/OptionsUI/Sens" to="." method="_on_sens_value_changed"]
 [connection signal="pressed" from="UI/ClosedUI/BackClosed" to="." method="_on_back_closed_pressed"]
 [connection signal="mouse_entered" from="UI/ClosedUI/QuitClosed" to="." method="_on_quit_closed_mouse_entered"]
 [connection signal="mouse_exited" from="UI/ClosedUI/QuitClosed" to="." method="_on_quit_closed_mouse_exited"]
